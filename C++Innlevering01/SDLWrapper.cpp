@@ -82,8 +82,8 @@ Image* SDLWrapper::CreateImage(std::string filename)
 	SDL_Rect rect;
 	rect.h = image->h;
 	rect.w = image->w;
-	rect.x = 0;
-	rect.y = 0;
+	rect.x = 10;
+	rect.y = 10;
 
 	SDL_FreeSurface(image);
 

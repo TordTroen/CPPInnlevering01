@@ -30,3 +30,31 @@ void InputManager::Update()
 
 	SDL_PumpEvents();
 }
+
+int InputManager::GetAxis(int positiveKey, int negativeKey) const
+{
+	int ret = 0;
+	if (GetKey(positiveKey) && !GetKey(negativeKey))
+	{
+		ret = 1;
+	}
+	if (GetKey(negativeKey) && !GetKey(positiveKey))
+	{
+		ret = -1;
+	}
+	return ret;
+}
+
+int InputManager::GetAxisDown(int positiveKey, int negativeKey) const
+{
+	int ret = 0;
+	if (GetKeyDown(positiveKey) && !GetKeyDown(negativeKey))
+	{
+		ret = 1;
+	}
+	if (GetKeyDown(negativeKey) && !GetKeyDown(positiveKey))
+	{
+		ret = -1;
+	}
+	return ret;
+}

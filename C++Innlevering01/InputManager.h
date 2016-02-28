@@ -11,6 +11,8 @@ public:
 	bool GetKeyDown(int keyId) const { return CurKeyDown(keyId) && !OldKeyDown(keyId); }
 	bool GetKeyUp(int keyId) const { return !CurKeyDown(keyId) && OldKeyDown(keyId); }
 	bool GetKey(int keyId) const { return CurKeyDown(keyId) && OldKeyDown(keyId); }
+	int GetAxis(int positiveKey, int negativeKey) const;
+	int GetAxisDown(int positiveKey, int negativeKey) const;
 	bool GetMouseDown(int buttonId) const { return CurMouseDown(buttonId) && !OldMouseDown(buttonId); }
 	bool GetMouseUp(int buttonId) const { return !CurMouseDown(buttonId) && OldMouseDown(buttonId); }
 	bool GetMouse(int buttonId) const { return CurMouseDown(buttonId) && OldMouseDown(buttonId); }
