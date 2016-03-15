@@ -2,16 +2,19 @@
 #include <iostream>
 using namespace std;
 
-Component::Component(string id)
-	: _id(id), _isActive(true)
+Component::Component()
+	: _isActive(true)
 {
-	cout << "Component " << _id << "  constructor" << endl;
+	cout << "Component " /*<< _id*/ << "  constructor" << endl;
 }
 
 
 Component::~Component()
 {
 }
+
+bool Component::IsActive() const { return _isActive; }
+void Component::SetActive(bool active) { _isActive = active; }
 
 void Component::Awake()
 {

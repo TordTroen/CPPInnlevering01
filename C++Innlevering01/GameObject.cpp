@@ -43,18 +43,6 @@ Component* GameObject::AddComponent(Component* comp)
 	return comp;
 }
 
-Component* GameObject::GetComponent(string comp)
-{
-	for(auto i : _components)
-	{
-		if (i->GetID() == comp)
-		{
-			return i;
-		}
-	}
-	return NULL;
-}
-
 Transform* GameObject::GetTransform() const
 {
 	if (_transform == NULL)

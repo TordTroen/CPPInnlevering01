@@ -12,8 +12,8 @@ public:
 private:
 	GameObject* _gameObject;
 	Image* _image;
-	void Update();
+	void Update() override;
 private:
-	void UpdateRect();
+	void UpdateRect() const;
 };
 

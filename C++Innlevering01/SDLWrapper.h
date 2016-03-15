@@ -15,7 +15,7 @@ class SDLWrapper
 public:
 	SDLWrapper();
 	~SDLWrapper();
-	int InitializeWindow(int screenWidth, int screenHeight, Color bgColor); // TODO Add color
+	int InitializeWindow(int screenWidth, int screenHeight, Color bgColor);
 	Image* CreateImage(std::string filename);
 	void RenderImages(bool clearPrevious) const;
 	SDL_Window* GetSDL_Window() const { return window; }

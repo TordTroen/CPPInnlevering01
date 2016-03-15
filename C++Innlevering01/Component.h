@@ -1,19 +1,18 @@
 #pragma once
-#include <string>
 
 class Component
 {
 public:
-	Component(std::string id);
+	Component();
 	virtual ~Component();
 	virtual void Awake();
 	virtual void Start();
 	virtual void Update();
-	bool IsActive() const { return _isActive; }
-	void SetActive(bool active) { _isActive = active; }
-	std::string GetID() const { return _id; }
+	inline bool IsActive() const;
+	inline void SetActive(bool active);
 protected:
-	std::string _id;
 	bool _isActive;
+private:
+	// TODO Maybe make transform and gameobject availivlbe as a protected 
 };
 

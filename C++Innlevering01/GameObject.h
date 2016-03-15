@@ -1,7 +1,8 @@
 #pragma once
 #include <vector>
 #include "Component.h"
-#include "Transform.h"
+
+class Transform;
 
 class GameObject
 {
@@ -9,24 +10,21 @@ public:
 	GameObject();
 	~GameObject();
 	void Update();
-	// TODO Use templates i stedet
 	Component* AddComponent(Component* comp);
-	Component* GetComponent(std::string comp);
 	Transform* GetTransform() const;
-	/*template <typename T>
-	inline void AddComponent(T *comp)
+	template <class T>
+	inline T* GetComp()
 	{
-		_components.emplace_back(comp);
-	}
-	template <typename T>
-	inline T GetComponent(T *comp)
-	{
-		for (auto i : _components)
+		for (auto it : _components)
 		{
-			
+			T* t = static_cast<T*>(it);
+			if (it != NULL)
+			{
+				return t;
+			}
 		}
 		return NULL;
-	}*/
+	}
 private:
 	std::vector<Component*> _components;
 	Transform* _transform;

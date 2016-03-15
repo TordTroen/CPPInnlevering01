@@ -31,3 +31,8 @@ void Color::Set(int r, int g, int b, int a)
 	_b = b;
 	_a = a;
 }
+
+int Color::GetR() const { return _r; }
+int Color::GetG() const { return _g; }
+int Color::GetB() const { return _b; }
+int Color::GetA() const { return _a; }

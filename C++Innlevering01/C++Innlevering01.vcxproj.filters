@@ -42,6 +42,9 @@
     <ClInclude Include="ImageRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InputManager.cpp">
@@ -74,6 +77,9 @@
     <ClCompile Include="ImageRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -82,5 +88,8 @@
     <Image Include="Person.png">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Todo.txt" />
   </ItemGroup>
 </Project>

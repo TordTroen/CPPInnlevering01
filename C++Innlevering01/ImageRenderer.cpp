@@ -1,14 +1,13 @@
 #include "ImageRenderer.h"
+#include "Transform.h"
 #include <iostream>
 
 ImageRenderer::ImageRenderer(GameObject *gameobject, std::string imageFilename, SDLWrapper* sdl)
-	: Component("ImageRenderer")
 {
 	_gameObject = gameobject;
 	_image = sdl->CreateImage(imageFilename);
 	UpdateRect();
 }
-
 
 ImageRenderer::~ImageRenderer()
 {
@@ -19,7 +18,7 @@ void ImageRenderer::Update()
 	UpdateRect();
 }
 
-void ImageRenderer::UpdateRect()
+void ImageRenderer::UpdateRect() const
 {
 	_image->rect.x = _gameObject->GetTransform()->_position.X;
 	_image->rect.y = _gameObject->GetTransform()->_position.Y;

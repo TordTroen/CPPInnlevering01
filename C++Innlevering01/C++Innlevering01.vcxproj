@@ -148,6 +148,7 @@
   <ItemGroup>
     <ClInclude Include="Color.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="ImageRenderer.h" />
@@ -159,6 +160,7 @@
   <ItemGroup>
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="ImageRenderer.cpp" />
@@ -173,6 +175,9 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Person.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Todo.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

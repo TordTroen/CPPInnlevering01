@@ -3,7 +3,6 @@
 using namespace std;
 
 Transform::Transform()
-	: Component("Transform")
 {
 	std::cout << "Tranform constructor" << std::endl;
 	_position = Vector2D(0, 0);
@@ -11,7 +10,6 @@ Transform::Transform()
 }
 
 Transform::Transform(Vector2D pos, Vector2D size)
-	: Component("Transform")
 {
 	std::cout << "Tranform constructor" << std::endl;
 	_position = pos;
