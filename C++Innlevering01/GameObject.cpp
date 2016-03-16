@@ -39,6 +39,7 @@ void GameObject::Update()
 
 Component* GameObject::AddComponent(Component* comp)
 {
+	comp->Init(this);
 	_components.emplace_back(comp);
 	return comp;
 }

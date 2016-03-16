@@ -1,4 +1,5 @@
 #include "Component.h"
+#include "GameObject.h"
 #include <iostream>
 using namespace std;
 
@@ -13,8 +14,21 @@ Component::~Component()
 {
 }
 
-bool Component::IsActive() const { return _isActive; }
-void Component::SetActive(bool active) { _isActive = active; }
+void Component::Init(GameObject * gameObject)
+{
+	_gameObject = gameObject;
+	_transform = _gameObject->GetTransform();
+}
+
+bool Component::IsActive() const
+{
+	return _isActive;
+}
+
+void Component::SetActive(bool active)
+{
+	_isActive = active;
+}
 
 void Component::Awake()
 {

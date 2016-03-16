@@ -1,6 +1,7 @@
 #include "ImageRenderer.h"
 #include "Transform.h"
 #include <iostream>
+using namespace std;
 
 ImageRenderer::ImageRenderer(GameObject *gameobject, std::string imageFilename, SDLWrapper* sdl)
 {

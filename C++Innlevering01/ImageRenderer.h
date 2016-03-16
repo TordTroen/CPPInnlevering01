@@ -13,7 +13,6 @@ private:
 	GameObject* _gameObject;
 	Image* _image;
 	void Update() override;
-private:
 	void UpdateRect() const;
 };
 
