@@ -4,7 +4,7 @@
 using namespace std;
 
 Component::Component()
-	: _isActive(true)
+	: _isActive(true), _transform(NULL), _gameObject(NULL)
 {
 	cout << "Component " /*<< _id*/ << "  constructor" << endl;
 }
