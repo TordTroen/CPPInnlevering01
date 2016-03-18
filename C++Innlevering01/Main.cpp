@@ -7,7 +7,6 @@
 #include <iostream>
 #include "GameManager.h"
 #include "Vector2D.h"
-#include "Rigidbody.h"
 
 int main(int argc, char** argv)
 {
@@ -22,7 +21,7 @@ int main(int argc, char** argv)
 		// Create gameobject here
 		GameObject* player = goManager.CreateObject();
 		player->AddComponent(new ImageRenderer(player, "Person.png", &sdl));
-		player->AddComponent(new Rigidbody());
+		//player->AddComponent(new Rigidbody());
 
 		Transform* t = player->GetComp<Transform>();
 		t->SetPosition(Vector2D(200, 200));
