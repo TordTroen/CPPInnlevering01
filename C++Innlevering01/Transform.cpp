@@ -1,5 +1,6 @@
 #include "Transform.h"
 #include <iostream>
+#include "GameManager.h"
 using namespace std;
 
 Transform::Transform()
@@ -20,9 +21,38 @@ Transform::~Transform()
 {
 }
 
-void Transform::Translate(Vector2D const trans)
+void Transform::Translate(Vector2D const trans, bool limitToScreen)
 {
-	_position = _position + trans;
+	Vector2D v = trans;
+	if (limitToScreen)
+	{
+		int windowWidth = GameManager::GetInstance().GetWindowWidth();
+		int windowHeight = GameManager::GetInstance().GetWindowHeight();
+		/*if (_position.X + _size.X + v.X > windowWidth)
+		{
+			v.X = 0;
+		}
+		else if (_position.X + v.X < 0)
+		{
+			v.X = 0;
+		}
+		if (_position.Y + _size.Y + v.Y > windowHeight)
+		{
+			v.Y = 0;
+		}
+		else if (_position.Y + v.Y < 0)
+		{
+			v.Y = 0;
+		}*/
+		// Don't do the translation if the translation would result in it being outside the screen
+		if (_position.X + _size.X + v.X > windowWidth || _position.X + v.X < 0 
+			|| _position.Y + _size.Y + v.Y > windowHeight || _position.Y + v.Y < 0)
+		{
+			return;
+		}
+	}
+	
+	_position = _position + v;
 }
 
 void Transform::SetPosition(Vector2D const newPos)

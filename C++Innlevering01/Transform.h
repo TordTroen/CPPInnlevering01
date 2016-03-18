@@ -8,7 +8,7 @@ public:
 	Transform();
 	Transform(Vector2D pos, Vector2D size);
 	~Transform();
-	void Translate(Vector2D const trans);
+	void Translate(Vector2D const trans, bool limitToScreen = false);
 	void SetPosition(Vector2D const newPos);
 	void SetSize(Vector2D const newSize);
 	Vector2D _position;

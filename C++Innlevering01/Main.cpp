@@ -14,9 +14,10 @@ int main(int argc, char** argv)
 		GameManager::GetInstance().GetWindowHeight());
 	SDLWrapper sdl;
 	InputManager io;
+
 	// Initialize stuff that gameobject, gameloop, etc are dependant on
 	if (sdl.InitializeWindow(GameManager::GetInstance().GetWindowWidth(), 
-		GameManager::GetInstance().GetWindowHeight(), Color(255, 255, 255)) == 0)
+		GameManager::GetInstance().GetWindowHeight(), Color(200, 200, 200)) == 0)
 	{
 		// Create gameobject here
 		GameObject* player = goManager.CreateObject();
@@ -28,7 +29,9 @@ int main(int argc, char** argv)
 
 		std::cout << "GetCompo results: " << t << std::endl;
 
-
+		GameObject* enemy = goManager.CreateObject();
+		enemy->AddComponent(new ImageRenderer(enemy, "Person.png", &sdl));
+		enemy->GetComp<Transform>()->SetPosition(Vector2D(0, 0));
 		//Image *playerImage = sdl.CreateImage("Person.png");
 
 		// Game loop
@@ -47,7 +50,7 @@ int main(int argc, char** argv)
 				velX = 1;
 			}*/
 			Vector2D velocity = Vector2D(io.GetAxis(SDL_SCANCODE_RIGHT, SDL_SCANCODE_LEFT), io.GetAxis(SDL_SCANCODE_DOWN, SDL_SCANCODE_UP));
-			player->GetTransform()->Translate(velocity);
+			player->GetTransform()->Translate(velocity, true);
 			
 			Vector2D scaleocity = Vector2D(io.GetAxis(SDL_SCANCODE_D, SDL_SCANCODE_A), io.GetAxis(SDL_SCANCODE_S, SDL_SCANCODE_W));
 			player->GetTransform()->SetSize(player->GetTransform()->_size + scaleocity);

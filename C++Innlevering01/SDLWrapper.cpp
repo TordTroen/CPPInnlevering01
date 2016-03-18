@@ -20,6 +20,7 @@ SDLWrapper::~SDLWrapper()
 
 int SDLWrapper::InitializeWindow(int screenWidth, int screenHeight, Color bgColor)
 {
+	cout << "Width: " << screenWidth << endl;
 	int retStatus = 0;
 
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
@@ -31,7 +32,7 @@ int SDLWrapper::InitializeWindow(int screenWidth, int screenHeight, Color bgColo
 	{
 		cout << "SDL initialized..." << endl << endl;
 
-		window = SDL_CreateWindow("SDL Tutorial", 480, 64, screenWidth, screenHeight, SDL_WINDOW_SHOWN);
+		window = SDL_CreateWindow("SDL Tutorial", 480, 64, screenWidth, screenHeight, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
 		if (window == NULL) {
 			cout << "Window could not be created! SDL_Error: " << SDL_GetError() << endl;
 			retStatus = 1;
