@@ -2,6 +2,12 @@
 - [ ] bakgrunn
 - [ ] størrelse
 
+###MENY
+- [ ] Main menu
+- [ ] Level select
+- [ ] Leaderboards
+- [ ] Level editor?
+
 ###VISUELLE SPILL ELEMENTER
 - [ ] blokker
 - [ ] ball
@@ -33,6 +39,18 @@
 - [ ] tid
 - [ ] bane
 - [ ] score
+
+###POWERUPS
+- [ ] stor/liten paddle
+- [ ] flere baller
+- [ ] raskere/tregere ball
+- [ ] stor/liten ball
+- [ ] delt paddel
+
+###EXTRA
+- [ ] Level editor
+- [ ] Highscore leaderboadr
+- [ ] Combo bonus (ødelegge brukker uten å treffe paddelen)
 	
 	
 	
