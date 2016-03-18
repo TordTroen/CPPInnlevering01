@@ -153,6 +153,7 @@
     <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="ImageRenderer.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="PaddleMovement.h" />
     <ClInclude Include="SDLWrapper.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Transform.h" />
@@ -167,6 +168,7 @@
     <ClCompile Include="ImageRenderer.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="PaddleMovement.cpp" />
     <ClCompile Include="SDLWrapper.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Transform.cpp" />

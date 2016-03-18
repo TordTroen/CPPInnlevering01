@@ -40,10 +40,12 @@ int main(int argc, char** argv)
 		// Game loop
 		while (true)
 		{
+			//// Update everything that needs to be updated every frame ////
 			goManager.Update();
 			io.Update();
 			time.Update();
 
+			//// Logic ////
 			if (io.GetKeyDown(SDL_SCANCODE_ESCAPE))
 			{
 				break;
@@ -53,11 +55,7 @@ int main(int argc, char** argv)
 			{
 				velX = 1;
 			}*/
-			cout << "DeltaTime: " << time.DeltaTime() << endl;
-			Vector2D velocity = Vector2D(io.GetAxis(SDL_SCANCODE_RIGHT, SDL_SCANCODE_LEFT), io.GetAxis(SDL_SCANCODE_DOWN, SDL_SCANCODE_UP));
-			float speed = 0.01;
-			velocity = velocity * time.DeltaTime() * speed;
-			player->GetTransform()->Translate(velocity, true);
+			
 			
 			Vector2D scaleocity = Vector2D(io.GetAxis(SDL_SCANCODE_D, SDL_SCANCODE_A), io.GetAxis(SDL_SCANCODE_S, SDL_SCANCODE_W));
 			player->GetTransform()->SetSize(player->GetTransform()->_size + scaleocity);
@@ -80,6 +78,7 @@ int main(int argc, char** argv)
 			//playerImage->rect.x = velX - offsetX;
 			//playerImage->rect.y = velY - offsetY;
 
+			//// Render ////
 			sdl.RenderImages(true);
 		}
 	}
