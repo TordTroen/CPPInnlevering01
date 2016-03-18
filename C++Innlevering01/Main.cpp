@@ -7,6 +7,8 @@
 #include <iostream>
 #include "GameManager.h"
 #include "Vector2D.h"
+#include "Time.h"
+using namespace std;
 
 int main(int argc, char** argv)
 {
@@ -14,6 +16,7 @@ int main(int argc, char** argv)
 		GameManager::GetInstance().GetWindowHeight());
 	SDLWrapper sdl;
 	InputManager io;
+	Time time;
 
 	// Initialize stuff that gameobject, gameloop, etc are dependant on
 	if (sdl.InitializeWindow(GameManager::GetInstance().GetWindowWidth(), 
@@ -39,6 +42,7 @@ int main(int argc, char** argv)
 		{
 			goManager.Update();
 			io.Update();
+			time.Update();
 
 			if (io.GetKeyDown(SDL_SCANCODE_ESCAPE))
 			{
@@ -49,7 +53,10 @@ int main(int argc, char** argv)
 			{
 				velX = 1;
 			}*/
+			cout << "DeltaTime: " << time.DeltaTime() << endl;
 			Vector2D velocity = Vector2D(io.GetAxis(SDL_SCANCODE_RIGHT, SDL_SCANCODE_LEFT), io.GetAxis(SDL_SCANCODE_DOWN, SDL_SCANCODE_UP));
+			float speed = 0.01;
+			velocity = velocity * time.DeltaTime() * speed;
 			player->GetTransform()->Translate(velocity, true);
 			
 			Vector2D scaleocity = Vector2D(io.GetAxis(SDL_SCANCODE_D, SDL_SCANCODE_A), io.GetAxis(SDL_SCANCODE_S, SDL_SCANCODE_W));

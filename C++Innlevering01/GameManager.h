@@ -7,8 +7,8 @@ public:
 	int GetWindowHeight() const { return _windowHeight; }
 	float GetGravity() const { return _gravity; }
 private:
-	int _windowWidth = 600;
-	int _windowHeight = 480;
+	int _windowWidth = 700;
+	int _windowHeight = 700;
 	float _gravity = -9.81f;
 
 // Singleton stuff

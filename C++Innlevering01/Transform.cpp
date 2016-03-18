@@ -28,11 +28,13 @@ void Transform::Translate(Vector2D const trans, bool limitToScreen)
 	{
 		int windowWidth = GameManager::GetInstance().GetWindowWidth();
 		int windowHeight = GameManager::GetInstance().GetWindowHeight();
-		/*if (_position.X + _size.X + v.X > windowWidth)
+		int xTrans = _position.X + v.X;
+		//if (_position.X + _size.X + v.X > windowWidth)
+		if (xTrans + _size.X > windowWidth)
 		{
 			v.X = 0;
 		}
-		else if (_position.X + v.X < 0)
+		else if (xTrans < 0)
 		{
 			v.X = 0;
 		}
@@ -43,13 +45,13 @@ void Transform::Translate(Vector2D const trans, bool limitToScreen)
 		else if (_position.Y + v.Y < 0)
 		{
 			v.Y = 0;
-		}*/
+		}
 		// Don't do the translation if the translation would result in it being outside the screen
-		if (_position.X + _size.X + v.X > windowWidth || _position.X + v.X < 0 
+		/*if (_position.X + _size.X + v.X > windowWidth || _position.X + v.X < 0 
 			|| _position.Y + _size.Y + v.Y > windowHeight || _position.Y + v.Y < 0)
 		{
 			return;
-		}
+		}*/
 	}
 	
 	_position = _position + v;

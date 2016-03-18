@@ -32,7 +32,7 @@ int SDLWrapper::InitializeWindow(int screenWidth, int screenHeight, Color bgColo
 	{
 		cout << "SDL initialized..." << endl << endl;
 
-		window = SDL_CreateWindow("SDL Tutorial", 480, 64, screenWidth, screenHeight, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
+		window = SDL_CreateWindow("SDL Tutorial", 100, 50, screenWidth, screenHeight, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
 		if (window == NULL) {
 			cout << "Window could not be created! SDL_Error: " << SDL_GetError() << endl;
 			retStatus = 1;
