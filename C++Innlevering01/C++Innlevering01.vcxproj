@@ -151,9 +151,11 @@
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectManager.h" />
+    <ClInclude Include="GUIObject.h" />
     <ClInclude Include="ImageRenderer.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="PaddleMovement.h" />
+    <ClInclude Include="Rect.h" />
     <ClInclude Include="SDLWrapper.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Transform.h" />
@@ -165,10 +167,12 @@
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
+    <ClCompile Include="GUIObject.cpp" />
     <ClCompile Include="ImageRenderer.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="PaddleMovement.cpp" />
+    <ClCompile Include="Rect.cpp" />
     <ClCompile Include="SDLWrapper.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Transform.cpp" />
