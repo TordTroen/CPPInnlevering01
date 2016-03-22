@@ -5,5 +5,4 @@
 - PoolManager
 
 ### SDLWrapper
-- Image and Text can be the same struct (or class so we can have resize, reposition functions and reconstructor for texture)
 - Make DrawImage function actually check if something went wrong

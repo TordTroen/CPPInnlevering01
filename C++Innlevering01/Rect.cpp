@@ -19,3 +19,13 @@ bool Rect::Contains(Vector2D point)
 {
 	return (point.X > x && point.X < x + w && point.Y < y && point.Y > y + h);
 }
+
+SDL_Rect Rect::ToSDL_Rect() const
+{
+	SDL_Rect rect;
+	rect.x = x;
+	rect.y = y;
+	rect.w = w;
+	rect.h = h;
+	return rect;
+}

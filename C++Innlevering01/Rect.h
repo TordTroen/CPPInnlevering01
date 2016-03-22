@@ -1,5 +1,6 @@
 #pragma once
 #include "Vector2D.h"
+#include "SDL.h"
 class Rect
 {
 public:
@@ -10,5 +11,6 @@ public:
 	float w;
 	float h;
 	bool Contains(Vector2D point);
+	SDL_Rect ToSDL_Rect() const;
 };
 

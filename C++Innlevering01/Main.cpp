@@ -22,7 +22,7 @@ int main(int argc, char** argv)
 	if (sdl.InitializeWindow("Breakout", GameManager::GetInstance().GetWindowWidth(),
 		GameManager::GetInstance().GetWindowHeight(), Color(200, 200, 200)) == 0)
 	{
-		Text* playerText = sdl.CreateText("Playername", { 100, 200, 0 }, 0, 0);
+		Drawable* playerText = sdl.CreateText("Playername", { 100, 200, 0 }, 0, 0);
 
 		// Create gameobject here
 		GameObject* player = goManager.CreateObject();

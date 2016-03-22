@@ -11,7 +11,7 @@ public:
 	~ImageRenderer();
 private:
 	GameObject* _gameObject;
-	Image* _image;
+	Drawable* _image;
 	void Update() override;
 	void UpdateRect() const;
 };

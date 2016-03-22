@@ -84,10 +84,8 @@ int SDLWrapper::InitializeWindow(std::string windowName, int screenWidth, int sc
 }
 
 // TODO Actually use status variable to check for fails before trying to us the objects
-Image* SDLWrapper::CreateImage(std::string filename)
+Drawable* SDLWrapper::CreateImage(std::string filename)
 {
-	Image *img = new Image();
-
 	SDL_Surface* image = IMG_Load(filename.c_str());
 	int status = 0;
 
@@ -113,40 +111,34 @@ Image* SDLWrapper::CreateImage(std::string filename)
 
 	SDL_FreeSurface(image);
 
-	allImages.emplace_back(img);
-	img->texture = texture;
-	img->rect = rect;
-	return img;
+	Drawable* drawable = new Drawable(Rect(0, 0, image->w, image->h), texture);
+	allDrawables.emplace_back(drawable);
+	return drawable;
 }
 
-Text* SDLWrapper::CreateText(std::string text, SDL_Color color, int x, int y)
+Drawable* SDLWrapper::CreateText(std::string text, SDL_Color color, int x, int y)
 {
-	Text* txt = new Text();
 	SDL_Surface* textSurface = TTF_RenderText_Solid(font, text.c_str(), color);
+	SDL_Texture* texture = NULL;
 	if (textSurface == NULL)
 	{
 		cout << "Couldn' make surface for rendering text '" << text << "'." << endl;
 	}
 	else
 	{
-		SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, textSurface);
+		texture = SDL_CreateTextureFromSurface(renderer, textSurface);
 		if (texture == NULL)
 		{
 			cout << "Error creating texture for text" << endl;
 		}
-		else
-		{
-			txt->rect.w = textSurface->w;
-			txt->rect.h = textSurface->h;
-			txt->rect.x = x;
-			txt->rect.y = y;
-			txt->texture = texture;
-		}
 
 		SDL_FreeSurface(textSurface);
 	}
-	allTexts.emplace_back(txt);
-	return txt;
+	//allTexts.emplace_back(txt);
+	//return txt;
+	Drawable* drawable = new Drawable(Rect(0, 0, textSurface->w, textSurface->h), texture);
+	allDrawables.emplace_back(drawable);
+	return drawable;
 }
 
 void SDLWrapper::RenderImages(bool clearPrevious) const
@@ -155,34 +147,24 @@ void SDLWrapper::RenderImages(bool clearPrevious) const
 	{
 		SDL_RenderClear(GetSDL_Renderer());
 	}
-	for (auto i : allImages)
+	for (auto i : allDrawables)
 	{
-		DrawImage(i);
-	}
-	for (auto i : allTexts)
-	{
-		DrawText(i);
+		RenderDrawable(i);
 	}
 	SDL_RenderPresent(GetSDL_Renderer());
 }
 
 void SDLWrapper::DestroyImages()
 {
-	for (auto i : allImages)
+	for (auto i : allDrawables)
 	{
 		// TODO possibly make Image a class with its own destructor that destroys the texture(the destructor is called when the vector is destroyed)
-		SDL_DestroyTexture(i->texture);
+		SDL_DestroyTexture(i->GetTexture());
 		delete i;
 	}
 }
 
-// TODO Make Image and Text a "Renderable" or some other struct instead instead
-void SDLWrapper::DrawImage(Image* img) const
+void SDLWrapper::RenderDrawable(Drawable* drawable) const
 {
-	SDL_RenderCopy(GetSDL_Renderer(), img->texture, NULL, &img->rect);
-}
-
-void SDLWrapper::DrawText(Text* txt) const
-{
-	SDL_RenderCopy(GetSDL_Renderer(), txt->texture, NULL, &txt->rect);
+	SDL_RenderCopy(GetSDL_Renderer(), drawable->GetTexture(), NULL, &drawable->rect.ToSDL_Rect());
 }
