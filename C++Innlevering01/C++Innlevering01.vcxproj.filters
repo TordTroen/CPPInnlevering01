@@ -22,6 +22,9 @@
     <Filter Include="Source Files\Components">
       <UniqueIdentifier>{911e2656-dbb3-4a50-80bd-faeb9324ad47}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Fonts">
+      <UniqueIdentifier>{3f8932d0-7d9e-4718-89ef-03017c63c9cd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="InputManager.h">
@@ -124,5 +127,10 @@
     <Image Include="Person.png">
       <Filter>Resource Files\Graphics</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="arial.ttf">
+      <Filter>Resource Files\Fonts</Filter>
+    </Font>
   </ItemGroup>
 </Project>

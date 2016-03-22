@@ -19,9 +19,11 @@ int main(int argc, char** argv)
 	Time time;
 
 	// Initialize stuff that gameobject, gameloop, etc are dependant on
-	if (sdl.InitializeWindow(GameManager::GetInstance().GetWindowWidth(), 
+	if (sdl.InitializeWindow("Breakout", GameManager::GetInstance().GetWindowWidth(),
 		GameManager::GetInstance().GetWindowHeight(), Color(200, 200, 200)) == 0)
 	{
+		Text* playerText = sdl.CreateText("Playername", { 100, 200, 0 }, 0, 0);
+
 		// Create gameobject here
 		GameObject* player = goManager.CreateObject();
 		player->AddComponent(new ImageRenderer(player, "Person.png", &sdl));
@@ -56,7 +58,11 @@ int main(int argc, char** argv)
 				velX = 1;
 			}*/
 			
-			
+			Vector2D velocity = Vector2D(io.GetAxis(SDL_SCANCODE_RIGHT, SDL_SCANCODE_LEFT), io.GetAxis(SDL_SCANCODE_DOWN, SDL_SCANCODE_UP));
+			player->GetTransform()->Translate(velocity, true);
+			playerText->rect.x = player->GetTransform()->_position.X - playerText->rect.h / 2;
+			playerText->rect.y = player->GetTransform()->_position.Y - playerText->rect.h;
+
 			Vector2D scaleocity = Vector2D(io.GetAxis(SDL_SCANCODE_D, SDL_SCANCODE_A), io.GetAxis(SDL_SCANCODE_S, SDL_SCANCODE_W));
 			player->GetTransform()->SetSize(player->GetTransform()->_size + scaleocity);
 

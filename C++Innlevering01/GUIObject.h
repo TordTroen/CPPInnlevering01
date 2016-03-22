@@ -6,7 +6,9 @@ public:
 	GUIObject();
 	~GUIObject();
 	void Render();
-	virtual void OnClick();
+	//virtual void OnClick();
+	// AddEvent(void function())???
+	// then OnClick has parameter for button names or something?
 	Rect rect;
 };
 
