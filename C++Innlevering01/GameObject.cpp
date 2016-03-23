@@ -9,17 +9,17 @@ GameObject::GameObject()
 	_transform = new Transform();
 	AddComponent(_transform);
 
+	cout << "Gameobj constructor" << endl;
 	// Call awake and start on all components
-	for (auto i : _components)
-	{
-		i->Awake();
-	}
-	for (auto i : _components)
-	{
-		i->Start();
-	}
+	//for (auto i : _components)
+	//{
+	//	i->Awake();
+	//}
+	//for (auto i : _components)
+	//{
+	//	i->Start();
+	//}
 }
-
 
 GameObject::~GameObject()
 {

@@ -12,8 +12,9 @@ public:
 	SDLWrapper();
 	~SDLWrapper();
 	int InitializeWindow(std::string windowName, int screenWidth, int screenHeight, Color bgColor);
-	Drawable* CreateImage(std::string filename);
-	Drawable* CreateText(std::string text, SDL_Color color, int x, int w);
+	Drawable* CreateImage(std::string filename, Rect rect, bool originalSize = true);
+	Drawable* CreateRect(Color color, Rect rect);
+	Drawable* CreateText(std::string text, Color color, Rect rect, bool originalSize = true);
 	void RenderImages(bool clearPrevious) const;
 	SDL_Window* GetSDL_Window() const { return window; }
 	SDL_Surface* GetSDL_Surface() const { return screenSurface; }

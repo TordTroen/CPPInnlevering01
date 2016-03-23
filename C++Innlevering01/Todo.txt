@@ -6,3 +6,4 @@
 
 ### SDLWrapper
 - Make DrawImage function actually check if something went wrong
+- Implement Z-ordering of rendered elements

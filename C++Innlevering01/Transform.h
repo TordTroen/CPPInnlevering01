@@ -1,6 +1,7 @@
 #pragma once
 #include "Vector2D.h"
 #include "Component.h"
+#include "Rect.h"
 
 class Transform : public Component
 {
@@ -13,5 +14,6 @@ public:
 	void SetSize(Vector2D const newSize);
 	Vector2D _position;
 	Vector2D _size;
+	Rect GetRect() const;
 };
 

@@ -25,7 +25,6 @@ SDLWrapper::~SDLWrapper()
 
 int SDLWrapper::InitializeWindow(std::string windowName, int screenWidth, int screenHeight, Color bgColor)
 {
-	cout << "Width: " << screenWidth << endl;
 	int retStatus = 0;
 	int imgFlags = IMG_INIT_PNG;
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
@@ -84,18 +83,18 @@ int SDLWrapper::InitializeWindow(std::string windowName, int screenWidth, int sc
 }
 
 // TODO Actually use status variable to check for fails before trying to us the objects
-Drawable* SDLWrapper::CreateImage(std::string filename)
+Drawable* SDLWrapper::CreateImage(std::string filename, Rect rect, bool originalSize)
 {
-	SDL_Surface* image = IMG_Load(filename.c_str());
+	SDL_Surface* imageSurface = IMG_Load(filename.c_str());
 	int status = 0;
 
-	if (image == NULL)
+	if (imageSurface == NULL)
 	{
 		std::cerr << "Failed to load image, details:" << SDL_GetError() << std::endl;
 		status = 1;
 	}
 
-	SDL_Texture* texture = SDL_CreateTextureFromSurface(GetSDL_Renderer(), image);
+	SDL_Texture* texture = SDL_CreateTextureFromSurface(GetSDL_Renderer(), imageSurface);
 
 	if (texture == NULL)
 	{
@@ -103,22 +102,30 @@ Drawable* SDLWrapper::CreateImage(std::string filename)
 		status = 1;
 	}
 
-	SDL_Rect rect;
-	rect.h = image->h;
-	rect.w = image->w;
-	rect.x = 0;
-	rect.y = 0;
+	SDL_FreeSurface(imageSurface);
 
-	SDL_FreeSurface(image);
-
-	Drawable* drawable = new Drawable(Rect(0, 0, image->w, image->h), texture);
+	if (originalSize)
+	{
+		rect.w = imageSurface->w;
+		rect.h = imageSurface->h;
+	}
+	Drawable* drawable = new Drawable(rect, texture);
 	allDrawables.emplace_back(drawable);
 	return drawable;
 }
 
-Drawable* SDLWrapper::CreateText(std::string text, SDL_Color color, int x, int y)
+Drawable * SDLWrapper::CreateRect(Color color, Rect rect)
 {
-	SDL_Surface* textSurface = TTF_RenderText_Solid(font, text.c_str(), color);
+	// TODO Doesn't do the stuff I want...
+	SDL_Rect fillRect = rect.ToSDL_Rect();
+	SDL_SetRenderDrawColor(renderer, color.GetR(), color.GetG(), color.GetB(), color.GetA());
+	SDL_RenderFillRect(renderer, &fillRect);
+	return nullptr;
+}
+
+Drawable* SDLWrapper::CreateText(std::string text, Color color, Rect rect, bool originalSize)
+{
+	SDL_Surface* textSurface = TTF_RenderText_Solid(font, text.c_str(), color.ToSDL_Color());
 	SDL_Texture* texture = NULL;
 	if (textSurface == NULL)
 	{
@@ -134,15 +141,24 @@ Drawable* SDLWrapper::CreateText(std::string text, SDL_Color color, int x, int y
 
 		SDL_FreeSurface(textSurface);
 	}
-	//allTexts.emplace_back(txt);
-	//return txt;
-	Drawable* drawable = new Drawable(Rect(0, 0, textSurface->w, textSurface->h), texture);
+	if (originalSize)
+	{
+		rect.w = textSurface->w;
+		rect.h = textSurface->h;
+	}
+	else
+	{
+		textSurface->w = rect.w;
+		textSurface->h = rect.h;
+	}
+	Drawable* drawable = new Drawable(rect, texture);
 	allDrawables.emplace_back(drawable);
 	return drawable;
 }
 
 void SDLWrapper::RenderImages(bool clearPrevious) const
 {
+	//SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0xff, 0xff);
 	if (clearPrevious)
 	{
 		SDL_RenderClear(GetSDL_Renderer());

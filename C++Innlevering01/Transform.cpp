@@ -57,12 +57,17 @@ void Transform::Translate(Vector2D const trans, bool limitToScreen)
 	_position = _position + v;
 }
 
-void Transform::SetPosition(Vector2D const newPos)
+void Transform::SetPosition(Vector2D newPos)
 {
 	_position = newPos;
 }
 
-void Transform::SetSize(Vector2D const newSize)
+void Transform::SetSize(Vector2D newSize)
 {
 	_size = newSize;
+}
+
+Rect Transform::GetRect() const
+{
+	return Rect(_position.X, _position.Y, _size.X, _size.Y);
 }

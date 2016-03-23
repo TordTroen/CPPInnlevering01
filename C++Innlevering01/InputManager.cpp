@@ -4,18 +4,13 @@
 #include <iostream>
 using namespace std;
 
-InputManager::InputManager()
+void InputManager::Init()
 {
 	keyCount = 0;
 	keys = SDL_GetKeyboardState(&keyCount);
 	oldKeys = unique_ptr<Uint8>(new Uint8[keyCount]);
 	mouseButtons = SDL_GetRelativeMouseState(&mouseX, &mouseY);
 	oldMouseButtons = mouseButtons;
-}
-
-
-InputManager::~InputManager()
-{
 }
 
 void InputManager::Update()

@@ -152,7 +152,7 @@
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectManager.h" />
-    <ClInclude Include="GUIObject.h" />
+    <ClInclude Include="GUIButton.h" />
     <ClInclude Include="ImageRenderer.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="PaddleMovement.h" />
@@ -169,7 +169,7 @@
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
-    <ClCompile Include="GUIObject.cpp" />
+    <ClCompile Include="GUIButton.cpp" />
     <ClCompile Include="ImageRenderer.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Main.cpp" />

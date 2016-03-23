@@ -6,7 +6,7 @@ using namespace std;
 ImageRenderer::ImageRenderer(GameObject *gameobject, std::string imageFilename, SDLWrapper* sdl)
 {
 	_gameObject = gameobject;
-	_image = sdl->CreateImage(imageFilename);
+	_image = sdl->CreateImage(imageFilename, Rect(0, 0, 0, 0));
 	UpdateRect();
 }
 
