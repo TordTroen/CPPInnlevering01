@@ -82,8 +82,13 @@ int SDLWrapper::InitializeWindow(std::string windowName, int screenWidth, int sc
 	return retStatus;
 }
 
+Drawable * SDLWrapper::CreateImage(std::string filename, Rect rect, bool originalSize)
+{
+	return CreateImage(filename, rect, Color(), originalSize);
+}
+
 // TODO Actually use status variable to check for fails before trying to us the objects
-Drawable* SDLWrapper::CreateImage(std::string filename, Rect rect, bool originalSize)
+Drawable* SDLWrapper::CreateImage(std::string filename, Rect rect, Color color, bool originalSize)
 {
 	SDL_Surface* imageSurface = IMG_Load(filename.c_str());
 	int status = 0;
@@ -100,6 +105,11 @@ Drawable* SDLWrapper::CreateImage(std::string filename, Rect rect, bool original
 	{
 		std::cerr << "Failed to generate texture, details:" << SDL_GetError() << std::endl;
 		status = 1;
+	}
+
+	if (SDL_SetTextureColorMod(texture, color.GetR(), color.GetG(), color.GetB()) != 0)
+	{
+		cout << "Failed to apply color to texture" << endl;
 	}
 
 	SDL_FreeSurface(imageSurface);

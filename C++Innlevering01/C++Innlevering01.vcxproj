@@ -185,6 +185,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Person.png" />
+    <Image Include="WhiteTexture.png" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Todo.txt" />

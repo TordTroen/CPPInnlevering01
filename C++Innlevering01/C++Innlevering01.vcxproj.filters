@@ -133,6 +133,9 @@
     <Image Include="Person.png">
       <Filter>Resource Files\Graphics</Filter>
     </Image>
+    <Image Include="WhiteTexture.png">
+      <Filter>Resource Files\Graphics</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Font Include="arial.ttf">

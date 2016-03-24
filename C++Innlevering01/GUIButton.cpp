@@ -2,15 +2,24 @@
 #include "Transform.h"
 #include "InputManager.h"
 #include <iostream>
-int p = 0;
-GUIButton::GUIButton(std::string text, Color color, Rect rect, SDLWrapper * sdl, bool fitrectToText)
+
+GUIButton::GUIButton(std::string text, Color color, Color bgColor, Rect rect, SDLWrapper * sdl, void (*CallbackFunction)(void), bool fitrectToText)
 {
+	backgroundItem = sdl->CreateImage("WhiteTexture.png", rect, bgColor, false);
 	textItem = sdl->CreateText(text, color, rect, fitrectToText);
-	_tempRect = textItem->rect;
+	Callback = CallbackFunction;
 }
 
 GUIButton::~GUIButton()
 {
+}
+
+void GUIButton::Awake()
+{
+	// Make sure the button is positioned at the correct position
+	backgroundItem->SetRect(textItem->rect);
+	_transform->SetPosition(Vector2D(textItem->rect.x, textItem->rect.y));
+	_transform->SetSize(Vector2D(textItem->rect.w, textItem->rect.h));
 }
 
 void GUIButton::Update()
@@ -22,13 +31,11 @@ void GUIButton::Update()
 	}
 }
 
-void GUIButton::Awake()
+void GUIButton::OnClick() const
 {
-	_transform->SetPosition(Vector2D(_tempRect.x, _tempRect.y));
-	_transform->SetSize(Vector2D(_tempRect.w, _tempRect.h));
-}
-
-void GUIButton::OnClick()
-{
-	std::cout << "Clicked "  << p++ << std::endl;
+	std::cout << "Clicked" << std::endl;
+	if (Callback != NULL)
+	{
+		Callback();
+	}
 }

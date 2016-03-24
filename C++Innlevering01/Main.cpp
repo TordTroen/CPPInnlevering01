@@ -11,6 +11,11 @@
 #include "GUIButton.h"
 using namespace std;
 
+void ClickTest()
+{
+	cout << "ClickTest()" << endl;
+}
+
 int main(int argc, char** argv)
 {
 	GameObjectManager goManager = GameObjectManager(GameManager::GetInstance().GetWindowWidth(),
@@ -30,7 +35,7 @@ int main(int argc, char** argv)
 		//Drawable* r = sdl.CreateRect(Color(150, 100, 150, 255), Rect(20, 20, 100, 100));
 		
 		GameObject* button = goManager.CreateObject();
-		button->AddComponent(new GUIButton("Test button", Color(40, 40, 40), Rect(10, 200, 100, 50), &sdl));
+		button->AddComponent(new GUIButton("Test button", Color(40, 40, 40), Color(50, 50, 200), Rect(10, 200, 100, 50), &sdl, NULL));
 
 		//// Create gameobject here
 		//GameObject* player = goManager.CreateObject();
