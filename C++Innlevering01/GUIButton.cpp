@@ -3,15 +3,19 @@
 #include "InputManager.h"
 #include <iostream>
 
-GUIButton::GUIButton(std::string text, Color color, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, void(*CallbackFunction)(void), bool fitrectToText)
+GUIButton::GUIButton(std::string text, Color color, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, void(*CallbackFunction)(void), bool fitRectToText)
 	: isOver(false), clicked(false), clickFrames(0)
 {
+	// Store the colors for the different states
 	this->normalColor = normalColor;
 	this->downColor = downColor;
 	this->hoverColor = hoverColor;
-	backgroundItem = SDLWrapper::GetInstance().CreateImage("WhiteTexture.png", rect, normalColor, false);
-	textItem = SDLWrapper::GetInstance().CreateText(text, color, rect, fitrectToText);
 
+	// Make the background and text
+	backgroundItem = SDLWrapper::GetInstance().CreateImage("WhiteTexture.png", rect, normalColor, false);
+	textItem = SDLWrapper::GetInstance().CreateText(text, color, rect, fitRectToText);
+
+	// Make the background fit the text, and apply the padding
 	Rect bgRect = textItem->rect;
 	if (textPadding != 0)
 	{
@@ -22,6 +26,7 @@ GUIButton::GUIButton(std::string text, Color color, Color normalColor, Color dow
 	}
 	backgroundItem->SetRect(bgRect);
 
+	// Assign the callback function
 	Callback = CallbackFunction;
 }
 
@@ -38,17 +43,21 @@ void GUIButton::Awake()
 
 void GUIButton::SetBackgroundColor()
 {
-	if (clicked)
+	//std::cout << "Clicked = " << clicked << std::endl;
+	if (downOver && isOver)
 	{
 		backgroundItem->SetColor(downColor);
+		std::cout << " -> Setting BG Color to DOWN" << std::endl;
 	}
 	else if (isOver)
 	{
 		backgroundItem->SetColor(hoverColor);
+		std::cout << " -> Setting BG Color to HOVER" << std::endl;
 	}
-	else if (!isOver)
+	else if (!isOver || !clicked)
 	{
 		backgroundItem->SetColor(normalColor);
+		std::cout << " -> Setting BG Color to NORMAL" << std::endl;
 	}
 }
 
@@ -58,7 +67,19 @@ void GUIButton::Update()
 	{
 		if (InputManager::GetInstance().GetMouseDown(1))
 		{
-			OnClick();
+			clicked = true;
+			downOver = true;
+			SetBackgroundColor();
+		}
+		else if (InputManager::GetInstance().GetMouseUp(1))
+		{
+			if (downOver)
+			{
+				OnClick();
+				clicked = false;
+				downOver = false;
+				SetBackgroundColor();
+			}
 		}
 		if (!isOver)
 		{
@@ -67,19 +88,14 @@ void GUIButton::Update()
 	}
 	else
 	{
+		if (InputManager::GetInstance().GetMouseDown(1) || InputManager::GetInstance().GetMouseUp(1))
+		{
+			std::cout << "down outside" << std::endl;
+			downOver = false;
+		}
 		if (isOver)
 		{
 			OnExit();
-		}
-	}
-	if (clicked)
-	{
-		clickFrames++;
-		if (clickFrames > 7) // TODO Use time here instead
-		{
-			clicked = false;
-			clickFrames = 0;
-			SetBackgroundColor();
 		}
 	}
 }
@@ -87,8 +103,6 @@ void GUIButton::Update()
 void GUIButton::OnClick()
 {
 	std::cout << "OnClick" << std::endl;
-	clicked = true;
-	SetBackgroundColor();
 	if (Callback != NULL)
 	{
 		Callback();

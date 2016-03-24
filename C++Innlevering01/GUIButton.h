@@ -4,13 +4,12 @@
 #include "SDLWrapper.h"
 #include "Rect.h"
 #include "Color.h"
+
 class GUIButton
 	: public Component
 {
 public:
-	GUIButton(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, void (*CallbackFunction)(void), bool fitrectToText = true);
-	// TODO Add padding between text and bg
-	// TODO Add hover and click color
+	GUIButton(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, void (*CallbackFunction)(void), bool fitRectToText = true);
 	~GUIButton();
 protected:
 	void Update() override;
@@ -28,6 +27,7 @@ private:
 	Color hoverColor;
 	bool isOver;
 	bool clicked;
+	bool downOver;
 	int clickFrames;
 };
 
