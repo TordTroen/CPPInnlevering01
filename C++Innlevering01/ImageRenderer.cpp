@@ -3,10 +3,10 @@
 #include <iostream>
 using namespace std;
 
-ImageRenderer::ImageRenderer(GameObject *gameobject, std::string imageFilename, SDLWrapper* sdl)
+ImageRenderer::ImageRenderer(GameObject *gameobject, std::string imageFilename)
 {
 	_gameObject = gameobject;
-	_image = sdl->CreateImage(imageFilename, Rect(0, 0, 0, 0));
+	_image = SDLWrapper::GetInstance().CreateImage(imageFilename, Rect(0, 0, 0, 0));
 	UpdateRect();
 }
 

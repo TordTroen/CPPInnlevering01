@@ -4,14 +4,6 @@
 #include <SDL_ttf.h>
 using namespace std;
 
-SDLWrapper::SDLWrapper()
-{
-	font = NULL;
-	window = NULL;
-	screenSurface = NULL;
-	renderer = NULL;
-}
-
 SDLWrapper::~SDLWrapper()
 {
 	DestroyImages();
@@ -107,10 +99,7 @@ Drawable* SDLWrapper::CreateImage(std::string filename, Rect rect, Color color, 
 		status = 1;
 	}
 
-	if (SDL_SetTextureColorMod(texture, color.GetR(), color.GetG(), color.GetB()) != 0)
-	{
-		cout << "Failed to apply color to texture" << endl;
-	}
+	SetTextureColor(texture, color);
 
 	SDL_FreeSurface(imageSurface);
 
@@ -126,7 +115,7 @@ Drawable* SDLWrapper::CreateImage(std::string filename, Rect rect, Color color, 
 
 Drawable * SDLWrapper::CreateRect(Color color, Rect rect)
 {
-	// TODO Doesn't do the stuff I want...
+	// TODO Fix me
 	SDL_Rect fillRect = rect.ToSDL_Rect();
 	SDL_SetRenderDrawColor(renderer, color.GetR(), color.GetG(), color.GetB(), color.GetA());
 	SDL_RenderFillRect(renderer, &fillRect);
@@ -180,6 +169,14 @@ void SDLWrapper::RenderImages(bool clearPrevious) const
 	SDL_RenderPresent(GetSDL_Renderer());
 }
 
+void SDLWrapper::Init()
+{
+	font = NULL;
+	window = NULL;
+	screenSurface = NULL;
+	renderer = NULL;
+}
+
 void SDLWrapper::DestroyImages()
 {
 	for (auto i : allDrawables)
@@ -193,4 +190,12 @@ void SDLWrapper::DestroyImages()
 void SDLWrapper::RenderDrawable(Drawable* drawable) const
 {
 	SDL_RenderCopy(GetSDL_Renderer(), drawable->GetTexture(), NULL, &drawable->rect.ToSDL_Rect());
+}
+
+void SDLWrapper::SetTextureColor(SDL_Texture * texture, Color color)
+{
+	if (SDL_SetTextureColorMod(texture, color.GetR(), color.GetG(), color.GetB()) != 0)
+	{
+		cout << "Failed to apply color to texture" << endl;
+	}
 }

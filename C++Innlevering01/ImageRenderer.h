@@ -7,7 +7,7 @@ class ImageRenderer :
 	public Component
 {
 public:
-	ImageRenderer(GameObject *gameobject, std::string imageFilename, SDLWrapper* sdl);
+	ImageRenderer(GameObject *gameobject, std::string imageFilename);
 	~ImageRenderer();
 private:
 	GameObject* _gameObject;

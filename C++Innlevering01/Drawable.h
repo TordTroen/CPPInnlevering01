@@ -1,6 +1,7 @@
 #pragma once
 #include "SDL.h"
 #include "Rect.h"
+#include "Color.h"
 
 class Drawable
 {
@@ -13,6 +14,7 @@ public:
 	void SetSize(int w, int h);
 	void SetTexture(SDL_Texture* texture) { this->texture = texture; }
 	SDL_Texture* GetTexture() const { return texture; }
+	void SetColor(Color color) const;
 private:
 	SDL_Texture* texture;
 };
