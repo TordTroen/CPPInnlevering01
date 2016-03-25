@@ -1,9 +1,15 @@
 #include "GUIMenu.h"
+#include "GameObjectManager.h"
 
-GUIMenu::GUIMenu()
+GUIMenu::GUIMenu(std::vector<GUIElement*> elements)
 {
+	for (auto it : elements)
+	{
+		// Create gameobject and add the GUIElement to it
+		GameObjectManager::GetInstance().CreateObject()->AddComponent(it);
+	}
+	AddElements(elements);
 }
-
 
 GUIMenu::~GUIMenu()
 {

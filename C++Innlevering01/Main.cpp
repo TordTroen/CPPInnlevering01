@@ -10,6 +10,7 @@
 #include "Time.h"
 #include "GUIButton.h"
 #include "GUIMenu.h"
+#include "GUIText.h"
 using namespace std;
 GUIMenu* menu;
 void ClickTest()
@@ -20,8 +21,8 @@ void ClickTest()
 
 int main(int argc, char** argv)
 {
-	GameObjectManager goManager = GameObjectManager(GameManager::GetInstance().GetWindowWidth(),
-		GameManager::GetInstance().GetWindowHeight());
+	//GameObjectManager goManager = GameObjectManager(GameManager::GetInstance().GetWindowWidth(),
+	//	GameManager::GetInstance().GetWindowHeight());
 //	SDLWrapper sdl;
 //	InputManager io;
 	InputManager::GetInstance().Init();
@@ -31,24 +32,12 @@ int main(int argc, char** argv)
 	if (SDLWrapper::GetInstance().InitializeWindow("Breakout", GameManager::GetInstance().GetWindowWidth(),
 		GameManager::GetInstance().GetWindowHeight(), Color(200, 200, 200)) == 0)
 	{
-		/*Drawable* playerText = sdl.CreateText("Playername", Color(100, 200, 0), Rect());
-		Drawable* testImg = sdl.CreateImage("Person.png", Rect(100, 100, 140, 100));
-		Drawable* testTxt = sdl.CreateText("Testing", Color(100, 200, 0), Rect());*/
-		//Drawable* r = sdl.CreateRect(Color(150, 100, 150, 255), Rect(20, 20, 100, 100));
-		
-		GameObject* menuObj = goManager.CreateObject();
-		menu = dynamic_cast<GUIMenu*>(menuObj->AddComponent(new GUIMenu()));
-
-		GameObject* button = goManager.CreateObject();
-		GUIButton* btn1 = dynamic_cast<GUIButton*>(button->AddComponent(new GUIButton("Button with padding", Color(40, 40, 40), Color(50, 50, 200), Color(255, 255, 255), Color(50, 140, 255), Rect(10, 200, 100, 50), 10, ClickTest)));
-		GameObject* button2 = goManager.CreateObject();
-		GUIButton* btn2 = dynamic_cast<GUIButton*>(button2->AddComponent(new GUIButton("Close", Color(40, 40, 40), Color(50, 50, 200), Color(255, 255, 255), Color(60, 200, 10), Rect(10, 400, 100, 50), 0, ClickTest)));
-
-		menu->AddElements({ btn1, btn2 });
-		// TODO Make the elements through a function in GUIMenu
-
-		/*menu->AddElement(btn1);
-		menu->AddElement(btn2);*/
+		GameObject* menuObj = GameObjectManager::GetInstance().CreateObject();
+		menu = dynamic_cast<GUIMenu*>(menuObj->AddComponent(new GUIMenu({
+			new GUIText("Main menu", Color(0, 0, 0), Rect(10, 130, 100, 50)),
+			new GUIButton("Button with padding", Color(40, 40, 40), Color(50, 50, 200), Color(255, 255, 255), Color(50, 140, 255), Rect(10, 200, 100, 50), 10, ClickTest),
+			new GUIButton("Close", Color(40, 40, 40), Color(50, 50, 200), Color(255, 255, 255), Color(60, 200, 10), Rect(10, 250, 100, 50), 0, ClickTest)
+		})));
 
 		//// Create gameobject here
 		//GameObject* player = goManager.CreateObject();
@@ -68,7 +57,7 @@ int main(int argc, char** argv)
 		while (true)
 		{
 			//// Update everything that needs to be updated every frame ////
-			goManager.Update();
+			GameObjectManager::GetInstance().Update();
 			InputManager::GetInstance().Update();
 			time.Update();
 

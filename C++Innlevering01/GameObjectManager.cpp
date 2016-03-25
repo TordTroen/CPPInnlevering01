@@ -1,14 +1,5 @@
 #include "GameObjectManager.h"
 
-
-
-GameObjectManager::GameObjectManager(int screenWidth, int screenHeight)
-{
-	_screenWidth = screenWidth;
-	_screenHeight = screenHeight;
-}
-
-
 GameObjectManager::~GameObjectManager()
 {
 }
@@ -28,23 +19,12 @@ GameObject* GameObjectManager::CreateObject()
 	return obj;
 }
 
-//ScreenLocation GameObjectManager::GetObjectLocation(Vector2D pos)
-//{
-//	if (pos.X < 0)
-//	{
-//		return SCREEN_Left;
-//	}
-//	else if (pos.X > _screenWidth)
-//	{
-//		return SCREEN_Right;
-//	}
-//	else if (pos.Y < 0)
-//	{
-//		return SCREEN_Top;
-//	}
-//	else if (pos.Y > _screenHeight)
-//	{
-//		return SCREEN_Bottom;
-//	}
-//	return SCREEN_Inside;
-//}
+GameObject* GameObjectManager::CreateObject(std::vector<Component*> components)
+{
+	GameObject* obj = CreateObject();
+	for (auto it : components)
+	{
+		obj->AddComponent(it);
+	}
+	return obj;
+}

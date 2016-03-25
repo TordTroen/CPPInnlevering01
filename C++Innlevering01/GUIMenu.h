@@ -7,7 +7,7 @@ class GUIMenu :
 	public Component
 {
 public:
-	GUIMenu();
+	GUIMenu(std::vector<GUIElement*> elements);
 	~GUIMenu();
 	void AddElement(GUIElement* element);
 	void AddElements(std::vector<GUIElement*> elements);

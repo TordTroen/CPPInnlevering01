@@ -1,6 +1,10 @@
 ### TODO
 - Collider class
 - PoolManager
+- Maybe make a GameObject.Find method??
+
+### GUI
+- Automatic layout?
 
 ### SDLWrapper
 - Make DrawImage function actually check if something went wrong
