@@ -9,11 +9,13 @@
 #include "Vector2D.h"
 #include "Time.h"
 #include "GUIButton.h"
+#include "GUIMenu.h"
 using namespace std;
-
+GUIMenu* menu;
 void ClickTest()
 {
 	cout << "ClickTest()" << endl;
+	menu->SetActive(false);
 }
 
 int main(int argc, char** argv)
@@ -34,10 +36,19 @@ int main(int argc, char** argv)
 		Drawable* testTxt = sdl.CreateText("Testing", Color(100, 200, 0), Rect());*/
 		//Drawable* r = sdl.CreateRect(Color(150, 100, 150, 255), Rect(20, 20, 100, 100));
 		
+		GameObject* menuObj = goManager.CreateObject();
+		menu = dynamic_cast<GUIMenu*>(menuObj->AddComponent(new GUIMenu()));
+
 		GameObject* button = goManager.CreateObject();
-		button->AddComponent(new GUIButton("Button with padding", Color(40, 40, 40), Color(50, 50, 200), Color(255, 255, 255), Color(50, 140, 255), Rect(10, 200, 100, 50), 10, ClickTest));
+		GUIButton* btn1 = dynamic_cast<GUIButton*>(button->AddComponent(new GUIButton("Button with padding", Color(40, 40, 40), Color(50, 50, 200), Color(255, 255, 255), Color(50, 140, 255), Rect(10, 200, 100, 50), 10, ClickTest)));
 		GameObject* button2 = goManager.CreateObject();
-		button2->AddComponent(new GUIButton("Test button", Color(40, 40, 40), Color(50, 50, 200), Color(255, 255, 255), Color(60, 200, 10), Rect(10, 400, 100, 50), 0, ClickTest));
+		GUIButton* btn2 = dynamic_cast<GUIButton*>(button2->AddComponent(new GUIButton("Close", Color(40, 40, 40), Color(50, 50, 200), Color(255, 255, 255), Color(60, 200, 10), Rect(10, 400, 100, 50), 0, ClickTest)));
+
+		menu->AddElements({ btn1, btn2 });
+		// TODO Make the elements through a function in GUIMenu
+
+		/*menu->AddElement(btn1);
+		menu->AddElement(btn2);*/
 
 		//// Create gameobject here
 		//GameObject* player = goManager.CreateObject();

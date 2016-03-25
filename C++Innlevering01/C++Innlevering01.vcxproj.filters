@@ -76,6 +76,9 @@
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="GUIElement.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -132,6 +135,9 @@
       <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="GUIElement.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

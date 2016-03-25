@@ -1,12 +1,12 @@
 #pragma once
 #include <string>
-#include "Component.h"
 #include "SDLWrapper.h"
 #include "Rect.h"
 #include "Color.h"
+#include "GUIElement.h"
 
 class GUIButton
-	: public Component
+	: public GUIElement
 {
 public:
 	GUIButton(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, void (*CallbackFunction)(void), bool fitRectToText = true);

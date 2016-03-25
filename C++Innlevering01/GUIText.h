@@ -1,10 +1,10 @@
 #pragma once
-#include "Component.h"
 #include "Drawable.h"
 #include <string>
+#include "GUIElement.h"
 
 class GUIText :
-	public Component
+	public GUIElement
 {
 public:
 	GUIText(std::string text, Color color, Rect rect);

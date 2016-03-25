@@ -111,7 +111,6 @@ void GUIButton::OnClick()
 	{
 		Callback();
 	}
-	SetActive(false);
 }
 
 void GUIButton::OnEnter()
