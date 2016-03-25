@@ -3,31 +3,23 @@
 #include "InputManager.h"
 #include <iostream>
 
-GUIButton::GUIButton(std::string text, Color color, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, void(*CallbackFunction)(void), bool fitRectToText)
-	: isOver(false)
+GUIButton::GUIButton(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, void(*CallbackFunction)(void), bool fitRectToText)
 {
-	// Store the colors for the different states
-	this->normalColor = normalColor;
-	this->downColor = downColor;
-	this->hoverColor = hoverColor;
+	activateMenu = NULL;
+	deactivateMenu = NULL;
 
-	// Make the background and text
-	backgroundItem = SDLWrapper::GetInstance().CreateRect(normalColor, rect);
-	textItem = SDLWrapper::GetInstance().CreateText(text, color, rect, fitRectToText);
-
-	// Make the background fit the text, and apply the padding
-	Rect bgRect = textItem->rect;
-	if (textPadding != 0)
-	{
-		bgRect.x -= textPadding;
-		bgRect.y -= textPadding;
-		bgRect.w += textPadding * 2;
-		bgRect.h += textPadding * 2;
-	}
-	backgroundItem->SetRect(bgRect);
+	Init(text, textColor, normalColor, downColor, hoverColor, rect, textPadding, fitRectToText);
 
 	// Assign the callback function
 	Callback = CallbackFunction;
+}
+
+GUIButton::GUIButton(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, GUIMenu* deactivateMenu, GUIMenu* activateMenu, bool fitRectToText)
+{
+	Init(text, textColor, normalColor, downColor, hoverColor, rect, textPadding, fitRectToText);
+
+	this->activateMenu = activateMenu;
+	this->deactivateMenu = deactivateMenu;
 }
 
 GUIButton::~GUIButton()
@@ -45,6 +37,33 @@ void GUIButton::OnSetActive()
 {
 	backgroundItem->SetActive(IsActive());
 	textItem->SetActive(IsActive());
+}
+
+void GUIButton::Init(std::string text, Color textColor, Color normalColor, Color donwColor, Color hoverColor, Rect rect, int textPadding, bool fitRectToText)
+{
+	activateMenu = NULL;
+	deactivateMenu = NULL;
+	isOver = false;
+
+	// Store the colors for the different states
+	this->normalColor = normalColor;
+	this->downColor = downColor;
+	this->hoverColor = hoverColor;
+
+	// Make the background and text
+	backgroundItem = SDLWrapper::GetInstance().CreateRect(normalColor, rect);
+	textItem = SDLWrapper::GetInstance().CreateText(text, textColor, rect, fitRectToText);
+
+	// Make the background fit the text, and apply the padding
+	Rect bgRect = textItem->rect;
+	if (textPadding != 0)
+	{
+		bgRect.x -= textPadding;
+		bgRect.y -= textPadding;
+		bgRect.w += textPadding * 2;
+		bgRect.h += textPadding * 2;
+	}
+	backgroundItem->SetRect(bgRect);
 }
 
 void GUIButton::SetBackgroundColor()
@@ -111,6 +130,10 @@ void GUIButton::OnClick()
 	{
 		Callback();
 	}
+	else
+	{
+		ToggleMenus();
+	}
 }
 
 void GUIButton::OnEnter()
@@ -125,4 +148,16 @@ void GUIButton::OnExit()
 	isOver = false;
 	SetBackgroundColor();
 	//std::cout << "OnExit" << std::endl;
+}
+
+void GUIButton::ToggleMenus()
+{
+	if (activateMenu != NULL)
+	{
+		activateMenu->SetActive(true);
+	}
+	if (deactivateMenu != NULL)
+	{
+		deactivateMenu->SetActive(true);
+	}
 }
