@@ -1,6 +1,4 @@
 ### TODO
-- Rect class to be used with collision (replace image rect?)
-	- Functions that checks if a vector2D point is inside a rect
 - Collider class
 - PoolManager
 

@@ -33,7 +33,10 @@ void GameObject::Update()
 {
 	for (auto i : _components)
 	{
-		i->Update();
+		if (i->IsActive())
+		{
+			i->Update();
+		}
 	}
 }
 

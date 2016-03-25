@@ -14,6 +14,7 @@ public:
 protected:
 	void Update() override;
 	void Awake() override;
+	void OnSetActive() override;
 private:
 	void SetBackgroundColor();
 	Drawable* textItem;
@@ -26,8 +27,6 @@ private:
 	Color downColor;
 	Color hoverColor;
 	bool isOver;
-	bool clicked;
 	bool downOver;
-	int clickFrames;
 };
 

@@ -115,11 +115,9 @@ Drawable* SDLWrapper::CreateImage(std::string filename, Rect rect, Color color, 
 
 Drawable * SDLWrapper::CreateRect(Color color, Rect rect)
 {
-	// TODO Fix me
-	SDL_Rect fillRect = rect.ToSDL_Rect();
-	SDL_SetRenderDrawColor(renderer, color.GetR(), color.GetG(), color.GetB(), color.GetA());
-	SDL_RenderFillRect(renderer, &fillRect);
-	return nullptr;
+	Drawable* img = CreateImage("WhiteTexture.png", rect);
+	img->SetColor(color);
+	return img;
 }
 
 Drawable* SDLWrapper::CreateText(std::string text, Color color, Rect rect, bool originalSize)
@@ -164,7 +162,10 @@ void SDLWrapper::RenderImages(bool clearPrevious) const
 	}
 	for (auto i : allDrawables)
 	{
-		RenderDrawable(i);
+		if (i->IsActive())
+		{
+			RenderDrawable(i);
+		}
 	}
 	SDL_RenderPresent(GetSDL_Renderer());
 }

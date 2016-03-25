@@ -4,7 +4,7 @@
 #include <iostream>
 
 GUIButton::GUIButton(std::string text, Color color, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, void(*CallbackFunction)(void), bool fitRectToText)
-	: isOver(false), clicked(false), clickFrames(0)
+	: isOver(false)
 {
 	// Store the colors for the different states
 	this->normalColor = normalColor;
@@ -12,7 +12,7 @@ GUIButton::GUIButton(std::string text, Color color, Color normalColor, Color dow
 	this->hoverColor = hoverColor;
 
 	// Make the background and text
-	backgroundItem = SDLWrapper::GetInstance().CreateImage("WhiteTexture.png", rect, normalColor, false);
+	backgroundItem = SDLWrapper::GetInstance().CreateRect(normalColor, rect);
 	textItem = SDLWrapper::GetInstance().CreateText(text, color, rect, fitRectToText);
 
 	// Make the background fit the text, and apply the padding
@@ -37,8 +37,14 @@ GUIButton::~GUIButton()
 void GUIButton::Awake()
 {
 	// Make sure the button is positioned at the correct position
-	_transform->SetPosition(Vector2D(textItem->rect.x, textItem->rect.y));
-	_transform->SetSize(Vector2D(textItem->rect.w, textItem->rect.h));
+	_transform->SetPosition(Vector2D(backgroundItem->rect.x, backgroundItem->rect.y));
+	_transform->SetSize(Vector2D(backgroundItem->rect.w, backgroundItem->rect.h));
+}
+
+void GUIButton::OnSetActive()
+{
+	backgroundItem->SetActive(IsActive());
+	textItem->SetActive(IsActive());
 }
 
 void GUIButton::SetBackgroundColor()
@@ -47,17 +53,17 @@ void GUIButton::SetBackgroundColor()
 	if (downOver && isOver)
 	{
 		backgroundItem->SetColor(downColor);
-		std::cout << " -> Setting BG Color to DOWN" << std::endl;
+		//std::cout << " -> Setting BG Color to DOWN" << std::endl;
 	}
 	else if (isOver)
 	{
 		backgroundItem->SetColor(hoverColor);
-		std::cout << " -> Setting BG Color to HOVER" << std::endl;
+		//std::cout << " -> Setting BG Color to HOVER" << std::endl;
 	}
-	else if (!isOver || !clicked)
+	else if (!isOver)
 	{
 		backgroundItem->SetColor(normalColor);
-		std::cout << " -> Setting BG Color to NORMAL" << std::endl;
+		//std::cout << " -> Setting BG Color to NORMAL" << std::endl;
 	}
 }
 
@@ -67,7 +73,6 @@ void GUIButton::Update()
 	{
 		if (InputManager::GetInstance().GetMouseDown(1))
 		{
-			clicked = true;
 			downOver = true;
 			SetBackgroundColor();
 		}
@@ -76,7 +81,6 @@ void GUIButton::Update()
 			if (downOver)
 			{
 				OnClick();
-				clicked = false;
 				downOver = false;
 				SetBackgroundColor();
 			}
@@ -90,7 +94,7 @@ void GUIButton::Update()
 	{
 		if (InputManager::GetInstance().GetMouseDown(1) || InputManager::GetInstance().GetMouseUp(1))
 		{
-			std::cout << "down outside" << std::endl;
+			//std::cout << "down outside" << std::endl;
 			downOver = false;
 		}
 		if (isOver)
@@ -102,23 +106,24 @@ void GUIButton::Update()
 
 void GUIButton::OnClick()
 {
-	std::cout << "OnClick" << std::endl;
+	//std::cout << "OnClick" << std::endl;
 	if (Callback != NULL)
 	{
 		Callback();
 	}
+	SetActive(false);
 }
 
 void GUIButton::OnEnter()
 {
 	isOver = true;
 	SetBackgroundColor();
-	std::cout << "OnEnter" << std::endl;
+	//std::cout << "OnEnter" << std::endl;
 }
 
 void GUIButton::OnExit()
 {
 	isOver = false;
 	SetBackgroundColor();
-	std::cout << "OnExit" << std::endl;
+	//std::cout << "OnExit" << std::endl;
 }

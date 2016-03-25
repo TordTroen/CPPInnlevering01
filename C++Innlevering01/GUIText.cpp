@@ -18,3 +18,8 @@ void GUIText::Awake()
 	_transform->SetSize(Vector2D(textItem->rect.w, textItem->rect.h));
 }
 
+void GUIText::OnSetActive()
+{
+	textItem->SetActive(IsActive());
+}
+

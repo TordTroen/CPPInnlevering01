@@ -17,6 +17,7 @@ protected:
 	bool _isActive;
 	Transform* _transform;
 	GameObject* _gameObject;
+	virtual void OnSetActive() { } // TODO Make abstract??
 	// TODO Maybe make transform and gameobject availivlbe as a protected 
 };
 

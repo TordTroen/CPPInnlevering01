@@ -2,6 +2,7 @@
 #include "SDLWrapper.h"
 
 Drawable::Drawable(Rect rect, SDL_Texture* texture)
+	: isActive(true)
 {
 	SetRect(rect);
 	SetTexture(texture);

@@ -30,6 +30,7 @@ bool Component::IsActive() const
 void Component::SetActive(bool active)
 {
 	_isActive = active;
+	OnSetActive();
 }
 
 void Component::Awake()

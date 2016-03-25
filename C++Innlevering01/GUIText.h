@@ -11,6 +11,7 @@ public:
 	~GUIText();
 protected:
 	void Awake() override;
+	void OnSetActive() override;
 private:
 	Drawable* textItem;
 };

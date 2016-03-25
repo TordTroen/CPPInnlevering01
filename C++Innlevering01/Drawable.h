@@ -15,7 +15,10 @@ public:
 	void SetTexture(SDL_Texture* texture) { this->texture = texture; }
 	SDL_Texture* GetTexture() const { return texture; }
 	void SetColor(Color color) const;
+	void SetActive(bool active) { isActive = active; }
+	bool IsActive() const { return isActive; }
 private:
 	SDL_Texture* texture;
+	bool isActive;
 };
 

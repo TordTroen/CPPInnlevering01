@@ -35,9 +35,9 @@ int main(int argc, char** argv)
 		//Drawable* r = sdl.CreateRect(Color(150, 100, 150, 255), Rect(20, 20, 100, 100));
 		
 		GameObject* button = goManager.CreateObject();
-		button->AddComponent(new GUIButton("Test button", Color(40, 40, 40), Color(50, 50, 200), Color(255, 255, 255), Color(50, 140, 255), Rect(10, 200, 100, 50), 10, NULL));
+		button->AddComponent(new GUIButton("Button with padding", Color(40, 40, 40), Color(50, 50, 200), Color(255, 255, 255), Color(50, 140, 255), Rect(10, 200, 100, 50), 10, ClickTest));
 		GameObject* button2 = goManager.CreateObject();
-		button2->AddComponent(new GUIButton("Test button2", Color(40, 40, 40), Color(50, 50, 200), Color(255, 255, 255), Color(60, 200, 10), Rect(10, 400, 100, 50), 0, NULL));
+		button2->AddComponent(new GUIButton("Test button", Color(40, 40, 40), Color(50, 50, 200), Color(255, 255, 255), Color(60, 200, 10), Rect(10, 400, 100, 50), 0, ClickTest));
 
 		//// Create gameobject here
 		//GameObject* player = goManager.CreateObject();
