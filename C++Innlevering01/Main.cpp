@@ -1,17 +1,18 @@
+#include <iostream>
 #include "SDLWrapper.h"
 #include "InputManager.h"
 #include "GameObject.h"
 #include "Transform.h"
 #include "GameObjectManager.h"
 #include "ImageRenderer.h"
-#include <iostream>
 #include "GameManager.h"
-#include "Vector2D.h"
 #include "Time.h"
-#include "GUIButton.h"
 #include "GUIMenu.h"
-#include "GUIText.h"
+#include "BoxCollider.h"
+#include "CollisionManager.h"
+
 using namespace std;
+
 GUIMenu* menu;
 void ClickTest()
 {
@@ -32,13 +33,23 @@ int main(int argc, char** argv)
 	if (SDLWrapper::GetInstance().InitializeWindow("Breakout", GameManager::GetInstance().GetWindowWidth(),
 		GameManager::GetInstance().GetWindowHeight(), Color(200, 200, 200)) == 0)
 	{
-		GameObject* menuObj = GameObjectManager::GetInstance().CreateObject();
+		/*GameObject* menuObj = GameObjectManager::GetInstance().CreateObject();
 		menu = dynamic_cast<GUIMenu*>(menuObj->AddComponent(new GUIMenu({
 			new GUIText("Main menu", Color(0, 0, 0), Rect(10, 130, 100, 50)),
 			new GUIButton("Button with padding", Color(40, 40, 40), Color(50, 50, 200), Color(255, 255, 255), Color(50, 140, 255), Rect(10, 200, 100, 50), 10, ClickTest),
 			new GUIButton("Close", Color(40, 40, 40), Color(50, 50, 200), Color(255, 255, 255), Color(60, 200, 10), Rect(10, 250, 100, 50), 0, ClickTest)
-		})));
+		})));*/
 
+		GameObject* obj1 = GameObjectManager::GetInstance().CreateObject("Player");
+		obj1->AddComponent(new ImageRenderer(obj1, "WhiteTexture.png"));
+		BoxCollider* playerCol = dynamic_cast<BoxCollider*>(obj1->AddComponent(new BoxCollider()));
+		obj1->GetTransform()->SetRect(Rect(20, 20, 100, 100));
+		CollisionManager::AddPlayer(playerCol);
+
+		GameObject* obj2 = GameObjectManager::GetInstance().CreateObject("Enemy");
+		obj2->AddComponent(new ImageRenderer(obj2, "WhiteTexture.png"));
+		obj2->AddComponent(new BoxCollider());
+		obj2->GetTransform()->SetRect(Rect(300, 300, 100, 100));
 		//// Create gameobject here
 		//GameObject* player = goManager.CreateObject();
 		//player->AddComponent(new ImageRenderer(player, "Person.png", &sdl));
@@ -60,12 +71,24 @@ int main(int argc, char** argv)
 			GameObjectManager::GetInstance().Update();
 			InputManager::GetInstance().Update();
 			time.Update();
+			CollisionManager::Update();
 
 			//// Logic ////
 			if (InputManager::GetInstance().GetKeyDown(SDL_SCANCODE_ESCAPE))
 			{
 				break;
 			}
+
+			// DEBUG
+			if (InputManager::GetInstance().GetMouseDown(1))
+			{
+				cout << "-" << endl;
+			}
+			// DEBUG
+
+
+			obj1->GetTransform()->SetPosition(InputManager::GetInstance().GetMousePosition());
+
 			//ImageRenderer* playerImg = static_cast<ImageRenderer*>(player->GetComponent("ImageRenderer"));
 			/*if (io.GetKey(SDL_SCANCODE_RIGHT))
 			{

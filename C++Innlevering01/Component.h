@@ -13,6 +13,7 @@ public:
 	virtual void Update();
 	bool IsActive() const;
 	void SetActive(bool active);
+	Transform* GetTransform() const { return _transform; }
 protected:
 	bool _isActive;
 	Transform* _transform;

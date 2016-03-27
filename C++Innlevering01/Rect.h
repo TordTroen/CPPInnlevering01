@@ -11,6 +11,7 @@ public:
 	float w;
 	float h;
 	bool Contains(Vector2D point);
+	bool Intersects(Rect rect);
 	SDL_Rect ToSDL_Rect() const;
 };
 

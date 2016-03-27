@@ -7,6 +7,7 @@ public:
 	~GameObjectManager();
 	void Update();
 	GameObject* CreateObject();
+	GameObject* CreateObject(std::string tag);
 	GameObject* CreateObject(std::vector<Component*> components);
 private:
 	std::vector<GameObject*> _allGameObjects;

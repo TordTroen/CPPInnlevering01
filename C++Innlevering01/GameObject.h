@@ -25,7 +25,11 @@ public:
 		}
 		return NULL;
 	}
+	void SetTag(std::string tag) { _tag = tag; }
+	std::string GetTag() const { return _tag; }
+	bool CompareTag(std::string otherTag) const { return (_tag == otherTag); }
 private:
+	std::string _tag;
 	std::vector<Component*> _components;
 	Transform* _transform;
 };

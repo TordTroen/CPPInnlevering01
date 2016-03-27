@@ -20,6 +20,7 @@ GUIButton::GUIButton(std::string text, Color textColor, Color normalColor, Color
 
 	this->activateMenu = activateMenu;
 	this->deactivateMenu = deactivateMenu;
+	Callback = NULL;
 }
 
 GUIButton::~GUIButton()

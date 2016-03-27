@@ -14,8 +14,9 @@ GUIText::~GUIText()
 void GUIText::Awake()
 {
 	// Make sure the button is positioned at the correct position
-	_transform->SetPosition(Vector2D(textItem->rect.x, textItem->rect.y));
-	_transform->SetSize(Vector2D(textItem->rect.w, textItem->rect.h));
+	/*_transform->SetPosition(Vector2D(textItem->rect.x, textItem->rect.y));
+	_transform->SetSize(Vector2D(textItem->rect.w, textItem->rect.h));*/
+	_transform->SetRect(textItem->rect);
 }
 
 void GUIText::OnSetActive()

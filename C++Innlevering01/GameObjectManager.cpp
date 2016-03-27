@@ -19,6 +19,13 @@ GameObject* GameObjectManager::CreateObject()
 	return obj;
 }
 
+GameObject* GameObjectManager::CreateObject(std::string tag)
+{
+	GameObject *obj = CreateObject();
+	obj->SetTag(tag);
+	return obj;
+}
+
 GameObject* GameObjectManager::CreateObject(std::vector<Component*> components)
 {
 	GameObject* obj = CreateObject();
