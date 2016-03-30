@@ -5,14 +5,12 @@ using namespace std;
 
 Transform::Transform()
 {
-	std::cout << "Tranform constructor" << std::endl;
 	_position = Vector2D(0, 0);
 	_size = Vector2D(100, 100);
 }
 
 Transform::Transform(Vector2D pos, Vector2D size)
 {
-	std::cout << "Tranform constructor" << std::endl;
 	_position = pos;
 	_size = size;
 }

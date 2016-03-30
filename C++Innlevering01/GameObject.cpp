@@ -8,8 +8,8 @@ GameObject::GameObject()
 	// All Gameobjects must have a transform
 	_transform = new Transform();
 	AddComponent(_transform);
-
-	cout << "Gameobj constructor" << endl;
+	SetTag("Untagged");
+	//cout << "Gameobj constructor" << endl;
 	// Call awake and start on all components
 	//for (auto i : _components)
 	//{
@@ -47,6 +47,14 @@ Component* GameObject::AddComponent(Component* comp)
 	return comp;
 }
 
+void GameObject::AddComponents(std::vector<Component*> components)
+{
+	for (auto it : components)
+	{
+		AddComponent(it);
+	}
+}
+
 Transform* GameObject::GetTransform() const
 {
 	if (_transform == NULL)
@@ -55,5 +63,22 @@ Transform* GameObject::GetTransform() const
 			"You can't access the transform before the GameObject has been initialized" << endl;
 	}
 	return _transform;
+}
+
+void GameObject::SetTag(std::string tag)
+{
+	if (tag.empty())
+	{
+		_tag = "Untagged";
+	}
+	_tag = tag;
+}
+
+void GameObject::SendCollisionEnter(Collider * other)
+{
+	for (auto it : _components)
+	{
+		it->OnCollisionEnter(other);
+	}
 }
 

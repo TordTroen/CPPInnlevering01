@@ -7,9 +7,9 @@ class Collider :
 public:
 	Collider();
 	~Collider();
-	void OnCollisionEnter(Collider* other);
-	void OnCollisionExit(Collider* other);
-	virtual bool Intersects(Collider* other) = 0;
+	void OnCollisionEnterEvent(Collider* other);
+	void OnCollisionExitEvent(Collider* other);
+	virtual bool Intersects(Collider* other);
 	bool isColliding;
 protected:
 	void Awake() override;

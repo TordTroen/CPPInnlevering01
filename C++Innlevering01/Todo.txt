@@ -1,7 +1,9 @@
 ### TODO
-- Collider class
 - PoolManager
 - Maybe make a GameObject.Find method??
+
+### Collision
+- Find a better way to register collision on all gameobjects
 
 ### GUI
 - Automatic layout?

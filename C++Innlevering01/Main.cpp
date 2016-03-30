@@ -10,6 +10,9 @@
 #include "GUIMenu.h"
 #include "BoxCollider.h"
 #include "CollisionManager.h"
+#include "GUIButton.h"
+#include "GUIText.h"
+#include "BallMovement.h"
 
 using namespace std;
 
@@ -33,23 +36,36 @@ int main(int argc, char** argv)
 	if (SDLWrapper::GetInstance().InitializeWindow("Breakout", GameManager::GetInstance().GetWindowWidth(),
 		GameManager::GetInstance().GetWindowHeight(), Color(200, 200, 200)) == 0)
 	{
-		/*GameObject* menuObj = GameObjectManager::GetInstance().CreateObject();
-		menu = dynamic_cast<GUIMenu*>(menuObj->AddComponent(new GUIMenu({
-			new GUIText("Main menu", Color(0, 0, 0), Rect(10, 130, 100, 50)),
-			new GUIButton("Button with padding", Color(40, 40, 40), Color(50, 50, 200), Color(255, 255, 255), Color(50, 140, 255), Rect(10, 200, 100, 50), 10, ClickTest),
-			new GUIButton("Close", Color(40, 40, 40), Color(50, 50, 200), Color(255, 255, 255), Color(60, 200, 10), Rect(10, 250, 100, 50), 0, ClickTest)
-		})));*/
+		//GameObject* menuObj = GameObjectManager::GetInstance().CreateObject();
+		//menu = dynamic_cast<GUIMenu*>(menuObj->AddComponent(new GUIMenu({
+		//	new GUIText("Main menu", Color(0, 0, 0), Rect(10, 130, 100, 50)),
+		//	new GUIButton("Button with padding", Color(40, 40, 40), Color(50, 50, 200), Color(255, 255, 255), Color(50, 140, 255), Rect(10, 200, 100, 50), 10, ClickTest),
+		//	new GUIButton("Close", Color(40, 40, 40), Color(50, 50, 200), Color(255, 255, 255), Color(60, 200, 10), Rect(10, 250, 100, 50), 0, ClickTest)
+		//})));
 
 		GameObject* obj1 = GameObjectManager::GetInstance().CreateObject("Player");
-		obj1->AddComponent(new ImageRenderer(obj1, "WhiteTexture.png"));
+		obj1->AddComponent(new ImageRenderer("WhiteTexture.png"));
 		BoxCollider* playerCol = dynamic_cast<BoxCollider*>(obj1->AddComponent(new BoxCollider()));
-		obj1->GetTransform()->SetRect(Rect(20, 20, 100, 100));
+		obj1->GetTransform()->SetRect(Rect(200, 200, 20, 20));
 		CollisionManager::AddPlayer(playerCol);
+		obj1->AddComponent(new BallMovement());
 
-		GameObject* obj2 = GameObjectManager::GetInstance().CreateObject("Enemy");
-		obj2->AddComponent(new ImageRenderer(obj2, "WhiteTexture.png"));
-		obj2->AddComponent(new BoxCollider());
-		obj2->GetTransform()->SetRect(Rect(300, 300, 100, 100));
+		//GameObject* o = GameObjectManager::GetInstance().CreateObject();
+
+		//GameObject* obj2 = GameObjectManager::GetInstance().CreateObject("Enemy");
+		//obj2->AddComponents({ new ImageRenderer("WhiteTexture.png"), new BoxCollider() });
+		//obj2->GetTransform()->SetRect(Rect(300, 300, 100, 100));
+		GameObject* leftWall = GameObjectManager::GetInstance().CreateObject({ new ImageRenderer("WhiteTexture.png"), new BoxCollider() } , "LeftWall");
+		GameObject* rightWall = GameObjectManager::GetInstance().CreateObject({ new ImageRenderer("WhiteTexture.png"), new BoxCollider() }, "RightWall");
+		GameObject* topWall = GameObjectManager::GetInstance().CreateObject({ new ImageRenderer("WhiteTexture.png"), new BoxCollider() }, "TopWall");
+		GameObject* bottomWall = GameObjectManager::GetInstance().CreateObject({ new ImageRenderer("WhiteTexture.png"), new BoxCollider() }, "BottomWall");
+		float inset = 0;
+		float scw = GameManager::GetInstance().GetWindowWidth();
+		float sch = GameManager::GetInstance().GetWindowHeight();
+		leftWall->GetTransform()->SetRect(Rect(inset, 0, 1, sch));
+		rightWall->GetTransform()->SetRect(Rect(scw - inset, 0, 1, sch));
+		topWall->GetTransform()->SetRect(Rect(0, inset, scw, 1));
+		bottomWall->GetTransform()->SetRect(Rect(0, sch - inset, scw, 1));
 		//// Create gameobject here
 		//GameObject* player = goManager.CreateObject();
 		//player->AddComponent(new ImageRenderer(player, "Person.png", &sdl));
@@ -87,7 +103,7 @@ int main(int argc, char** argv)
 			// DEBUG
 
 
-			obj1->GetTransform()->SetPosition(InputManager::GetInstance().GetMousePosition());
+			//obj1->GetTransform()->SetPosition(InputManager::GetInstance().GetMousePosition());
 
 			//ImageRenderer* playerImg = static_cast<ImageRenderer*>(player->GetComponent("ImageRenderer"));
 			/*if (io.GetKey(SDL_SCANCODE_RIGHT))

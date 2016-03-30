@@ -26,9 +26,9 @@ GameObject* GameObjectManager::CreateObject(std::string tag)
 	return obj;
 }
 
-GameObject* GameObjectManager::CreateObject(std::vector<Component*> components)
+GameObject* GameObjectManager::CreateObject(std::vector<Component*> components, std::string tag)
 {
-	GameObject* obj = CreateObject();
+	GameObject* obj = CreateObject(tag);
 	for (auto it : components)
 	{
 		obj->AddComponent(it);

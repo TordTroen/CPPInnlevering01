@@ -20,12 +20,12 @@ void CollisionManager::Update()
 		if (it->Intersects(_player))
 		{
 			if (!_player->isColliding)
-				_player->OnCollisionEnter(it);
+				_player->OnCollisionEnterEvent(it);
 		}
 		else
 		{
 			if (_player->isColliding)
-				_player->OnCollisionExit(it);
+				_player->OnCollisionExitEvent(it);
 		}
 	}
 	//for (auto colA : _colliders)

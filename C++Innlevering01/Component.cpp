@@ -1,12 +1,13 @@
 #include "Component.h"
 #include "GameObject.h"
 #include <iostream>
+#include "Collider.h"
 using namespace std;
 
 Component::Component()
 	: _isActive(true), _transform(NULL), _gameObject(NULL)
 {
-	cout << "Component " /*<< _id*/ << "  constructor" << endl;
+	//cout << "Component " /*<< _id*/ << "  constructor" << endl;
 }
 
 
@@ -35,7 +36,7 @@ void Component::SetActive(bool active)
 
 void Component::Awake()
 {
-	cout << "Component Awake()" << endl;
+	//cout << "Component Awake()" << endl;
 }
 
 void Component::Start()
@@ -46,4 +47,12 @@ void Component::Start()
 void Component::Update()
 {
 	//cout << "BaseComponent " << _id << " Update()" << endl;
+}
+
+void Component::OnCollisionEnter(Collider* other)
+{
+}
+
+void Component::OnCollisionExit(Collider* other)
+{
 }

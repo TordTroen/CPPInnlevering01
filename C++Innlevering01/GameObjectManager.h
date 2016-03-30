@@ -1,6 +1,8 @@
 #pragma once
 #include "GameObject.h"
 
+class Vector2D;
+
 class GameObjectManager
 {
 public:
@@ -8,7 +10,7 @@ public:
 	void Update();
 	GameObject* CreateObject();
 	GameObject* CreateObject(std::string tag);
-	GameObject* CreateObject(std::vector<Component*> components);
+	GameObject* CreateObject(std::vector<Component*> components, std::string tag = NULL);
 private:
 	std::vector<GameObject*> _allGameObjects;
 
