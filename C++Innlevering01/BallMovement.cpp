@@ -4,9 +4,10 @@
 #include "Collider.h"
 #include <iostream>
 
-BallMovement::BallMovement()
+BallMovement::BallMovement(Vector2D startVector, float speed)
 {
-	movement = Vector2D(3.5, 1);
+	_speed = speed;
+	_movement = startVector;
 }
 
 BallMovement::~BallMovement()
@@ -15,18 +16,18 @@ BallMovement::~BallMovement()
 
 void BallMovement::Update()
 {
-	GetTransform()->Translate(movement);
+	GetTransform()->Translate(_movement * _speed);
 }
 
-void BallMovement::OnCollisionEnter(Collider * other)
+void BallMovement::OnCollisionEnter(const Collider * other)
 {
 	std::string tag = other->GetGameObject()->GetTag();
 	if (tag == "LeftWall" || tag == "RightWall")
 	{
-		movement.X *= -1;
+		_movement.X *= -1;
 	}
 	else if (tag == "TopWall" || tag == "BottomWall")
 	{
-		movement.Y *= -1;
+		_movement.Y *= -1;
 	}
 }

@@ -7,11 +7,12 @@ class BallMovement :
 	public Component
 {
 public:
-	BallMovement();
+	BallMovement(Vector2D startVector, float speed);
 	~BallMovement();
 	void Update() override;
-	void OnCollisionEnter(Collider* other) override;
+	void OnCollisionEnter(const Collider* other) override;
 private:
-	Vector2D movement;
+	Vector2D _movement;
+	float _speed;
 };
 

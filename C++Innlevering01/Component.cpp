@@ -49,10 +49,10 @@ void Component::Update()
 	//cout << "BaseComponent " << _id << " Update()" << endl;
 }
 
-void Component::OnCollisionEnter(Collider* other)
+void Component::OnCollisionEnter(const Collider* other)
 {
 }
 
-void Component::OnCollisionExit(Collider* other)
+void Component::OnCollisionExit(const Collider* other)
 {
 }

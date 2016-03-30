@@ -9,16 +9,16 @@ public:
 	Component();
 	virtual ~Component();
 	void Init(GameObject* gameObject);
-	virtual void Awake();
-	virtual void Start();
 	virtual void Update();
-	virtual void OnCollisionEnter(Collider* other);
-	virtual void OnCollisionExit(Collider* other);
+	virtual void OnCollisionEnter(const Collider* other);
+	virtual void OnCollisionExit(const Collider* other);
 	bool IsActive() const;
 	void SetActive(bool active);
 	Transform* GetTransform() const { return _transform; }
 	GameObject* GetGameObject() const { return _gameObject; }
 protected:
+	virtual void Awake();
+	virtual void Start();
 	bool _isActive;
 	Transform* _transform;
 	GameObject* _gameObject;

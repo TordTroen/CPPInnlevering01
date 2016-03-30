@@ -48,7 +48,7 @@ int main(int argc, char** argv)
 		BoxCollider* playerCol = dynamic_cast<BoxCollider*>(obj1->AddComponent(new BoxCollider()));
 		obj1->GetTransform()->SetRect(Rect(200, 200, 20, 20));
 		CollisionManager::AddPlayer(playerCol);
-		obj1->AddComponent(new BallMovement());
+		obj1->AddComponent(new BallMovement(Vector2D(2, 1), 1));
 
 		//GameObject* o = GameObjectManager::GetInstance().CreateObject();
 
