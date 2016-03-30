@@ -5,6 +5,7 @@ class GameManager
 public:
 	int GetWindowWidth() const { return _windowWidth; }
 	int GetWindowHeight() const { return _windowHeight; }
+	float GetCenterXPosition(float width) const;
 	float GetGravity() const { return _gravity; }
 private:
 	int _windowWidth = 700;

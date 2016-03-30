@@ -30,8 +30,9 @@ GUIButton::~GUIButton()
 void GUIButton::Awake()
 {
 	// Make sure the button is positioned at the correct position
-	_transform->SetPosition(Vector2D(backgroundItem->rect.x, backgroundItem->rect.y));
-	_transform->SetSize(Vector2D(backgroundItem->rect.w, backgroundItem->rect.h));
+	//GetTransform()->SetPosition(Vector2D(backgroundItem->rect.x, backgroundItem->rect.y));
+	//GetTransform()->SetSize(Vector2D(backgroundItem->rect.w, backgroundItem->rect.h));
+	GetTransform()->SetRect(backgroundItem->rect);
 }
 
 void GUIButton::OnSetActive()
@@ -89,7 +90,7 @@ void GUIButton::SetBackgroundColor()
 
 void GUIButton::Update()
 {
-	if (_transform->GetRect().Contains(InputManager::GetInstance().GetMousePosition()))
+	if (GetTransform()->GetRect().Contains(InputManager::GetInstance().GetMousePosition()))
 	{
 		if (InputManager::GetInstance().GetMouseDown(1))
 		{

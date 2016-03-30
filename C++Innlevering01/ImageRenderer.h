@@ -8,6 +8,7 @@ class ImageRenderer :
 {
 public:
 	ImageRenderer(std::string imageFilename);
+	ImageRenderer(std::string imageFilename, Color color);
 	~ImageRenderer();
 private:
 	GameObject* _gameObject;

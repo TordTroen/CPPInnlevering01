@@ -6,8 +6,6 @@
 class InputManager
 {
 public:
-	//InputManager();
-	//~InputManager();
 	void Init();
 	void Update();
 	bool GetKeyDown(int keyId) const { return CurKeyDown(keyId) && !OldKeyDown(keyId); }

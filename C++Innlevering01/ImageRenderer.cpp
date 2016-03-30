@@ -8,6 +8,12 @@ ImageRenderer::ImageRenderer(std::string imageFilename)
 	_image = SDLWrapper::GetInstance().CreateImage(imageFilename, Rect(0, 0, 0, 0));
 }
 
+ImageRenderer::ImageRenderer(std::string imageFilename, Color color)
+{
+	_image = SDLWrapper::GetInstance().CreateImage(imageFilename, Rect(0, 0, 0, 0), color);
+}
+
+
 ImageRenderer::~ImageRenderer()
 {
 }

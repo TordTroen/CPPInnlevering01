@@ -71,6 +71,11 @@ void Transform::SetRect(Rect rect)
 	SetSize(Vector2D(rect.w, rect.h));
 }
 
+Vector2D Transform::GetCenter() const
+{
+	return Vector2D(_position.X + _size.X / 2, _position.Y + _size.Y / 2);
+}
+
 Rect Transform::GetRect() const
 {
 	return Rect(_position.X, _position.Y, _size.X, _size.Y);

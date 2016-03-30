@@ -1,19 +1,15 @@
 #pragma once
 #include <vector>
-//#include "Collider.h"
 
 class Collider;
 
 class CollisionManager
 {
 public:
-	CollisionManager();
-	~CollisionManager();
 	static void Update();
-	static void AddCollider(Collider* collider);
-	static void AddPlayer(Collider* playerCol);
+	static void AddCollider(Collider* collider, bool isStaticCollider = true);
 private:
-	static std::vector<Collider*> _colliders;
-	static Collider* _player;
+	static std::vector<Collider*> _staticColliders;
+	static std::vector<Collider*> _dynamicColliders;
 };
 

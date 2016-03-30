@@ -165,6 +165,7 @@
     <ClInclude Include="PaddleMovement.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="SDLWrapper.h" />
+    <ClInclude Include="Tags.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Vector2D.h" />
@@ -190,6 +191,7 @@
     <ClCompile Include="PaddleMovement.cpp" />
     <ClCompile Include="Rect.cpp" />
     <ClCompile Include="SDLWrapper.cpp" />
+    <ClCompile Include="Tags.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Vector2D.cpp" />

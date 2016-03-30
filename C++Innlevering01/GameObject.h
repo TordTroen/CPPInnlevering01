@@ -30,6 +30,7 @@ public:
 	std::string GetTag() const { return _tag; }
 	bool CompareTag(std::string otherTag) const { return (_tag == otherTag); }
 	void SendCollisionEnter(Collider* other);
+	void SendCollisionExit(Collider* other);
 private:
 	std::string _tag;
 	std::vector<Component*> _components;

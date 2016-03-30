@@ -72,3 +72,10 @@ void GameObject::SendCollisionEnter(Collider * other)
 	}
 }
 
+void GameObject::SendCollisionExit(Collider * other)
+{
+	for (auto it : _components)
+	{
+		it->OnCollisionExit(other);
+	}
+}

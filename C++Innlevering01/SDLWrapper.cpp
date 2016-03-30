@@ -115,7 +115,7 @@ Drawable* SDLWrapper::CreateImage(std::string filename, Rect rect, Color color, 
 
 Drawable * SDLWrapper::CreateRect(Color color, Rect rect)
 {
-	Drawable* img = CreateImage("WhiteTexture.png", rect);
+	Drawable* img = CreateImage("WhiteTexture.png", rect, false);
 	img->SetColor(color);
 	return img;
 }

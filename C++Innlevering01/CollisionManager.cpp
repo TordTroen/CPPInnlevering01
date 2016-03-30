@@ -2,51 +2,35 @@
 #include "Collider.h"
 using namespace std;
 
-vector<Collider*> CollisionManager::_colliders;
-Collider* CollisionManager::_player;
-
-CollisionManager::CollisionManager()
-{
-}
-
-CollisionManager::~CollisionManager()
-{
-}
+vector<Collider*> CollisionManager::_staticColliders;
+vector<Collider*> CollisionManager::_dynamicColliders;
 
 void CollisionManager::Update()
 {
-	for (auto it : _colliders)
+	for (auto ita : _staticColliders)
 	{
-		if (it->Intersects(_player))
+		for (auto itb : _dynamicColliders)
 		{
-			if (!_player->isColliding)
-				_player->OnCollisionEnterEvent(it);
-		}
-		else
-		{
-			if (_player->isColliding)
-				_player->OnCollisionExitEvent(it);
+			if (ita->Intersects(itb) && !itb->IsColliding())
+			{
+				itb->OnCollisionEnterEvent(ita);
+			}
+			else if (itb->IsColliding())
+			{
+				itb->OnCollisionExitEvent(ita);
+			}
 		}
 	}
-	//for (auto colA : _colliders)
-	//{
-	//	for (auto colB : _colliders)
-	//	{
-	//		if (colA->Intersects(colB))
-	//		{
-	//			colA->OnCollision(colB);
-	//			colB->OnCollision(colA);
-	//		}
-	//	}
-	//}
 }
 
-void CollisionManager::AddCollider(Collider* collider)
+void CollisionManager::AddCollider(Collider* collider, bool isStaticCollider)
 {
-	_colliders.emplace_back(collider);
-}
-
-void CollisionManager::AddPlayer(Collider * playerCol)
-{
-	_player = playerCol;
+	if (isStaticCollider)
+	{
+		_staticColliders.emplace_back(collider);
+	}
+	else
+	{
+		_dynamicColliders.emplace_back(collider);
+	}
 }
