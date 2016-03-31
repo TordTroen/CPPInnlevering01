@@ -1,13 +1,14 @@
 #include "GUIMenu.h"
 #include "GameObjectManager.h"
 
-GUIMenu::GUIMenu(std::vector<GUIElement*> elements)
+GUIMenu::GUIMenu(bool activeState)
 {
-	for (auto it : elements)
-	{
-		// Create gameobject and add the GUIElement to it
-		GameObjectManager::GetInstance().CreateObject()->AddComponent(it);
-	}
+	SetActive(activeState);
+}
+
+GUIMenu::GUIMenu(std::vector<GUIElement*> elements, bool activeState)
+{
+	SetActive(activeState);
 	AddElements(elements);
 }
 
@@ -17,7 +18,9 @@ GUIMenu::~GUIMenu()
 
 void GUIMenu::AddElement(GUIElement* element)
 {
+	GameObjectManager::GetInstance().CreateObject()->AddComponent(element);
 	_elements.emplace_back(element);
+	element->SetActive(IsActive());
 }
 
 void GUIMenu::AddElements(std::vector<GUIElement*> elements)

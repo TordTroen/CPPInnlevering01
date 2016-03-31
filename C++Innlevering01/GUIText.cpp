@@ -11,6 +11,20 @@ GUIText::~GUIText()
 {
 }
 
+void GUIText::SetText(std::string text)
+{
+	Color color = textItem->GetColor();
+	if (textItem != NULL)
+	{
+		// TODO Destroy old textitem
+		//SDLWrapper::GetInstance().allDrawables.erase()
+		//delete textItem;
+		textItem->SetActive(false);
+	}
+	textItem = SDLWrapper::GetInstance().CreateText(text, color, textItem->rect);
+	textItem->SetActive(IsActive());
+}
+
 void GUIText::Awake()
 {
 	// Make sure the button is positioned at the correct position

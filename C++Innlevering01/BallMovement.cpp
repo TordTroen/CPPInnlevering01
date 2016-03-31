@@ -9,7 +9,7 @@
 BallMovement::BallMovement(Vector2D startVector, float speed)
 {
 	_speed = speed;
-	_movement = startVector;
+	_movement = startVector.Normalized();
 }
 
 BallMovement::~BallMovement()
@@ -28,8 +28,8 @@ void BallMovement::OnCollisionEnter(const Collider * other)
 	{
 		Vector2D paddle = other->GetTransform()->GetCenter();
 		Vector2D ball = GetTransform()->GetCenter();
-		SDLWrapper::GetInstance().CreateRect(Color(100, 100, 10), Rect(paddle.X - 5, paddle.Y - 5, 10, 10));
-		SDLWrapper::GetInstance().CreateRect(Color(0, 255, 10), Rect(ball.X - 5, ball.Y - 5, 10, 10));
+		//SDLWrapper::GetInstance().CreateRect(Color(100, 100, 10), Rect(paddle.X - 5, paddle.Y - 5, 10, 10));
+		//SDLWrapper::GetInstance().CreateRect(Color(0, 255, 10), Rect(ball.X - 5, ball.Y - 5, 10, 10));
 		
 		//Vector2D dif = (paddle - ball);
 		float dist = (paddle - ball).GetLength();
@@ -40,8 +40,11 @@ void BallMovement::OnCollisionEnter(const Collider * other)
 		}
 		_movement.X = dist;
 		if (_movement.Y > 0)
+		{
 			_movement.Y *= -1;
-		// TODO Normalize movement?
+		}
+		// TODO Make sure movement always has the same length
+		_movement = _movement.Normalized();
 	}
 	else if (tag == Tags::WallLeft || tag == Tags::WallRight)
 	{

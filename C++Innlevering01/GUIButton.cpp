@@ -5,22 +5,31 @@
 
 GUIButton::GUIButton(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, void(*CallbackFunction)(void), bool fitRectToText)
 {
-	activateMenu = NULL;
-	deactivateMenu = NULL;
+	//activateMenu = NULL;
+	//deactivateMenu = NULL;
 
-	Init(text, textColor, normalColor, downColor, hoverColor, rect, textPadding, fitRectToText);
+	Init(text, textColor, normalColor, downColor, hoverColor, rect, textPadding, NULL, NULL, CallbackFunction, fitRectToText);
 
 	// Assign the callback function
-	Callback = CallbackFunction;
+	//Callback = CallbackFunction;
 }
 
 GUIButton::GUIButton(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, GUIMenu* deactivateMenu, GUIMenu* activateMenu, bool fitRectToText)
 {
-	Init(text, textColor, normalColor, downColor, hoverColor, rect, textPadding, fitRectToText);
+	Init(text, textColor, normalColor, downColor, hoverColor, rect, textPadding, deactivateMenu, activateMenu, NULL, fitRectToText);
 
-	this->activateMenu = activateMenu;
-	this->deactivateMenu = deactivateMenu;
-	Callback = NULL;
+	//this->activateMenu = activateMenu;
+	//this->deactivateMenu = deactivateMenu;
+	//Callback = NULL;
+}
+
+GUIButton::GUIButton(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, GUIMenu * deactivateMenu, GUIMenu * activateMenu, void(*CallbackFunction)(void), bool fitRectToText)
+{
+	Init(text, textColor, normalColor, downColor, hoverColor, rect, textPadding, deactivateMenu, activateMenu, CallbackFunction, fitRectToText);
+
+	//this->activateMenu = activateMenu;
+	//this->deactivateMenu = deactivateMenu;
+	//Callback = Callback;
 }
 
 GUIButton::~GUIButton()
@@ -41,10 +50,11 @@ void GUIButton::OnSetActive()
 	textItem->SetActive(IsActive());
 }
 
-void GUIButton::Init(std::string text, Color textColor, Color normalColor, Color donwColor, Color hoverColor, Rect rect, int textPadding, bool fitRectToText)
+void GUIButton::Init(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, GUIMenu* deactivateMenu, GUIMenu* activateMenu, void(*CallbackFunction)(void), bool fitRectToText)
 {
-	activateMenu = NULL;
-	deactivateMenu = NULL;
+	this->activateMenu = activateMenu;
+	this->deactivateMenu = deactivateMenu;
+	Callback = CallbackFunction;
 	isOver = false;
 
 	// Store the colors for the different states
@@ -70,21 +80,17 @@ void GUIButton::Init(std::string text, Color textColor, Color normalColor, Color
 
 void GUIButton::SetBackgroundColor()
 {
-	//std::cout << "Clicked = " << clicked << std::endl;
 	if (downOver && isOver)
 	{
 		backgroundItem->SetColor(downColor);
-		//std::cout << " -> Setting BG Color to DOWN" << std::endl;
 	}
 	else if (isOver)
 	{
 		backgroundItem->SetColor(hoverColor);
-		//std::cout << " -> Setting BG Color to HOVER" << std::endl;
 	}
 	else if (!isOver)
 	{
 		backgroundItem->SetColor(normalColor);
-		//std::cout << " -> Setting BG Color to NORMAL" << std::endl;
 	}
 }
 
@@ -127,15 +133,11 @@ void GUIButton::Update()
 
 void GUIButton::OnClick()
 {
-	//std::cout << "OnClick" << std::endl;
 	if (Callback != NULL)
 	{
 		Callback();
 	}
-	else
-	{
-		ToggleMenus();
-	}
+	ToggleMenus();
 }
 
 void GUIButton::OnEnter()
@@ -149,7 +151,6 @@ void GUIButton::OnExit()
 {
 	isOver = false;
 	SetBackgroundColor();
-	//std::cout << "OnExit" << std::endl;
 }
 
 void GUIButton::ToggleMenus()
@@ -160,6 +161,6 @@ void GUIButton::ToggleMenus()
 	}
 	if (deactivateMenu != NULL)
 	{
-		deactivateMenu->SetActive(true);
+		deactivateMenu->SetActive(false);
 	}
 }

@@ -1,16 +1,18 @@
 #include "Drawable.h"
 #include "SDLWrapper.h"
 
-Drawable::Drawable(Rect rect, SDL_Texture* texture)
+Drawable::Drawable(Rect rect, SDL_Texture* texture, Color color)
 	: isActive(true)
 {
 	SetRect(rect);
 	SetTexture(texture);
+	_color = color;
 }
 
 
 Drawable::~Drawable()
 {
+	SDL_DestroyTexture(texture);
 }
 
 void Drawable::SetPosition(int x, int y)

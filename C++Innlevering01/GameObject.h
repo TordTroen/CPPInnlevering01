@@ -14,14 +14,14 @@ public:
 	void AddComponents(std::vector<Component*> components);
 	Transform* GetTransform() const;
 	template <class T>
-	inline T* GetComp()
+	inline T* GetComponent()
 	{
 		for (auto it : _components)
 		{
 			T* t = static_cast<T*>(it);
 			if (it != NULL)
 			{
-				return t;
+				return dynamic_cast<T*>(t);
 			}
 		}
 		return NULL;

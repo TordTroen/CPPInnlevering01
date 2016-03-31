@@ -44,6 +44,11 @@ void Component::Start()
 	//cout << "Component " << _id << " Start()" << endl;
 }
 
+void Component::OnSetActive()
+{
+	std::cout << "OnsetActive() in component" << std::endl;
+}
+
 void Component::Update()
 {
 	//cout << "BaseComponent " << _id << " Update()" << endl;

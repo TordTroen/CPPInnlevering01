@@ -9,6 +9,7 @@ class GUIText :
 public:
 	GUIText(std::string text, Color color, Rect rect);
 	~GUIText();
+	void SetText(std::string text);
 protected:
 	void Awake() override;
 	void OnSetActive() override;

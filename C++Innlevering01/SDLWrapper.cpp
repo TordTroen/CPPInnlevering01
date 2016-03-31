@@ -108,7 +108,7 @@ Drawable* SDLWrapper::CreateImage(std::string filename, Rect rect, Color color, 
 		rect.w = imageSurface->w;
 		rect.h = imageSurface->h;
 	}
-	Drawable* drawable = new Drawable(rect, texture);
+	Drawable* drawable = new Drawable(rect, texture, color);
 	allDrawables.emplace_back(drawable);
 	return drawable;
 }
@@ -148,7 +148,7 @@ Drawable* SDLWrapper::CreateText(std::string text, Color color, Rect rect, bool 
 		textSurface->w = rect.w;
 		textSurface->h = rect.h;
 	}
-	Drawable* drawable = new Drawable(rect, texture);
+	Drawable* drawable = new Drawable(rect, texture, color);
 	allDrawables.emplace_back(drawable);
 	return drawable;
 }
@@ -190,6 +190,11 @@ void SDLWrapper::DestroyImages()
 
 void SDLWrapper::RenderDrawable(Drawable* drawable) const
 {
+	if (drawable == NULL)
+	{
+		std::cout << "Trying to Render a drwable that is NULL (in SDLWrapper::RenderDrawable())" << std::endl;
+		return;
+	}
 	SDL_RenderCopy(GetSDL_Renderer(), drawable->GetTexture(), NULL, &drawable->rect.ToSDL_Rect());
 }
 

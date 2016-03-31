@@ -8,6 +8,7 @@ public:
 	Vector2D(float x, float y);
 	~Vector2D();
 	float GetLength() const;
+	Vector2D Normalized() const;
 	Vector2D operator+(const Vector2D & v) const;
 	Vector2D operator-(const Vector2D & v) const;
 	Vector2D operator*(const float & s) const;

@@ -158,6 +158,7 @@
     <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="GUIButton.h" />
     <ClInclude Include="GUIElement.h" />
+    <ClInclude Include="GUIManager.h" />
     <ClInclude Include="GUIMenu.h" />
     <ClInclude Include="GUIText.h" />
     <ClInclude Include="ImageRenderer.h" />
@@ -183,6 +184,7 @@
     <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="GUIButton.cpp" />
     <ClCompile Include="GUIElement.cpp" />
+    <ClCompile Include="GUIManager.cpp" />
     <ClCompile Include="GUIMenu.cpp" />
     <ClCompile Include="GUIText.cpp" />
     <ClCompile Include="ImageRenderer.cpp" />

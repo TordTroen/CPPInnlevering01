@@ -35,3 +35,15 @@ GameObject* GameObjectManager::CreateObject(std::vector<Component*> components, 
 	}
 	return obj;
 }
+
+GameObject * GameObjectManager::FindGameObjectByTag(std::string tag)
+{
+	for (auto it : _allGameObjects)
+	{
+		if (it->CompareTag(tag))
+		{
+			return it;
+		}
+	}
+	return nullptr;
+}

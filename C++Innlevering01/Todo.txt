@@ -1,6 +1,6 @@
 ### TODO
-- PoolManager
-- Maybe make a GameObject.Find method??
+- Destroying Drawables
+- Add text fontsize setting when creating a GUIText
 
 ### Collision
 - Find a better way to register collision on all gameobjects
@@ -11,3 +11,7 @@
 ### SDLWrapper
 - Make DrawImage function actually check if something went wrong
 - Implement Z-ordering of rendered elements
+
+### Ideas
+- PoolManager
+- Maybe make a GameObject.Find method??

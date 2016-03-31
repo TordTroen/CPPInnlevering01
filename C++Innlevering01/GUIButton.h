@@ -12,13 +12,14 @@ class GUIButton
 public:
 	GUIButton(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, void(*CallbackFunction)(void), bool fitRectToText = true);
 	GUIButton(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, GUIMenu* deactivateMenu, GUIMenu* activateMenu, bool fitRectToText = true);
+	GUIButton(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, GUIMenu* deactivateMenu, GUIMenu* activateMenu, void(*CallbackFunction)(void), bool fitRectToText = true);
 	~GUIButton();
 protected:
 	void Update() override;
 	void Awake() override;
 	void OnSetActive() override;
 private:
-	void Init(std::string text, Color textColor, Color normalColor, Color donwColor, Color hoverColor, Rect rect, int textPadding, bool fitRectToText);
+	void Init(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, GUIMenu* deactivateMenu, GUIMenu* activateMenu, void(*CallbackFunction)(void), bool fitRectToText);
 	void SetBackgroundColor();
 	Drawable* textItem;
 	Drawable* backgroundItem;
