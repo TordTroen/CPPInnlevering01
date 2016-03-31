@@ -5,6 +5,7 @@
 #include "Tags.h"
 #include "SDLWrapper.h"
 #include <iostream>
+#include "GameManager.h"
 
 BallMovement::BallMovement(Vector2D startVector, float speed)
 {
@@ -18,7 +19,10 @@ BallMovement::~BallMovement()
 
 void BallMovement::Update()
 {
-	GetTransform()->Translate(_movement * _speed);
+	if (GameManager::GetInstance().GetGameState() == InGame)
+	{
+		GetTransform()->Translate(_movement * _speed);
+	}
 }
 
 void BallMovement::OnCollisionEnter(const Collider * other)
