@@ -26,7 +26,7 @@ int main(int argc, char** argv)
 	GUIManager gui;
 	BoardManager board;
 	float paddleSpeed = 1;
-	float ballSpeed = 0.5;
+	float ballSpeed = 0.1;
 	int score = 0;
 	GameManager::GetInstance().SetGameState(MainMenu);
 
@@ -57,8 +57,8 @@ int main(int argc, char** argv)
 		GameObject* paddleObj = GameObjectManager::GetInstance().CreateObject(Tags::Paddle);
 		paddleObj->AddComponent(new ImageRenderer("WhiteTexture.png", Color(100, 100, 255)));
 		paddleObj->AddComponent(new BoxCollider());
-		Rect paddleStartPos = Rect(GameManager::GetInstance().GetCenterXPosition(200), GameManager::GetInstance().GetWindowHeight() - 100, 200, 50);
-		paddleObj->GetTransform()->SetRect(paddleStartPos);
+		Rect paddleStartRect = Rect(GameManager::GetInstance().GetCenterXPosition(200), GameManager::GetInstance().GetWindowHeight() - 100, 150, 15);
+		paddleObj->GetTransform()->SetRect(paddleStartRect);
 
 		// Make the walls
 		GameObject* leftWall = GameObjectManager::GetInstance().CreateObject({ new ImageRenderer("WhiteTexture.png"), new BoxCollider() } , Tags::WallLeft);

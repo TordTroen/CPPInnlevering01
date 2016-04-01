@@ -44,6 +44,11 @@ Vector2D Vector2D::operator*(const float & s) const
 	return Vector2D(X * s, Y * s);
 }
 
+float Vector2D::operator*(const Vector2D & v) const
+{
+	return (X * v.X + Y * v.Y);
+}
+
 bool Vector2D::operator==(const Vector2D & v) const
 {
 	return (X == v.X && Y == v.Y);

@@ -46,7 +46,6 @@ void Component::Start()
 
 void Component::OnSetActive()
 {
-	std::cout << "OnsetActive(" << _isActive << ") in component" << std::endl;
 }
 
 void Component::Update()

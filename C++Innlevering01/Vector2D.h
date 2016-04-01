@@ -12,6 +12,7 @@ public:
 	Vector2D operator+(const Vector2D & v) const;
 	Vector2D operator-(const Vector2D & v) const;
 	Vector2D operator*(const float & s) const;
+	float operator*(const Vector2D & v) const;
 	bool operator==(const Vector2D & v) const;
 	bool operator!=(const Vector2D & v) const;
 	float X;

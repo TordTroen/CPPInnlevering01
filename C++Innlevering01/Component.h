@@ -20,7 +20,7 @@ public:
 protected:
 	virtual void Awake();
 	virtual void Start();
-	virtual void OnSetActive();// { std::cout << "OnsetActive() in component" << std::endl; } // TODO Make abstract??
+	virtual void OnSetActive(); // TODO Make abstract??
 private:
 	bool _isActive;
 	Transform* _transform;
