@@ -18,6 +18,11 @@ ImageRenderer::~ImageRenderer()
 {
 }
 
+void ImageRenderer::OnSetActive()
+{
+	_image->SetActive(IsActive());
+}
+
 void ImageRenderer::Update()
 {
 	UpdateRect();

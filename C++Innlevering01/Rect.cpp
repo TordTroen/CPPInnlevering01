@@ -20,7 +20,28 @@ bool Rect::Contains(Vector2D point)
 
 bool Rect::Intersects(Rect rect)
 {
-	
+	//int flags = None;
+	//if (x + w < rect.x) // Is left
+	//{
+	//	flags |= Left;
+	//}
+	//if (x > rect.x + rect.w) // Is right
+	//{
+	//	flags |= Right;
+	//}
+	//if (y + h < rect.y) // Is over
+	//{
+	//	flags |= Top;
+	//}
+	//if (y > rect.y + rect.h) // Is under
+	//{
+	//	flags |= Bottom;
+	//}
+	//if (!(x + w < rect.x || x > rect.x + rect.w || y + h < rect.y || y > rect.y + rect.h))
+	//{
+	//	flags |= Inside;
+	//}
+	//return static_cast<IntersectFlag>(flags);
 	return !(x + w < rect.x || x > rect.x + rect.w || y + h < rect.y || y > rect.y + rect.h);
 }
 

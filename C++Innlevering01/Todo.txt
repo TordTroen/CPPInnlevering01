@@ -1,4 +1,5 @@
 ### TODO
+- Use smart pointers!
 - Destroying Drawables
 - Add text fontsize setting when creating a GUIText
 

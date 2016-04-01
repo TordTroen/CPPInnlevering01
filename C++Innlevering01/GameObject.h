@@ -31,8 +31,11 @@ public:
 	bool CompareTag(std::string otherTag) const { return (_tag == otherTag); }
 	void SendCollisionEnter(Collider* other);
 	void SendCollisionExit(Collider* other);
+	void SetActive(bool active);
+	bool IsActive() const { return _isActive; }
 private:
 	std::string _tag;
 	std::vector<Component*> _components;
 	Transform* _transform;
+	bool _isActive;
 };

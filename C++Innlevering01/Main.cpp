@@ -13,21 +13,18 @@
 #include "BallMovement.h"
 #include "Tags.h"
 #include "GUIManager.h"
+#include "LevelBrick.h"
+#include "BoardManager.h"
+#include "Level.h"
 
 using namespace std;
-
-GUIMenu* menu;
-void ClickTest()
-{
-	cout << "ClickTest()" << endl;
-	menu->SetActive(false);
-}
 
 int main(int argc, char** argv)
 {
 	InputManager::GetInstance().Init();
 	Time time;
 	GUIManager gui;
+	BoardManager board;
 	float paddleSpeed = 1;
 	float ballSpeed = 0.5;
 	int score = 0;
@@ -38,12 +35,16 @@ int main(int argc, char** argv)
 		GameManager::GetInstance().GetWindowHeight(), Color(200, 200, 200)) == 0)
 	{
 		gui.SetupMenus();
-		//GameObject* menuObj = GameObjectManager::GetInstance().CreateObject();
-		//menu = dynamic_cast<GUIMenu*>(menuObj->AddComponent(new GUIMenu({
-		//	new GUIText("Main menu", Color(0, 0, 0), Rect(10, 130, 100, 50)),
-		//	new GUIButton("Button with padding", Color(40, 40, 40), Color(50, 50, 200), Color(255, 255, 255), Color(50, 140, 255), Rect(10, 200, 100, 50), 10, ClickTest),
-		//	new GUIButton("Close", Color(40, 40, 40), Color(50, 50, 200), Color(255, 255, 255), Color(60, 200, 10), Rect(10, 250, 100, 50), 0, ClickTest)
-		//})));
+
+
+
+
+		// Level test
+		//GameObject* brick = GameObjectManager::GetInstance().CreateObject();
+		//brick->AddComponent(new LevelBrick(Vector2D(100, 100), Yellow, 1, false));
+		Level* level = new Level("01101101\n11110011\n01010101");
+		board.LoadLevel(level);
+
 
 		// Make the ball
 		GameObject* ballObj = GameObjectManager::GetInstance().CreateObject(Tags::Ball);
@@ -72,8 +73,9 @@ int main(int argc, char** argv)
 		rightWall->GetTransform()->SetRect(Rect(scw - inset, 0, wallDepth, sch));
 		topWall->GetTransform()->SetRect(Rect(0, inset - wallDepth, scw, wallDepth));
 		bottomWall->GetTransform()->SetRect(Rect(0, sch - inset, scw, wallDepth));
-		GameState gameState = MainMenu;
+
 		// Game loop
+		GameState gameState = MainMenu;
 		while (gameState != Exit)
 		{
 			gameState = GameManager::GetInstance().GetGameState();

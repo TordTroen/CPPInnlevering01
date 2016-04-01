@@ -147,6 +147,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BallMovement.h" />
+    <ClInclude Include="BoardManager.h" />
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionManager.h" />
@@ -163,6 +164,8 @@
     <ClInclude Include="GUIText.h" />
     <ClInclude Include="ImageRenderer.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="Level.h" />
+    <ClInclude Include="LevelBrick.h" />
     <ClInclude Include="PaddleMovement.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="SDLWrapper.h" />
@@ -173,6 +176,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BallMovement.cpp" />
+    <ClCompile Include="BoardManager.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
@@ -189,6 +193,8 @@
     <ClCompile Include="GUIText.cpp" />
     <ClCompile Include="ImageRenderer.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="Level.cpp" />
+    <ClCompile Include="LevelBrick.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="PaddleMovement.cpp" />
     <ClCompile Include="Rect.cpp" />

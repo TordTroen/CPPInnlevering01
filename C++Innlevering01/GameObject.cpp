@@ -79,3 +79,12 @@ void GameObject::SendCollisionExit(Collider * other)
 		it->OnCollisionExit(other);
 	}
 }
+
+void GameObject::SetActive(bool active)
+{
+	_isActive = active;
+	for (auto it : _components)
+	{
+		it->SetActive(active);
+	}
+}

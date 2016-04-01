@@ -10,6 +10,7 @@ public:
 	ImageRenderer(std::string imageFilename);
 	ImageRenderer(std::string imageFilename, Color color);
 	~ImageRenderer();
+	void OnSetActive() override;
 private:
 	GameObject* _gameObject;
 	Drawable* _image;
