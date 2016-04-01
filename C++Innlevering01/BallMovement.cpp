@@ -56,6 +56,7 @@ void BallMovement::OnCollisionEnter(const Collider * other)
 	else
 	{
 		// Third times the charm...
+		// "algorithm" borrowed from: http://gamedev.stackexchange.com/a/95848
 		Vector2D ball = GetTransform()->GetCenter();
 		Vector2D brick = other->GetTransform()->GetCenter();
 		float ax = ball.X;
@@ -68,17 +69,15 @@ void BallMovement::OnCollisionEnter(const Collider * other)
 		float dx = abs(ax - bx) - bw;
 		float dy = abs(ay - by) - bh;
 
-		if (dx > dy)
+		// TODO Can add some extra to _movement if one of the components are 0 to prevent sticking to wall??
+		if (dx > dy) // Hit something on the left/right
 		{
-			std::cout << "l/r hit" << std::endl;
 			_movement.X *= -1;
 		}
-		else
+		else // Hit something on the top/bottom
 		{
-			std::cout << "t/b hit" << std::endl;
 			_movement.Y *= -1;
 		}
-		// TODO Can add some extra to _movement if one of the components are 0 to prevent sticking to wall??
 
 		//Vector2D dif = (GetTransform()->_position - other->GetTransform()->_position);
 		//dif = dif.Normalized();

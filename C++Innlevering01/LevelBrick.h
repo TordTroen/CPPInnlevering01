@@ -5,6 +5,7 @@
 
 enum BrickType
 {
+	Empty,
 	Yellow,
 	Orange,
 	Red,

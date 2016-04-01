@@ -20,9 +20,7 @@ void Level::LoadBricks()
 
 	for (char& c : _levelText)
 	{
-		BrickType brickType = Yellow;
-		int brickHealth = 1;
-
+		BrickType brickType = static_cast<BrickType>(c - '0');
 		if (c == '\n')
 		{
 			curPos.Y += LevelBrick::BrickHeight;
@@ -30,8 +28,12 @@ void Level::LoadBricks()
 		}
 		else
 		{
-			GameObject* brick = GameObjectManager::GetInstance().CreateObject();
-			brick->AddComponent(new LevelBrick(curPos, brickType, brickHealth, false));
+			if (brickType != Empty)
+			{
+				int brickHealth = static_cast<int>(brickType);
+				GameObject* brick = GameObjectManager::GetInstance().CreateObject();
+				brick->AddComponent(new LevelBrick(curPos, brickType, brickHealth, false));
+			}
 			curPos.X += LevelBrick::BrickWidth;
 		}
 	}

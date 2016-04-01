@@ -26,7 +26,7 @@ int main(int argc, char** argv)
 	GUIManager gui;
 	BoardManager board;
 	float paddleSpeed = 1;
-	float ballSpeed = 0.1;
+	float ballSpeed = 0.25;
 	int score = 0;
 	GameManager::GetInstance().SetGameState(MainMenu);
 
@@ -42,7 +42,7 @@ int main(int argc, char** argv)
 		// Level test
 		//GameObject* brick = GameObjectManager::GetInstance().CreateObject();
 		//brick->AddComponent(new LevelBrick(Vector2D(100, 100), Yellow, 1, false));
-		Level* level = new Level("01101101\n11110011\n01010101");
+		Level* level = new Level("01100110\n01231230\n21211212");
 		board.LoadLevel(level);
 
 

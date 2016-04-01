@@ -31,6 +31,20 @@ void LevelBrick::Awake()
 	GetTransform()->SetSize(Vector2D(BrickWidth, BrickHeight));
 	
 	Color color = Color(200, 100, 100); // TODO Change color based on brick type?
+	switch (_brickType)
+	{
+	case Yellow:
+		color = Color(255, 255, 40);
+		break;
+	case Orange:
+		color = Color(255, 150, 150);
+		break;
+	case Red:
+		color = Color(255, 100, 100);
+		break;
+	default:
+		break;
+	}
 	GetGameObject()->AddComponent(new ImageRenderer("WhiteTexture.png", color));
 	GetGameObject()->AddComponent(new BoxCollider());
 }
