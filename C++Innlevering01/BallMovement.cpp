@@ -28,7 +28,7 @@ void BallMovement::Update()
 void BallMovement::OnCollisionEnter(const Collider * other)
 {
 	std::string tag = other->GetGameObject()->GetTag();
-	if (tag == Tags::Paddle && _movement.Y)
+	if (tag == Tags::Paddle)
 	{
 		Vector2D paddle = other->GetTransform()->GetCenter();
 		Vector2D ball = GetTransform()->GetCenter();
