@@ -21,7 +21,7 @@
 
 using namespace std;
 
-int main(int argc, char** argv)
+int main(void)
 {
 	InputManager::GetInstance().Init();			// Keeps track of keyboard and mouse input
 	Time time;									// Keeps track of ellapsed time between frames
