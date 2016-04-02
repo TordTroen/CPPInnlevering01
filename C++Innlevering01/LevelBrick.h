@@ -9,6 +9,7 @@ enum BrickType
 	Yellow,
 	Orange,
 	Red,
+	Powerup,
 	Indestructible
 };
 

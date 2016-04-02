@@ -16,6 +16,7 @@
 #include "LevelBrick.h"
 #include "BoardManager.h"
 #include "Level.h"
+#include "PaddleMovement.h"
 
 using namespace std;
 
@@ -25,26 +26,22 @@ int main(int argc, char** argv)
 	Time time;
 	GUIManager gui;
 	BoardManager board;
-	float paddleSpeed = 1;
+	float paddleSpeed = 1000;
 	float ballSpeed = 0.25;
 	int score = 0;
 	GameManager::GetInstance().SetGameState(MainMenu);
 
 	// Initialize stuff that gameobject, gameloop, etc are dependant on
 	if (SDLWrapper::GetInstance().InitializeWindow("Breakout", GameManager::GetInstance().GetWindowWidth(),
-		GameManager::GetInstance().GetWindowHeight(), Color(200, 200, 200)) == 0)
+		GameManager::GetInstance().GetWindowHeight(), Color(0, 200, 200)) == 0)
 	{
-		gui.SetupMenus();
-
-
-
-
 		// Level test
 		//GameObject* brick = GameObjectManager::GetInstance().CreateObject();
 		//brick->AddComponent(new LevelBrick(Vector2D(100, 100), Yellow, 1, false));
-		Level* level = new Level("01100110\n01231230\n21211212");
+		Level* level = new Level("3333333333\n2222222222\n1111111111");
 		board.LoadLevel(level);
 
+		gui.SetupMenus();
 
 		// Make the ball
 		GameObject* ballObj = GameObjectManager::GetInstance().CreateObject(Tags::Ball);
@@ -59,6 +56,7 @@ int main(int argc, char** argv)
 		paddleObj->AddComponent(new BoxCollider());
 		Rect paddleStartRect = Rect(GameManager::GetInstance().GetCenterXPosition(200), GameManager::GetInstance().GetWindowHeight() - 100, 150, 15);
 		paddleObj->GetTransform()->SetRect(paddleStartRect);
+		paddleObj->AddComponents({ new PaddleMovement(), new BoxCollider() });
 
 		// Make the walls
 		GameObject* leftWall = GameObjectManager::GetInstance().CreateObject({ new ImageRenderer("WhiteTexture.png"), new BoxCollider() } , Tags::WallLeft);
@@ -103,8 +101,8 @@ int main(int argc, char** argv)
 				}
 				// DEBUG
 
-				Vector2D velocity = Vector2D(InputManager::GetInstance().GetAxis(SDL_SCANCODE_RIGHT, SDL_SCANCODE_LEFT), InputManager::GetInstance().GetAxis(SDL_SCANCODE_DOWN, SDL_SCANCODE_UP));
-				paddleObj->GetTransform()->Translate(velocity * paddleSpeed, true);
+				//Vector2D velocity = Vector2D(InputManager::GetInstance().GetAxis(SDL_SCANCODE_RIGHT, SDL_SCANCODE_LEFT), InputManager::GetInstance().GetAxis(SDL_SCANCODE_DOWN, SDL_SCANCODE_UP));
+				//paddleObj->GetTransform()->Translate(velocity * paddleSpeed * time.DeltaTime(), true);
 			}
 			
 			//// Render ////

@@ -3,6 +3,7 @@
 enum GameState
 {
 	MainMenu,
+	Paused,
 	InGame,
 	Exit
 };

@@ -9,7 +9,7 @@ GUIButton::GUIButton(std::string text, Color textColor, Color normalColor, Color
 	//deactivateMenu = NULL;
 
 	Init(text, textColor, normalColor, downColor, hoverColor, rect, textPadding, NULL, NULL, CallbackFunction, fitRectToText);
-
+	
 	// Assign the callback function
 	//Callback = CallbackFunction;
 }

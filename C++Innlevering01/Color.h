@@ -1,5 +1,10 @@
 #pragma once
 #include "SDL.h"
+enum Colors
+{
+	Red,
+	Yellow
+};
 class Color
 {
 public:
@@ -11,6 +16,19 @@ public:
 	int GetG() const;
 	int GetB() const;
 	int GetA() const;
+	// TODO Implement better
+	Color GetColor(Colors color)
+	{
+		switch (color)
+		{
+		case Red:
+			return Color(255, 0, 0);
+		case Yellow:
+			return Color(200, 200, 0);
+		default:
+			break;
+		}
+	}
 	SDL_Color ToSDL_Color() const;
 private:
 	void Set(int r, int g, int b);

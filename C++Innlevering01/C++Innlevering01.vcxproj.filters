@@ -57,9 +57,6 @@
     <ClInclude Include="ImageRenderer.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="PaddleMovement.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="Transform.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
@@ -108,6 +105,9 @@
     <ClInclude Include="LevelBrick.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PaddleMovement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InputManager.cpp">
@@ -141,9 +141,6 @@
       <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="ImageRenderer.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="PaddleMovement.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="Transform.cpp">
@@ -192,6 +189,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LevelBrick.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PaddleMovement.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
