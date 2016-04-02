@@ -11,7 +11,7 @@ public:
 	void SetupMenus();
 	void UpdateScoreText(int score);
 private:
-	//void OnPlay();
+	void Test();
 	void Awake() override;
 	GUIText* _scoreText;
 	PlayerController* _playerController;

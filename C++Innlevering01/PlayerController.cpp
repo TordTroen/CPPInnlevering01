@@ -4,6 +4,7 @@
 #include "Tags.h"
 
 PlayerController::PlayerController()
+	: _ballMovement(NULL)
 {
 	Reset();
 }
@@ -23,12 +24,14 @@ void PlayerController::Reset()
 
 void PlayerController::Stop()
 {
-	GetGameObject()->SetActive(true);
-	_ballMovement->GetGameObject()->SetActive(true);
+	std::cout << "Stop()" << std::endl;
+	GetGameObject()->SetActive(false);
+	_ballMovement->GetGameObject()->SetActive(false);
 }
 
 void PlayerController::Start()
 {
+	std::cout << "Start()" << std::endl;
 	GetGameObject()->SetActive(true);
 	_ballMovement->GetGameObject()->SetActive(true);
 	Reset();
@@ -47,5 +50,6 @@ void PlayerController::LoseLife()
 void PlayerController::Awake()
 {
 	GameObject* ball = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Ball);
-	_ballMovement = ball->GetComponent<BallMovement>();
+	BallMovement* bm = ball->GetComponent<BallMovement>();
+	_ballMovement = bm;
 }

@@ -20,6 +20,7 @@ ImageRenderer::~ImageRenderer()
 
 void ImageRenderer::OnSetActive()
 {
+	std::cout << "OnSetrendereractive: " << IsActive() << std::endl;
 	_image->SetActive(IsActive());
 }
 

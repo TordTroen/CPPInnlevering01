@@ -19,9 +19,24 @@ public:
 		for (auto it : _components)
 		{
 			T* t = static_cast<T*>(it);
-			if (it != NULL)
+			if (t != NULL)
 			{
-				return dynamic_cast<T*>(t);
+				return dynamic_cast<T*>(it);
+				//return t;
+			}
+		}
+		return NULL;
+	}
+	template <class T>
+	inline T* GetComp()
+	{
+		for (auto it : _components)
+		{
+			T* t = static_cast<T*>(it);
+			if (t != NULL)
+			{
+				return dynamic_cast<T*>(it);
+				//return it;
 			}
 		}
 		return NULL;

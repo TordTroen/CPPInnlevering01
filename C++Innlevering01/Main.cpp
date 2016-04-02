@@ -30,7 +30,6 @@ int main(int argc, char** argv)
 	float paddleSpeed = 1000;
 	float ballSpeed = 0.25;
 	int score = 0;
-	GameManager::GetInstance().SetGameState(MainMenu);
 
 	// Initialize stuff that gameobject, gameloop, etc are dependant on
 	if (SDLWrapper::GetInstance().InitializeWindow("Breakout", GameManager::GetInstance().GetWindowWidth(),
@@ -58,8 +57,10 @@ int main(int argc, char** argv)
 		Rect paddleStartRect = Rect(GameManager::GetInstance().GetCenterXPosition(200), GameManager::GetInstance().GetWindowHeight() - 100, 150, 15);
 		paddleObj->GetTransform()->SetRect(paddleStartRect);
 		paddleObj->AddComponent(new PaddleMovement());
-		PlayerController* playerController = dynamic_cast<PlayerController*>(paddleObj->AddComponent(new PlayerController()));
-		playerController->Stop();
+		paddleObj->AddComponent(paddleObj->AddComponent(new PlayerController()));
+		PlayerController* playerController = paddleObj->GetComp<PlayerController>();
+		GameManager::GetInstance().SetPlayerController(playerController);
+		//playerController->Stop();
 
 		// Make the walls
 		GameObject* leftWall = GameObjectManager::GetInstance().CreateObject({ new ImageRenderer("WhiteTexture.png"), new BoxCollider() } , Tags::WallLeft);
@@ -76,12 +77,12 @@ int main(int argc, char** argv)
 		bottomWall->GetTransform()->SetRect(Rect(0, sch - inset, scw, wallDepth));
 
 		// Game loop
-		GameState gameState = MainMenu;
+		GameManager::GetInstance().SetGameState(MainMenu);
+		GameState gameState = GameManager::GetInstance().GetGameState();
 		while (gameState != Exit)
 		{
-			gameState = GameManager::GetInstance().GetGameState();
-
 			//// Update everything that needs to be updated every frame ////
+			gameState = GameManager::GetInstance().GetGameState();
 			GameObjectManager::GetInstance().Update();
 			InputManager::GetInstance().Update();
 			time.Update();
