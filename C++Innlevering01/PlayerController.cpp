@@ -25,15 +25,15 @@ void PlayerController::Reset()
 void PlayerController::Stop()
 {
 	std::cout << "Stop()" << std::endl;
-	GetGameObject()->SetActive(false);
-	_ballMovement->GetGameObject()->SetActive(false);
+	//GetGameObject()->SetActive(false);
+	//_ballMovement->GetGameObject()->SetActive(false);
 }
 
 void PlayerController::Start()
 {
 	std::cout << "Start()" << std::endl;
-	GetGameObject()->SetActive(true);
-	_ballMovement->GetGameObject()->SetActive(true);
+	//GetGameObject()->SetActive(true);
+	//_ballMovement->GetGameObject()->SetActive(true);
 	Reset();
 }
 

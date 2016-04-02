@@ -24,7 +24,7 @@ void GameManager::OnGameStateChanged()
 		//_playerController = playerObj->GetComponent<PlayerController>();
 		//paddleObj = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle);
 		//pc = paddleObj->GetComponent<PlayerController>();
-		playerController->Start();
+		//playerController->Start();
 		break;
 	case Exit:
 		break;
