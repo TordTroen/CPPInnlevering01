@@ -20,7 +20,7 @@ void Component::Init(GameObject * gameObject)
 	_gameObject = gameObject;
 	_transform = _gameObject->GetTransform();
 	Awake();
-	Start();
+//	Start();
 }
 
 bool Component::IsActive() const
@@ -39,10 +39,10 @@ void Component::Awake()
 	//cout << "Component Awake()" << endl;
 }
 
-void Component::Start()
-{
-	//cout << "Component " << _id << " Start()" << endl;
-}
+//void Component::Start()
+//{
+//	//cout << "Component " << _id << " Start()" << endl;
+//}
 
 void Component::OnSetActive()
 {

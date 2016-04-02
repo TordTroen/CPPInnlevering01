@@ -167,6 +167,7 @@
     <ClInclude Include="Level.h" />
     <ClInclude Include="LevelBrick.h" />
     <ClInclude Include="PaddleMovement.h" />
+    <ClInclude Include="PlayerController.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="SDLWrapper.h" />
     <ClInclude Include="Tags.h" />
@@ -197,6 +198,7 @@
     <ClCompile Include="LevelBrick.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="PaddleMovement.cpp" />
+    <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="Rect.cpp" />
     <ClCompile Include="SDLWrapper.cpp" />
     <ClCompile Include="Tags.cpp" />

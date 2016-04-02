@@ -2,8 +2,8 @@
 #include "SDL.h"
 enum Colors
 {
-	Red,
-	Yellow
+	ColorRed,
+	ColorYellow
 };
 class Color
 {
@@ -21,9 +21,9 @@ public:
 	{
 		switch (color)
 		{
-		case Red:
+		case ColorRed:
 			return Color(255, 0, 0);
-		case Yellow:
+		case ColorYellow:
 			return Color(200, 200, 0);
 		default:
 			break;

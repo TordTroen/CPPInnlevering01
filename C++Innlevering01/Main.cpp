@@ -17,6 +17,7 @@
 #include "BoardManager.h"
 #include "Level.h"
 #include "PaddleMovement.h"
+#include "PlayerController.h"
 
 using namespace std;
 
@@ -38,7 +39,7 @@ int main(int argc, char** argv)
 		// Level test
 		//GameObject* brick = GameObjectManager::GetInstance().CreateObject();
 		//brick->AddComponent(new LevelBrick(Vector2D(100, 100), Yellow, 1, false));
-		Level* level = new Level("3333333333\n2222222222\n1111111111");
+		Level* level = new Level("3333333333\n2222222222\n1111111111", 90);
 		board.LoadLevel(level);
 
 		gui.SetupMenus();
@@ -56,7 +57,9 @@ int main(int argc, char** argv)
 		paddleObj->AddComponent(new BoxCollider());
 		Rect paddleStartRect = Rect(GameManager::GetInstance().GetCenterXPosition(200), GameManager::GetInstance().GetWindowHeight() - 100, 150, 15);
 		paddleObj->GetTransform()->SetRect(paddleStartRect);
-		paddleObj->AddComponents({ new PaddleMovement(), new BoxCollider() });
+		paddleObj->AddComponent(new PaddleMovement());
+		PlayerController* playerController = dynamic_cast<PlayerController*>(paddleObj->AddComponent(new PlayerController()));
+		playerController->Stop();
 
 		// Make the walls
 		GameObject* leftWall = GameObjectManager::GetInstance().CreateObject({ new ImageRenderer("WhiteTexture.png"), new BoxCollider() } , Tags::WallLeft);
@@ -96,8 +99,8 @@ int main(int argc, char** argv)
 				if (InputManager::GetInstance().GetMouseDown(1))
 				{
 					cout << "-" << endl;
-					score++;
-					gui.UpdateScoreText(score);
+					playerController->ChangeScore(1);
+					gui.UpdateScoreText(playerController->GetScore());
 				}
 				// DEBUG
 

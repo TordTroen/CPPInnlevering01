@@ -5,6 +5,7 @@
 #include "GUIButton.h"
 #include <sstream>
 #include "GameManager.h"
+#include "Tags.h"
 
 void OnExit()
 {
@@ -61,4 +62,10 @@ void GUIManager::UpdateScoreText(int score)
 	std::ostringstream oss;
 	oss << "Score: " << score;
 	_scoreText->SetText(oss.str());
+}
+
+void GUIManager::Awake()
+{
+	GameObject* playerObj = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle);
+	_playerController = playerObj->GetComponent<PlayerController>();
 }

@@ -2,15 +2,17 @@
 #include "Component.h"
 #include "Collider.h"
 #include "Vector2D.h"
+class ImageRenderer;
+class Color;
 
 enum BrickType
 {
-	Empty,
-	Yellow,
-	Orange,
-	Red,
-	Powerup,
-	Indestructible
+	BrickEmpty = 0,
+	BrickNormal = 1, // 2, 3
+	BrickGreen = 4,
+	BrickBlue = 5,
+	BrickPowerup = 6,
+	BrickIndestructible = 7
 };
 
 class LevelBrick
@@ -24,6 +26,8 @@ public:
 	static const float BrickWidth;
 	static const float BrickHeight;
 private:
+	Color GetColorBasedOnHealth();
+	ImageRenderer* _imageRenderer;
 	void TakeDamage();
 	Vector2D _brickPos;
 	BrickType _brickType;

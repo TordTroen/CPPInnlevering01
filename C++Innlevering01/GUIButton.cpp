@@ -135,6 +135,7 @@ void GUIButton::OnClick()
 {
 	if (Callback != NULL)
 	{
+		//_gui->cbf();
 		Callback();
 	}
 	ToggleMenus();

@@ -4,6 +4,7 @@
 #include "Tags.h"
 #include "Transform.h"
 #include "BoxCollider.h"
+#include "ImageRenderer.h"
 
 const float LevelBrick::BrickWidth = 50;
 const float LevelBrick::BrickHeight = 30;
@@ -30,23 +31,36 @@ void LevelBrick::Awake()
 	GetTransform()->SetPosition(_brickPos);
 	GetTransform()->SetSize(Vector2D(BrickWidth, BrickHeight));
 	
-	Color color = Color(200, 100, 100); // TODO Change color based on brick type?
-	switch (_brickType)
-	{
-	case Yellow:
-		color = Color(255, 255, 40);
-		break;
-	case Orange:
-		color = Color(255, 150, 150);
-		break;
-	case Red:
-		color = Color(255, 100, 100);
-		break;
-	default:
-		break;
-	}
-	GetGameObject()->AddComponent(new ImageRenderer("WhiteTexture.png", color));
+	Color color = GetColorBasedOnHealth();
+	
+	_imageRenderer = dynamic_cast<ImageRenderer*>(GetGameObject()->AddComponent(new ImageRenderer("WhiteTexture.png", color)));
 	GetGameObject()->AddComponent(new BoxCollider());
+}
+
+Color LevelBrick::GetColorBasedOnHealth()
+{
+	switch (_health)
+	{
+	case 1:
+		if (_brickType == BrickNormal)
+		{
+			return Color(255, 255, 40);
+		}
+		else if (_brickType == BrickGreen)
+		{
+			return Color(40, 255, 40);
+		}
+		else if (_brickType == BrickBlue)
+		{
+			return Color(40, 40, 255);
+		}
+	case 2:
+		return Color(255, 150, 150);
+	case 3:
+		return Color(255, 100, 100);
+	default:
+		return Color(255, 255, 255);
+	}
 }
 
 void LevelBrick::TakeDamage()
@@ -57,4 +71,5 @@ void LevelBrick::TakeDamage()
 		GetGameObject()->SetActive(false);
 		// TODO Award player
 	}
+	_imageRenderer->GetImageDrawable()->SetColor(GetColorBasedOnHealth());
 }

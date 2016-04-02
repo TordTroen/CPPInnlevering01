@@ -19,7 +19,7 @@ public:
 	GameObject* GetGameObject() const { return _gameObject; }
 protected:
 	virtual void Awake();
-	virtual void Start();
+	//virtual void Start();
 	virtual void OnSetActive(); // TODO Make abstract??
 private:
 	bool _isActive;
