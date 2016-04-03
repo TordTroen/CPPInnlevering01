@@ -210,6 +210,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\..\..\Desktop\brick-wall-2.jpg" />
+    <Image Include="..\..\..\..\Desktop\brick-wall.jpg" />
+    <Image Include="..\..\..\..\Desktop\heaven.jpg" />
+    <Image Include="..\..\..\..\Desktop\wonderland.jpg" />
     <Image Include="Person.png" />
     <Image Include="WhiteTexture.png" />
   </ItemGroup>

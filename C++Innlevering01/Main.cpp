@@ -38,6 +38,11 @@ int main(int argc, char** argv)
 		GameManager::GetInstance().GetWindowHeight(), Color(0, 200, 200)) == 0)
 	{
 
+
+		Rect rect = Rect(0, 0, GameManager::GetInstance().GetWindowWidth(), GameManager::GetInstance().GetWindowHeight());
+		SDLWrapper::GetInstance().CreateImage("heaven.jpg", rect, true);
+
+
 		// Holds start position, number of bricks and name of level.
 		// Parameter holds 1 digit for each brick - each number has different coloring, 1: blue, 2: black
 		Level* level = new Level("3333333333\n2222222222\n1111111111", 90); 
