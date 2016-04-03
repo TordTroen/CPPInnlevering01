@@ -74,13 +74,13 @@ int SDLWrapper::InitializeWindow(std::string windowName, int screenWidth, int sc
 	return retStatus;
 }
 
-Drawable * SDLWrapper::CreateImage(std::string filename, Rect rect, bool originalSize)
+std::shared_ptr<Drawable> SDLWrapper::CreateImage(std::string filename, Rect rect, bool originalSize)
 {
 	return CreateImage(filename, rect, Color(), originalSize);
 }
 
 // TODO Actually use status variable to check for fails before trying to us the objects
-Drawable* SDLWrapper::CreateImage(std::string filename, Rect rect, Color color, bool originalSize)
+std::shared_ptr<Drawable> SDLWrapper::CreateImage(std::string filename, Rect rect, Color color, bool originalSize)
 {
 	SDL_Surface* imageSurface = IMG_Load(filename.c_str());
 	int status = 0;
@@ -108,19 +108,19 @@ Drawable* SDLWrapper::CreateImage(std::string filename, Rect rect, Color color, 
 		rect.w = imageSurface->w;
 		rect.h = imageSurface->h;
 	}
-	Drawable* drawable = new Drawable(rect, texture, color);
+	std::shared_ptr<Drawable> drawable(new Drawable(rect, texture, color));
 	allDrawables.emplace_back(drawable);
 	return drawable;
 }
 
-Drawable * SDLWrapper::CreateRect(Color color, Rect rect)
+std::shared_ptr<Drawable> SDLWrapper::CreateRect(Color color, Rect rect)
 {
-	Drawable* img = CreateImage("WhiteTexture.png", rect, false);
+	std::shared_ptr<Drawable> img = CreateImage("WhiteTexture.png", rect, false);
 	img->SetColor(color);
 	return img;
 }
 
-Drawable* SDLWrapper::CreateText(std::string text, Color color, Rect rect, bool originalSize)
+std::shared_ptr<Drawable> SDLWrapper::CreateText(std::string text, Color color, Rect rect, bool originalSize)
 {
 	SDL_Surface* textSurface = TTF_RenderText_Solid(font, text.c_str(), color.ToSDL_Color());
 	SDL_Texture* texture = NULL;
@@ -148,7 +148,7 @@ Drawable* SDLWrapper::CreateText(std::string text, Color color, Rect rect, bool 
 		textSurface->w = rect.w;
 		textSurface->h = rect.h;
 	}
-	Drawable* drawable = new Drawable(rect, texture, color);
+	std::shared_ptr<Drawable> drawable(new Drawable(rect, texture, color));
 	allDrawables.emplace_back(drawable);
 	return drawable;
 }
@@ -184,11 +184,11 @@ void SDLWrapper::DestroyImages()
 	{
 		// TODO possibly make Image a class with its own destructor that destroys the texture(the destructor is called when the vector is destroyed)
 		SDL_DestroyTexture(i->GetTexture());
-		delete i;
+		//delete i;
 	}
 }
 
-void SDLWrapper::RenderDrawable(Drawable* drawable) const
+void SDLWrapper::RenderDrawable(std::shared_ptr<Drawable> drawable) const
 {
 	if (drawable == NULL)
 	{

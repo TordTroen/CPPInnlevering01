@@ -8,26 +8,44 @@ class GUIMenu :
 {
 public:
 	GUIMenu(bool activeState = true);
-	GUIMenu(std::vector<GUIElement*> elements, bool activeState = true);
+	GUIMenu(std::vector<std::shared_ptr<GUIElement>> elements, bool activeState = true);
 	~GUIMenu();
-	void AddElement(GUIElement* element);
-	void AddElements(std::vector<GUIElement*> elements);
+	void AddElement(std::shared_ptr<GUIElement> element);
+	void AddElements(std::vector<std::shared_ptr<GUIElement>> elements);
 	template <class T>
-	inline T* GetElement()
+	inline std::shared_ptr<T> GetElement()
 	{
 		for (auto it : _elements)
 		{
-			T* t = static_cast<T*>(it);
-			if (it != NULL)
+			//T* t = static_cast<T*>(it);
+			//if (t != NULL)
+			if (typeid(*it) == typeid(T))
 			{
-				return dynamic_cast<T*>(t);
+				//std::cout << "same type" << std::endl;
+				//return it;
+				return dynamic_pointer_cast<T>(it);
+				//return t;
+				//return it;
 			}
 		}
 		return NULL;
 	}
+	//template <class T>
+	//inline std::shared_ptr<T> GetElement()
+	//{
+	//	for (auto it : _elements)
+	//	{
+	//		T* t = static_cast<T*>(it);
+	//		if (it != NULL)
+	//		{
+	//			return dynamic_cast<T*>(t);
+	//		}
+	//	}
+	//	return NULL;
+	//}
 protected:
 	void OnSetActive() override;
 private:
-	std::vector<GUIElement*> _elements;
+	std::vector<std::shared_ptr<GUIElement>> _elements;
 };
 

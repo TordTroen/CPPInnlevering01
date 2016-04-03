@@ -14,13 +14,13 @@ Collider::~Collider()
 {
 }
 
-void Collider::OnCollisionEnterEvent(Collider* other)
+void Collider::OnCollisionEnterEvent(std::shared_ptr<Collider> other)
 {
 	SetIsColliding(true);
 	GetGameObject()->SendCollisionEnter(other);
 }
 
-void Collider::OnCollisionExitEvent(Collider* other)
+void Collider::OnCollisionExitEvent(std::shared_ptr<Collider> other)
 {
 	SetIsColliding(false);
 }
@@ -33,6 +33,6 @@ void Collider::OnCollisionExitEvent(Collider* other)
 void Collider::Awake()
 {
 	// TODO Find a better way to do the collision
-	CollisionManager::AddCollider(this, _isStaticCollider);
+	CollisionManager::AddCollider(std::shared_ptr<Collider>(this), _isStaticCollider);
 }
 

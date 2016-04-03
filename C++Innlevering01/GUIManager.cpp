@@ -32,28 +32,29 @@ GUIManager::~GUIManager()
 
 void GUIManager::SetupMenus()
 {
-	GameObject* mainMenuObj = GameObjectManager::GetInstance().CreateObject();
-	GameObject* hudMenuObj = GameObjectManager::GetInstance().CreateObject();
-	GameObject* endMenuObj = GameObjectManager::GetInstance().CreateObject();
-	GUIMenu* mainMenu = dynamic_cast<GUIMenu*>(mainMenuObj->AddComponent(new GUIMenu()));
-	GUIMenu* hudMenu = dynamic_cast<GUIMenu*>(hudMenuObj->AddComponent(new GUIMenu(false)));
-	GUIMenu* endMenu = dynamic_cast<GUIMenu*>(endMenuObj->AddComponent(new GUIMenu(false)));
+	std::shared_ptr<GameObject> mainMenuObj = GameObjectManager::GetInstance().CreateObject();
+	std::shared_ptr<GameObject> hudMenuObj = GameObjectManager::GetInstance().CreateObject();
+	std::shared_ptr<GameObject> endMenuObj = GameObjectManager::GetInstance().CreateObject();
+	// TODO Find a better way to do these ugly lines
+	std::shared_ptr<GUIMenu> mainMenu = dynamic_pointer_cast<GUIMenu>(mainMenuObj->AddComponent(std::shared_ptr<GUIMenu>(new GUIMenu())));
+	std::shared_ptr<GUIMenu> hudMenu = dynamic_pointer_cast<GUIMenu>(hudMenuObj->AddComponent(std::shared_ptr<GUIMenu>(new GUIMenu(false))));
+	std::shared_ptr<GUIMenu> endMenu = dynamic_pointer_cast<GUIMenu>(endMenuObj->AddComponent(std::shared_ptr<GUIMenu>(new GUIMenu(false))));
 
 	mainMenu->AddElements({
-		new GUIText("Main menu", Color(200, 255, 255), Rect(10, 10, 0, 0)),
-		new GUIButton("Play", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(10, 100, 0, 0), 8, mainMenu, hudMenu, OnPlay),
-		new GUIButton("Exit", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(10, 150, 0, 0), 8, OnExit)
+		std::shared_ptr<GUIText>(new GUIText("Main menu", Color(200, 255, 255), Rect(10, 10, 0, 0))),
+		std::shared_ptr<GUIButton>(new GUIButton("Play", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(10, 100, 0, 0), 8, mainMenu, hudMenu, OnPlay)),
+		std::shared_ptr<GUIButton>(new GUIButton("Exit", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(10, 150, 0, 0), 8, OnExit))
 	});
 
 	hudMenu->AddElements({
-		new GUIText("Score: 0", Color(10, 25, 55), Rect(10, 10, 0, 0)),
-		new GUIButton("End game", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(10, 100, 0, 0), 8, hudMenu, endMenu, OnEndGame)
+		std::shared_ptr<GUIText>(new GUIText("Score: 0", Color(10, 25, 55), Rect(10, 10, 0, 0))),
+		std::shared_ptr<GUIButton>(new GUIButton("End game", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(10, 100, 0, 0), 8, hudMenu, endMenu, OnEndGame))
 	});
 	_scoreText = hudMenu->GetElement<GUIText>();
 
 	endMenu->AddElements({
-		new GUIText("Game over!", Color(10, 25, 55), Rect(10, 10, 0, 0)),
-		new GUIButton("Main menu", Color(200, 255, 255), Color(1, 1, 1), Color(255, 25, 25), Color(50, 50, 50), Rect(10, 100, 0, 0), 8, endMenu, mainMenu)
+		std::shared_ptr<GUIText>(new GUIText("Game over!", Color(10, 25, 55), Rect(10, 10, 0, 0))),
+		std::shared_ptr<GUIButton>(new GUIButton("Main menu", Color(200, 255, 255), Color(1, 1, 1), Color(255, 25, 25), Color(50, 50, 50), Rect(10, 100, 0, 0), 8, endMenu, mainMenu))
 	});
 }
 
@@ -66,6 +67,6 @@ void GUIManager::UpdateScoreText(int score)
 
 void GUIManager::Awake()
 {
-	GameObject* playerObj = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle);
+	std::shared_ptr<GameObject> playerObj = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle);
 	_playerController = playerObj->GetComponent<PlayerController>();
 }

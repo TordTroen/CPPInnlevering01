@@ -1,6 +1,6 @@
 #pragma once
 #include "PlayerController.h"
-
+#include <memory>
 enum GameState
 {
 	MainMenu,
@@ -18,9 +18,9 @@ public:
 	float GetGravity() const { return _gravity; }
 	void SetGameState(GameState newState) { _gameState = newState; OnGameStateChanged(); }
 	GameState GetGameState() const { return _gameState; }
-	void SetPlayerController(PlayerController* pc) { playerController = pc; }
+	void SetPlayerController(std::shared_ptr<PlayerController> pc) { playerController = pc; }
 private:
-	PlayerController* playerController;
+	std::shared_ptr<PlayerController> playerController;
 	void OnGameStateChanged();
 	int _windowWidth = 700;
 	int _windowHeight = 700;

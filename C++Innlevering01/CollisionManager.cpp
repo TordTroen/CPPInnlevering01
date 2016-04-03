@@ -4,8 +4,8 @@
 #include <iostream>
 using namespace std;
 
-vector<Collider*> CollisionManager::_staticColliders;
-vector<Collider*> CollisionManager::_dynamicColliders;
+vector<std::shared_ptr<Collider>> CollisionManager::_staticColliders;
+vector<std::shared_ptr<Collider>> CollisionManager::_dynamicColliders;
 
 void CollisionManager::Update()
 {
@@ -31,7 +31,7 @@ void CollisionManager::Update()
 	}
 }
 
-void CollisionManager::AddCollider(Collider* collider, bool isStaticCollider)
+void CollisionManager::AddCollider(std::shared_ptr<Collider> collider, bool isStaticCollider)
 {
 	if (isStaticCollider)
 	{

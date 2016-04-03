@@ -7,6 +7,6 @@ class BoxCollider :
 public:
 	BoxCollider(bool isStatic = true);
 	~BoxCollider();
-	bool Intersects(Collider* other) override;
+	bool Intersects(std::shared_ptr<Collider> other) override;
 };
 

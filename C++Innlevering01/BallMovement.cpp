@@ -28,7 +28,7 @@ void BallMovement::Update()
 	//GetTransform()->SetPosition(InputManager::GetInstance().GetMousePosition());
 }
 
-void BallMovement::OnCollisionEnter(const Collider * other)
+void BallMovement::OnCollisionEnter(const std::shared_ptr<Collider> other)
 {
 	std::string tag = other->GetGameObject()->GetTag();
 	if (tag == Tags::Paddle && _movement.Y > 0)

@@ -15,7 +15,7 @@ Component::~Component()
 {
 }
 
-void Component::Init(GameObject * gameObject)
+void Component::Init(std::shared_ptr<GameObject> gameObject)
 {
 	_gameObject = gameObject;
 	_transform = _gameObject->GetTransform();
@@ -53,10 +53,10 @@ void Component::Update()
 	//cout << "BaseComponent " << _id << " Update()" << endl;
 }
 
-void Component::OnCollisionEnter(const Collider* other)
+void Component::OnCollisionEnter(const std::shared_ptr<Collider> other)
 {
 }
 
-void Component::OnCollisionExit(const Collider* other)
+void Component::OnCollisionExit(const std::shared_ptr<Collider> other)
 {
 }
