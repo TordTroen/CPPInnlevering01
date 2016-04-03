@@ -18,7 +18,7 @@ LevelBrick::~LevelBrick()
 {
 }
 
-void LevelBrick::OnCollisionEnter(const Collider * other)
+void LevelBrick::OnCollisionEnter(const std::shared_ptr<Collider> other)
 {
 	if (!_indestructible && other->GetGameObject()->CompareTag(Tags::Ball))
 	{
@@ -33,8 +33,8 @@ void LevelBrick::Awake()
 	
 	Color color = GetColorBasedOnHealth();
 	
-	_imageRenderer = dynamic_cast<ImageRenderer*>(GetGameObject()->AddComponent(new ImageRenderer("WhiteTexture.png", color)));
-	GetGameObject()->AddComponent(new BoxCollider());
+	_imageRenderer = dynamic_pointer_cast<ImageRenderer>(GetGameObject()->AddComponent(std::shared_ptr<ImageRenderer>(new ImageRenderer("WhiteTexture.png", color))));
+	GetGameObject()->AddComponent(std::shared_ptr<BoxCollider>(new BoxCollider()));
 }
 
 Color LevelBrick::GetColorBasedOnHealth()

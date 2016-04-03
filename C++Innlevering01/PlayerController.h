@@ -1,7 +1,7 @@
 #pragma once
 #include "Component.h"
 #include "BallMovement.h"
-
+#include <memory>
 class PlayerController :
 	public Component
 {
@@ -18,7 +18,7 @@ public:
 	int GetScore() const { return _score; }
 	void Awake() override;
 private:
-	BallMovement* _ballMovement;
+	std::shared_ptr<BallMovement> _ballMovement;
 	int _curLives;
 	int _startingLives;
 	int _score;

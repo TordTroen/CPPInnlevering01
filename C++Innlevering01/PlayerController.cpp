@@ -1,4 +1,5 @@
 #include "PlayerController.h"
+#include <memory>
 #include "GameObject.h"
 #include "GameObjectManager.h"
 #include "Tags.h"
@@ -25,15 +26,15 @@ void PlayerController::Reset()
 void PlayerController::Stop()
 {
 	std::cout << "Stop()" << std::endl;
-	//GetGameObject()->SetActive(false);
-	//_ballMovement->GetGameObject()->SetActive(false);
+	GetGameObject()->SetActive(false);
+	_ballMovement->GetGameObject()->SetActive(false);
 }
 
 void PlayerController::Start()
 {
 	std::cout << "Start()" << std::endl;
-	//GetGameObject()->SetActive(true);
-	//_ballMovement->GetGameObject()->SetActive(true);
+	GetGameObject()->SetActive(true);
+	_ballMovement->GetGameObject()->SetActive(true);
 	Reset();
 }
 
@@ -49,7 +50,7 @@ void PlayerController::LoseLife()
 
 void PlayerController::Awake()
 {
-	GameObject* ball = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Ball);
-	BallMovement* bm = ball->GetComponent<BallMovement>();
+	std::shared_ptr<GameObject> ball = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Ball);
+	std::shared_ptr<BallMovement> bm = ball->GetComponent<BallMovement>();
 	_ballMovement = bm;
 }

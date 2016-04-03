@@ -1,6 +1,6 @@
 #pragma once
 #include "Level.h"
-
+#include <memory>
 class BoardManager
 {
 public:
@@ -8,7 +8,7 @@ public:
 	~BoardManager();
 	void InitializeBoard();
 	void ResetBoard();
-	void LoadLevel(Level* level);
+	void LoadLevel(std::shared_ptr<Level> level);
 private:
-	Level* curLevel;
+	std::shared_ptr<Level> curLevel;
 };

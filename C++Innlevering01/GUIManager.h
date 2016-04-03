@@ -13,7 +13,7 @@ public:
 private:
 	void Test();
 	void Awake() override;
-	GUIText* _scoreText;
-	PlayerController* _playerController;
+	std::shared_ptr<GUIText> _scoreText;
+	std::shared_ptr<PlayerController> _playerController;
 };
 

@@ -1,7 +1,7 @@
 #include "BoardManager.h"
+#include <memory>
 
 BoardManager::BoardManager()
-	: curLevel(NULL)
 {
 }
 
@@ -20,7 +20,7 @@ void BoardManager::ResetBoard()
 	// reset paddle, ball, score, etc
 }
 
-void BoardManager::LoadLevel(Level* level)
+void BoardManager::LoadLevel(std::shared_ptr<Level> level)
 {
 	// TODO Destroy old level
 	if (curLevel != NULL)

@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 #include "Component.h"
 #include "Collider.h"
 #include "Vector2D.h"
@@ -21,13 +22,13 @@ class LevelBrick
 public:
 	LevelBrick(Vector2D pos, BrickType brickType, int health, bool indestructible);
 	~LevelBrick();
-	void OnCollisionEnter(const Collider* other) override;
+	void OnCollisionEnter(const std::shared_ptr<Collider> other) override;
 	void Awake() override;
 	static const float BrickWidth;
 	static const float BrickHeight;
 private:
 	Color GetColorBasedOnHealth();
-	ImageRenderer* _imageRenderer;
+	std::shared_ptr<ImageRenderer> _imageRenderer;
 	void TakeDamage();
 	Vector2D _brickPos;
 	BrickType _brickType;

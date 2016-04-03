@@ -12,23 +12,23 @@ void GameObjectManager::Update()
 	}
 }
 
-GameObject* GameObjectManager::CreateObject()
+std::shared_ptr<GameObject> GameObjectManager::CreateObject()
 {
-	GameObject *obj = new GameObject();
+	std::shared_ptr<GameObject> obj(new GameObject());
 	_allGameObjects.emplace_back(obj);
 	return obj;
 }
 
-GameObject* GameObjectManager::CreateObject(std::string tag)
+std::shared_ptr<GameObject> GameObjectManager::CreateObject(std::string tag)
 {
-	GameObject *obj = CreateObject();
+	std::shared_ptr<GameObject> obj = CreateObject();
 	obj->SetTag(tag);
 	return obj;
 }
 
-GameObject* GameObjectManager::CreateObject(std::vector<Component*> components, std::string tag)
+std::shared_ptr<GameObject> GameObjectManager::CreateObject(std::vector<std::shared_ptr<Component>> components, std::string tag)
 {
-	GameObject* obj = CreateObject(tag);
+	std::shared_ptr<GameObject> obj = CreateObject(tag);
 	for (auto it : components)
 	{
 		obj->AddComponent(it);
@@ -36,7 +36,7 @@ GameObject* GameObjectManager::CreateObject(std::vector<Component*> components, 
 	return obj;
 }
 
-GameObject * GameObjectManager::FindGameObjectByTag(std::string tag)
+std::shared_ptr<GameObject> GameObjectManager::FindGameObjectByTag(std::string tag)
 {
 	for (auto it : _allGameObjects)
 	{

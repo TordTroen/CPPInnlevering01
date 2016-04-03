@@ -1,6 +1,7 @@
 #pragma once
 #include "Drawable.h"
 #include <string>
+#include <memory>
 #include "GUIElement.h"
 
 class GUIText :
@@ -14,6 +15,6 @@ protected:
 	void Awake() override;
 	void OnSetActive() override;
 private:
-	Drawable* textItem;
+	std::shared_ptr<Drawable> textItem;
 };
 

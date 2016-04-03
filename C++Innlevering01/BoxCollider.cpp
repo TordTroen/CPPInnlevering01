@@ -10,7 +10,7 @@ BoxCollider::~BoxCollider()
 {
 }
 
-bool BoxCollider::Intersects(Collider* other)
+bool BoxCollider::Intersects(std::shared_ptr<Collider> other)
 {
 	return GetTransform()->GetRect().Intersects(other->GetTransform()->GetRect());
 }
