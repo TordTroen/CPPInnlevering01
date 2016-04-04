@@ -9,8 +9,8 @@
 const float LevelBrick::BrickWidth = 50;
 const float LevelBrick::BrickHeight = 30;
 
-LevelBrick::LevelBrick(Vector2D pos, BrickType brickType, int health, bool indestructible)
-	: _brickPos(pos), _brickType(brickType), _health(health), _indestructible(indestructible)
+LevelBrick::LevelBrick(Vector2D pos, BrickType brickType, int score, int health, bool indestructible)
+	: _brickPos(pos), _brickType(brickType), _scoreReward(score), _health(health), _indestructible(indestructible)
 {
 }
 
@@ -69,6 +69,8 @@ void LevelBrick::TakeDamage()
 	if (_health <= 0)
 	{
 		GetGameObject()->SetActive(false);
+		_scoreReward++;
+		cout << _scoreReward++ << endl;
 		// TODO Award player
 	}
 	_imageRenderer->GetImageDrawable()->SetColor(GetColorBasedOnHealth());
