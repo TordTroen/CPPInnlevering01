@@ -24,12 +24,12 @@ using namespace std;
 int main(int argc, char** argv)
 {
 	InputManager::GetInstance().Init();			// Keeps track of keyboard and mouse input
-	Time time;									// Keeps track of ellapsed time between frames
-	GUIManager gui;								// Keeps track of activating visual elements like menu, ball, paddle and boxes
-	BoardManager board;							// Keeps track of the board and it's level.
-	float paddleSpeed = 1000;					// The speed of the paddle
-	float ballSpeed = 0.25;						// The speed of the ball
-	int score = 0;								// The number of boxes that is shot down
+	Time		  time;							// Keeps track of ellapsed time between frames
+	GUIManager	  gui;							// Keeps track of activating visual elements like menu, ball, paddle and boxes
+	BoardManager  board;						// Keeps track of the board and it's level.
+	float		  paddleSpeed = 1000;			// The speed of the paddle
+	float		  ballSpeed   = 0.25;			// The speed of the ball
+	int			  score		  = 0;				// The number of boxes that is shot down
 
 	GameManager::GetInstance().SetGameState(MainMenu);	
 

@@ -5,9 +5,15 @@
 #include <iostream>
 #include "GameManager.h"
 
+#include "Theme.h"
+#include "Drawable.h"
+#include "Rect.h"
+#include "SDLWrapper.h"
+
 Level::Level(std::string levelText, float startYPosition)
 	: _startYPosition(startYPosition), _levelText(levelText)
 {
+	Theme::Theme(GameManager::GetInstance().GetWindowWidth(), GameManager::GetInstance().GetWindowHeight(), 0);
 	//_levelText = levelText;
 	// TODO read the level text and insert it into the level vertices
 }

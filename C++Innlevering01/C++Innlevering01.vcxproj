@@ -107,6 +107,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;SDL_mixer.lib%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -171,6 +172,7 @@
     <ClInclude Include="Rect.h" />
     <ClInclude Include="SDLWrapper.h" />
     <ClInclude Include="Tags.h" />
+    <ClInclude Include="Theme.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Vector2D.h" />
@@ -202,6 +204,7 @@
     <ClCompile Include="Rect.cpp" />
     <ClCompile Include="SDLWrapper.cpp" />
     <ClCompile Include="Tags.cpp" />
+    <ClCompile Include="Theme.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Vector2D.cpp" />

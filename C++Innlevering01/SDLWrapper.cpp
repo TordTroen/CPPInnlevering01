@@ -79,7 +79,7 @@ std::shared_ptr<Drawable> SDLWrapper::CreateImage(std::string filename, Rect rec
 	return CreateImage(filename, rect, Color(), originalSize);
 }
 
-// TODO Actually use status variable to check for fails before trying to us the objects
+// TODO Actually use status variable to check for fails before trying to use the objects
 std::shared_ptr<Drawable> SDLWrapper::CreateImage(std::string filename, Rect rect, Color color, bool originalSize)
 {
 	SDL_Surface* imageSurface = IMG_Load(filename.c_str());
@@ -99,8 +99,11 @@ std::shared_ptr<Drawable> SDLWrapper::CreateImage(std::string filename, Rect rec
 		status = 1;
 	}
 
-	SetTextureColor(texture, color);
-
+	/* 
+	Her er det noe jeg ikke skjønner.. 
+	Skal imageSurface frigjøres, deretter skal rect.h og rect.w ta 
+	verdien fra imageSurface, er ikke det frigjort? 
+	*/
 	SDL_FreeSurface(imageSurface);
 
 	if (originalSize)
@@ -108,6 +111,9 @@ std::shared_ptr<Drawable> SDLWrapper::CreateImage(std::string filename, Rect rec
 		rect.w = imageSurface->w;
 		rect.h = imageSurface->h;
 	}
+
+	SetTextureColor(texture, color);
+
 	std::shared_ptr<Drawable> drawable(new Drawable(rect, texture, color));
 	allDrawables.emplace_back(drawable);
 	return drawable;

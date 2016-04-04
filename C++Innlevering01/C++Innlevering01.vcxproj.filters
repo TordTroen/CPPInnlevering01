@@ -111,6 +111,9 @@
     <ClInclude Include="PlayerController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Theme.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InputManager.cpp">
@@ -200,6 +203,9 @@
     <ClCompile Include="PlayerController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Theme.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -209,9 +215,6 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Person.png">
-      <Filter>Resource Files\Graphics</Filter>
-    </Image>
-    <Image Include="WhiteTexture.png">
       <Filter>Resource Files\Graphics</Filter>
     </Image>
     <Image Include="..\..\..\..\Desktop\heaven.jpg">
@@ -224,6 +227,9 @@
       <Filter>Resource Files\Graphics</Filter>
     </Image>
     <Image Include="..\..\..\..\Desktop\brick-wall-2.jpg">
+      <Filter>Resource Files\Graphics</Filter>
+    </Image>
+    <Image Include="WhiteTexture.png">
       <Filter>Resource Files\Graphics</Filter>
     </Image>
   </ItemGroup>
