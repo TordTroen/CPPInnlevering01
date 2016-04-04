@@ -232,6 +232,15 @@
     <Image Include="WhiteTexture.png">
       <Filter>Resource Files\Graphics</Filter>
     </Image>
+    <Image Include="..\..\..\..\Desktop\image.bmp">
+      <Filter>Resource Files\Graphics</Filter>
+    </Image>
+    <Image Include="..\..\..\..\Desktop\lena.bmp">
+      <Filter>Resource Files\Graphics</Filter>
+    </Image>
+    <Image Include="..\..\..\..\Downloads\sample.bmp">
+      <Filter>Resource Files\Graphics</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Font Include="arial.ttf">

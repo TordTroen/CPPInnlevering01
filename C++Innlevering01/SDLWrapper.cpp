@@ -18,7 +18,7 @@ SDLWrapper::~SDLWrapper()
 int SDLWrapper::InitializeWindow(std::string windowName, int screenWidth, int screenHeight, Color bgColor)
 {
 	int retStatus = 0;
-	int imgFlags = IMG_INIT_PNG;
+	int imgFlags = IMG_INIT_JPG;
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
 		cout << "SDL initialization failed!" << endl;
@@ -36,6 +36,7 @@ int SDLWrapper::InitializeWindow(std::string windowName, int screenWidth, int sc
 	}
 	else
 	{
+
 		cout << "SDL with SDL_IMG and SDL_TTF initialized..." << endl << endl;
 
 		// Initialize font
@@ -119,9 +120,10 @@ std::shared_ptr<Drawable> SDLWrapper::CreateImage(std::string filename, Rect rec
 	return drawable;
 }
 
+/* Shows an image when mouse hovers over a button */
 std::shared_ptr<Drawable> SDLWrapper::CreateRect(Color color, Rect rect)
 {
-	std::shared_ptr<Drawable> img = CreateImage("WhiteTexture.png", rect, false);
+	std::shared_ptr<Drawable> img = CreateImage("brick-wall-colored.png", rect, false);
 	img->SetColor(color);
 	return img;
 }

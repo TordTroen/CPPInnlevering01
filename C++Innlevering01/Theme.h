@@ -24,6 +24,6 @@ private:
 	int _width;
 	int _height;
 	int _level;
-	const string _images[5]{ "brick-wall.jpg", "heaven.jpg", "WhiteTexture.png", "wonderland.jpg", "brick-wall-2.jpg" };
+	const string _images[6]{ "wonderland-2.png", "sky.png", "brick-wall-colored.png", "wonderland.png", "brick-wall-gray.png", "hell-02.png" };
 };
 

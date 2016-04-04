@@ -1,4 +1,10 @@
+//Using SDL, SDL_image, standard IO, and strings
+#include <SDL.h>
+#include <SDL_image.h>
+#include <stdio.h>
+#include <string>
 #include <iostream>
+
 #include "SDLWrapper.h"
 #include "InputManager.h"
 #include "GameObject.h"
@@ -19,10 +25,9 @@
 #include "PaddleMovement.h"
 #include "PlayerController.h"
 
-using namespace std;
-
 int main(int argc, char** argv)
 {
+
 	InputManager::GetInstance().Init();			// Keeps track of keyboard and mouse input
 	Time		  time;							// Keeps track of ellapsed time between frames
 	GUIManager	  gui;							// Keeps track of activating visual elements like menu, ball, paddle and boxes

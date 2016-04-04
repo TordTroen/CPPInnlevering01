@@ -1,5 +1,5 @@
 #include "Theme.h"
-#include "SDL_mixer.h"
+
 
 Theme::Theme(int width, int height, int level)
 {
