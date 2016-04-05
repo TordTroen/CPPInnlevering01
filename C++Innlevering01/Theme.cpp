@@ -12,6 +12,5 @@ Theme::Theme(int width, int height, int level)
 void Theme::Init()
 {
 	Rect rect = Rect(0, 0, _width, _height);
-	SDLWrapper::GetInstance().CreateImage(_images[_level], rect, false);
-	
+	SDLWrapper::GetInstance().CreateImage(_images[_level], rect, true);
 }

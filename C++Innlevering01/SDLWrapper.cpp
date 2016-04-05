@@ -19,6 +19,8 @@ int SDLWrapper::InitializeWindow(std::string windowName, int screenWidth, int sc
 {
 	int retStatus = 0;
 	int imgFlags = IMG_INIT_JPG;
+
+	// Initialize the different libraries
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
 		cout << "SDL initialization failed!" << endl;
@@ -34,7 +36,6 @@ int SDLWrapper::InitializeWindow(std::string windowName, int screenWidth, int sc
 		cout << "SDL_TTF initialization failed!" << endl;
 		return 1;
 	}
-
 
 	cout << "SDL with SDL_IMG and SDL_TTF initialized..." << endl << endl;
 
@@ -56,12 +57,11 @@ int SDLWrapper::InitializeWindow(std::string windowName, int screenWidth, int sc
 	//SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0xA0, 0xFB, 0x1F));
 	//SDL_UpdateWindowSurface(window);
 
-	//SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
 	if (renderer == NULL)
 	{
-		cout << "Failed to create renderer, details: " << SDL_GetError() << endl;
+		cout << "Failed to create renderer for window, details: " << SDL_GetError() << endl;
 		return 1;
 	}
 
@@ -82,12 +82,10 @@ std::shared_ptr<Drawable> SDLWrapper::CreateImage(std::string filename, Rect rec
 
 	SDL_Surface* imageSurface = IMG_Load(filename.c_str());
 	SDL_Texture* texture = NULL;
-	int status = 0;
 
 	if (imageSurface == NULL)
 	{
 		std::cerr << "Failed to load image, details:" << SDL_GetError() << std::endl;
-		status = 1;
 	}
 	else
 	{
@@ -97,7 +95,6 @@ std::shared_ptr<Drawable> SDLWrapper::CreateImage(std::string filename, Rect rec
 		if (texture == NULL)
 		{
 			std::cerr << "Failed to generate texture, details:" << SDL_GetError() << std::endl;
-			status = 1;
 		}
 		else
 		{
@@ -113,15 +110,12 @@ std::shared_ptr<Drawable> SDLWrapper::CreateImage(std::string filename, Rect rec
 
 			// Set the color of the texture
 			SetTextureColor(texture, color);
-		}
-	}
 
-	// If everything went right, return a new Drawable with the paramteres
-	if (status == 0)
-	{
-		std::shared_ptr<Drawable> drawable(new Drawable(rect, texture, color));
-		allDrawables.emplace_back(drawable);
-		return drawable;
+			// Create a new Drawable with the parameters
+			std::shared_ptr<Drawable> drawable(new Drawable(rect, texture, color));
+			allDrawables.emplace_back(drawable);
+			return drawable;
+		}
 	}
 	return NULL;
 }
@@ -129,15 +123,23 @@ std::shared_ptr<Drawable> SDLWrapper::CreateImage(std::string filename, Rect rec
 /* Creates an image with the specified colors and dimensions */
 std::shared_ptr<Drawable> SDLWrapper::CreateRect(Color color, Rect rect)
 {
+	// Create a new image with a white blank texture
 	std::shared_ptr<Drawable> img = CreateImage("WhiteTexture.png", rect, false);
-	img->SetColor(color);
+
+	// If we managed to create the image, set the color
+	if (img != NULL)
+	{
+		img->SetColor(color);
+	}
 	return img;
 }
 
 std::shared_ptr<Drawable> SDLWrapper::CreateText(std::string text, Color color, Rect rect, bool originalSize)
 {
-	SDL_Surface* textSurface = TTF_RenderText_Solid(font, text.c_str(), color.ToSDL_Color());
 	SDL_Texture* texture = NULL;
+
+	// Render the text
+	SDL_Surface* textSurface = TTF_RenderText_Solid(font, text.c_str(), color.ToSDL_Color());
 	if (textSurface == NULL)
 	{
 		cout << "Couldn' make surface for rendering text '" << text << "'." << endl;
@@ -149,31 +151,34 @@ std::shared_ptr<Drawable> SDLWrapper::CreateText(std::string text, Color color, 
 		{
 			cout << "Error creating texture for text" << endl;
 		}
+		else
+		{
+			// If originalSize is true, set the rect's dimension to the imagefiles dimensions
+			if (originalSize)
+			{
+				rect.w = textSurface->w;
+				rect.h = textSurface->h;
+			}
+			SDL_FreeSurface(textSurface);
 
-		SDL_FreeSurface(textSurface);
+			// Create a new Drawable with the parameters
+			std::shared_ptr<Drawable> drawable(new Drawable(rect, texture, color));
+			allDrawables.emplace_back(drawable);
+			return drawable;
+		}
 	}
-	if (originalSize)
-	{
-		rect.w = textSurface->w;
-		rect.h = textSurface->h;
-	}
-	else
-	{
-		textSurface->w = rect.w;
-		textSurface->h = rect.h;
-	}
-	std::shared_ptr<Drawable> drawable(new Drawable(rect, texture, color));
-	allDrawables.emplace_back(drawable);
-	return drawable;
+	return NULL;
 }
 
 void SDLWrapper::RenderImages(bool clearPrevious) const
 {
-	//SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0xff, 0xff);
+	// Clear the renderer
 	if (clearPrevious)
 	{
 		SDL_RenderClear(renderer);
 	}
+
+	// Renderer all the drawables that are active
 	for (auto i : allDrawables)
 	{
 		if (i->IsActive())
@@ -181,6 +186,8 @@ void SDLWrapper::RenderImages(bool clearPrevious) const
 			RenderDrawable(i);
 		}
 	}
+
+	// Render the renderer to the screen so we actually see stuff
 	SDL_RenderPresent(renderer);
 }
 
@@ -194,9 +201,9 @@ void SDLWrapper::Init()
 
 void SDLWrapper::DestroyImages()
 {
+	// TODO Make this actually work
 	for (auto i : allDrawables)
 	{
-		// TODO possibly make Image a class with its own destructor that destroys the texture(the destructor is called when the vector is destroyed)
 		SDL_DestroyTexture(i->GetTexture());
 		//delete i;
 	}

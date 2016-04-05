@@ -4,16 +4,20 @@
 #include <iostream>
 using namespace std;
 
+// Holds the static position of the walls that can be collided with
 vector<std::shared_ptr<Collider>> CollisionManager::_staticColliders;
+
+// Holds the dynamic position of the moving objects that will collide
 vector<std::shared_ptr<Collider>> CollisionManager::_dynamicColliders;
 
+// Is updated every frame to see if there is a new collision.
 void CollisionManager::Update()
 {
-	for (auto ita : _staticColliders)
+	for (auto ita : _staticColliders)	// For every static wall
 	{
 		if (!ita->IsActive()) continue; // Only collide if the collider is active!
 
-		for (auto itb : _dynamicColliders)
+		for (auto itb : _dynamicColliders) // For every moving ball and brick..
 		{
 			if (!itb->IsActive()) continue; // Only collide if the collider is active!
 
@@ -22,7 +26,7 @@ void CollisionManager::Update()
 				ita->OnCollisionEnterEvent(itb);
 				itb->OnCollisionEnterEvent(ita);
 			}
-			else if (itb->IsColliding())
+			else if (itb->IsColliding())    // If there is a new collision
 			{
 				ita->OnCollisionExitEvent(itb);
 				itb->OnCollisionExitEvent(ita);

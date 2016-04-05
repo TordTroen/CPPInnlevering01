@@ -6,6 +6,7 @@
 #include "BoxCollider.h"
 #include "ImageRenderer.h"
 
+
 const float LevelBrick::BrickWidth = 50;
 const float LevelBrick::BrickHeight = 30;
 
