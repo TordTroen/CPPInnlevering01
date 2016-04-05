@@ -10,8 +10,8 @@ float GameManager::GetCenterXPosition(float width) const
 
 void GameManager::OnGameStateChanged()
 {
-	std::shared_ptr<GameObject> paddleObj = NULL;;
-	std::shared_ptr<PlayerController> pc = NULL;
+	GameObject* paddleObj = NULL;;
+	PlayerController* pc = NULL;
 	switch (_gameState)
 	{
 	case MainMenu:

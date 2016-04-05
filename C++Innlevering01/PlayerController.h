@@ -18,7 +18,7 @@ public:
 	int GetScore() const { return _score; }
 	void Awake() override;
 private:
-	std::shared_ptr<BallMovement> _ballMovement;
+	BallMovement* _ballMovement;
 	int _curLives;
 	int _startingLives;
 	int _score;

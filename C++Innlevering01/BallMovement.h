@@ -12,7 +12,7 @@ public:
 	BallMovement(Vector2D startVector, float speed);
 	~BallMovement();
 	void Update() override;
-	void OnCollisionEnter(const std::shared_ptr<Collider> other) override;
+	void OnCollisionEnter(const Collider* const other) override;
 private:
 	Vector2D _movement;
 	float _speed;

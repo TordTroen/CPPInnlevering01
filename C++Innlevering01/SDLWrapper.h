@@ -15,13 +15,13 @@ public:
 	/* Initialized the SDL libraries, and creates a new SDL window with the specified parameters. */
 	int InitializeWindow(std::string windowName, int screenWidth, int screenHeight, Color bgColor);
 	/* Creates an image from the filename with the specified rect. If originalSize if true, the image will have the size of the original imagefile. */
-	std::shared_ptr<Drawable> CreateImage(std::string filename, Rect rect, bool originalSize = true);
+	Drawable* CreateImage(std::string filename, Rect rect, bool originalSize = true);
 	/* Creates an image from the filename with the specified rect. The color will be applied ontop of the image. If originalSize if true, the image will have the size of the original imagefile. */
-	std::shared_ptr<Drawable> CreateImage(std::string filename, Rect rect, Color color, bool originalSize = true);
+	Drawable* CreateImage(std::string filename, Rect rect, Color color, bool originalSize = true);
 	/* Creates a rect with the specified color and rect. */
-	std::shared_ptr<Drawable> CreateRect(Color color, Rect rect);
+	Drawable* CreateRect(Color color, Rect rect);
 	/* Creates text with the specified text, color and rect. If originalSize is true, the text will have the width/height applied based on the text length/font size. */
-	std::shared_ptr<Drawable> CreateText(std::string text, Color color, Rect rect, bool originalSize = true);
+	Drawable* CreateText(std::string text, Color color, Rect rect, bool originalSize = true);
 	/* Renders all the images created with the CreateXXX functions. clearPrevious decides if the screen will be cleared before rendering. */
 	void RenderImages(bool clearPrevious) const;
 	//SDL_Window* GetSDL_Window() const { return window; }
@@ -31,11 +31,11 @@ public:
 private:
 	void Init();
 	void DestroyImages();
-	void RenderDrawable(std::shared_ptr<Drawable> drawable) const;
+	void RenderDrawable(const Drawable* const drawable) const;
 	SDL_Window* window;
 	SDL_Surface* screenSurface;
 	SDL_Renderer* renderer;
-	std::vector<std::shared_ptr<Drawable>> allDrawables;
+	std::vector<std::unique_ptr<Drawable>> allDrawables;
 	TTF_Font* font;
 
 // Singleton stuff

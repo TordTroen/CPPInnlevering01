@@ -14,7 +14,7 @@ GUIButton::GUIButton(std::string text, Color textColor, Color normalColor, Color
 	//Callback = CallbackFunction;
 }
 
-GUIButton::GUIButton(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, std::shared_ptr<GUIMenu> deactivateMenu, std::shared_ptr<GUIMenu> activateMenu, bool fitRectToText)
+GUIButton::GUIButton(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, GUIMenu* const deactivateMenu, GUIMenu* const activateMenu, bool fitRectToText)
 {
 	Init(text, textColor, normalColor, downColor, hoverColor, rect, textPadding, deactivateMenu, activateMenu, NULL, fitRectToText);
 
@@ -23,7 +23,7 @@ GUIButton::GUIButton(std::string text, Color textColor, Color normalColor, Color
 	//Callback = NULL;
 }
 
-GUIButton::GUIButton(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, std::shared_ptr<GUIMenu> deactivateMenu, std::shared_ptr<GUIMenu> activateMenu, void(*CallbackFunction)(void), bool fitRectToText)
+GUIButton::GUIButton(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, GUIMenu* const deactivateMenu, GUIMenu* const activateMenu, void(*CallbackFunction)(void), bool fitRectToText)
 {
 	Init(text, textColor, normalColor, downColor, hoverColor, rect, textPadding, deactivateMenu, activateMenu, CallbackFunction, fitRectToText);
 
@@ -50,7 +50,7 @@ void GUIButton::OnSetActive()
 	textItem->SetActive(IsActive());
 }
 
-void GUIButton::Init(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, std::shared_ptr<GUIMenu> deactivateMenu, std::shared_ptr<GUIMenu> activateMenu, void(*CallbackFunction)(void), bool fitRectToText)
+void GUIButton::Init(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, GUIMenu* const deactivateMenu, GUIMenu* const activateMenu, void(*CallbackFunction)(void), bool fitRectToText)
 {
 	this->activateMenu = activateMenu;
 	this->deactivateMenu = deactivateMenu;

@@ -6,7 +6,7 @@ using namespace std;
 GameObject::GameObject()
 {
 	// All Gameobjects must have a transform
-	_transform = shared_ptr<Transform>(new Transform());
+	_transform = new Transform();
 	AddComponent(_transform);
 	SetTag("Untagged");
 }
@@ -21,23 +21,23 @@ GameObject::~GameObject()
 
 void GameObject::Update()
 {
-	for (auto i : _components)
+	for (auto const& it : _components)
 	{
-		if (i->IsActive())
+		if (it->IsActive())
 		{
-			i->Update();
+			it->Update();
 		}
 	}
 }
 
-std::shared_ptr<Component> GameObject::AddComponent(std::shared_ptr<Component> comp)
+Component* GameObject::AddComponent(Component* const comp)
 {
-	comp->Init(std::shared_ptr<GameObject>(this));
+	comp->Init(this);
 	_components.emplace_back(comp);
 	return comp;
 }
 
-void GameObject::AddComponents(std::vector<std::shared_ptr<Component>> components)
+void GameObject::AddComponents(std::vector<Component*> components)
 {
 	for (auto it : components)
 	{
@@ -45,7 +45,7 @@ void GameObject::AddComponents(std::vector<std::shared_ptr<Component>> component
 	}
 }
 
-std::shared_ptr<Transform> GameObject::GetTransform() const
+Transform* GameObject::GetTransform() const
 {
 	if (_transform == NULL)
 	{
@@ -64,17 +64,17 @@ void GameObject::SetTag(std::string tag)
 	_tag = tag;
 }
 
-void GameObject::SendCollisionEnter(std::shared_ptr<Collider> other)
+void GameObject::SendCollisionEnter(const Collider* const other)
 {
-	for (auto it : _components)
+	for (auto const& it : _components)
 	{
 		it->OnCollisionEnter(other);
 	}
 }
 
-void GameObject::SendCollisionExit(std::shared_ptr<Collider> other)
+void GameObject::SendCollisionExit(const Collider* const other)
 {
-	for (auto it : _components)
+	for (auto const& it : _components)
 	{
 		it->OnCollisionExit(other);
 	}
@@ -83,7 +83,7 @@ void GameObject::SendCollisionExit(std::shared_ptr<Collider> other)
 void GameObject::SetActive(bool active)
 {
 	_isActive = active;
-	for (auto it : _components)
+	for (auto const& it : _components)
 	{
 		it->SetActive(active);
 	}

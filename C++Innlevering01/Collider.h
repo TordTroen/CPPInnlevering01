@@ -7,9 +7,9 @@ class Collider :
 public:
 	Collider(bool isStaticCollider = true);
 	~Collider();
-	void OnCollisionEnterEvent(std::shared_ptr<Collider> other);
-	void OnCollisionExitEvent(std::shared_ptr<Collider> other);
-	virtual bool Intersects(std::shared_ptr<Collider> other) = 0;
+	void OnCollisionEnterEvent(const Collider* const other);
+	void OnCollisionExitEvent(const Collider* const other);
+	virtual bool Intersects(const Collider* const other) = 0;
 	void SetIsColliding(bool isColliding) { _isColliding = isColliding; }
 	bool IsColliding() const { return _isColliding; }
 protected:

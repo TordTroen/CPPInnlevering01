@@ -15,7 +15,7 @@ Component::~Component()
 {
 }
 
-void Component::Init(std::shared_ptr<GameObject> gameObject)
+void Component::Init(GameObject* const gameObject)
 {
 	if (gameObject == NULL)
 	{
@@ -57,10 +57,10 @@ void Component::Update()
 	//cout << "BaseComponent " << _id << " Update()" << endl;
 }
 
-void Component::OnCollisionEnter(const std::shared_ptr<Collider> other)
+void Component::OnCollisionEnter(const Collider* const other)
 {
 }
 
-void Component::OnCollisionExit(const std::shared_ptr<Collider> other)
+void Component::OnCollisionExit(const Collider* const other)
 {
 }

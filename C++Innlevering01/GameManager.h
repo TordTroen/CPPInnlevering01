@@ -18,9 +18,9 @@ public:
 	float GetGravity() const { return _gravity; }
 	void SetGameState(GameState newState) { _gameState = newState; OnGameStateChanged(); }
 	GameState GetGameState() const { return _gameState; }
-	void SetPlayerController(std::shared_ptr<PlayerController> pc) { playerController = pc; }
+	void SetPlayerController(PlayerController* pc) { playerController = pc; } // Debug only
 private:
-	std::shared_ptr<PlayerController> playerController;
+	PlayerController* playerController; // Debug
 	void OnGameStateChanged();
 	int _windowWidth = 700;
 	int _windowHeight = 700;

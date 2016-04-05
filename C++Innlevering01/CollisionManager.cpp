@@ -5,10 +5,10 @@
 using namespace std;
 
 // Holds the static position of the walls that can be collided with
-vector<std::shared_ptr<Collider>> CollisionManager::_staticColliders;
+vector<Collider*> CollisionManager::_staticColliders;
 
 // Holds the dynamic position of the moving objects that will collide
-vector<std::shared_ptr<Collider>> CollisionManager::_dynamicColliders;
+vector<Collider*> CollisionManager::_dynamicColliders;
 
 // Is updated every frame to see if there is a new collision.
 void CollisionManager::Update()
@@ -35,7 +35,7 @@ void CollisionManager::Update()
 	}
 }
 
-void CollisionManager::AddCollider(std::shared_ptr<Collider> collider, bool isStaticCollider)
+void CollisionManager::AddCollider(Collider* const collider, bool isStaticCollider)
 {
 	if (isStaticCollider)
 	{

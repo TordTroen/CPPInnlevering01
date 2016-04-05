@@ -50,7 +50,7 @@ void PlayerController::LoseLife()
 
 void PlayerController::Awake()
 {
-	std::shared_ptr<GameObject> ball = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Ball);
-	std::shared_ptr<BallMovement> bm = ball->GetComponent<BallMovement>();
+	GameObject* ball = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Ball);
+	BallMovement* bm = ball->GetComponent<BallMovement>();
 	_ballMovement = bm;
 }

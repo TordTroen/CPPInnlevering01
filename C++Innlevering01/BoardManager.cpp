@@ -20,7 +20,7 @@ void BoardManager::ResetBoard()
 	// reset paddle, ball, score, etc
 }
 
-void BoardManager::LoadLevel(std::shared_ptr<Level> level)
+void BoardManager::LoadLevel(Level* level)
 {
 	// TODO Destroy old level
 	if (curLevel != NULL)

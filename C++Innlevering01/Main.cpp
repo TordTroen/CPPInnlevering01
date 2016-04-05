@@ -45,35 +45,35 @@ int main(int argc, char** argv)
 
 		// Holds start position, number of bricks and name of level.
 		// Parameter holds 1 digit for each brick - each number has different coloring, 1: blue, 2: black
-		shared_ptr<Level> level(new Level("3333333333\n2222222222\n1111111111", 90));
+		Level* level(new Level("3333333333\n2222222222\n1111111111", 90));
 		board.LoadLevel(level);
 
 		gui.SetupMenus();
 
 		// Make the ball object. Both the visual ball and the positioning of the ball. 
-		shared_ptr<GameObject> ballObj = GameObjectManager::GetInstance().CreateObject(Tags::Ball);
-		ballObj->AddComponent(shared_ptr<ImageRenderer>(new ImageRenderer("WhiteTexture.png", Color(100, 150, 200))));
-		ballObj->AddComponent(shared_ptr<BoxCollider>(new BoxCollider(false)));
-		ballObj->AddComponent(shared_ptr<BallMovement>(new BallMovement(Vector2D(2, 1), ballSpeed)));
+		GameObject* ballObj = GameObjectManager::GetInstance().CreateObject(Tags::Ball);
+		ballObj->AddComponent(new ImageRenderer("WhiteTexture.png", Color(100, 150, 200)));
+		ballObj->AddComponent(new BoxCollider(false));
+		ballObj->AddComponent(new BallMovement(Vector2D(2, 1), ballSpeed));
 		ballObj->GetTransform()->SetRect(Rect(200, 200, 20, 20));
 
 		// Make the paddle object. Both the visual paddle and the positioning of the paddle. 
-		shared_ptr<GameObject> paddleObj = GameObjectManager::GetInstance().CreateObject(Tags::Paddle);
-		paddleObj->AddComponent(shared_ptr<ImageRenderer>(new ImageRenderer("WhiteTexture.png", Color(100, 100, 255))));
-		paddleObj->AddComponent(shared_ptr<BoxCollider>(new BoxCollider()));
+		GameObject* paddleObj = GameObjectManager::GetInstance().CreateObject(Tags::Paddle);
+		paddleObj->AddComponent(new ImageRenderer("WhiteTexture.png", Color(100, 100, 255)));
+		paddleObj->AddComponent(new BoxCollider());
 		Rect paddleStartRect = Rect(GameManager::GetInstance().GetCenterXPosition(200), GameManager::GetInstance().GetWindowHeight() - 100, 150, 15);
 		paddleObj->GetTransform()->SetRect(paddleStartRect);
-		paddleObj->AddComponent(shared_ptr<PaddleMovement>(new PaddleMovement()));
+		paddleObj->AddComponent(new PaddleMovement());
 
-		shared_ptr<PlayerController> playerController = dynamic_pointer_cast<PlayerController>(paddleObj->AddComponent(shared_ptr<PlayerController>(new PlayerController())));
+		PlayerController* playerController = dynamic_cast<PlayerController*>(paddleObj->AddComponent(new PlayerController()));
 		playerController->SetStartingLives(3);
 		//playerController->Stop();
 
 		// Make the walls
-		shared_ptr<GameObject> leftWall = GameObjectManager::GetInstance().CreateObject({ shared_ptr<ImageRenderer>(new ImageRenderer("WhiteTexture.png")), shared_ptr<BoxCollider>(new BoxCollider()) }, Tags::WallLeft);
-		shared_ptr<GameObject> rightWall = GameObjectManager::GetInstance().CreateObject({ shared_ptr<ImageRenderer>(new ImageRenderer("WhiteTexture.png")), shared_ptr<BoxCollider>(new BoxCollider()) }, Tags::WallRight);
-		shared_ptr<GameObject> topWall = GameObjectManager::GetInstance().CreateObject({ shared_ptr<ImageRenderer>(new ImageRenderer("WhiteTexture.png")), shared_ptr<BoxCollider>(new BoxCollider()) }, Tags::WallTop);
-		shared_ptr<GameObject> bottomWall = GameObjectManager::GetInstance().CreateObject({ shared_ptr<ImageRenderer>(new ImageRenderer("WhiteTexture.png")), shared_ptr<BoxCollider>(new BoxCollider()) }, Tags::WallBottom);
+		GameObject* leftWall = GameObjectManager::GetInstance().CreateObject({ new ImageRenderer("WhiteTexture.png"), new BoxCollider() }, Tags::WallLeft);
+		GameObject* rightWall = GameObjectManager::GetInstance().CreateObject({ new ImageRenderer("WhiteTexture.png"), new BoxCollider() }, Tags::WallRight);
+		GameObject* topWall = GameObjectManager::GetInstance().CreateObject({ new ImageRenderer("WhiteTexture.png"), new BoxCollider() }, Tags::WallTop);
+		GameObject* bottomWall = GameObjectManager::GetInstance().CreateObject({ new ImageRenderer("WhiteTexture.png"), new BoxCollider() }, Tags::WallBottom);
 		
 		float inset		= 10;	// Holds the padding between size window and game walls, 0 is no padding - 100 is some padding, etc..			
 		float wallDepth = 1;	// Holds the thickness of the walls

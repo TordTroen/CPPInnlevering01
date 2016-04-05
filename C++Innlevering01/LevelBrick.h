@@ -22,7 +22,7 @@ class LevelBrick
 public:
 	LevelBrick(Vector2D pos, BrickType brickType, int score, int health, bool indestructible);
 	~LevelBrick();
-	void OnCollisionEnter(const std::shared_ptr<Collider> other) override;
+	void OnCollisionEnter(const Collider* const other) override;
 	void Awake() override;
 	static const float BrickWidth;
 	static const float BrickHeight;
@@ -30,7 +30,7 @@ public:
 	int GetScore() const { return _scoreReward; }
 private:
 	Color GetColorBasedOnHealth();
-	std::shared_ptr<ImageRenderer> _imageRenderer;
+	ImageRenderer* _imageRenderer;
 	void TakeDamage();
 	Vector2D _brickPos;
 	BrickType _brickType;

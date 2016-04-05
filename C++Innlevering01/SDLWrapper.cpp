@@ -69,13 +69,13 @@ int SDLWrapper::InitializeWindow(std::string windowName, int screenWidth, int sc
 	return 0;
 }
 
-std::shared_ptr<Drawable> SDLWrapper::CreateImage(std::string filename, Rect rect, bool originalSize)
+Drawable* SDLWrapper::CreateImage(std::string filename, Rect rect, bool originalSize)
 {
 	return CreateImage(filename, rect, Color(), originalSize);
 }
 
 // TODO Actually use status variable to check for fails before trying to use the objects
-std::shared_ptr<Drawable> SDLWrapper::CreateImage(std::string filename, Rect rect, Color color, bool originalSize)
+Drawable* SDLWrapper::CreateImage(std::string filename, Rect rect, Color color, bool originalSize)
 {
 
 	SDL_Surface* imageSurface = IMG_Load(filename.c_str());
@@ -110,7 +110,7 @@ std::shared_ptr<Drawable> SDLWrapper::CreateImage(std::string filename, Rect rec
 			SetTextureColor(texture, color);
 
 			// Create a new Drawable with the parameters
-			std::shared_ptr<Drawable> drawable(new Drawable(rect, texture, color));
+			Drawable* drawable = new Drawable(rect, texture, color);
 			allDrawables.emplace_back(drawable);
 			return drawable;
 		}
@@ -119,10 +119,10 @@ std::shared_ptr<Drawable> SDLWrapper::CreateImage(std::string filename, Rect rec
 }
 
 /* Creates an image with the specified colors and dimensions */
-std::shared_ptr<Drawable> SDLWrapper::CreateRect(Color color, Rect rect)
+Drawable* SDLWrapper::CreateRect(Color color, Rect rect)
 {
 	// Create a new image with a white blank texture
-	std::shared_ptr<Drawable> img = CreateImage("WhiteTexture.png", rect, false);
+	Drawable* img = CreateImage("WhiteTexture.png", rect, false);
 
 	// If we managed to create the image, set the color
 	if (img != NULL)
@@ -132,7 +132,7 @@ std::shared_ptr<Drawable> SDLWrapper::CreateRect(Color color, Rect rect)
 	return img;
 }
 
-std::shared_ptr<Drawable> SDLWrapper::CreateText(std::string text, Color color, Rect rect, bool originalSize)
+Drawable* SDLWrapper::CreateText(std::string text, Color color, Rect rect, bool originalSize)
 {
 	SDL_Texture* texture = NULL;
 
@@ -160,7 +160,7 @@ std::shared_ptr<Drawable> SDLWrapper::CreateText(std::string text, Color color, 
 			SDL_FreeSurface(textSurface);
 
 			// Create a new Drawable with the parameters
-			std::shared_ptr<Drawable> drawable(new Drawable(rect, texture, color));
+			Drawable* drawable =new Drawable(rect, texture, color);
 			allDrawables.emplace_back(drawable);
 			return drawable;
 		}
@@ -177,11 +177,11 @@ void SDLWrapper::RenderImages(bool clearPrevious) const
 	}
 
 	// Renderer all the drawables that are active
-	for (auto i : allDrawables)
+	for (auto& it : allDrawables)
 	{
-		if (i->IsActive())
+		if (it->IsActive())
 		{
-			RenderDrawable(i);
+			RenderDrawable(it.get());
 		}
 	}
 
@@ -200,14 +200,14 @@ void SDLWrapper::Init()
 void SDLWrapper::DestroyImages()
 {
 	// TODO Make this actually work
-	for (auto i : allDrawables)
+	for (auto& it : allDrawables)
 	{
-		SDL_DestroyTexture(i->GetTexture());
+		SDL_DestroyTexture(it->GetTexture());
 		//delete i;
 	}
 }
 
-void SDLWrapper::RenderDrawable(std::shared_ptr<Drawable> drawable) const
+void SDLWrapper::RenderDrawable(const Drawable* const drawable) const
 {
 	if (drawable == NULL)
 	{

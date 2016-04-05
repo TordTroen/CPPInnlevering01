@@ -12,10 +12,10 @@ public:
 	ImageRenderer(std::string imageFilename, Color color);
 	~ImageRenderer();
 	void OnSetActive() override;
-	std::shared_ptr<Drawable> GetImageDrawable() const { return _image; }
+	Drawable* GetImageDrawable() const { return _image; }
 private:
-	std::shared_ptr<GameObject> _gameObject;
-	std::shared_ptr<Drawable> _image;
+	GameObject* _gameObject;
+	Drawable* _image;
 	void Update() override;
 	void UpdateRect() const;
 };

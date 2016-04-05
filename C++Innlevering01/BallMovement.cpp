@@ -28,7 +28,7 @@ void BallMovement::Update()
 	//GetTransform()->SetPosition(InputManager::GetInstance().GetMousePosition());
 }
 
-void BallMovement::OnCollisionEnter(const std::shared_ptr<Collider> other)
+void BallMovement::OnCollisionEnter(const Collider* const other)
 {
 	std::string tag = other->GetGameObject()->GetTag();
 	if (tag == Tags::Paddle && _movement.Y > 0)
@@ -55,7 +55,7 @@ void BallMovement::OnCollisionEnter(const std::shared_ptr<Collider> other)
 	}
 	else
 	{
-		// Third times the charm...
+		// Bounce based on which side we hit. (NOTE: Untested on non-rectangular shapes)
 		// "algorithm" borrowed from: http://gamedev.stackexchange.com/a/95848
 		Vector2D ball = GetTransform()->GetCenter();
 		Vector2D brick = other->GetTransform()->GetCenter();
@@ -78,67 +78,5 @@ void BallMovement::OnCollisionEnter(const std::shared_ptr<Collider> other)
 		{
 			_movement.Y *= -1;
 		}
-
-		//Vector2D dif = (GetTransform()->_position - other->GetTransform()->_position);
-		//dif = dif.Normalized();
-		//Vector2D norm = Vector2D(0, 1);
-		//norm = norm.Normalized();
-		//float a = acos((dif * norm));
-		//a = a * 180 / M_PI;
-
-		////std::cout << "a: " << a;
-
-		//if (a >= 315 || a <= 45)
-		//{
-		//	std::cout << "Right" << std::endl;
-		//	_movement.X *= -1;
-		//}
-		//else if (a >= 45 && a <= 135)
-		//{
-		//	std::cout << "Down" << std::endl;
-		//	_movement.Y *= -1;
-		//}
-		//else if (a >= 135 && a <= 225)
-		//{
-		//	std::cout << "Left" << std::endl;
-		//	_movement.X *= -1;
-		//}
-		//else if (a >= 225 && a <= 315)
-		//{
-		//	std::cout << "Up" << std::endl;
-		//	_movement.Y *= -1;
-		//}
-
-		//Vector2D absVel = Vector2D(_movement.X * _movement.X, _movement.Y * _movement.Y);
-		//std::cout << "Vel[" << absVel.X << ", " << absVel.Y << "]: ";
-		//if (absVel.X > absVel.Y) // Right
-		//{
-		//	_movement.X *= -1;
-		//	std::cout << "right" << std::endl;
-		//}
-		//else if (absVel.X < absVel.Y) // Left
-		//{
-		//	_movement.X *= -1;
-		//	std::cout << "left" << std::endl;
-		//}
-		//else if (absVel.Y > absVel.X) // Top
-		//{
-		//	_movement.Y *= -1;
-		//	std::cout << "top" << std::endl;
-		//}
-		//else if (absVel.Y < absVel.X) // Bottom
-		//{
-		//	_movement.Y *= -1;
-		//	std::cout << "bottom" << std::endl;
-		//}
-		//int a = 0;
 	}
-//	else if (tag == Tags::WallLeft || tag == Tags::WallRight)
-//	{
-//		_movement.X *= -1;
-//	}
-//	else if (tag == Tags::WallTop || tag == Tags::WallBottom)
-//	{
-//		_movement.Y *= -1;
-//	}
 }

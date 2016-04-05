@@ -16,3 +16,7 @@
 ### Ideas
 - PoolManager
 - Maybe make a GameObject.Find method??
+
+### Q&A
+- Unique_ptr
+- typedef colors?

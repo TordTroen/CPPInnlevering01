@@ -15,6 +15,6 @@ protected:
 	void Awake() override;
 	void OnSetActive() override;
 private:
-	std::shared_ptr<Drawable> textItem;
+	Drawable* textItem;
 };
 

@@ -61,8 +61,8 @@ void Level::LoadBricks()
 		{
 			if (brickType != BrickEmpty)
 			{
-				std::shared_ptr<GameObject> brick = GameObjectManager::GetInstance().CreateObject();
-				brick->AddComponent(std::shared_ptr<LevelBrick>(new LevelBrick(curPos, brickType, brickScore, brickHealth, (brickType == BrickIndestructible))));
+				GameObject* brick = GameObjectManager::GetInstance().CreateObject();
+				brick->AddComponent(new LevelBrick(curPos, brickType, brickScore, brickHealth, (brickType == BrickIndestructible)));
 			}
 			curPos.X += LevelBrick::BrickWidth;
 		}

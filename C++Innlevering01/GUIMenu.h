@@ -8,12 +8,12 @@ class GUIMenu :
 {
 public:
 	GUIMenu(bool activeState = true);
-	GUIMenu(std::vector<std::shared_ptr<GUIElement>> elements, bool activeState = true);
+	GUIMenu(std::vector<GUIElement*> elements, bool activeState = true);
 	~GUIMenu();
-	void AddElement(std::shared_ptr<GUIElement> element);
-	void AddElements(std::vector<std::shared_ptr<GUIElement>> elements);
+	void AddElement(GUIElement* const element);
+	void AddElements(std::vector<GUIElement*> elements);
 	template <class T>
-	inline std::shared_ptr<T> GetElement()
+	inline T* GetElement()
 	{
 		for (auto it : _elements)
 		{
@@ -23,7 +23,8 @@ public:
 			{
 				//std::cout << "same type" << std::endl;
 				//return it;
-				return dynamic_pointer_cast<T>(it);
+				//return dynamic_pointer_cast<T>(it);
+				return dynamic_cast<T*>(it);
 				//return t;
 				//return it;
 			}
@@ -46,6 +47,6 @@ public:
 protected:
 	void OnSetActive() override;
 private:
-	std::vector<std::shared_ptr<GUIElement>> _elements;
+	std::vector<GUIElement*> _elements;
 };
 

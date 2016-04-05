@@ -8,7 +8,7 @@ public:
 	~BoardManager();
 	void InitializeBoard();
 	void ResetBoard();
-	void LoadLevel(std::shared_ptr<Level> level);
+	void LoadLevel(Level* level);
 private:
-	std::shared_ptr<Level> curLevel;
+	Level* curLevel;
 };
