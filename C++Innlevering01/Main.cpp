@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include <string>
 #include <iostream>
-
 #include "SDLWrapper.h"
 #include "InputManager.h"
 #include "GameObject.h"
@@ -13,18 +12,15 @@
 #include "ImageRenderer.h"
 #include "GameManager.h"
 #include "Time.h"
-#include "GUIMenu.h"
 #include "BoxCollider.h"
 #include "CollisionManager.h"
 #include "BallMovement.h"
 #include "Tags.h"
 #include "GUIManager.h"
-#include "LevelBrick.h"
 #include "BoardManager.h"
 #include "Level.h"
 #include "PaddleMovement.h"
 #include "PlayerController.h"
-#include "Player.h"
 
 using namespace std;
 
@@ -68,7 +64,6 @@ int main(int argc, char** argv)
 		Rect paddleStartRect = Rect(GameManager::GetInstance().GetCenterXPosition(200), GameManager::GetInstance().GetWindowHeight() - 100, 150, 15);
 		paddleObj->GetTransform()->SetRect(paddleStartRect);
 		paddleObj->AddComponent(shared_ptr<PaddleMovement>(new PaddleMovement()));
-
 
 		shared_ptr<PlayerController> playerController = dynamic_pointer_cast<PlayerController>(paddleObj->AddComponent(shared_ptr<PlayerController>(new PlayerController())));
 		playerController->SetStartingLives(3);

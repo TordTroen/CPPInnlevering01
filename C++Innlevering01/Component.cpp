@@ -17,6 +17,10 @@ Component::~Component()
 
 void Component::Init(std::shared_ptr<GameObject> gameObject)
 {
+	if (gameObject == NULL)
+	{
+		std::cout << "GameObject of this component is NULL! You can't create a component without a GameObject!" << std::endl;
+	}
 	_gameObject = gameObject;
 	_transform = _gameObject->GetTransform();
 	Awake();

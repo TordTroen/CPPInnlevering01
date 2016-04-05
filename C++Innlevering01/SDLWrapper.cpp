@@ -53,20 +53,18 @@ int SDLWrapper::InitializeWindow(std::string windowName, int screenWidth, int sc
 		cout << "Window could not be created! SDL_Error: " << SDL_GetError() << endl;
 		return 1;
 	}
-	//screenSurface = SDL_GetWindowSurface(window);
-	//SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0xA0, 0xFB, 0x1F));
-	//SDL_UpdateWindowSurface(window);
 
+	// Create the renderer
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-
 	if (renderer == NULL)
 	{
 		cout << "Failed to create renderer for window, details: " << SDL_GetError() << endl;
 		return 1;
 	}
 
+	// Set the color of the renderer
 	SDL_SetRenderDrawColor(renderer, bgColor.GetR(), bgColor.GetG(), bgColor.GetB(), bgColor.GetA());
-	SDL_RenderClear(renderer);
+	//SDL_RenderClear(renderer);
 
 	return 0;
 }
