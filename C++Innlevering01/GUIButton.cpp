@@ -36,12 +36,26 @@ GUIButton::~GUIButton()
 {
 }
 
+void GUIButton::SyncPositionWithTransform()
+{
+	if (backgroundItem != NULL)
+	{
+		GetTransform()->SetRect(backgroundItem->GetRect());
+	}
+	else
+	{
+		GetTransform()->SetRect(textItem->GetRect());
+	}
+	backgroundItem->SetComponent(this, _textPadding);
+	textItem->SetComponent(this);
+}
+
 void GUIButton::Awake()
 {
 	// Make sure the button is positioned at the correct position
 	//GetTransform()->SetPosition(Vector2D(backgroundItem->rect.x, backgroundItem->rect.y));
 	//GetTransform()->SetSize(Vector2D(backgroundItem->rect.w, backgroundItem->rect.h));
-	GetTransform()->SetRect(backgroundItem->rect);
+	GetTransform()->SetRect(backgroundItem->GetRect());
 }
 
 void GUIButton::OnSetActive()
@@ -61,19 +75,17 @@ void GUIButton::Init(std::string text, Color textColor, Color normalColor, Color
 	this->normalColor = normalColor;
 	this->downColor = downColor;
 	this->hoverColor = hoverColor;
+	_textPadding = textPadding;
 
 	// Make the background and text
 	backgroundItem = SDLWrapper::GetInstance().CreateRect(normalColor, rect);
 	textItem = SDLWrapper::GetInstance().CreateText(text, textColor, rect, fitRectToText);
 
 	// Make the background fit the text, and apply the padding
-	Rect bgRect = textItem->rect;
+	Rect bgRect = textItem->GetRect();
 	if (textPadding != 0)
 	{
-		bgRect.x -= textPadding;
-		bgRect.y -= textPadding;
-		bgRect.w += textPadding * 2;
-		bgRect.h += textPadding * 2;
+		bgRect.Grow(textPadding);
 	}
 	backgroundItem->SetRect(bgRect);
 }

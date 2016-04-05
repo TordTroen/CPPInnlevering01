@@ -13,6 +13,14 @@ Rect::Rect(float x, float y, float w, float h)
 	this->h = h;
 }
 
+void Rect::Grow(float amount)
+{
+	x -= amount;
+	y -= amount;
+	w += amount * 2;
+	h += amount * 2;
+}
+
 bool Rect::Contains(Vector2D point)
 {
 	return (x < point.X && point.X < (x + w) && y < point.Y && point.Y < (y + h));

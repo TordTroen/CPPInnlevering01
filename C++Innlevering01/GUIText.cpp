@@ -21,8 +21,14 @@ void GUIText::SetText(std::string text)
 		//delete textItem;
 		textItem->SetActive(false);
 	}
-	textItem = SDLWrapper::GetInstance().CreateText(text, color, textItem->rect);
+	textItem = SDLWrapper::GetInstance().CreateText(text, color, textItem->GetRect());
 	textItem->SetActive(IsActive());
+}
+
+void GUIText::SyncPositionWithTransform()
+{
+	GetTransform()->SetRect(textItem->GetRect());
+	textItem->SetComponent(this);
 }
 
 void GUIText::Awake()
@@ -30,7 +36,7 @@ void GUIText::Awake()
 	// Make sure the button is positioned at the correct position
 	/*_transform->SetPosition(Vector2D(textItem->rect.x, textItem->rect.y));
 	_transform->SetSize(Vector2D(textItem->rect.w, textItem->rect.h));*/
-	GetTransform()->SetRect(textItem->rect);
+	GetTransform()->SetRect(textItem->GetRect());
 }
 
 void GUIText::OnSetActive()

@@ -8,10 +8,10 @@ class GUIMenu :
 {
 public:
 	GUIMenu(bool activeState = true);
-	GUIMenu(std::vector<GUIElement*> elements, bool activeState = true);
 	~GUIMenu();
 	void AddElement(GUIElement* const element);
-	void AddElements(std::vector<GUIElement*> elements);
+	/* Adds the elements of the elements parameter aligned to the center of the screen, one element under the other starting at the specified startYposition. */
+	void AddElementsLayout(int startYposition, int spacing, std::vector<GUIElement*> elements);
 	template <class T>
 	inline T* GetElement()
 	{

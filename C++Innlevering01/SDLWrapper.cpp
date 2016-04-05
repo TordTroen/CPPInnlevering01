@@ -214,7 +214,7 @@ void SDLWrapper::RenderDrawable(const Drawable* const drawable) const
 		std::cout << "Trying to Render a drwable that is NULL (in SDLWrapper::RenderDrawable())" << std::endl;
 		return;
 	}
-	SDL_RenderCopy(renderer, drawable->GetTexture(), NULL, &drawable->rect.ToSDL_Rect());
+	SDL_RenderCopy(renderer, drawable->GetTexture(), NULL, &drawable->GetRect().ToSDL_Rect());
 }
 
 void SDLWrapper::SetTextureColor(SDL_Texture * texture, Color color)
