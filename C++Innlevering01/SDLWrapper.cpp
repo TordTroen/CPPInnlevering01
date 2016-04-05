@@ -7,8 +7,8 @@ using namespace std;
 SDLWrapper::~SDLWrapper()
 {
 	DestroyImages();
-	SDL_DestroyWindow(GetSDL_Window());
-	SDL_DestroyRenderer(GetSDL_Renderer());
+	SDL_DestroyWindow(window);
+	SDL_DestroyRenderer(renderer);
 
 	TTF_Quit();
 	IMG_Quit();
@@ -79,7 +79,9 @@ std::shared_ptr<Drawable> SDLWrapper::CreateImage(std::string filename, Rect rec
 // TODO Actually use status variable to check for fails before trying to use the objects
 std::shared_ptr<Drawable> SDLWrapper::CreateImage(std::string filename, Rect rect, Color color, bool originalSize)
 {
+
 	SDL_Surface* imageSurface = IMG_Load(filename.c_str());
+	SDL_Texture* texture = NULL;
 	int status = 0;
 
 	if (imageSurface == NULL)
@@ -87,33 +89,41 @@ std::shared_ptr<Drawable> SDLWrapper::CreateImage(std::string filename, Rect rec
 		std::cerr << "Failed to load image, details:" << SDL_GetError() << std::endl;
 		status = 1;
 	}
-
-	SDL_Texture* texture = SDL_CreateTextureFromSurface(GetSDL_Renderer(), imageSurface);
-
-	if (texture == NULL)
+	else
 	{
-		std::cerr << "Failed to generate texture, details:" << SDL_GetError() << std::endl;
-		status = 1;
+		// Create a texture with this renderer
+		texture = SDL_CreateTextureFromSurface(renderer, imageSurface);
+
+		if (texture == NULL)
+		{
+			std::cerr << "Failed to generate texture, details:" << SDL_GetError() << std::endl;
+			status = 1;
+		}
+		else
+		{
+			// Set the rect to the dimensions of the surface if we wan't to keep the original imagefile size
+			if (originalSize)
+			{
+				rect.w = imageSurface->w;
+				rect.h = imageSurface->h;
+			}
+
+			// Free the surface after we are done with it
+			SDL_FreeSurface(imageSurface);
+
+			// Set the color of the texture
+			SetTextureColor(texture, color);
+		}
 	}
 
-	/* 
-	Her er det noe jeg ikke skjønner.. 
-	Skal imageSurface frigjøres, deretter skal rect.h og rect.w ta 
-	verdien fra imageSurface, er ikke det frigjort? 
-	*/
-	SDL_FreeSurface(imageSurface);
-
-	if (originalSize)
+	// If everything went right, return a new Drawable with the paramteres
+	if (status == 0)
 	{
-		rect.w = imageSurface->w;
-		rect.h = imageSurface->h;
+		std::shared_ptr<Drawable> drawable(new Drawable(rect, texture, color));
+		allDrawables.emplace_back(drawable);
+		return drawable;
 	}
-
-	SetTextureColor(texture, color);
-
-	std::shared_ptr<Drawable> drawable(new Drawable(rect, texture, color));
-	allDrawables.emplace_back(drawable);
-	return drawable;
+	return NULL;
 }
 
 /* Creates an image with the specified colors and dimensions */
@@ -162,7 +172,7 @@ void SDLWrapper::RenderImages(bool clearPrevious) const
 	//SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0xff, 0xff);
 	if (clearPrevious)
 	{
-		SDL_RenderClear(GetSDL_Renderer());
+		SDL_RenderClear(renderer);
 	}
 	for (auto i : allDrawables)
 	{
@@ -171,7 +181,7 @@ void SDLWrapper::RenderImages(bool clearPrevious) const
 			RenderDrawable(i);
 		}
 	}
-	SDL_RenderPresent(GetSDL_Renderer());
+	SDL_RenderPresent(renderer);
 }
 
 void SDLWrapper::Init()
@@ -199,7 +209,7 @@ void SDLWrapper::RenderDrawable(std::shared_ptr<Drawable> drawable) const
 		std::cout << "Trying to Render a drwable that is NULL (in SDLWrapper::RenderDrawable())" << std::endl;
 		return;
 	}
-	SDL_RenderCopy(GetSDL_Renderer(), drawable->GetTexture(), NULL, &drawable->rect.ToSDL_Rect());
+	SDL_RenderCopy(renderer, drawable->GetTexture(), NULL, &drawable->rect.ToSDL_Rect());
 }
 
 void SDLWrapper::SetTextureColor(SDL_Texture * texture, Color color)
