@@ -17,7 +17,7 @@ PlayerController::~PlayerController()
 
 void PlayerController::Reset()
 {
-	_curLives = _startingLives;
+	_curLives = _startingLives; // Er _startingLives initialisert?
 	_score = 0;
 	// Reset ball movmeent
 	// reset paddle position

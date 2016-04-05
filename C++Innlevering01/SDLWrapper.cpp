@@ -15,6 +15,7 @@ SDLWrapper::~SDLWrapper()
 	SDL_Quit();
 }
 
+/* Initializ video, image, font and renderer */
 int SDLWrapper::InitializeWindow(std::string windowName, int screenWidth, int screenHeight, Color bgColor)
 {
 	int retStatus = 0;
@@ -72,6 +73,7 @@ int SDLWrapper::InitializeWindow(std::string windowName, int screenWidth, int sc
 	return 0;
 }
 
+/* */
 std::shared_ptr<Drawable> SDLWrapper::CreateImage(std::string filename, Rect rect, bool originalSize)
 {
 	return CreateImage(filename, rect, Color(), originalSize);
@@ -97,18 +99,13 @@ std::shared_ptr<Drawable> SDLWrapper::CreateImage(std::string filename, Rect rec
 		status = 1;
 	}
 
-	/* 
-	Her er det noe jeg ikke skjønner.. 
-	Skal imageSurface frigjøres, deretter skal rect.h og rect.w ta 
-	verdien fra imageSurface, er ikke det frigjort? 
-	*/
-	SDL_FreeSurface(imageSurface);
-
 	if (originalSize)
 	{
 		rect.w = imageSurface->w;
 		rect.h = imageSurface->h;
 	}
+
+	SDL_FreeSurface(imageSurface);
 
 	SetTextureColor(texture, color);
 
