@@ -20,7 +20,7 @@ class LevelBrick
 	: public Component
 {
 public:
-	LevelBrick(Vector2D pos, BrickType brickType, int health, bool indestructible);
+	LevelBrick(Vector2D pos, BrickType brickType, int score, int health, bool indestructible);
 	~LevelBrick();
 	void OnCollisionEnter(const std::shared_ptr<Collider> other) override;
 	void Awake() override;
