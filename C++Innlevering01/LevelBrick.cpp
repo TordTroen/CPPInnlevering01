@@ -5,10 +5,12 @@
 #include "Transform.h"
 #include "BoxCollider.h"
 #include "ImageRenderer.h"
+#include "GUIManager.h"
 
 
 const float LevelBrick::BrickWidth = 50;
 const float LevelBrick::BrickHeight = 30;
+GUIManager	  gui;
 
 LevelBrick::LevelBrick(Vector2D pos, BrickType brickType, int score, int health, bool indestructible)
 	: _brickPos(pos), _brickType(brickType), _scoreReward(score), _health(health), _indestructible(indestructible)
@@ -24,6 +26,8 @@ void LevelBrick::OnCollisionEnter(const std::shared_ptr<Collider> other)
 	if (!_indestructible && other->GetGameObject()->CompareTag(Tags::Ball))
 	{
 		TakeDamage();
+		GiveScore(1);
+		//gui.UpdateScoreText(GetScore()); //Denne gir error!
 	}
 }
 
@@ -70,8 +74,6 @@ void LevelBrick::TakeDamage()
 	if (_health <= 0)
 	{
 		GetGameObject()->SetActive(false);
-		_scoreReward++;
-		cout << _scoreReward++ << endl;
 		// TODO Award player
 	}
 	_imageRenderer->GetImageDrawable()->SetColor(GetColorBasedOnHealth());

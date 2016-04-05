@@ -26,6 +26,8 @@ public:
 	void Awake() override;
 	static const float BrickWidth;
 	static const float BrickHeight;
+	void GiveScore(int amount) { _scoreReward += amount; }
+	int GetScore() const { return _scoreReward; }
 private:
 	Color GetColorBasedOnHealth();
 	std::shared_ptr<ImageRenderer> _imageRenderer;
