@@ -53,7 +53,6 @@ int SDLWrapper::InitializeWindow(std::string windowName, int screenWidth, int sc
 		cout << "Window could not be created! SDL_Error: " << SDL_GetError() << endl;
 		return 1;
 	}
-	// Draw white box in window, then wait 5 secs (so we have time to see it).
 	//screenSurface = SDL_GetWindowSurface(window);
 	//SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0xA0, 0xFB, 0x1F));
 	//SDL_UpdateWindowSurface(window);
@@ -114,10 +113,10 @@ std::shared_ptr<Drawable> SDLWrapper::CreateImage(std::string filename, Rect rec
 	return drawable;
 }
 
-/* Shows an image when mouse hovers over a button */
+/* Creates an image with the specified colors and dimensions */
 std::shared_ptr<Drawable> SDLWrapper::CreateRect(Color color, Rect rect)
 {
-	std::shared_ptr<Drawable> img = CreateImage("brick-wall-colored.png", rect, false);
+	std::shared_ptr<Drawable> img = CreateImage("WhiteTexture.png", rect, false);
 	img->SetColor(color);
 	return img;
 }
