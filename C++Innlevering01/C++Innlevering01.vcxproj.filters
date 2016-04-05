@@ -25,6 +25,9 @@
     <Filter Include="Resource Files\Fonts">
       <UniqueIdentifier>{3f8932d0-7d9e-4718-89ef-03017c63c9cd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Sound">
+      <UniqueIdentifier>{4a70dc7a-1fdc-4394-856c-b70ef4f4de72}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="InputManager.h">
@@ -112,6 +115,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Theme.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PError.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -206,6 +212,9 @@
     <ClCompile Include="Theme.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PError.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -246,5 +255,22 @@
     <Font Include="arial.ttf">
       <Filter>Resource Files\Fonts</Filter>
     </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="..\..\..\..\Downloads\lesson11\lesson11\medium.wav">
+      <Filter>Resource Files\Sound</Filter>
+    </Media>
+    <Media Include="..\..\..\..\Downloads\lesson11\lesson11\scratch.wav">
+      <Filter>Resource Files\Sound</Filter>
+    </Media>
+    <Media Include="..\..\..\..\Downloads\lesson11\lesson11\beat.wav">
+      <Filter>Resource Files\Sound</Filter>
+    </Media>
+    <Media Include="..\..\..\..\Downloads\lesson11\lesson11\high.wav">
+      <Filter>Resource Files\Sound</Filter>
+    </Media>
+    <Media Include="..\..\..\..\Downloads\lesson11\lesson11\low.wav">
+      <Filter>Resource Files\Sound</Filter>
+    </Media>
   </ItemGroup>
 </Project>

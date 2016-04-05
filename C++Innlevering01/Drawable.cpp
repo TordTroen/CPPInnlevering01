@@ -1,5 +1,7 @@
 #include "Drawable.h"
 #include "SDLWrapper.h"
+#include <SDL.h>
+#include <SDL_image.h>
 
 Drawable::Drawable(Rect rect, SDL_Texture* texture, Color color)
 	: isActive(true)

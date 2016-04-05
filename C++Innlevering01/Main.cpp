@@ -1,6 +1,7 @@
 //Using SDL, SDL_image, standard IO, and strings
 #include <SDL.h>
 #include <SDL_image.h>
+
 #include <stdio.h>
 #include <string>
 #include <iostream>
@@ -42,6 +43,7 @@ int main(int argc, char** argv)
 	if (SDLWrapper::GetInstance().InitializeWindow("Breakout", GameManager::GetInstance().GetWindowWidth(),
 		GameManager::GetInstance().GetWindowHeight(), Color(0, 200, 200)) == 0)
 	{
+
 
 		// Holds start position, number of bricks and name of level.
 		// Parameter holds 1 digit for each brick - each number has different coloring, 1: blue, 2: black

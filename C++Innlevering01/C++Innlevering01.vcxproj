@@ -74,10 +74,10 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <IncludePath>$(PG4400_SDL2_PATH)\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(PG4400_SDL2_PATH)\lib\x86;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(PG4400_SDL2_PATH)\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -112,6 +112,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\Tobias\Documents\PG4400 - C++\SDL\SDL2-2.0.4\lib\x64;C:\Users\Tobias\Source\Repos\CPPInnlevering014\C++Innlevering01\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -173,6 +174,7 @@
     <ClInclude Include="LevelBrick.h" />
     <ClInclude Include="PaddleMovement.h" />
     <ClInclude Include="PlayerController.h" />
+    <ClInclude Include="PError.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="SDLWrapper.h" />
     <ClInclude Include="Tags.h" />
@@ -205,6 +207,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="PaddleMovement.cpp" />
     <ClCompile Include="PlayerController.cpp" />
+    <ClCompile Include="PError.cpp" />
     <ClCompile Include="Rect.cpp" />
     <ClCompile Include="SDLWrapper.cpp" />
     <ClCompile Include="Tags.cpp" />
@@ -232,6 +235,13 @@
   </ItemGroup>
   <ItemGroup>
     <Font Include="arial.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="..\..\..\..\Downloads\lesson11\lesson11\beat.wav" />
+    <Media Include="..\..\..\..\Downloads\lesson11\lesson11\high.wav" />
+    <Media Include="..\..\..\..\Downloads\lesson11\lesson11\low.wav" />
+    <Media Include="..\..\..\..\Downloads\lesson11\lesson11\medium.wav" />
+    <Media Include="..\..\..\..\Downloads\lesson11\lesson11\scratch.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -22,57 +22,54 @@ int SDLWrapper::InitializeWindow(std::string windowName, int screenWidth, int sc
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
 		cout << "SDL initialization failed!" << endl;
-		retStatus = 1;
+		return 1;
 	}
 	else if (!(IMG_Init(imgFlags) & imgFlags))
 	{
 		cout << "SDL_IMG initialization failed!" << endl;
-		retStatus = 1;
+		return 1;
 	}
 	else if (TTF_Init() != 0)
 	{
 		cout << "SDL_TTF initialization failed!" << endl;
-		retStatus = 1;
+		return 1;
 	}
-	else
+
+
+	cout << "SDL with SDL_IMG and SDL_TTF initialized..." << endl << endl;
+
+	// Initialize font
+	font = TTF_OpenFont("arial.ttf", 28);
+	if (font == NULL)
 	{
-
-		cout << "SDL with SDL_IMG and SDL_TTF initialized..." << endl << endl;
-
-		// Initialize font
-		font = TTF_OpenFont("arial.ttf", 28);
-		if (font == NULL)
-		{
-			cout << "Failed to load font: " << TTF_GetError() << endl;
-			retStatus = 1;
-		}
-
-		// Make window
-		window = SDL_CreateWindow(windowName.c_str(), 300, 50, screenWidth, screenHeight, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
-		if (window == NULL) {
-			cout << "Window could not be created! SDL_Error: " << SDL_GetError() << endl;
-			retStatus = 1;
-		}
-		else {
-			// Draw white box in window, then wait 5 secs (so we have time to see it).
-			//screenSurface = SDL_GetWindowSurface(window);
-			//SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0xA0, 0xFB, 0x1F));
-			//SDL_UpdateWindowSurface(window);
-
-			//SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED
-			renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-
-			if (renderer == NULL)
-			{
-				cout << "Failed to create renderer, details: " << SDL_GetError() << endl;
-				retStatus = 1;
-			}
-
-			SDL_SetRenderDrawColor(renderer, bgColor.GetR(), bgColor.GetG(), bgColor.GetB(), bgColor.GetA());
-			SDL_RenderClear(renderer);
-		}
+		cout << "Failed to load font: " << TTF_GetError() << endl;
+		return 1;
 	}
-	return retStatus;
+
+	// Make window
+	window = SDL_CreateWindow(windowName.c_str(), 300, 50, screenWidth, screenHeight, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
+	if (window == NULL) {
+		cout << "Window could not be created! SDL_Error: " << SDL_GetError() << endl;
+		return 1;
+	}
+	// Draw white box in window, then wait 5 secs (so we have time to see it).
+	//screenSurface = SDL_GetWindowSurface(window);
+	//SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0xA0, 0xFB, 0x1F));
+	//SDL_UpdateWindowSurface(window);
+
+	//SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+
+	if (renderer == NULL)
+	{
+		cout << "Failed to create renderer, details: " << SDL_GetError() << endl;
+		return 1;
+	}
+
+	SDL_SetRenderDrawColor(renderer, bgColor.GetR(), bgColor.GetG(), bgColor.GetB(), bgColor.GetA());
+	SDL_RenderClear(renderer);
+
+	return 0;
 }
 
 std::shared_ptr<Drawable> SDLWrapper::CreateImage(std::string filename, Rect rect, bool originalSize)
