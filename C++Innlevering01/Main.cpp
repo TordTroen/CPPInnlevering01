@@ -35,7 +35,6 @@ int main(int argc, char** argv)
 	float		  ballSpeed   = 0.25;			// The speed of the ball
 	int			  score		  = 0;				// The number of boxes that is shot down
 
-	GameManager::GetInstance().SetGameState(MainMenu);	
 
 	// Initialize SDL components for background, window, sizes, etc. that gameobject, gameloop, etc are dependant on
 	if (SDLWrapper::GetInstance().InitializeWindow("Breakout", GameManager::GetInstance().GetWindowWidth(),
@@ -67,7 +66,7 @@ int main(int argc, char** argv)
 
 		PlayerController* playerController = dynamic_cast<PlayerController*>(paddleObj->AddComponent(new PlayerController()));
 		playerController->SetStartingLives(3);
-		//playerController->Stop();
+		playerController->Stop();
 
 		// Make the walls
 		GameObject* leftWall = GameObjectManager::GetInstance().CreateObject({ new ImageRenderer("WhiteTexture.png"), new BoxCollider() }, Tags::WallLeft);
@@ -85,6 +84,7 @@ int main(int argc, char** argv)
 		bottomWall->GetTransform()->SetRect(Rect(0, sch - inset, scw, wallDepth));
 
 		
+		GameManager::GetInstance().Init(MainMenu);
 		GameState gameState = MainMenu; // Sets the positioning data. Has x,y,w,h, position and gravity
 
 		//	The game loop

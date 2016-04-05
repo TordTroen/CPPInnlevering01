@@ -2,16 +2,28 @@
 #include "PlayerController.h"
 #include "Tags.h"
 #include "GameObjectManager.h"
-
+#include <iostream>
 float GameManager::GetCenterXPosition(float width) const
 {
 	return _windowWidth / 2 - width / 2;
 }
 
+void GameManager::Init(GameState startState)
+{
+	GameObject* paddleObj = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle);
+	if (paddleObj == NULL)
+	{
+		std::cout << "Couldn't find the paddle GameObject!" << std::endl;
+	}
+	else
+	{
+		_playerController = paddleObj->GetComponent<PlayerController>();
+	}
+}
+
 void GameManager::OnGameStateChanged()
 {
-	GameObject* paddleObj = NULL;;
-	PlayerController* pc = NULL;
+	std::cout << "State: " << _gameState << std::endl;
 	switch (_gameState)
 	{
 	case MainMenu:
@@ -20,11 +32,7 @@ void GameManager::OnGameStateChanged()
 		break;
 	case InGame:
 		// TODO move this to the function that is called when pressing playbutton
-		//GameObject* playerObj = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle);
-		//_playerController = playerObj->GetComponent<PlayerController>();
-		paddleObj = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle);
-		pc = paddleObj->GetComponent<PlayerController>();
-		//playerController->Start();
+		_playerController->Start();
 		break;
 	case Exit:
 		break;

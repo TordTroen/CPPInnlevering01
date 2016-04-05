@@ -42,7 +42,7 @@ void GUIManager::SetupMenus()
 	GUIMenu* endMenu = dynamic_cast<GUIMenu*>(endMenuObj->AddComponent(new GUIMenu(false)));
 
 	mainMenu->AddElements({
-		new GUIText("Main menu", Color(200, 255, 255), Rect(10, 10, 0, 0)),
+		new GUIText("Breakout", Color(200, 255, 255), Rect(10, 10, 0, 0)),
 		new GUIButton("Play", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(10, 100, 0, 0), 8, mainMenu, hudMenu, OnPlay),
 		new GUIButton("Exit", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(10, 150, 0, 0), 8, OnExit)
 	});
