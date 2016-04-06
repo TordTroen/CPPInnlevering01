@@ -24,12 +24,12 @@ public:
 	void Player::SetName(std::string name);
 
 	//	Get a player's individual values
-	int Player::GetHighscore();
-	int Player::GetLevel();
-	int Player::GetLifeLeft();
-	int Player::GetBricksHit();
-	int Player::GetBricksMissed();
-	std::string Player::GetName();
+	int Player::GetHighscore() const;
+	int Player::GetLevel() const;
+	int Player::GetLifeLeft() const;
+	int Player::GetBricksHit() const;
+	int Player::GetBricksMissed() const;
+	std::string Player::GetName() const;
 
 	void Player::PrintPlayer();
 

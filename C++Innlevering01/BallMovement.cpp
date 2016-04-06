@@ -21,6 +21,7 @@ BallMovement::~BallMovement()
 
 void BallMovement::Update()
 {
+	
 	if (GameManager::GetInstance().GetGameState() == InGame)
 	{
 		GetTransform()->Translate(_movement * _speed);
@@ -78,5 +79,5 @@ void BallMovement::OnCollisionEnter(const Collider* const other)
 		{
 			_movement.Y *= -1;
 		}
-	}
+	} 
 }

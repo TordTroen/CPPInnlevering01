@@ -8,6 +8,7 @@
 class PError
 {
 public:
-	PError(std::string error);
 	PError() : PError{ "" } {}
+	PError(std::string error);
+	PError(std::string error, const char *);
 };
