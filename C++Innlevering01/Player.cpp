@@ -14,75 +14,81 @@ Player::Player(int highscore, int level, int lifeLeft, int bricksHit, int bricks
 
 //	Set a player's individual values
 void Player::SetHighscore(int highscore) {
-	_highscore = highscore;
+	m_highscore = highscore;
 }
 
 void Player::SetLevel(int level)
 {
-	_level = level;
+	m_level = level;
 }
 
 void Player::SetLifeLeft(int lifeLeft)
 {
-	_lifeLeft = lifeLeft;
+	m_lifeLeft = lifeLeft;
 }
 
 void Player::SetBricksHit(int bricksHit)
 {
-	_bricksHit = bricksHit;
+	m_bricksHit = bricksHit;
 }
 
 void Player::SetBricksMissed(int bricksMissed)
 {
-	_bricksMissed = bricksMissed;
+	m_bricksMissed = bricksMissed;
 }
 
 void Player::SetName(std::string name)
 {
-	_name = name;
+	m_name = name;
 }
 
-int Player::GetHighscore() {
-	return _highscore;
-}
-
-int Player::GetLevel()
+int Player::GetLevel() const
 {
-	return _level;
+	return 0;
 }
 
-int Player::GetLifeLeft()
+int Player::GetHighscore() const
 {
-	return _lifeLeft;
+	return m_highscore;
 }
 
-int Player::GetBricksHit()
+int Player::GetLevel() const
 {
-	return _bricksHit;
+	return m_level;
 }
 
-int Player::GetBricksMissed()
+int Player::GetLifeLeft() const
 {
-	return _bricksMissed;
+	return m_lifeLeft;
 }
 
-std::string Player::GetName()
+int Player::GetBricksHit() const
 {
-	return _name;
+	return m_bricksHit;
+}
+
+int Player::GetBricksMissed() const
+{
+	return m_bricksMissed;
+}
+
+std::string Player::GetName() const
+{
+	return m_name;
 }
 
 //	Print a player's current score
-void Player::PrintPlayer()
+void Player::PrintPlayer() const
 {
-	if (_name == "") {
+	if (m_name == "") {
 		std::cout << "Player without a name " << std::endl;
 	}
 	else {
-		std::cout << "Player:  " << _name << std::endl;
+		std::cout << "Player:  " << m_name << std::endl;
 	}
-	std::cout << "Level: " << _level << std::endl;
-	std::cout << "Life left: " << _level << std::endl;
-	std::cout << "Bricks hit: " << _level << std::endl;
-	std::cout << "Bricks missed: " << _level << std::endl;
-	std::cout << "Highscore: " << _level << std::endl;
+	std::cout << "Level: " << m_level << std::endl;
+	std::cout << "Life left: " << m_lifeLeft << std::endl;
+	std::cout << "Bricks hit: " << m_bricksHit << std::endl;
+	std::cout << "Bricks missed: " << m_bricksMissed << std::endl;
+	std::cout << "Highscore: " << m_highscore << std::endl;
 }

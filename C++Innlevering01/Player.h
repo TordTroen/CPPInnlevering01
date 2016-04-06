@@ -31,15 +31,15 @@ public:
 	int Player::GetBricksMissed() const;
 	std::string Player::GetName() const;
 
-	void Player::PrintPlayer();
+	void Player::PrintPlayer()  const;
 
 private:
 
 	//	The player's values
-	int _highscore;
-	int _level;
-	int _lifeLeft;
-	int _bricksHit;
-	int _bricksMissed;
-	std::string _name;
+	int m_highscore;
+	int m_level;
+	int m_lifeLeft;
+	int m_bricksHit;
+	int m_bricksMissed;
+	std::string m_name;
 };

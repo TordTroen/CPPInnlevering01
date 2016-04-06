@@ -31,7 +31,27 @@ void BallMovement::Update()
 
 void BallMovement::OnCollisionEnter(const Collider* const other)
 {
+	bool levelStart   = true;
+	bool bottomHit    = false;
+	int  allBricksHit = 0;
+	int  bricksHit	  = 0;
+	int  lifeLost     = 0;
+
 	std::string tag = other->GetGameObject()->GetTag();
+	if (tag == Tags::WallBottom) {
+		bottomHit = true;
+		lifeLost--;
+	}
+
+	else if (tag == Tags::Paddle) {
+		bottomHit = true;
+	}
+
+	else if (tag == Tags::Brick) {
+		bottomHit = true;
+	}
+
+
 	if (tag == Tags::Paddle && _movement.Y > 0)
 	{
 		Vector2D paddle = other->GetTransform()->GetCenter();

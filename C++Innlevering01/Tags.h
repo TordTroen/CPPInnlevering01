@@ -10,4 +10,5 @@ public:
 	static const std::string WallRight;
 	static const std::string WallTop;
 	static const std::string WallBottom;
+	static const std::string Brick;
 };
