@@ -15,7 +15,7 @@ public:
 	GUIButton(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, GUIMenu* const deactivateMenu, GUIMenu* const activateMenu, bool fitRectToText = true);
 	GUIButton(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, GUIMenu* const deactivateMenu, GUIMenu* const activateMenu, void(*CallbackFunction)(void), bool fitRectToText = true);
 	~GUIButton();
-	void SyncPositionWithTransform() override;
+	void SyncDrawableWithTransform() override;
 protected:
 	void Update() override;
 	void Awake() override;

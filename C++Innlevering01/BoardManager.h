@@ -4,19 +4,40 @@
 class BoardManager
 {
 public:
-	BoardManager();
 	~BoardManager();
+
+	/* Initializes the board. Import the leveldata and sets up the walls surrounding the screen. */
 	void InitializeBoard();
 	void ResetBoard();
+
+	/* Sets the curLevel based on the index given. */
 	void SetCurrentLevel(int levelId);
-	void AddLevel(Level* level) { allLevels.emplace_back(level); }
 
 	// Called when pressing start after selectin level, when restarting, when pressing nextlevel
 	void OnStartLevel();
 
 	void OnGameOver();
 private:
+	/* Loads the level stored in curLevel. */
 	void LoadCurrentLevel();
+
+	/* Import level data from a file. */
+	void ImportLevelData();
+
+	/* Adds a level to the allLevels vector. */
+	void AddLevel(Level* level);
 	std::vector<Level*> allLevels;
 	Level* curLevel;
+
+// Singleton stuff
+public:
+static BoardManager& GetInstance()
+{
+	static BoardManager instance;
+	return instance;
+}
+private:
+	BoardManager() {};
+	BoardManager(BoardManager const&);
+void operator=(BoardManager const&);
 };

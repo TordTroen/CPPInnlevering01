@@ -29,7 +29,7 @@ void Level::LoadBricks()
 	int brickWidthCount = 0;
 	for (char& c : _levelText)
 	{
-		if (c == '\n')
+		if (c == '|')
 		{
 			break;
 		}
@@ -53,7 +53,7 @@ void Level::LoadBricks()
 		BrickType brickType = static_cast<BrickType>(brickId);
 
 		// Make the brick
-		if (c == '\n')
+		if (c == '|')
 		{
 			curPos.Y += LevelBrick::BrickHeight;
 			curPos.X = startPos.X;
@@ -62,7 +62,7 @@ void Level::LoadBricks()
 		{
 			if (brickType != BrickEmpty)
 			{
-				GameObject* brick = GameObjectManager::GetInstance().CreateObject(Tags::Brick);
+				GameObject* brick = GameObjectManager::GetInstance().CreateObject();
 				brick->AddComponent(new LevelBrick(curPos, brickType, brickScore, brickHealth, (brickType == BrickIndestructible)));
 			}
 			curPos.X += LevelBrick::BrickWidth;

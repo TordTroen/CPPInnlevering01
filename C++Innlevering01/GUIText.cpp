@@ -25,7 +25,7 @@ void GUIText::SetText(std::string text)
 	textItem->SetActive(IsActive());
 }
 
-void GUIText::SyncPositionWithTransform()
+void GUIText::SyncDrawableWithTransform()
 {
 	GetTransform()->SetRect(textItem->GetRect());
 	textItem->SetComponent(this);

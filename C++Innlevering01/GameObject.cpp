@@ -23,7 +23,7 @@ void GameObject::Update()
 {
 	for (auto const& it : _components)
 	{
-		if (it->IsActive())
+		if (it != NULL && it->IsActive())
 		{
 			it->Update();
 		}

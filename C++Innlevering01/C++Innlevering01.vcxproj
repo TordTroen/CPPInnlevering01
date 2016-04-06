@@ -163,6 +163,7 @@
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectManager.h" />
+    <ClInclude Include="GUILayoutMenu.h" />
     <ClInclude Include="GUIButton.h" />
     <ClInclude Include="GUIElement.h" />
     <ClInclude Include="GUIManager.h" />
@@ -177,6 +178,7 @@
     <ClInclude Include="PlayerController.h" />
     <ClInclude Include="PError.h" />
     <ClInclude Include="Rect.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="SDLWrapper.h" />
     <ClInclude Include="Tags.h" />
     <ClInclude Include="Theme.h" />
@@ -196,6 +198,7 @@
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
+    <ClCompile Include="GUILayoutMenu.cpp" />
     <ClCompile Include="GUIButton.cpp" />
     <ClCompile Include="GUIElement.cpp" />
     <ClCompile Include="GUIManager.cpp" />
@@ -233,6 +236,7 @@
     <Image Include="WhiteTexture.png" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="LevelData.txt" />
     <Text Include="Todo.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -244,6 +248,9 @@
     <Media Include="..\..\..\..\Downloads\lesson11\lesson11\low.wav" />
     <Media Include="..\..\..\..\Downloads\lesson11\lesson11\medium.wav" />
     <Media Include="..\..\..\..\Downloads\lesson11\lesson11\scratch.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="C++Innlevering01.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

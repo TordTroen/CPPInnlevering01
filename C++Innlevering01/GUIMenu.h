@@ -7,46 +7,30 @@ class GUIMenu :
 	public Component
 {
 public:
+
+	/* TODO: Make the menu "parent" the GUIelements, so when a GUIMenu is moved, all attached elements also moves. */
+
 	GUIMenu(bool activeState = true);
 	~GUIMenu();
-	void AddElement(GUIElement* const element);
+	virtual void AddElement(GUIElement* const element);
+
+	// TODO Expand AddElementsLayout so it can align left/middle/right and also both horizontally and vertically
 	/* Adds the elements of the elements parameter aligned to the center of the screen, one element under the other starting at the specified startYposition. */
-	void AddElementsLayout(int startYposition, int spacing, std::vector<GUIElement*> elements);
+	virtual void AddElements(std::vector<GUIElement*> elements);
 	template <class T>
 	inline T* GetElement()
 	{
-		for (auto it : _elements)
+		for (auto it : elements)
 		{
-			//T* t = static_cast<T*>(it);
-			//if (t != NULL)
 			if (typeid(*it) == typeid(T))
 			{
-				//std::cout << "same type" << std::endl;
-				//return it;
-				//return dynamic_pointer_cast<T>(it);
 				return dynamic_cast<T*>(it);
-				//return t;
-				//return it;
 			}
 		}
 		return NULL;
 	}
-	//template <class T>
-	//inline std::shared_ptr<T> GetElement()
-	//{
-	//	for (auto it : _elements)
-	//	{
-	//		T* t = static_cast<T*>(it);
-	//		if (it != NULL)
-	//		{
-	//			return dynamic_cast<T*>(t);
-	//		}
-	//	}
-	//	return NULL;
-	//}
 protected:
 	void OnSetActive() override;
-private:
-	std::vector<GUIElement*> _elements;
+	std::vector<GUIElement*> elements;
 };
 

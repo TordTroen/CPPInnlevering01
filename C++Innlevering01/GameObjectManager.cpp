@@ -6,9 +6,13 @@ GameObjectManager::~GameObjectManager()
 
 void GameObjectManager::Update()
 {
-	for (auto const& it : _allGameObjects)
+	//for (auto const& it : _allGameObjects)
+	//{
+	//	it->Update();
+	//}
+	for (int i = 0; i < _allGameObjects.size(); i++)
 	{
-		it->Update();
+		_allGameObjects[i]->Update();
 	}
 }
 

@@ -36,7 +36,7 @@ GUIButton::~GUIButton()
 {
 }
 
-void GUIButton::SyncPositionWithTransform()
+void GUIButton::SyncDrawableWithTransform()
 {
 	if (backgroundItem != NULL)
 	{
