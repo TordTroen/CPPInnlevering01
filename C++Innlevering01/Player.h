@@ -16,22 +16,22 @@ public:
 	Player(int highscore, int level, int lifeLeft, int bricksHit, int bricksMissed, std::string name);
 
 	//	Set a player's individual values
-	void Player::SetHighscore(int highscore);
-	void Player::SetLevel(int level);
-	void Player::SetLifeLeft(int lifeLeft);
-	void Player::SetBricksHit(int bricksHit);
-	void Player::SetBricksMissed(int bricksMissed);
-	void Player::SetName(std::string name);
+	void SetHighscore(int highscore);
+	void SetLevel(int level);
+	void SetLifeLeft(int lifeLeft);
+	void SetBricksHit(int bricksHit);
+	void SetBricksMissed(int bricksMissed);
+	void SetName(std::string name);
 
 	//	Get a player's individual values
-	int Player::GetHighscore() const;
-	int Player::GetLevel() const;
-	int Player::GetLifeLeft() const;
-	int Player::GetBricksHit() const;
-	int Player::GetBricksMissed() const;
-	std::string Player::GetName() const;
+	int GetHighscore() const;
+	int GetLevel() const;
+	int GetLifeLeft() const;
+	int GetBricksHit() const;
+	int GetBricksMissed() const;
+	std::string GetName() const;
 
-	void Player::PrintPlayer()  const;
+	void PrintPlayer()  const;
 
 private:
 

@@ -88,8 +88,8 @@ void BallMovement::OnCollisionEnter(const Collider* const other)
 		float ay = ball.Y;
 		float bx = brick.X;
 		float by = brick.Y;
-		float bw = other->GetTransform()->_size.X / 2;
-		float bh = other->GetTransform()->_size.Y / 2;
+		float bw = other->GetTransform()->GetSize().X / 2;
+		float bh = other->GetTransform()->GetSize().Y / 2;
 
 		float dx = abs(ax - bx) - bw;
 		float dy = abs(ay - by) - bh;
