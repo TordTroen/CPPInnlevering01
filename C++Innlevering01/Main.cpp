@@ -34,17 +34,19 @@ int main(int argc, char** argv)
 	float		  paddleSpeed = 1000;			// The speed of the paddle
 	float		  ballSpeed   = 0.25;			// The speed of the ball
 	int			  score		  = 0;				// The number of boxes that is shot down
-
+	
 
 	// Initialize SDL components for background, window, sizes, etc. that gameobject, gameloop, etc are dependant on
 	if (SDLWrapper::GetInstance().InitializeWindow("Breakout", GameManager::GetInstance().GetWindowWidth(),
 		GameManager::GetInstance().GetWindowHeight(), Color(0, 200, 200)) == 0)
 	{
-
+		std::string testLevelString = "3333333333\n2222222222\n1111111111";
+		board.AddLevel(new Level(testLevelString));
+		board.SetCurrentLevel(0);
 		// Holds start position, number of bricks and name of level.
 		// Parameter holds 1 digit for each brick - each number has different coloring, 1: blue, 2: black
-		Level* level(new Level("3333333333\n2222222222\n1111111111", 90));
-		board.LoadLevel(level);
+		//Level* level(new Level("3333333333\n2222222222\n1111111111", 90));
+		//board.LoadLevel(level);
 
 		GUIManager::GetInstance().SetupMenus();
 
