@@ -23,10 +23,6 @@ void OnEndGame()
 	GameManager::GetInstance().SetGameState(MainMenu);
 }
 
-GUIManager::GUIManager()
-{
-}
-
 GUIManager::~GUIManager()
 {
 }
