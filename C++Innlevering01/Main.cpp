@@ -21,6 +21,7 @@
 #include "Level.h"
 #include "PaddleMovement.h"
 #include "PlayerController.h"
+#include "Player.h"
 
 using namespace std;
 
@@ -64,10 +65,12 @@ int main(int argc, char** argv)
 		Rect paddleStartRect = Rect(GameManager::GetInstance().GetCenterXPosition(200), GameManager::GetInstance().GetWindowHeight() - 100, 150, 15);
 		paddleObj->GetTransform()->SetRect(paddleStartRect);
 		paddleObj->AddComponent(new PaddleMovement());
-
+		paddleObj->AddComponent(new Player());
 		PlayerController* playerController = dynamic_cast<PlayerController*>(paddleObj->AddComponent(new PlayerController()));
 		playerController->SetStartingLives(3);
 		playerController->Stop();
+
+		
 
 		// Make the walls
 		GameObject* leftWall = GameObjectManager::GetInstance().CreateObject({ new ImageRenderer("WhiteTexture.png"), new BoxCollider() }, Tags::WallLeft);
