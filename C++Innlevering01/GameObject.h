@@ -13,54 +13,18 @@ public:
 	Component* AddComponent(Component* const comp);
 	void AddComponents(std::vector<Component*> components);
 	Transform* GetTransform() const;
-	//template <class T>
-	//inline T* GetComponent()
-	//{
-	//	for (auto it : _components)
-	//	{
-	//		//T* t = static_cast<T*>(it);
-	//		//if (t != NULL)
-	//		if (typeid(*it) == typeid(T))
-	//		{
-	//			return static_cast<T*>(it);
-	//			//return dynamic_cast<T*>(it);
-	//			//return t;
-	//		}
-	//	}
-	//	return NULL;
-	//}
 	template <class T>
 	inline T* GetComponent()
 	{
 		for (auto& it : _components)
 		{
-			//T* t = static_cast<T*>(it);
-			//if (t != NULL)
 			if (typeid(*it) == typeid(T))
 			{
-				//std::cout << "same type" << std::endl;
-				//return it;
 				return dynamic_cast<T*>(it.get());
-				//return t;
-				//return it;
 			}
 		}
 		return NULL;
 	}
-	//template <class T>
-	//inline T* GetComp()
-	//{
-	//	for (auto it : _components)
-	//	{
-	//		T* t = static_cast<T*>(it);
-	//		if (t != NULL)
-	//		{
-	//			return dynamic_cast<T*>(it);
-	//			//return it;
-	//		}
-	//	}
-	//	return NULL;
-	//}
 	void SetTag(std::string tag);
 	std::string GetTag() const { return _tag; }
 	bool CompareTag(std::string otherTag) const { return (_tag == otherTag); }

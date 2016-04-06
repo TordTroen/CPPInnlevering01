@@ -14,8 +14,11 @@ public:
 	void SetSize(Vector2D const newSize);
 	void SetRect(Rect rect);
 	Vector2D GetCenter() const;
-	Vector2D _position;
-	Vector2D _size;
 	Rect GetRect() const;
+	Vector2D GetPosition() const { return position; }
+	Vector2D GetSize() const { return size; }
+private:
+	Vector2D position;
+	Vector2D size;
 };
 

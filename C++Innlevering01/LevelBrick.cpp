@@ -10,7 +10,7 @@
 
 const float LevelBrick::BrickWidth = 50;
 const float LevelBrick::BrickHeight = 30;
-GUIManager	  gui;
+//GUIManager	  gui;
 
 LevelBrick::LevelBrick(Vector2D pos, BrickType brickType, int score, int health, bool indestructible)
 	: _brickPos(pos), _brickType(brickType), _scoreReward(score), _health(health), _indestructible(indestructible)
@@ -27,7 +27,7 @@ void LevelBrick::OnCollisionEnter(const Collider* const other)
 	{
 		TakeDamage();
 		GiveScore(1);
-		//gui.UpdateScoreText(GetScore()); //Denne gir error!
+		GUIManager::GetInstance().UpdateScoreText(GetScore());
 	}
 }
 

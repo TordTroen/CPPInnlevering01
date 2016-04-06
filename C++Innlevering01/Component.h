@@ -23,17 +23,17 @@ public:
 	/* Set the active state of this component. Update() won't be called when the active state is false. */
 	void SetActive(bool active);
 	/* Returns the Transform component of the GameObject this component is attached to. */
-	Transform* GetTransform() const { return _transform; }
+	Transform* GetTransform() const { return transform; }
 	/* Returns the GameObject this component is attached to. */
-	GameObject* GetGameObject() const { return _gameObject; }
+	GameObject* GetGameObject() const { return gameObject; }
 protected:
 	/* Called after the object is contructed. Override to do initialization stuff after the object is created. */
 	virtual void Awake();
 	/* Called when the objects IsActive() state changes. */
 	virtual void OnSetActive(); // TODO Make abstract??
 private:
-	bool _isActive;
-	Transform* _transform;
-	GameObject* _gameObject;
+	bool isActive;
+	Transform* transform;
+	GameObject* gameObject;
 };
 

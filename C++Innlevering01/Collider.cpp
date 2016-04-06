@@ -4,11 +4,10 @@
 #include "Tags.h"
 
 Collider::Collider(bool isStaticCollider)
-	: _isColliding(false)
+	: isColliding(false)
 {
-	_isStaticCollider = isStaticCollider;
+	this->isStaticCollider = isStaticCollider;
 }
-
 
 Collider::~Collider()
 {
@@ -33,6 +32,6 @@ void Collider::OnCollisionExitEvent(const Collider* const other)
 void Collider::Awake()
 {
 	// TODO Find a better way to do the collision
-	CollisionManager::AddCollider(this, _isStaticCollider);
+	CollisionManager::AddCollider(this, isStaticCollider);
 }
 

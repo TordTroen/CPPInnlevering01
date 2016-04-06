@@ -23,10 +23,6 @@ void OnEndGame()
 	GameManager::GetInstance().SetGameState(MainMenu);
 }
 
-GUIManager::GUIManager()
-{
-}
-
 GUIManager::~GUIManager()
 {
 }
@@ -48,7 +44,7 @@ void GUIManager::SetupMenus()
 	});
 
 	hudMenu->AddElementsLayout(0, 24, {
-		new GUIText("Score: 0", Color(10, 25, 55), Rect(10, 10, 0, 0)),
+		new GUIText("Score: 0", Color(255, 255, 255), Rect(10, 10, 0, 0)),
 		new GUIButton("End game", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(10, 100, 0, 0), 8, hudMenu, endMenu, OnEndGame)
 	});
 	_scoreText = hudMenu->GetElement<GUIText>();

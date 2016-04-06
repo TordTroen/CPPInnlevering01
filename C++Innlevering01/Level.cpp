@@ -9,6 +9,7 @@
 #include "Drawable.h"
 #include "Rect.h"
 #include "SDLWrapper.h"
+#include "Tags.h"
 
 Level::Level(std::string levelText, float startYPosition)
 	: _startYPosition(startYPosition), _levelText(levelText)
@@ -61,7 +62,7 @@ void Level::LoadBricks()
 		{
 			if (brickType != BrickEmpty)
 			{
-				GameObject* brick = GameObjectManager::GetInstance().CreateObject();
+				GameObject* brick = GameObjectManager::GetInstance().CreateObject(Tags::Bricks);
 				brick->AddComponent(new LevelBrick(curPos, brickType, brickScore, brickHealth, (brickType == BrickIndestructible)));
 			}
 			curPos.X += LevelBrick::BrickWidth;

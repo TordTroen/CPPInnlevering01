@@ -5,7 +5,7 @@
 using namespace std;
 
 Component::Component()
-	: _isActive(true), _transform(NULL), _gameObject(NULL)
+	: isActive(true), transform(NULL), gameObject(NULL)
 {
 	//cout << "Component " /*<< _id*/ << "  constructor" << endl;
 }
@@ -21,20 +21,20 @@ void Component::Init(GameObject* const gameObject)
 	{
 		std::cout << "GameObject of this component is NULL! You can't create a component without a GameObject!" << std::endl;
 	}
-	_gameObject = gameObject;
-	_transform = _gameObject->GetTransform();
+	this->gameObject = gameObject;
+	this->transform = gameObject->GetTransform();
 	Awake();
 //	Start();
 }
 
 bool Component::IsActive() const
 {
-	return _isActive;
+	return isActive;
 }
 
 void Component::SetActive(bool active)
 {
-	_isActive = active;
+	isActive = active;
 	OnSetActive();
 }
 

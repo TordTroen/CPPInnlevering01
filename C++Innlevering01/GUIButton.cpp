@@ -46,7 +46,7 @@ void GUIButton::SyncPositionWithTransform()
 	{
 		GetTransform()->SetRect(textItem->GetRect());
 	}
-	backgroundItem->SetComponent(this, _textPadding);
+	backgroundItem->SetComponent(this, textPadding);
 	textItem->SetComponent(this);
 }
 
@@ -75,7 +75,7 @@ void GUIButton::Init(std::string text, Color textColor, Color normalColor, Color
 	this->normalColor = normalColor;
 	this->downColor = downColor;
 	this->hoverColor = hoverColor;
-	_textPadding = textPadding;
+	textPadding = textPadding;
 
 	// Make the background and text
 	backgroundItem = SDLWrapper::GetInstance().CreateRect(normalColor, rect);

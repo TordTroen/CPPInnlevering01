@@ -5,12 +5,12 @@ using namespace std;
 
 ImageRenderer::ImageRenderer(std::string imageFilename)
 {
-	_image = SDLWrapper::GetInstance().CreateImage(imageFilename, Rect(0, 0, 0, 0));
+	image = SDLWrapper::GetInstance().CreateImage(imageFilename, Rect(0, 0, 0, 0));
 }
 
 ImageRenderer::ImageRenderer(std::string imageFilename, Color color)
 {
-	_image = SDLWrapper::GetInstance().CreateImage(imageFilename, Rect(0, 0, 0, 0), color);
+	image = SDLWrapper::GetInstance().CreateImage(imageFilename, Rect(0, 0, 0, 0), color);
 }
 
 
@@ -20,7 +20,7 @@ ImageRenderer::~ImageRenderer()
 
 void ImageRenderer::OnSetActive()
 {
-	_image->SetActive(IsActive());
+	image->SetActive(IsActive());
 }
 
 void ImageRenderer::Update()
@@ -30,5 +30,5 @@ void ImageRenderer::Update()
 
 void ImageRenderer::UpdateRect() const
 {
-	_image->SetRect(GetTransform()->GetRect());
+	image->SetRect(GetTransform()->GetRect());
 }

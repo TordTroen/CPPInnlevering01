@@ -11,7 +11,7 @@ public:
 	GUIText(std::string text, Color color, Rect rect);
 	~GUIText();
 	void SetText(std::string text);
-	void SyncPositionWithTransform();
+	void SyncPositionWithTransform() override;
 protected:
 	void Awake() override;
 	void OnSetActive() override;
