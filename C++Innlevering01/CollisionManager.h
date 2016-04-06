@@ -9,7 +9,7 @@ public:
 	static void Update();
 	static void AddCollider(Collider* const collider, bool isStaticCollider = true);
 private:
-	static std::vector<Collider*> _staticColliders;
-	static std::vector<Collider*> _dynamicColliders;
+	static std::vector<Collider*> staticColliders;
+	static std::vector<Collider*> dynamicColliders;
 };
 

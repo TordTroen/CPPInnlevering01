@@ -5,14 +5,14 @@ using namespace std;
 
 Transform::Transform()
 {
-	_position = Vector2D(0, 0);
-	_size = Vector2D(100, 100);
+	position = Vector2D(0, 0);
+	size = Vector2D(100, 100);
 }
 
 Transform::Transform(Vector2D pos, Vector2D size)
 {
-	_position = pos;
-	_size = size;
+	position = pos;
+	size = size;
 }
 
 Transform::~Transform()
@@ -26,9 +26,9 @@ void Transform::Translate(Vector2D const trans, bool limitToScreen)
 	{
 		int windowWidth = GameManager::GetInstance().GetWindowWidth();
 		int windowHeight = GameManager::GetInstance().GetWindowHeight();
-		int xTrans = _position.X + v.X;
+		int xTrans = position.X + v.X;
 		//if (_position.X + _size.X + v.X > windowWidth)
-		if (xTrans + _size.X > windowWidth)
+		if (xTrans + size.X > windowWidth)
 		{
 			v.X = 0;
 		}
@@ -36,11 +36,11 @@ void Transform::Translate(Vector2D const trans, bool limitToScreen)
 		{
 			v.X = 0;
 		}
-		if (_position.Y + _size.Y + v.Y > windowHeight)
+		if (position.Y + size.Y + v.Y > windowHeight)
 		{
 			v.Y = 0;
 		}
-		else if (_position.Y + v.Y < 0)
+		else if (position.Y + v.Y < 0)
 		{
 			v.Y = 0;
 		}
@@ -52,17 +52,17 @@ void Transform::Translate(Vector2D const trans, bool limitToScreen)
 		}*/
 	}
 	
-	_position = _position + v;
+	position = position + v;
 }
 
 void Transform::SetPosition(Vector2D newPos)
 {
-	_position = newPos;
+	position = newPos;
 }
 
 void Transform::SetSize(Vector2D newSize)
 {
-	_size = newSize;
+	size = newSize;
 }
 
 void Transform::SetRect(Rect rect)
@@ -73,10 +73,10 @@ void Transform::SetRect(Rect rect)
 
 Vector2D Transform::GetCenter() const
 {
-	return Vector2D(_position.X + _size.X / 2, _position.Y + _size.Y / 2);
+	return Vector2D(position.X + size.X / 2, position.Y + size.Y / 2);
 }
 
 Rect Transform::GetRect() const
 {
-	return Rect(_position.X, _position.Y, _size.X, _size.Y);
+	return Rect(position.X, position.Y, size.X, size.Y);
 }

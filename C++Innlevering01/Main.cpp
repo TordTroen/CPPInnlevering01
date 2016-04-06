@@ -41,7 +41,6 @@ int main(int argc, char** argv)
 		GameManager::GetInstance().GetWindowHeight(), Color(0, 200, 200)) == 0)
 	{
 
-
 		// Holds start position, number of bricks and name of level.
 		// Parameter holds 1 digit for each brick - each number has different coloring, 1: blue, 2: black
 		Level* level(new Level("3333333333\n2222222222\n1111111111", 90));
@@ -73,9 +72,10 @@ int main(int argc, char** argv)
 		GameObject* rightWall = GameObjectManager::GetInstance().CreateObject({ new ImageRenderer("WhiteTexture.png"), new BoxCollider() }, Tags::WallRight);
 		GameObject* topWall = GameObjectManager::GetInstance().CreateObject({ new ImageRenderer("WhiteTexture.png"), new BoxCollider() }, Tags::WallTop);
 		GameObject* bottomWall = GameObjectManager::GetInstance().CreateObject({ new ImageRenderer("WhiteTexture.png"), new BoxCollider() }, Tags::WallBottom);
-		
+		BoxCollider* col = bottomWall->GetComponent<BoxCollider>();
+
 		float inset		= 0;	// Holds the padding between size window and game walls, 0 is no padding - 100 is some padding, etc..			
-		float wallDepth = 1;	// Holds the thickness of the walls
+		float wallDepth = 50;	// Holds the thickness of the walls
 		float scw = GameManager::GetInstance().GetWindowWidth();
 		float sch = GameManager::GetInstance().GetWindowHeight();
 		leftWall->GetTransform()->SetRect(Rect(inset - wallDepth, 0, wallDepth, sch));

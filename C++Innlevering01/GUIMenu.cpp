@@ -27,10 +27,10 @@ void GUIMenu::AddElementsLayout(int startYposition, int spacing, std::vector<GUI
 	for (auto it : elements)
 	{
 		AddElement(it);
-		Rect oldRect = it->GetTransform()->GetRect();
+		/*Rect oldRect = it->GetTransform()->GetRect();
 		Rect newRect = Rect(GameManager::GetInstance().GetCenterXPosition(oldRect.w), curY, oldRect.w, oldRect.h);
 		it->GetTransform()->SetRect(newRect);
-		curY += oldRect.h + spacing;
+		curY += oldRect.h + spacing;*/
 	}
 }
 

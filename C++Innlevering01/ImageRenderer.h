@@ -12,10 +12,10 @@ public:
 	ImageRenderer(std::string imageFilename, Color color);
 	~ImageRenderer();
 	void OnSetActive() override;
-	Drawable* GetImageDrawable() const { return _image; }
+	Drawable* GetImageDrawable() const { return image; }
 private:
-	GameObject* _gameObject;
-	Drawable* _image;
+	GameObject* gameObject;
+	Drawable* image;
 	void Update() override;
 	void UpdateRect() const;
 };

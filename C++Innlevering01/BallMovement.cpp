@@ -31,6 +31,7 @@ void BallMovement::Update()
 void BallMovement::OnCollisionEnter(const Collider* const other)
 {
 	std::string tag = other->GetGameObject()->GetTag();
+	std::cout << "Collided: " << tag << std::endl;
 	if (tag == Tags::Paddle && _movement.Y > 0)
 	{
 		Vector2D paddle = other->GetTransform()->GetCenter();
@@ -40,7 +41,7 @@ void BallMovement::OnCollisionEnter(const Collider* const other)
 		
 		//Vector2D dif = (paddle - ball);
 		float dist = (paddle - ball).GetLength();
-		dist = dist / (paddle - other->GetTransform()->_position).GetLength();
+		dist = dist / (paddle - other->GetTransform()->GetPosition()).GetLength();
 		if (ball.X < paddle.X)
 		{
 			dist *= -1;
@@ -63,8 +64,8 @@ void BallMovement::OnCollisionEnter(const Collider* const other)
 		float ay = ball.Y;
 		float bx = brick.X;
 		float by = brick.Y;
-		float bw = other->GetTransform()->_size.X / 2;
-		float bh = other->GetTransform()->_size.Y / 2;
+		float bw = other->GetTransform()->GetSize().X / 2;
+		float bh = other->GetTransform()->GetSize().Y / 2;
 
 		float dx = abs(ax - bx) - bw;
 		float dy = abs(ay - by) - bh;

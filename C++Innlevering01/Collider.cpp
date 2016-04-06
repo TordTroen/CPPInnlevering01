@@ -6,9 +6,8 @@
 Collider::Collider(bool isStaticCollider)
 	: isColliding(false)
 {
-	isStaticCollider = isStaticCollider;
+	this->isStaticCollider = isStaticCollider;
 }
-
 
 Collider::~Collider()
 {

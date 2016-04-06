@@ -32,7 +32,7 @@ protected:
 	/* Called when the objects IsActive() state changes. */
 	virtual void OnSetActive(); // TODO Make abstract??
 private:
-	bool _isActive;
+	bool isActive;
 	Transform* transform;
 	GameObject* gameObject;
 };

@@ -5,7 +5,7 @@
 using namespace std;
 
 Component::Component()
-	: _isActive(true), transform(NULL), gameObject(NULL)
+	: isActive(true), transform(NULL), gameObject(NULL)
 {
 	//cout << "Component " /*<< _id*/ << "  constructor" << endl;
 }
@@ -29,12 +29,12 @@ void Component::Init(GameObject* const gameObject)
 
 bool Component::IsActive() const
 {
-	return _isActive;
+	return isActive;
 }
 
 void Component::SetActive(bool active)
 {
-	_isActive = active;
+	isActive = active;
 	OnSetActive();
 }
 

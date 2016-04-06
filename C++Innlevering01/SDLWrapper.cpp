@@ -140,7 +140,7 @@ Drawable* SDLWrapper::CreateText(std::string text, Color color, Rect rect, bool 
 	SDL_Surface* textSurface = TTF_RenderText_Solid(font, text.c_str(), color.ToSDL_Color());
 	if (textSurface == NULL)
 	{
-		cout << "Couldn' make surface for rendering text '" << text << "'." << endl;
+		cout << "Couldn't make surface for rendering text '" << text << "'." << endl;
 	}
 	else
 	{
