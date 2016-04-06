@@ -27,7 +27,7 @@ void LevelBrick::OnCollisionEnter(const Collider* const other)
 	{
 		TakeDamage();
 		GiveScore(1);
-		//gui.UpdateScoreText(GetScore()); //Denne gir error!
+		GUIManager::GetInstance().UpdateScoreText(GetScore());
 	}
 }
 
