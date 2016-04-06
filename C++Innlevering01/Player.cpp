@@ -14,7 +14,7 @@ Player::Player(int highscore, int level, int lifeLeft, int bricksHit, int bricks
 
 //	Set a player's individual values
 void Player::SetHighscore(int highscore) {
-	m_highscore = highscore;
+	m_highscore += highscore;
 }
 
 void Player::SetLevel(int level)
