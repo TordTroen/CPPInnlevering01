@@ -32,6 +32,7 @@ void BallMovement::Update()
 void BallMovement::OnCollisionEnter(const Collider* const other)
 {
 	bool levelStart   = true;
+	bool paddleHit	  = false;
 	bool bottomHit    = false;
 	int  allBricksHit = 0;
 	int  bricksHit	  = 0;
@@ -44,11 +45,14 @@ void BallMovement::OnCollisionEnter(const Collider* const other)
 	}
 
 	else if (tag == Tags::Paddle) {
-		bottomHit = true;
+		bricksHit = 0;
+		paddleHit = true;
 	}
 
 	else if (tag == Tags::Brick) {
-		bottomHit = true;
+		allBricksHit++;
+		bricksHit++;
+		
 	}
 
 
@@ -61,7 +65,7 @@ void BallMovement::OnCollisionEnter(const Collider* const other)
 		
 		//Vector2D dif = (paddle - ball);
 		float dist = (paddle - ball).GetLength();
-		dist = dist / (paddle - other->GetTransform()->_position).GetLength();
+		dist = dist / (paddle - other->GetTransform()->GetPosition()).GetLength();
 		if (ball.X < paddle.X)
 		{
 			dist *= -1;
