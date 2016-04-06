@@ -52,7 +52,6 @@ void BallMovement::OnCollisionEnter(const Collider* const other)
 	else if (tag == Tags::Brick) {
 		allBricksHit++;
 		bricksHit++;
-		
 	}
 
 

@@ -42,11 +42,6 @@ void Player::SetName(std::string name)
 	m_name = name;
 }
 
-int Player::GetLevel() const
-{
-	return 0;
-}
-
 int Player::GetHighscore() const
 {
 	return m_highscore;
