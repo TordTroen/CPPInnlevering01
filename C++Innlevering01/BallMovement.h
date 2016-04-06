@@ -14,7 +14,10 @@ public:
 	void Update() override;
 	void OnCollisionEnter(const Collider* const other) override;
 private:
-	Vector2D _movement;
-	float _speed;
+	Vector2D m_movement;
+	float m_speed;
+	bool m_levelStart = true;
+	bool m_paddleHit = true;
+	int  m_stuffHit = 0;
 };
 

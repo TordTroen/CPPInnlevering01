@@ -1,7 +1,8 @@
 #pragma once
-
+#include "Component.h"
 #include <string>
-class Player
+
+class Player : public Component
 {
 public:
 	~Player() {}
