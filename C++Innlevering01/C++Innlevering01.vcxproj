@@ -236,7 +236,8 @@
     <Image Include="WhiteTexture.png" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="LevelData.txt" />
+    <Text Include="LevelDataCustom.txt" />
+    <Text Include="LevelDataStandard.txt" />
     <Text Include="Todo.txt" />
   </ItemGroup>
   <ItemGroup>

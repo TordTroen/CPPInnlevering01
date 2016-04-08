@@ -17,7 +17,8 @@ BoardManager::~BoardManager()
 void BoardManager::InitializeBoard()
 {
 	// Import all the levels
-	ImportLevelData();
+	ImportLevelData("LevelDataStandard.txt");
+	ImportLevelData("LevelDataCustom.txt");
 
 	// Set current level to the first level
 	SetCurrentLevel(0);
@@ -75,21 +76,18 @@ void BoardManager::SetCurrentLevel(int levelId)
 void BoardManager::AddLevel(Level * level)
 {
 	allLevels.emplace_back(level);
-	std::cout << level->GetLevelText() << std::endl;
+	//std::cout << level->GetLevelText() << std::endl;
 }
 
 void BoardManager::OnStartLevel()
 {
 	ResetBoard();
-	// TODO Activate player/ball
 	LoadCurrentLevel(); // TODO load next level OR selected level from level select
 }
 
 void BoardManager::OnGameOver()
 {
 	ClearBoard();
-	// Open gameovermenu
-	// set gamestate
 }
 
 void BoardManager::LoadCurrentLevel()
@@ -104,12 +102,12 @@ void BoardManager::LoadCurrentLevel()
 	}
 }
 
-void BoardManager::ImportLevelData()
+void BoardManager::ImportLevelData(std::string filename)
 {
 	std::string line;
 
 	// Open a stream to the file
-	std::ifstream levelDataFile("LevelData.txt");
+	std::ifstream levelDataFile(filename);
 
 	if (levelDataFile.is_open()) // Check if the file is open
 	{

@@ -236,7 +236,12 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Todo.txt" />
-    <Text Include="LevelData.txt" />
+    <Text Include="LevelDataCustom.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="LevelDataStandard.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Person.png">

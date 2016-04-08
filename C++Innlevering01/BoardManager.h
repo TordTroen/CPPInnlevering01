@@ -26,7 +26,7 @@ private:
 	void LoadCurrentLevel();
 
 	/* Import level data from a file. */
-	void ImportLevelData();
+	void ImportLevelData(std::string filename);
 
 	/* Adds a level to the allLevels vector. */
 	void AddLevel(Level* level);
