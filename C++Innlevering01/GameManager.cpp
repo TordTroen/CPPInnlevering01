@@ -25,15 +25,15 @@ void GameManager::OnGameStateChanged()
 {
 	switch (gameState)
 	{
-	case MainMenu:
+	case GameState::MainMenu:
 		break;
-	case Paused:
+	case GameState::Paused:
 		break;
-	case InGame:
+	case GameState::InGame:
 		// TODO move this to the function that is called when pressing playbutton
 		//playerController->Start();
 		break;
-	case Exit:
+	case GameState::Exit:
 		break;
 	default:
 		break;

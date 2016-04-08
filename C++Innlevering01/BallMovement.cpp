@@ -30,7 +30,7 @@ void BallMovement::Awake()
 void BallMovement::Update()
 {
 	
-	if (GameManager::GetInstance().GetGameState() == InGame)
+	if (GameManager::GetInstance().GetGameState() == GameState::InGame)
 	{
 		GetTransform()->Translate(m_movement * m_speed * Time::DeltaTime());
 	}

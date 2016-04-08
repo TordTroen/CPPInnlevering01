@@ -61,13 +61,13 @@ int main(int argc, char** argv)
 		paddleObj->AddComponent(new Player());
 
 		// Initialize stuff that depends uses the paddle and ball
-		GameManager::GetInstance().Init(MainMenu);
+		GameManager::GetInstance().Init(GameState::MainMenu);
 		BoardManager::GetInstance().InitializeBoard();
 
-		GameState gameState = MainMenu; // Sets the positioning data. Has x,y,w,h, position and gravity
+		GameState gameState = GameState::MainMenu; // Sets the positioning data. Has x,y,w,h, position and gravity
 
 		//	The game loop
-		while (gameState != Exit)
+		while (gameState != GameState::Exit)
 		{
 			gameState = GameManager::GetInstance().GetGameState(); // Holds which state the game is in: MainMenu, Paused, InGame, Exit
 			// Update everything that needs to be updated every frame
@@ -85,7 +85,7 @@ int main(int argc, char** argv)
 			// DEBUG To slow down the framerate
 			//SDLWrapper::GetInstance().CreateRect(Color(0, 0, 0), Rect(0, 0, 100, 100));
 
-			if (gameState == InGame)
+			if (gameState == GameState::InGame)
 			{
 				// DEBUG
 				if (InputManager::GetInstance().GetMouseDown(1))

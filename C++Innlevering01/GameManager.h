@@ -1,7 +1,7 @@
 #pragma once
 #include "PlayerController.h"
 #include <memory>
-enum GameState
+enum class GameState
 {
 	MainMenu,
 	Paused,

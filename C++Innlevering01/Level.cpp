@@ -60,11 +60,11 @@ void Level::LoadBricks()
 		}
 		else
 		{
-			if (brickType != BrickEmpty)
+			if (brickType != BrickType::BrickEmpty)
 			{
 				GameObject* brick = GameObjectManager::GetInstance().CreateObject();
 				brickObjects.emplace_back(brick);
-				brick->AddComponent(new LevelBrick(curPos, brickType, brickScore, brickHealth, (brickType == BrickIndestructible)));
+				brick->AddComponent(new LevelBrick(curPos, brickType, brickScore, brickHealth, (brickType == BrickType::BrickIndestructible)));
 			}
 			curPos.X += LevelBrick::BrickWidth;
 		}

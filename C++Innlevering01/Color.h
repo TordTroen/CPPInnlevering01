@@ -1,6 +1,6 @@
 #pragma once
 #include "SDL.h"
-enum Colors
+enum class Colors
 {
 	ColorRed,
 	ColorYellow
@@ -21,9 +21,9 @@ public:
 	{
 		switch (color)
 		{
-		case ColorRed:
+		case Colors::ColorRed:
 			return Color(255, 0, 0);
-		case ColorYellow:
+		case Colors::ColorYellow:
 			return Color(200, 200, 0);
 		default:
 			break;

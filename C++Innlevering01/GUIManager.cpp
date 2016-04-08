@@ -12,18 +12,18 @@
 
 void OnExit()
 {
-	GameManager::GetInstance().SetGameState(Exit);
+	GameManager::GetInstance().SetGameState(GameState::Exit);
 }
 
 void OnPlay()
 {
-	GameManager::GetInstance().SetGameState(InGame);
+	GameManager::GetInstance().SetGameState(GameState::InGame);
 	BoardManager::GetInstance().OnStartLevel();
 }
 
 void OnEndGame()
 {
-	GameManager::GetInstance().SetGameState(MainMenu);
+	GameManager::GetInstance().SetGameState(GameState::MainMenu);
 	BoardManager::GetInstance().OnGameOver();
 }
 

@@ -6,7 +6,7 @@
 class ImageRenderer;
 class Color;
 
-enum BrickType
+enum class BrickType
 {
 	BrickEmpty = 0,
 	BrickNormal = 1, // 2, 3

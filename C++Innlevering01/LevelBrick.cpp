@@ -47,15 +47,15 @@ Color LevelBrick::GetColorBasedOnHealth()
 	switch (_health)
 	{
 	case 1:
-		if (_brickType == BrickNormal)
+		if (_brickType == BrickType::BrickNormal)
 		{
 			return Color(255, 255, 40);
 		}
-		else if (_brickType == BrickGreen)
+		else if (_brickType == BrickType::BrickGreen)
 		{
 			return Color(40, 255, 40);
 		}
-		else if (_brickType == BrickBlue)
+		else if (_brickType == BrickType::BrickBlue)
 		{
 			return Color(40, 40, 255);
 		}
