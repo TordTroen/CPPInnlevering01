@@ -6,11 +6,12 @@
 #include "BoxCollider.h"
 #include "ImageRenderer.h"
 #include "GUIManager.h"
+#include "Player.h"
 
 
 const float LevelBrick::BrickWidth = 50;
 const float LevelBrick::BrickHeight = 30;
-//GUIManager	  gui;
+Player player;
 
 LevelBrick::LevelBrick(Vector2D pos, BrickType brickType, int score, int health, bool indestructible)
 	: _brickPos(pos), _brickType(brickType), _scoreReward(score), _health(health), _indestructible(indestructible)
@@ -26,8 +27,6 @@ void LevelBrick::OnCollisionEnter(const Collider* const other)
 	if (!_indestructible && other->GetGameObject()->CompareTag(Tags::Ball))
 	{
 		TakeDamage();
-		GiveScore(1);
-		GUIManager::GetInstance().UpdateScoreText(GetScore());
 	}
 }
 
@@ -75,6 +74,8 @@ void LevelBrick::TakeDamage()
 	{
 		GetGameObject()->SetActive(false);
 		// TODO Award player
+		player.SetHighscore(1);
+		GUIManager::GetInstance().UpdateScoreText(player.GetHighscore());
 	}
 	_imageRenderer->GetImageDrawable()->SetColor(GetColorBasedOnHealth());
 }
