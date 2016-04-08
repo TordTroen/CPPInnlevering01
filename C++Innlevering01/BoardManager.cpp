@@ -19,6 +19,7 @@ void BoardManager::InitializeBoard()
 	// Import all the levels
 	ImportLevelData();
 
+	// Set current level to the first level
 	SetCurrentLevel(0);
 
 	// Setup the walls at the screenedges
@@ -26,7 +27,6 @@ void BoardManager::InitializeBoard()
 	GameObject* rightWall = GameObjectManager::GetInstance().CreateObject({ new ImageRenderer("WhiteTexture.png"), new BoxCollider() }, Tags::WallRight);
 	GameObject* topWall = GameObjectManager::GetInstance().CreateObject({ new ImageRenderer("WhiteTexture.png"), new BoxCollider() }, Tags::WallTop);
 	GameObject* bottomWall = GameObjectManager::GetInstance().CreateObject({ new ImageRenderer("WhiteTexture.png"), new BoxCollider() }, Tags::WallBottom);
-	BoxCollider* col = bottomWall->GetComponent<BoxCollider>();
 
 	float inset = 0;	// Holds the padding between size window and game walls, 0 is no padding - 100 is some padding, etc..			
 	float wallDepth = 50;	// Holds the thickness of the walls
@@ -36,21 +36,26 @@ void BoardManager::InitializeBoard()
 	rightWall->GetTransform()->SetRect(Rect(scw - inset, 0, wallDepth, sch));
 	topWall->GetTransform()->SetRect(Rect(0, inset - wallDepth, scw, wallDepth));
 	bottomWall->GetTransform()->SetRect(Rect(0, sch - inset, scw, wallDepth));
+
+	// Get the references to the ball and paddle
+	ballMovement = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Ball)->GetComponent<BallMovement>();
+	paddleMovement = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle)->GetComponent<PaddleMovement>();
 }
 
 void BoardManager::ResetBoard()
 {
-	// TODO Reset paddle
-	// TODO Reset ball
-	// TODO Reset level
+	// Reset current level, ball and paddle
+	curLevel->DeleteBricks();
+	ballMovement->Reset();
+	paddleMovement->Reset();
 }
 
 void BoardManager::SetCurrentLevel(int levelId)
 {
-	// TODO Destroy old level
+	// Destroy old level
 	if (curLevel != NULL)
 	{
-
+		curLevel->DeleteBricks();
 	}
 
 	// Set new level

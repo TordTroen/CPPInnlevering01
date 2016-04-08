@@ -5,7 +5,7 @@
 #include <iostream>
 float GameManager::GetCenterXPosition(float width) const
 {
-	return _windowWidth / 2 - width / 2;
+	return windowWidth / 2 - width / 2;
 }
 
 void GameManager::Init(GameState startState)
@@ -17,14 +17,14 @@ void GameManager::Init(GameState startState)
 	}
 	else
 	{
-		_playerController = paddleObj->GetComponent<PlayerController>();
+		playerController = paddleObj->GetComponent<PlayerController>();
 	}
 }
 
 void GameManager::OnGameStateChanged()
 {
-	std::cout << "State: " << _gameState << std::endl;
-	switch (_gameState)
+	std::cout << "State: " << gameState << std::endl;
+	switch (gameState)
 	{
 	case MainMenu:
 		break;
@@ -32,7 +32,7 @@ void GameManager::OnGameStateChanged()
 		break;
 	case InGame:
 		// TODO move this to the function that is called when pressing playbutton
-		_playerController->Start();
+		playerController->Start();
 		break;
 	case Exit:
 		break;

@@ -47,7 +47,7 @@ void GUIButton::SyncDrawableWithTransform()
 		GetTransform()->SetRect(textItem->GetRect());
 	}
 	backgroundItem->SetComponent(this, textPadding);
-	textItem->SetComponent(this);
+	textItem->SetComponent(this, -textPadding);
 }
 
 void GUIButton::Awake()

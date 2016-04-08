@@ -9,17 +9,22 @@
 #include "GameManager.h"
 #include "InputManager.h"
 #include "GameObjectManager.h"
+#include "Time.h"
 #include "Player.h"
 
 
-BallMovement::BallMovement(Vector2D startVector, float speed)
+BallMovement::BallMovement(Vector2D startVector, Rect startRect, float speed)
+	: m_movement(startVector.Normalized()), startRect(startRect), m_speed(speed)
 {
-	m_speed = speed;
-	m_movement = startVector.Normalized();
 }
 
 BallMovement::~BallMovement()
 {
+}
+
+void BallMovement::Awake()
+{
+	Reset();
 }
 
 void BallMovement::Update()
@@ -27,9 +32,8 @@ void BallMovement::Update()
 	
 	if (GameManager::GetInstance().GetGameState() == InGame)
 	{
-		GetTransform()->Translate(m_movement * m_speed);
+		GetTransform()->Translate(m_movement * m_speed * Time::DeltaTime());
 	}
-	//GetTransform()->SetPosition(InputManager::GetInstance().GetMousePosition());
 }
 
 void BallMovement::OnCollisionEnter(const Collider* const other)
@@ -115,4 +119,10 @@ void BallMovement::OnCollisionEnter(const Collider* const other)
 			m_movement.Y *= -1;
 		}
 	} 
+}
+
+void BallMovement::Reset()
+{
+	GetTransform()->SetRect(startRect);
+	m_movement = Vector2D(0.5, -1);
 }

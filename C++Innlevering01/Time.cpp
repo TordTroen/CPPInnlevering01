@@ -5,15 +5,15 @@ typedef hr_clock::time_point time_point;
 typedef hr_clock::duration duration;
 time_point currentFrame = hr_clock::now();
 duration timeSpan;
-
-Time::Time()
-	: deltaTime(0)
-{
-}
-
+float Time::deltaTime = 0;
 
 Time::~Time()
 {
+}
+
+void Time::Init()
+{
+	deltaTime = 0;
 }
 
 void Time::Update()
@@ -24,7 +24,7 @@ void Time::Update()
 	deltaTime = static_cast<float>(timeSpan.count()) / 10000000.0f;
 }
 
-float Time::DeltaTime() const
+float Time::DeltaTime()
 {
 	return deltaTime;
 }

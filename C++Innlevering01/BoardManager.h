@@ -1,6 +1,9 @@
 #pragma once
 #include "Level.h"
 #include <memory>
+#include "PaddleMovement.h"
+#include "BallMovement.h"
+
 class BoardManager
 {
 public:
@@ -28,6 +31,9 @@ private:
 	void AddLevel(Level* level);
 	std::vector<Level*> allLevels;
 	Level* curLevel;
+
+	PaddleMovement* paddleMovement;
+	BallMovement* ballMovement;
 
 // Singleton stuff
 public:
