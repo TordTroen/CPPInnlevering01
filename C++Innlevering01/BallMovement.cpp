@@ -14,7 +14,7 @@
 
 
 BallMovement::BallMovement(Vector2D startVector, Rect startRect, float speed)
-	: m_movement(startVector.Normalized()), startRect(startRect), m_speed(speed)
+	: startMovement(startVector.Normalized()), startRect(startRect), m_speed(speed)
 {
 }
 
@@ -124,5 +124,6 @@ void BallMovement::OnCollisionEnter(const Collider* const other)
 void BallMovement::Reset()
 {
 	GetTransform()->SetRect(startRect);
-	m_movement = Vector2D(0.5, -1);
+	m_movement = startMovement;
+	GetGameObject()->SetActive(true);
 }

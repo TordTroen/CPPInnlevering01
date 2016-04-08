@@ -9,8 +9,8 @@ public:
 	PlayerController();
 	~PlayerController();
 	void Reset();
-	void Stop();
-	void Start();
+	//void Stop();
+	//void Start();
 	int GetCurrentLivesCount() const { return _curLives; }
 	void LoseLife();
 	void SetStartingLives(int count) { _startingLives = count; }

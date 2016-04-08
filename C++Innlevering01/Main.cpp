@@ -71,8 +71,8 @@ int main(int argc, char** argv)
 		paddleObj->AddComponent(new PaddleMovement(paddleStartRect, paddleSpeed));
 		paddleObj->AddComponent(new Player());
 		PlayerController* playerController = dynamic_cast<PlayerController*>(paddleObj->AddComponent(new PlayerController()));
-		playerController->SetStartingLives(3);
-		playerController->Stop();
+		//playerController->SetStartingLives(3);
+		//playerController->Stop();
 
 		// Initialize stuff that depends uses the paddle and ball
 		GameManager::GetInstance().Init(MainMenu);
@@ -105,8 +105,8 @@ int main(int argc, char** argv)
 				if (InputManager::GetInstance().GetMouseDown(1))
 				{
 					cout << "-" << endl;
-					playerController->ChangeScore(1);
-					GUIManager::GetInstance().UpdateScoreText(playerController->GetScore());
+					//playerController->ChangeScore(1);
+					//GUIManager::GetInstance().UpdateScoreText(playerController->GetScore());
 				}
 			}
 			

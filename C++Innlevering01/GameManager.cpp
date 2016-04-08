@@ -23,7 +23,6 @@ void GameManager::Init(GameState startState)
 
 void GameManager::OnGameStateChanged()
 {
-	std::cout << "State: " << gameState << std::endl;
 	switch (gameState)
 	{
 	case MainMenu:
@@ -32,7 +31,7 @@ void GameManager::OnGameStateChanged()
 		break;
 	case InGame:
 		// TODO move this to the function that is called when pressing playbutton
-		playerController->Start();
+		//playerController->Start();
 		break;
 	case Exit:
 		break;

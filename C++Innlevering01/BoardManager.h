@@ -12,6 +12,7 @@ public:
 	/* Initializes the board. Import the leveldata and sets up the walls surrounding the screen. */
 	void InitializeBoard();
 	void ResetBoard();
+	void ClearBoard();
 
 	/* Sets the curLevel based on the index given. */
 	void SetCurrentLevel(int levelId);

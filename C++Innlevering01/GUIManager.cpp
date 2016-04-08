@@ -24,6 +24,12 @@ void OnPlay()
 void OnEndGame()
 {
 	GameManager::GetInstance().SetGameState(MainMenu);
+	BoardManager::GetInstance().OnGameOver();
+}
+
+void OnRestart()
+{
+	OnPlay();
 }
 
 GUIManager::~GUIManager()
@@ -77,7 +83,7 @@ void GUIManager::SetupMenus()
 		new GUIText("Level completed!", Color(200, 255, 255), Rect(10, 10, 0, 0)),
 		new GUIText("Score: 1000", Color(10, 25, 55), Rect(10, 10, 0, 0)),
 		new GUIButton("Next level", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(10, 100, 0, 0), 8, levelIntermissionMenu, hudMenu, OnPlay),
-		new GUIButton("Restart", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(10, 150, 0, 0), 8, levelIntermissionMenu, hudMenu),
+		new GUIButton("Restart", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(10, 150, 0, 0), 8, levelIntermissionMenu, hudMenu, OnRestart),
 		new GUIButton("Main menu", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(10, 150, 0, 0), 8, levelIntermissionMenu, mainMenu)
 	});
 }

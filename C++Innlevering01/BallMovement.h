@@ -17,6 +17,7 @@ public:
 	void Reset();
 private:
 	Vector2D m_movement;
+	Vector2D startMovement;
 	Rect startRect;
 	float m_speed;
 	bool m_levelStart = true;

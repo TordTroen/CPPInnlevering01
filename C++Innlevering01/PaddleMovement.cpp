@@ -2,6 +2,7 @@
 #include "Vector2D.h"
 #include "InputManager.h"
 #include "GameManager.h"
+#include "GameObject.h"
 #include "Transform.h"
 #include "Time.h"
 
@@ -29,4 +30,5 @@ void PaddleMovement::Update()
 void PaddleMovement::Reset()
 {
 	GetTransform()->SetRect(startRect);
+	GetGameObject()->SetActive(true);
 }

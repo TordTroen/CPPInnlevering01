@@ -40,6 +40,8 @@ void BoardManager::InitializeBoard()
 	// Get the references to the ball and paddle
 	ballMovement = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Ball)->GetComponent<BallMovement>();
 	paddleMovement = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle)->GetComponent<PaddleMovement>();
+
+	ClearBoard();
 }
 
 void BoardManager::ResetBoard()
@@ -48,6 +50,13 @@ void BoardManager::ResetBoard()
 	curLevel->DeleteBricks();
 	ballMovement->Reset();
 	paddleMovement->Reset();
+}
+
+void BoardManager::ClearBoard()
+{
+	curLevel->DeleteBricks();
+	ballMovement->GetGameObject()->SetActive(false);
+	paddleMovement->GetGameObject()->SetActive(false);
 }
 
 void BoardManager::SetCurrentLevel(int levelId)
@@ -78,6 +87,7 @@ void BoardManager::OnStartLevel()
 
 void BoardManager::OnGameOver()
 {
+	ClearBoard();
 	// Open gameovermenu
 	// set gamestate
 }
