@@ -20,6 +20,8 @@ void OnExit()
 void OnPlay()
 {
 	GameManager::GetInstance().SetGameState(GameState::InGame);
+	int levelIndex = GUIManager::GetInstance().GetLevelSelectToggleGroup()->GetCurrentToggleIndex();
+	BoardManager::GetInstance().SetCurrentLevel(levelIndex);
 	BoardManager::GetInstance().OnStartLevel();
 }
 
@@ -58,20 +60,18 @@ void GUIManager::SetupMenus()
 		new GUIButton("Level editor", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(10, 100, 0, 0), 8, mainMenu, levelEditorMenu),
 		new GUIButton("Exit", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(10, 150, 0, 0), 8, OnExit)
 	});
-	GUIToggleGroup* tGroup = dynamic_cast<GUIToggleGroup*>(menuObj->AddComponent(new GUIToggleGroup()));
-	//mainMenu->AddElement(new GUIToggle("Item1", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Color(10, 200, 10), Rect(10, 100, 0, 0), 8, tGroup));
-	//mainMenu->AddElement(new GUIToggle("Item2", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Color(10, 200, 10), Rect(10, 100, 0, 0), 8, tGroup));
-	//mainMenu->AddElement(new GUIToggle("Item3", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Color(10, 200, 10), Rect(10, 100, 0, 0), 8, tGroup));
-	for (auto it : BoardManager::GetInstance().GetLevelNames())
-	{
-		mainMenu->AddElement(new GUIToggle(it, Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Color(10, 200, 10), Rect(10, 100, 0, 0), 8, tGroup));
-	}
 
 	levelSelectMenu->AddElements({
 		new GUIText("Select a level", Color(200, 255, 255), Rect(10, 10, 0, 0)),
 		new GUIButton("Play level 1", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(10, 100, 0, 0), 8, levelSelectMenu, hudMenu, OnPlay),
 		new GUIButton("Back", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(10, 150, 0, 0), 8, levelSelectMenu, mainMenu)
 	});
+
+	levelSelectToggleGroup = dynamic_cast<GUIToggleGroup*>(menuObj->AddComponent(new GUIToggleGroup()));
+	for (auto it : BoardManager::GetInstance().GetLevelNames())
+	{
+		levelSelectMenu->AddElement(new GUIToggle(it, Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Color(10, 200, 10), Rect(10, 100, 0, 0), 8, levelSelectToggleGroup));
+	}
 
 	levelEditorMenu->AddElements({
 		new GUIText("Level editor", Color(200, 255, 255), Rect(10, 10, 0, 0)),
@@ -82,7 +82,7 @@ void GUIManager::SetupMenus()
 		new GUIText("Score: 0", Color(255, 255, 255), Rect(10, 10, 0, 0)),
 		new GUIButton("End game", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(10, 100, 0, 0), 8, hudMenu, levelIntermissionMenu, OnEndGame)
 	});
-	_scoreText = hudMenu->GetElement<GUIText>();
+	scoreText = hudMenu->GetElement<GUIText>();
 
 	endMenu->AddElements({
 		new GUIText("Game over!", Color(10, 25, 55), Rect(10, 10, 0, 0)),
@@ -102,11 +102,11 @@ void GUIManager::UpdateScoreText(int score)
 {
 	std::ostringstream oss;
 	oss << "Score: " << score;
-	_scoreText->SetText(oss.str());
+	scoreText->SetText(oss.str());
 }
 
 void GUIManager::Awake()
 {
 	GameObject* playerObj = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle);
-	_playerController = playerObj->GetComponent<PlayerController>();
+	playerController = playerObj->GetComponent<PlayerController>();
 }

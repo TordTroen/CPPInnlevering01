@@ -11,7 +11,7 @@ public:
 	~GUIToggleGroup();
 	void AddToggle(GUIToggle* toggle);
 	void Toggle(int toggleIndex);
-	int GetCurrentToggle() const { return curToggled; }
+	int GetCurrentToggleIndex() const { return curToggled; }
 	void SyncDrawableWithTransform() override { }
 private:
 	int curToggled;

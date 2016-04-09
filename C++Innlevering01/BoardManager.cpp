@@ -127,8 +127,9 @@ void BoardManager::ImportLevelData(std::string filename)
 			getline(levelDataFile, line);
 			
 			if (line.empty()) continue; // Skip this line if it is empty
+			// TODO Somehow validate to make sure the leveltext string is a valid level??
 
-			Level* level = new Level(line); // TODO Somehow validate to make sure the leveltext string is a valid level??
+			Level* level = new Level(line); 
 			AddLevel(level);
 		}
 	}

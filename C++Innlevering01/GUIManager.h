@@ -1,6 +1,7 @@
 #pragma once
 #include "GUIText.h"
 #include "PlayerController.h"
+#include "GUIToggleGroup.h"
 
 class GUIManager
 	: public Component
@@ -10,11 +11,13 @@ public:
 	~GUIManager();
 	void SetupMenus();
 	void UpdateScoreText(int score);
+	GUIToggleGroup* GetLevelSelectToggleGroup() const { return levelSelectToggleGroup; }
 private:
 	void Test();
 	void Awake() override;
-	GUIText* _scoreText;
-	PlayerController* _playerController;
+	GUIText* scoreText;
+	PlayerController* playerController;
+	GUIToggleGroup* levelSelectToggleGroup;
 
 	// Singleton stuff
 public:

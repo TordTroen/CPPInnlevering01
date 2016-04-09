@@ -14,14 +14,21 @@ void GUIToggleGroup::AddToggle(GUIToggle * toggle)
 {
 	toggle->SetToggleGroupIndex(toggles.size());
 	toggles.emplace_back(toggle);
+
+	// Toggle the first element
+	if (toggles.size() == 1)
+	{
+		Toggle(0);
+	}
 }
 
 void GUIToggleGroup::Toggle(int toggleIndex)
 {
-	//for (auto it : toggles)
+	// Make sure only the toggle we just toggeled is toggeled
 	for (int i = 0; i < toggles.size(); i ++)
 	{
-		// TODO Toggle that shit here
 		toggles[i]->SetToggleActive(toggleIndex == i);
 	}
+
+	curToggled = toggleIndex;
 }

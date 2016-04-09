@@ -41,7 +41,6 @@ int main(int argc, char** argv)
 	if (SDLWrapper::GetInstance().InitializeWindow("Breakout", GameManager::GetInstance().GetWindowWidth(),
 		GameManager::GetInstance().GetWindowHeight(), Color(0, 200, 200)) == 0)
 	{
-		GUIManager::GetInstance().SetupMenus();
 
 		Rect paddleStartRect = Rect(GameManager::GetInstance().GetCenterXPosition(200), GameManager::GetInstance().GetWindowHeight() - 100, 150, 15);
 		Rect ballStartRect = Rect(GameManager::GetInstance().GetCenterXPosition(18), paddleStartRect.y - 50, 18, 18);
@@ -63,6 +62,7 @@ int main(int argc, char** argv)
 		// Initialize stuff that depends uses the paddle and ball
 		GameManager::GetInstance().Init(GameState::MainMenu);
 		BoardManager::GetInstance().InitializeBoard();
+		GUIManager::GetInstance().SetupMenus();
 
 		GameState gameState = GameState::MainMenu; // Sets the positioning data. Has x,y,w,h, position and gravity
 
