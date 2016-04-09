@@ -2,13 +2,8 @@
 #include "Vector2D.h"
 #include "LevelBrick.h"
 #include "GameObjectManager.h"
-#include <iostream>
 #include "GameManager.h"
 #include "Theme.h"
-#include "Drawable.h"
-#include "Rect.h"
-#include "SDLWrapper.h"
-#include "Tags.h"
 
 Level::Level(std::string levelText, float startYPosition)
 	: startYPosition(startYPosition), levelText(levelText)
@@ -18,9 +13,7 @@ Level::Level(std::string levelText, float startYPosition)
 	// Remove name from levelText
 	int nameEndPos = levelText.find('|');
 	levelName = levelText.substr(0, nameEndPos);
-	//levelText = levelText.substr(nameEndPos + 1, levelText.length());
 	this->levelText.erase(0, nameEndPos + 1);
-	std::cout << "Name: {" << levelName << "}, level: {" << levelText  << "}" << std::endl;
 }
 
 Level::~Level()
@@ -29,20 +22,14 @@ Level::~Level()
 
 void Level::LoadBricks()
 {
+	// Figure out the startposition for the first brick
 	Vector2D startPos = Vector2D(0, startYPosition);
+	// Calculate the width of the whole level to be able to place it in the center
 	int brickWidthCount = 0;
-
-	//for (char& c : levelText)
-	//{
-	//	if (c == '|')
-	//	{
-	//		break;
-	//	}
-	//	brickWidthCount++;
-	//}
 	brickWidthCount = levelText.find('|');
 	float levelWidth = (brickWidthCount * LevelBrick::BrickWidth);
 	startPos.X = GameManager::GetInstance().GetWindowWidth() / 2 - levelWidth / 2;
+
 	Vector2D curPos = startPos;
 
 	for (char& c : levelText)
