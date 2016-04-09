@@ -90,6 +90,16 @@ void BoardManager::OnGameOver()
 	ClearBoard();
 }
 
+std::vector<std::string> BoardManager::GetLevelNames() const
+{
+	std::vector<std::string> names;
+	for (auto it : allLevels)
+	{
+		names.emplace_back(it->GetLevelName());
+	}
+	return names;
+}
+
 void BoardManager::LoadCurrentLevel()
 {
 	if (curLevel != NULL)
@@ -115,6 +125,9 @@ void BoardManager::ImportLevelData(std::string filename)
 		{
 			// Get each line and make a new level with that line
 			getline(levelDataFile, line);
+			
+			if (line.empty()) continue; // Skip this line if it is empty
+
 			Level* level = new Level(line); // TODO Somehow validate to make sure the leveltext string is a valid level??
 			AddLevel(level);
 		}

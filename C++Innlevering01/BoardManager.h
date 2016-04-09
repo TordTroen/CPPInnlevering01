@@ -21,6 +21,8 @@ public:
 	void OnStartLevel();
 
 	void OnGameOver();
+
+	std::vector<std::string> GetLevelNames() const;
 private:
 	/* Loads the level stored in curLevel. */
 	void LoadCurrentLevel();
@@ -30,9 +32,10 @@ private:
 
 	/* Adds a level to the allLevels vector. */
 	void AddLevel(Level* level);
-	std::vector<Level*> allLevels;
-	Level* curLevel;
 
+	std::vector<Level*> allLevels;
+
+	Level* curLevel;
 	PaddleMovement* paddleMovement;
 	BallMovement* ballMovement;
 

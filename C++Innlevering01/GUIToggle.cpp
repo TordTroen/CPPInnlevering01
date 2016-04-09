@@ -2,7 +2,7 @@
 #include "GUIToggleGroup.h"
 
 GUIToggle::GUIToggle(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Color toggeledColor, Rect rect, int textPadding, GUIToggleGroup* toggleGroup)
-	: GUIButton(text, textColor, normalColor, downColor, hoverColor, rect, textPadding, toggeledColor, false)
+	: GUIButton(text, textColor, normalColor, downColor, hoverColor, rect, textPadding, toggeledColor, true)
 {
 	this->toggleGroup = toggleGroup;
 	toggleGroup->AddToggle(this);

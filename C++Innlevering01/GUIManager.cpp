@@ -9,6 +9,8 @@
 #include "GameManager.h"
 #include "BoardManager.h"
 #include "Tags.h"
+#include "GUIToggleGroup.h"
+#include "GUIToggle.h"
 
 void OnExit()
 {
@@ -56,6 +58,14 @@ void GUIManager::SetupMenus()
 		new GUIButton("Level editor", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(10, 100, 0, 0), 8, mainMenu, levelEditorMenu),
 		new GUIButton("Exit", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(10, 150, 0, 0), 8, OnExit)
 	});
+	GUIToggleGroup* tGroup = dynamic_cast<GUIToggleGroup*>(menuObj->AddComponent(new GUIToggleGroup()));
+	//mainMenu->AddElement(new GUIToggle("Item1", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Color(10, 200, 10), Rect(10, 100, 0, 0), 8, tGroup));
+	//mainMenu->AddElement(new GUIToggle("Item2", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Color(10, 200, 10), Rect(10, 100, 0, 0), 8, tGroup));
+	//mainMenu->AddElement(new GUIToggle("Item3", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Color(10, 200, 10), Rect(10, 100, 0, 0), 8, tGroup));
+	for (auto it : BoardManager::GetInstance().GetLevelNames())
+	{
+		mainMenu->AddElement(new GUIToggle(it, Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Color(10, 200, 10), Rect(10, 100, 0, 0), 8, tGroup));
+	}
 
 	levelSelectMenu->AddElements({
 		new GUIText("Select a level", Color(200, 255, 255), Rect(10, 10, 0, 0)),

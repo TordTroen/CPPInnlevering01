@@ -58,7 +58,7 @@ void GUIButton::SyncDrawableWithTransform()
 
 void GUIButton::SetOverrideColorActive(bool isOverriding)
 {
-	isOver = isOverriding;
+	isOverridingColor = isOverriding;
 	SetBackgroundColor();
 }
 

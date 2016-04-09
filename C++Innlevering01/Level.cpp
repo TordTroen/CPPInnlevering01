@@ -12,11 +12,16 @@
 #include "Tags.h"
 
 Level::Level(std::string levelText, float startYPosition)
-	: _startYPosition(startYPosition), _levelText(levelText)
+	: startYPosition(startYPosition), levelText(levelText)
 {
 	Theme::Theme(GameManager::GetInstance().GetWindowWidth(), GameManager::GetInstance().GetWindowHeight(), 0);
-	//_levelText = levelText;
-	// TODO read the level text and insert it into the level vertices
+
+	// TODO Remove name from levelText
+	int nameEndPos = levelText.find('|');
+	levelName = levelText.substr(0, nameEndPos);
+	levelText = levelText.substr(nameEndPos + 1, levelText.length());
+
+	std::cout << "Name: " << levelName << ", level: " << levelText << std::endl;
 }
 
 Level::~Level()
@@ -25,9 +30,12 @@ Level::~Level()
 
 void Level::LoadBricks()
 {
-	Vector2D startPos = Vector2D(0, _startYPosition);
+	Vector2D startPos = Vector2D(0, startYPosition);
 	int brickWidthCount = 0;
-	for (char& c : _levelText)
+	
+	
+
+	for (char& c : levelText)
 	{
 		if (c == '|')
 		{
@@ -39,7 +47,7 @@ void Level::LoadBricks()
 	startPos.X = GameManager::GetInstance().GetWindowWidth() / 2 - levelWidth / 2;
 	Vector2D curPos = startPos;
 
-	for (char& c : _levelText)
+	for (char& c : levelText)
 	{
 		// Figure out the brick parameters
 		int brickHealth = 1;
