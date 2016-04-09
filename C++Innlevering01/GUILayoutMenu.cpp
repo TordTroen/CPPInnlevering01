@@ -40,7 +40,6 @@ void GUILayoutMenu::AddElements(std::vector<GUIElement*> elements)
 	for (auto it : elements)
 	{
 		AddElement(it);
-		
 	}
 }
 

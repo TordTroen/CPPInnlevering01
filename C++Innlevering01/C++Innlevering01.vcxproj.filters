@@ -129,6 +129,12 @@
     <ClInclude Include="GUILayoutMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GUIToggleGroup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIToggle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InputManager.cpp">
@@ -228,6 +234,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GUILayoutMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIToggleGroup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIToggle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

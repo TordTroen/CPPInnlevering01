@@ -169,6 +169,8 @@
     <ClInclude Include="GUIManager.h" />
     <ClInclude Include="GUIMenu.h" />
     <ClInclude Include="GUIText.h" />
+    <ClInclude Include="GUIToggle.h" />
+    <ClInclude Include="GUIToggleGroup.h" />
     <ClInclude Include="ImageRenderer.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Level.h" />
@@ -204,6 +206,8 @@
     <ClCompile Include="GUIManager.cpp" />
     <ClCompile Include="GUIMenu.cpp" />
     <ClCompile Include="GUIText.cpp" />
+    <ClCompile Include="GUIToggle.cpp" />
+    <ClCompile Include="GUIToggleGroup.cpp" />
     <ClCompile Include="ImageRenderer.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Level.cpp" />
