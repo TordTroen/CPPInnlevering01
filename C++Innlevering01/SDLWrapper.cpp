@@ -69,13 +69,12 @@ int SDLWrapper::InitializeWindow(std::string windowName, int screenWidth, int sc
 	return 0;
 }
 
-Drawable* SDLWrapper::CreateImage(std::string filename, Rect rect, bool originalSize)
+Drawable* SDLWrapper::CreateImage(std::string filename, Rect rect, bool originalSize, bool renderUnderneath)
 {
-	return CreateImage(filename, rect, Color(), originalSize);
+	return CreateImage(filename, rect, Color(), originalSize, renderUnderneath);
 }
 
-// TODO Actually use status variable to check for fails before trying to use the objects
-Drawable* SDLWrapper::CreateImage(std::string filename, Rect rect, Color color, bool originalSize)
+Drawable* SDLWrapper::CreateImage(std::string filename, Rect rect, Color color, bool originalSize, bool renderUnderneath)
 {
 
 	SDL_Surface* imageSurface = IMG_Load(filename.c_str());
@@ -111,7 +110,18 @@ Drawable* SDLWrapper::CreateImage(std::string filename, Rect rect, Color color, 
 
 			// Create a new Drawable with the parameters
 			Drawable* drawable = new Drawable(rect, texture, color);
-			allDrawables.emplace_back(drawable);
+
+			/*if (renderUnderneath)
+			{
+				allDrawables.emplace_front(drawable);
+			}
+			else
+			{
+				allDrawables.emplace_back(drawable);
+			}*/
+			AddDrawableToCollection(drawable, renderUnderneath);
+
+			
 			return drawable;
 		}
 	}
@@ -119,10 +129,10 @@ Drawable* SDLWrapper::CreateImage(std::string filename, Rect rect, Color color, 
 }
 
 /* Creates an image with the specified colors and dimensions */
-Drawable* SDLWrapper::CreateRect(Color color, Rect rect)
+Drawable* SDLWrapper::CreateRect(Color color, Rect rect, bool renderUnderneath)
 {
 	// Create a new image with a white blank texture
-	Drawable* img = CreateImage("WhiteTexture.png", rect, false);
+	Drawable* img = CreateImage("WhiteTexture.png", rect, false, renderUnderneath);
 
 	// If we managed to create the image, set the color
 	if (img != NULL)
@@ -132,7 +142,7 @@ Drawable* SDLWrapper::CreateRect(Color color, Rect rect)
 	return img;
 }
 
-Drawable* SDLWrapper::CreateText(std::string text, Color color, Rect rect, bool originalSize)
+Drawable* SDLWrapper::CreateText(std::string text, Color color, Rect rect, bool originalSize, bool renderUnderneath)
 {
 	SDL_Texture* texture = NULL;
 
@@ -161,7 +171,8 @@ Drawable* SDLWrapper::CreateText(std::string text, Color color, Rect rect, bool 
 
 			// Create a new Drawable with the parameters
 			Drawable* drawable =new Drawable(rect, texture, color);
-			allDrawables.emplace_back(drawable);
+			//allDrawables.emplace_back(drawable);
+			AddDrawableToCollection(drawable, renderUnderneath);
 			return drawable;
 		}
 	}
@@ -215,6 +226,18 @@ void SDLWrapper::RenderDrawable(const Drawable* const drawable) const
 		return;
 	}
 	SDL_RenderCopy(renderer, drawable->GetTexture(), NULL, &drawable->GetRect().ToSDL_Rect());
+}
+
+void SDLWrapper::AddDrawableToCollection(Drawable * drawable, bool renderUnderneath)
+{
+	if (renderUnderneath)
+	{
+		allDrawables.emplace_front(drawable);
+	}
+	else
+	{
+		allDrawables.emplace_back(drawable);
+	}
 }
 
 void SDLWrapper::SetTextureColor(SDL_Texture * texture, Color color)

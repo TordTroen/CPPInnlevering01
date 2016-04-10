@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include "GameObject.h"
 
 class Level
 {
@@ -8,12 +9,17 @@ public:
 	Level(std::string levelText, float startYPosition = 100);
 	~Level();
 	void LoadBricks();
+	void DeleteBricks();
 	void SetBackground();
-	std::string GetLevelText() const { return _levelText; }
-	std::vector<int> GetLevelVectices() const { return _levelVertices; }
+	std::string GetLevelText() const { return levelText; }
+	std::vector<int> GetLevelVectices() const { return levelVertices; }
+	std::string GetLevelName() const { return levelName; }
 private:
-	float _startYPosition;
-	std::string _levelText;
-	std::vector<int> _levelVertices;
+	std::string levelName;
+	int levelId;
+	float startYPosition;
+	std::string levelText;
+	std::vector<int> levelVertices;
+	std::vector<GameObject*> brickObjects;
 };
 

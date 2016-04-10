@@ -23,7 +23,7 @@ void GameObject::Update()
 {
 	for (auto const& it : _components)
 	{
-		if (it->IsActive())
+		if (it != NULL && it->IsActive())
 		{
 			it->Update();
 		}
@@ -87,4 +87,10 @@ void GameObject::SetActive(bool active)
 	{
 		it->SetActive(active);
 	}
+}
+
+void GameObject::Destroy()
+{
+	// TODO Implement
+	SetActive(false);
 }

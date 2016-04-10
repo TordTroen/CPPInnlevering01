@@ -6,11 +6,12 @@
 #include "BoxCollider.h"
 #include "ImageRenderer.h"
 #include "GUIManager.h"
+#include "Player.h"
 
 
 const float LevelBrick::BrickWidth = 50;
 const float LevelBrick::BrickHeight = 30;
-//GUIManager	  gui;
+Player player;
 
 LevelBrick::LevelBrick(Vector2D pos, BrickType brickType, int score, int health, bool indestructible)
 	: _brickPos(pos), _brickType(brickType), _scoreReward(score), _health(health), _indestructible(indestructible)
@@ -26,8 +27,6 @@ void LevelBrick::OnCollisionEnter(const Collider* const other)
 	if (!_indestructible && other->GetGameObject()->CompareTag(Tags::Ball))
 	{
 		TakeDamage();
-		GiveScore(1);
-		GUIManager::GetInstance().UpdateScoreText(GetScore());
 	}
 }
 
@@ -47,15 +46,15 @@ Color LevelBrick::GetColorBasedOnHealth()
 	switch (_health)
 	{
 	case 1:
-		if (_brickType == BrickNormal)
+		if (_brickType == BrickType::BrickNormal)
 		{
 			return Color(255, 255, 40);
 		}
-		else if (_brickType == BrickGreen)
+		else if (_brickType == BrickType::BrickGreen)
 		{
 			return Color(40, 255, 40);
 		}
-		else if (_brickType == BrickBlue)
+		else if (_brickType == BrickType::BrickBlue)
 		{
 			return Color(40, 40, 255);
 		}
@@ -75,6 +74,8 @@ void LevelBrick::TakeDamage()
 	{
 		GetGameObject()->SetActive(false);
 		// TODO Award player
+		player.SetHighscore(1);
+		GUIManager::GetInstance().UpdateScoreText(player.GetHighscore());
 	}
 	_imageRenderer->GetImageDrawable()->SetColor(GetColorBasedOnHealth());
 }

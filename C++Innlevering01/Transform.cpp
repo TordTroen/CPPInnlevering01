@@ -19,37 +19,37 @@ Transform::~Transform()
 {
 }
 
-void Transform::Translate(Vector2D const trans, bool limitToScreen)
+void Transform::Translate(Vector2D const trans, bool clampToScreen)
 {
 	Vector2D v = trans;
-	if (limitToScreen)
+	if (clampToScreen)
 	{
-		int windowWidth = GameManager::GetInstance().GetWindowWidth();
-		int windowHeight = GameManager::GetInstance().GetWindowHeight();
-		int xTrans = position.X + v.X;
-		//if (_position.X + _size.X + v.X > windowWidth)
-		if (xTrans + size.X > windowWidth)
+		int w = GameManager::GetInstance().GetWindowWidth();
+		int h = GameManager::GetInstance().GetWindowHeight();
+
+		// Define the corners of the translation 
+		int lx = position.X + v.X;
+		int rx = position.X + v.X + size.X;
+		int ty = position.Y + v.Y;
+		int by = position.Y + v.Y + size.Y;
+
+		// If the translation is outside the screen, take away the difference from the velocity
+		if (rx > w)
 		{
-			v.X = 0;
+			v.X -= rx - w;
 		}
-		else if (xTrans < 0)
+		else if (lx < 0)
 		{
-			v.X = 0;
+			v.X -= lx;
 		}
-		if (position.Y + size.Y + v.Y > windowHeight)
+		if (by > h)
 		{
-			v.Y = 0;
+			v.Y -= by - h;
 		}
-		else if (position.Y + v.Y < 0)
+		else if (ty < 0)
 		{
-			v.Y = 0;
+			v.Y -= ty;
 		}
-		// Don't do the translation if the translation would result in it being outside the screen
-		/*if (_position.X + _size.X + v.X > windowWidth || _position.X + v.X < 0 
-			|| _position.Y + _size.Y + v.Y > windowHeight || _position.Y + v.Y < 0)
-		{
-			return;
-		}*/
 	}
 	
 	position = position + v;

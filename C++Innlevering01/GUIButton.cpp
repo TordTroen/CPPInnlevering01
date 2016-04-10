@@ -8,15 +8,21 @@ GUIButton::GUIButton(std::string text, Color textColor, Color normalColor, Color
 	//activateMenu = NULL;
 	//deactivateMenu = NULL;
 
-	Init(text, textColor, normalColor, downColor, hoverColor, rect, textPadding, NULL, NULL, CallbackFunction, fitRectToText);
+	Init(text, textColor, normalColor, downColor, hoverColor, rect, textPadding, NULL, NULL, CallbackFunction, fitRectToText, false);
 
 	// Assign the callback function
 	//Callback = CallbackFunction;
 }
 
+GUIButton::GUIButton(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, Color overrideColor, bool fitRectToText)
+{
+	Init(text, textColor, normalColor, downColor, hoverColor, rect, textPadding, NULL, NULL, NULL, fitRectToText, true);
+	this->overrideColor = overrideColor;
+}
+
 GUIButton::GUIButton(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, GUIMenu* const deactivateMenu, GUIMenu* const activateMenu, bool fitRectToText)
 {
-	Init(text, textColor, normalColor, downColor, hoverColor, rect, textPadding, deactivateMenu, activateMenu, NULL, fitRectToText);
+	Init(text, textColor, normalColor, downColor, hoverColor, rect, textPadding, deactivateMenu, activateMenu, NULL, fitRectToText, false);
 
 	//this->activateMenu = activateMenu;
 	//this->deactivateMenu = deactivateMenu;
@@ -25,7 +31,7 @@ GUIButton::GUIButton(std::string text, Color textColor, Color normalColor, Color
 
 GUIButton::GUIButton(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, GUIMenu* const deactivateMenu, GUIMenu* const activateMenu, void(*CallbackFunction)(void), bool fitRectToText)
 {
-	Init(text, textColor, normalColor, downColor, hoverColor, rect, textPadding, deactivateMenu, activateMenu, CallbackFunction, fitRectToText);
+	Init(text, textColor, normalColor, downColor, hoverColor, rect, textPadding, deactivateMenu, activateMenu, CallbackFunction, fitRectToText, false);
 
 	//this->activateMenu = activateMenu;
 	//this->deactivateMenu = deactivateMenu;
@@ -36,18 +42,24 @@ GUIButton::~GUIButton()
 {
 }
 
-void GUIButton::SyncPositionWithTransform()
+void GUIButton::SyncDrawableWithTransform()
 {
 	if (backgroundItem != NULL)
 	{
 		GetTransform()->SetRect(backgroundItem->GetRect());
 	}
-	else
+	else if (textItem != NULL)
 	{
 		GetTransform()->SetRect(textItem->GetRect());
 	}
 	backgroundItem->SetComponent(this, textPadding);
-	textItem->SetComponent(this);
+	textItem->SetComponent(this, -textPadding);
+}
+
+void GUIButton::SetOverrideColorActive(bool isOverriding)
+{
+	isOverridingColor = isOverriding;
+	SetBackgroundColor();
 }
 
 void GUIButton::Awake()
@@ -64,18 +76,19 @@ void GUIButton::OnSetActive()
 	textItem->SetActive(IsActive());
 }
 
-void GUIButton::Init(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, GUIMenu* const deactivateMenu, GUIMenu* const activateMenu, void(*CallbackFunction)(void), bool fitRectToText)
+void GUIButton::Init(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, GUIMenu* const deactivateMenu, GUIMenu* const activateMenu, void(*CallbackFunction)(void), bool fitRectToText, bool hasOverrideColor)
 {
 	this->activateMenu = activateMenu;
 	this->deactivateMenu = deactivateMenu;
 	Callback = CallbackFunction;
 	isOver = false;
+	this->hasOverrideColor = hasOverrideColor;
 
 	// Store the colors for the different states
 	this->normalColor = normalColor;
 	this->downColor = downColor;
 	this->hoverColor = hoverColor;
-	textPadding = textPadding;
+	this->textPadding = textPadding;
 
 	// Make the background and text
 	backgroundItem = SDLWrapper::GetInstance().CreateRect(normalColor, rect);
@@ -92,7 +105,11 @@ void GUIButton::Init(std::string text, Color textColor, Color normalColor, Color
 
 void GUIButton::SetBackgroundColor()
 {
-	if (downOver && isOver)
+	if (isOverridingColor)
+	{
+		backgroundItem->SetColor(overrideColor);
+	}
+	else if (downOver && isOver)
 	{
 		backgroundItem->SetColor(downColor);
 	}
