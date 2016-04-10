@@ -20,7 +20,6 @@ public:
 	void SetOverrideColorActive(bool isOverriding);
 protected:
 	void Update() override;
-	void Awake() override;
 	void OnSetActive() override;
 private:
 	bool isOverridingColor;

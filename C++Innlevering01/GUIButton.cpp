@@ -5,13 +5,7 @@
 
 GUIButton::GUIButton(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, void(*CallbackFunction)(void), bool fitRectToText)
 {
-	//activateMenu = NULL;
-	//deactivateMenu = NULL;
-
 	Init(text, textColor, normalColor, downColor, hoverColor, rect, textPadding, NULL, NULL, CallbackFunction, fitRectToText, false);
-
-	// Assign the callback function
-	//Callback = CallbackFunction;
 }
 
 GUIButton::GUIButton(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, Color overrideColor, bool fitRectToText)
@@ -23,19 +17,11 @@ GUIButton::GUIButton(std::string text, Color textColor, Color normalColor, Color
 GUIButton::GUIButton(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, GUIMenu* const deactivateMenu, GUIMenu* const activateMenu, bool fitRectToText)
 {
 	Init(text, textColor, normalColor, downColor, hoverColor, rect, textPadding, deactivateMenu, activateMenu, NULL, fitRectToText, false);
-
-	//this->activateMenu = activateMenu;
-	//this->deactivateMenu = deactivateMenu;
-	//Callback = NULL;
 }
 
 GUIButton::GUIButton(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, GUIMenu* const deactivateMenu, GUIMenu* const activateMenu, void(*CallbackFunction)(void), bool fitRectToText)
 {
 	Init(text, textColor, normalColor, downColor, hoverColor, rect, textPadding, deactivateMenu, activateMenu, CallbackFunction, fitRectToText, false);
-
-	//this->activateMenu = activateMenu;
-	//this->deactivateMenu = deactivateMenu;
-	//Callback = Callback;
 }
 
 GUIButton::~GUIButton()
@@ -52,22 +38,17 @@ void GUIButton::SyncDrawableWithTransform()
 	{
 		GetTransform()->SetRect(textItem->GetRect());
 	}
-	backgroundItem->SetComponent(this, textPadding);
+
+	// Cant do this before setting transform rect, because if drawable has component, it return the transforms rect
 	textItem->SetComponent(this, -textPadding);
+	backgroundItem->SetComponent(this, textPadding);
+	std::cout << "Sync()" << std::endl;
 }
 
 void GUIButton::SetOverrideColorActive(bool isOverriding)
 {
 	isOverridingColor = isOverriding;
 	SetBackgroundColor();
-}
-
-void GUIButton::Awake()
-{
-	// Make sure the button is positioned at the correct position
-	//GetTransform()->SetPosition(Vector2D(backgroundItem->rect.x, backgroundItem->rect.y));
-	//GetTransform()->SetSize(Vector2D(backgroundItem->rect.w, backgroundItem->rect.h));
-	GetTransform()->SetRect(backgroundItem->GetRect());
 }
 
 void GUIButton::OnSetActive()
@@ -150,7 +131,6 @@ void GUIButton::Update()
 	{
 		if (InputManager::GetInstance().GetMouseDown(1) || InputManager::GetInstance().GetMouseUp(1))
 		{
-			//std::cout << "down outside" << std::endl;
 			downOver = false;
 		}
 		if (isOver)

@@ -4,12 +4,14 @@
 using namespace std;
 
 Transform::Transform()
+	: Transform(Vector2D(0, 0), Vector2D(100, 100))
 {
-	position = Vector2D(0, 0);
-	size = Vector2D(100, 100);
+	//position = Vector2D(0, 0);
+	//size = Vector2D(100, 100);
 }
 
 Transform::Transform(Vector2D pos, Vector2D size)
+	: parent(NULL)
 {
 	position = pos;
 	size = size;
@@ -52,12 +54,20 @@ void Transform::Translate(Vector2D const trans, bool clampToScreen)
 		}
 	}
 	
-	position = position + v;
+	//position = position + v;
+	SetPosition(position + v);
 }
 
 void Transform::SetPosition(Vector2D newPos)
 {
-	position = newPos;
+	if (parent == NULL)
+	{
+		position = newPos;
+	}
+	else
+	{
+		position = newPos + parent->GetPosition();
+	}
 }
 
 void Transform::SetSize(Vector2D newSize)
@@ -79,4 +89,13 @@ Vector2D Transform::GetCenter() const
 Rect Transform::GetRect() const
 {
 	return Rect(position.X, position.Y, size.X, size.Y);
+}
+
+void Transform::SetParent(Transform * newParent, bool keepPosition)
+{
+	parent = newParent;
+	if (!keepPosition)
+	{
+		SetPosition(position);
+	}
 }

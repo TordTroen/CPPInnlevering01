@@ -17,8 +17,11 @@ public:
 	Rect GetRect() const;
 	Vector2D GetPosition() const { return position; }
 	Vector2D GetSize() const { return size; }
+	void SetParent(Transform* newParent, bool keepPosition = true);
+	Transform* GetParent() const { return parent; }
 private:
 	Vector2D position;
 	Vector2D size;
+	Transform* parent;
 };
 

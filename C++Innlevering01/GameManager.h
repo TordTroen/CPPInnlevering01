@@ -16,6 +16,7 @@ public:
 	int GetWindowWidth() const { return windowWidth; }
 	int GetWindowHeight() const { return windowHeight; }
 	float GetCenterXPosition(float width) const;
+	float GetCenterYPosition(float height) const;
 	void SetGameState(GameState newState) { gameState = newState; OnGameStateChanged(); }
 	GameState GetGameState() const { return gameState; }
 private:
