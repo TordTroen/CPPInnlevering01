@@ -20,6 +20,7 @@ BallMovement::BallMovement(Vector2D startVector, float speed)
 
 BallMovement::~BallMovement()
 {
+
 }
 
 void BallMovement::Update()
@@ -66,7 +67,6 @@ void BallMovement::OnCollisionEnter(const Collider* const other)
 		m_levelStart = false;
 	}
 	
-
 	if (tag == Tags::Paddle && m_movement.Y > 0)
 	{
 		Vector2D paddle = other->GetTransform()->GetCenter();

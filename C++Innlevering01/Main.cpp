@@ -68,7 +68,6 @@ int main(int argc, char** argv)
 		playerController->SetStartingLives(3);
 		playerController->Stop();
 
-		
 
 		// Make the walls
 		GameObject* leftWall = GameObjectManager::GetInstance().CreateObject({ new ImageRenderer("WhiteTexture.png"), new BoxCollider() }, Tags::WallLeft);
@@ -100,6 +99,7 @@ int main(int argc, char** argv)
 			InputManager::GetInstance().Update();
 			time.Update();
 			CollisionManager::Update();
+
 
 			//	Exit program if user pushes escape
 			if (InputManager::GetInstance().GetKeyDown(SDL_SCANCODE_ESCAPE))
