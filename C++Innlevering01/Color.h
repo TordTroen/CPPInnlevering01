@@ -16,6 +16,9 @@ public:
 	int GetG() const;
 	int GetB() const;
 	int GetA() const;
+	Color Tinted(float factor);
+	Color Shaded(float factor);
+
 	// TODO Implement better
 	Color GetColor(Colors color)
 	{
@@ -33,9 +36,9 @@ public:
 private:
 	void Set(int r, int g, int b);
 	void Set(int r, int g, int b, int a);
-	int _r;
-	int _g;
-	int _b;
-	int _a;
+	int r;
+	int g;
+	int b;
+	int a;
 };
 

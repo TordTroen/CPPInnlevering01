@@ -62,25 +62,29 @@ void GUIManager::SetupMenus()
 
 	//mainMenu->SetOverrideSize(Vector2D(100, -1));
 
+	Color buttonColorNormal(25, 25, 25);
+	Color buttonColorHover = buttonColorNormal.Tinted(1.2);
+	Color buttonColorDown = buttonColorNormal.Shaded(0.8);
+
 	//////// MAIN MENU ////////
 	mainMenu->AddElements({
 		new GUIText("Breakout", Color(200, 255, 255), Rect(10, 10, 0, 0)),
-		new GUIButton("Play", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(10, 100, 0, 0), 8, mainMenu, levelSelectMenu),
-		new GUIButton("Level editor", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(10, 100, 0, 0), 8, mainMenu, levelEditorMenu),
-		new GUIButton("Exit", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(10, 150, 0, 0), 8, OnExit),
+		new GUIButton("Play", Color(200, 255, 255), buttonColorNormal, buttonColorDown, buttonColorHover, Rect(10, 100, 0, 0), 8, mainMenu, levelSelectMenu),
+		new GUIButton("Level editor", Color(200, 255, 255), buttonColorNormal, buttonColorDown, buttonColorHover, Rect(10, 100, 0, 0), 8, mainMenu, levelEditorMenu),
+		new GUIButton("Exit", Color(200, 255, 255), buttonColorNormal, buttonColorDown, buttonColorHover, Rect(10, 150, 0, 0), 8, OnExit),
 	});
 
 	//////// LEVEL SELECT ////////
 	levelSelectMenu->AddElements({
-		new GUIText("Select a level", Color(200, 255, 255), Rect(10, 10, 0, 0)),
-		new GUIButton("Play", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(10, 100, 0, 0), 8, levelSelectMenu, hudMenu, OnPlay),
-		new GUIButton("Back", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(10, 150, 0, 0), 8, levelSelectMenu, mainMenu)
+		new GUIButton("Play", Color(200, 255, 255), buttonColorNormal, buttonColorDown, buttonColorHover, Rect(10, 100, 0, 0), 8, levelSelectMenu, hudMenu, OnPlay),
+		new GUIButton("Back", Color(200, 255, 255), buttonColorNormal, buttonColorDown, buttonColorHover, Rect(10, 150, 0, 0), 8, levelSelectMenu, mainMenu),
+		new GUIText("Pick a level:", Color(200, 255, 255), Rect(10, 10, 0, 0))
 	});
 
 	levelSelectToggleGroup = dynamic_cast<GUIToggleGroup*>(menuObj->AddComponent(new GUIToggleGroup()));
 	for (auto it : BoardManager::GetInstance().GetLevelNames())
 	{
-		levelSelectMenu->AddElement(new GUIToggle(it, Color(100, 255, 255), Color(100, 100, 100), Color(25, 25, 25), Color(50, 50, 50), Color(10, 200, 10), Rect(10, 100, 0, 0), 8, levelSelectToggleGroup));
+		levelSelectMenu->AddElement(new GUIToggle(it, Color(100, 255, 255), buttonColorNormal, buttonColorDown, buttonColorHover, Color(10, 200, 10), Rect(10, 100, 0, 0), 8, levelSelectToggleGroup));
 	}
 
 	//////// LEVEL EDITOR ////////
@@ -104,23 +108,23 @@ void GUIManager::SetupMenus()
 	//////// IN-GAME MENU ////////
 	hudMenu->AddElements({
 		new GUIText("Score: 0", Color(255, 255, 255), Rect(10, 10, 0, 0)),
-		new GUIButton("End game", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(10, 100, 0, 0), 8, hudMenu, levelIntermissionMenu, OnEndGame)
+		new GUIButton("End game", Color(200, 255, 255), buttonColorNormal, buttonColorDown, buttonColorHover, Rect(10, 100, 0, 0), 8, hudMenu, levelIntermissionMenu, OnEndGame)
 	});
 	scoreText = hudMenu->GetElement<GUIText>();
 
 	//////// GAME OVER MENU ////////
 	endMenu->AddElements({
 		new GUIText("Game over!", Color(10, 25, 55), Rect(10, 10, 0, 0)),
-		new GUIButton("Main menu", Color(200, 255, 255), Color(1, 1, 1), Color(255, 25, 25), Color(50, 50, 50), Rect(10, 100, 0, 0), 8, endMenu, mainMenu)
+		new GUIButton("Main menu", Color(200, 255, 255), buttonColorNormal, buttonColorDown, buttonColorHover, Rect(10, 100, 0, 0), 8, endMenu, mainMenu)
 	});
 
 	//////// MENU BETWEEN LEVELS ////////
 	levelIntermissionMenu->AddElements({
 		new GUIText("Level completed!", Color(200, 255, 255), Rect(10, 10, 0, 0)),
 		new GUIText("Score: 1000", Color(10, 25, 55), Rect(10, 10, 0, 0)),
-		new GUIButton("Next level", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(10, 100, 0, 0), 8, levelIntermissionMenu, hudMenu, OnPlay),
-		new GUIButton("Restart", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(10, 150, 0, 0), 8, levelIntermissionMenu, hudMenu, OnRestart),
-		new GUIButton("Main menu", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(10, 150, 0, 0), 8, levelIntermissionMenu, mainMenu)
+		new GUIButton("Next level", Color(200, 255, 255), buttonColorNormal, buttonColorDown, buttonColorHover, Rect(10, 100, 0, 0), 8, levelIntermissionMenu, hudMenu, OnPlay),
+		new GUIButton("Restart", Color(200, 255, 255), buttonColorNormal, buttonColorDown, buttonColorHover, Rect(10, 150, 0, 0), 8, levelIntermissionMenu, hudMenu, OnRestart),
+		new GUIButton("Main menu", Color(200, 255, 255), buttonColorNormal, buttonColorDown, buttonColorHover, Rect(10, 150, 0, 0), 8, levelIntermissionMenu, mainMenu)
 	});
 }
 
