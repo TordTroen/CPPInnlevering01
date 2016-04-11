@@ -9,6 +9,14 @@ GUILayoutMenu::GUILayoutMenu(Alignment alignment, int startMargin, int spacing, 
 {
 	SetOverrideSize(Vector2D(-1, -1));
 	curPos = Vector2D(0, 0);
+	if (IsVertical())
+	{
+		curPos.Y = margin;
+	}
+	else
+	{
+		curPos.X = margin;
+	}
 }
 
 GUILayoutMenu::~GUILayoutMenu()
@@ -24,30 +32,14 @@ void GUILayoutMenu::AddElement(GUIElement * const element)
 		obj->AddComponent(element);
 	}
 
-	// Make sure the transform 
+	// Make sure the transform and the drawable have the same positions/sizes
 	element->SyncDrawableWithTransform();
 
 	// Put this element at the next position
 	Rect oldRect = element->GetTransform()->GetRect();
-	Rect newRect = Rect(curPos.X, curPos.Y, oldRect.w, oldRect.h); // TODO add ability to align left/right/middle/horizontally/vertically
-	if (overrideSize.X >= 0)
-	{
-		newRect.w = overrideSize.X;
-	}
-	if (overrideSize.Y >= 0)
-	{
-		newRect.h = overrideSize.Y;
-	}
+	Rect newRect = Rect(curPos.X, curPos.Y, oldRect.w, oldRect.h);
 
-	if (IsVertical())
-	{
-		curPos.Y += oldRect.h + spacing * 2;
-	}
-	else
-	{
-		curPos.X += oldRect.w + spacing * 2;
-	}
-
+	// Figure out where we anchor the element
 	switch (alignment)
 	{
 	case Alignment::VerticalCenter:
@@ -57,26 +49,45 @@ void GUILayoutMenu::AddElement(GUIElement * const element)
 		curPos.Y = GameManager::GetInstance().GetCenterYPosition(newRect.h);
 		break;
 	case Alignment::Left:
-		curPos.X = 0;
+		curPos.X = margin;
 		break;
 	case Alignment::Right:
-		curPos.X = GameManager::GetInstance().GetWindowWidth() - newRect.w;
+		curPos.X = GameManager::GetInstance().GetWindowWidth() - newRect.w - margin;
 		break;
 	case Alignment::Top:
-		curPos.Y = 0;
+		curPos.Y = margin;
 		break;
 	case Alignment::Bottom:
-		curPos.Y = GameManager::GetInstance().GetWindowHeight() - newRect.h;
+		curPos.Y = GameManager::GetInstance().GetWindowHeight() - newRect.h - margin;
 		break;
 	default:
 		break;
 	}
+	
+	// If we have set a width/height size to override the elements size, apply it
+	if (overrideSize.X >= 0)
+	{
+		newRect.w = overrideSize.X;
+	}
+	if (overrideSize.Y >= 0)
+	{
+		newRect.h = overrideSize.Y;
+	}
 	newRect.x = curPos.X;
 	newRect.y = curPos.Y;
+
+	// Apply the current rect to the element
 	element->GetTransform()->SetRect(newRect);
-	//curPos.X = newRect.x;
-	//curPos.Y = newRect.y;
-	//curPos += oldRect.h + spacing;
+
+	// Calculate the next currentPos
+	if (IsVertical())
+	{
+		curPos.Y += oldRect.h + spacing * 2;
+	}
+	else
+	{
+		curPos.X += oldRect.w + spacing * 2;
+	}
 
 	// Add the element to the list
 	elements.emplace_back(element);

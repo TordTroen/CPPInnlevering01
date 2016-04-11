@@ -7,16 +7,12 @@
 - Find a better way to register collision on all gameobjects
 
 ### GUI
-- Automatic layout?
+- Expand the GUI system to handle menus-in-menus, so we can have a mix of auto layout and manual items in the same GUIMenu
 
 ### SDLWrapper
-- Make DrawImage function actually check if something went wrong
-- Implement Z-ordering of rendered elements
+- Implement proper Z-ordering of rendered elements
+	- Can just reorder the elements in the allDrawables list?
+- Color ting/shade http://stackoverflow.com/questions/6615002/given-an-rgb-value-how-do-i-create-a-tint-or-shade
 
 ### Ideas
 - PoolManager
-- Maybe make a GameObject.Find method??
-
-### Q&A
-- Unique_ptr
-- typedef colors?

@@ -26,20 +26,38 @@ void Color::Set(int r, int g, int b)
 
 void Color::Set(int r, int g, int b, int a)
 {
-	_r = r;
-	_g = g;
-	_b = b;
-	_a = a;
+	this->r = r;
+	this->g = g;
+	this->b = b;
+	this->a = a;
 }
 
-int Color::GetR() const { return _r; }
-int Color::GetG() const { return _g; }
-int Color::GetB() const { return _b; }
-int Color::GetA() const { return _a; }
+int Color::GetR() const { return r; }
+int Color::GetG() const { return g; }
+int Color::GetB() const { return b; }
+int Color::GetA() const { return a; }
+
+Color Color::Tinted(float factor)
+{
+	Color c(
+		r + (255 - r) * factor,
+		g + (255 - g) * factor,
+		b + (255 - b) * factor);
+	return c;
+}
+
+Color Color::Shaded(float factor)
+{
+	Color c(
+		r * (1 - factor),
+		g * (1 - factor),
+		b * (1 - factor));
+	return c;
+}
 
 SDL_Color Color::ToSDL_Color() const
 {
-	return{ (Uint8)_r, (Uint8)_g, (Uint8)_b, (Uint8)_a }; // TODO Use C++ casting
+	return{ (Uint8)r, (Uint8)g, (Uint8)b, (Uint8)a }; // TODO Use C++ casting
 	/*SDL_Color c;
 	c.r = _r;
 	c.g = _g;

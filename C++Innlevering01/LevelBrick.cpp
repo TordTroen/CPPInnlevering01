@@ -9,7 +9,6 @@
 #include "Player.h"
 #include "GameObjectManager.h"
 
-
 const float LevelBrick::BrickWidth = 50;
 const float LevelBrick::BrickHeight = 30;
 const float LevelBrick::PowerUpWidth = 20;
