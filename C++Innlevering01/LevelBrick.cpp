@@ -7,14 +7,17 @@
 #include "ImageRenderer.h"
 #include "GUIManager.h"
 #include "Player.h"
+#include "GameObjectManager.h"
 
 
 const float LevelBrick::BrickWidth = 50;
 const float LevelBrick::BrickHeight = 30;
+const float LevelBrick::PowerUpWidth = 20;
+const float LevelBrick::PowerUpHeight = 20;
 Player player;
 
-LevelBrick::LevelBrick(Vector2D pos, BrickType brickType, int score, int health, bool indestructible)
-	: _brickPos(pos), _brickType(brickType), _scoreReward(score), _health(health), _indestructible(indestructible)
+LevelBrick::LevelBrick(Vector2D pos, BrickType brickType, int powerup, int health, bool indestructible)
+	: _brickPos(pos), _brickType(brickType), powerUpReward(powerup), _health(health), _indestructible(indestructible)
 {
 }
 
@@ -67,6 +70,16 @@ Color LevelBrick::GetColorBasedOnHealth()
 	}
 }
 
+void LevelBrick::PowerUp() {
+	int chance = (int)(rand() % 4) + 1;
+	std::cout << chance << std::endl;
+
+	if (chance == 1) {
+		std::cout << "You got a powerup!" << std::endl;
+		//Spawne en powerup blokk
+	}
+}
+
 void LevelBrick::TakeDamage()
 {
 	_health--;
@@ -76,6 +89,7 @@ void LevelBrick::TakeDamage()
 		// TODO Award player
 		player.SetHighscore(1);
 		GUIManager::GetInstance().UpdateScoreText(player.GetHighscore());
+		PowerUp();
 	}
 	_imageRenderer->GetImageDrawable()->SetColor(GetColorBasedOnHealth());
 }
