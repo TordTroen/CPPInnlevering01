@@ -8,7 +8,15 @@ GUILayoutMenu::GUILayoutMenu(Alignment alignment, int startMargin, int spacing, 
 	: GUIMenu(activeState), margin(startMargin), spacing(spacing), alignment(alignment)
 {
 	SetOverrideSize(Vector2D(-1, -1));
-	curPos = Vector2D(margin, margin);
+	curPos = Vector2D(0, 0);
+	if (IsVertical())
+	{
+		curPos.Y = margin;
+	}
+	else
+	{
+		curPos.X = margin;
+	}
 }
 
 GUILayoutMenu::~GUILayoutMenu()
@@ -35,10 +43,10 @@ void GUILayoutMenu::AddElement(GUIElement * const element)
 	switch (alignment)
 	{
 	case Alignment::VerticalCenter:
-		curPos.X = GameManager::GetInstance().GetCenterXPosition(newRect.w) + margin;
+		curPos.X = GameManager::GetInstance().GetCenterXPosition(newRect.w);
 		break;
 	case Alignment::HorizontalCenter:
-		curPos.Y = GameManager::GetInstance().GetCenterYPosition(newRect.h) + margin;
+		curPos.Y = GameManager::GetInstance().GetCenterYPosition(newRect.h);
 		break;
 	case Alignment::Left:
 		curPos.X = margin;

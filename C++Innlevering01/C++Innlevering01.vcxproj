@@ -166,6 +166,7 @@
     <ClInclude Include="GUILayoutMenu.h" />
     <ClInclude Include="GUIButton.h" />
     <ClInclude Include="GUIElement.h" />
+    <ClInclude Include="GUILevelEditorButton.h" />
     <ClInclude Include="GUIManager.h" />
     <ClInclude Include="GUIMenu.h" />
     <ClInclude Include="GUIText.h" />
@@ -175,6 +176,7 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="LevelBrick.h" />
+    <ClInclude Include="LevelEditorMenu.h" />
     <ClInclude Include="PaddleMovement.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerController.h" />
@@ -203,6 +205,7 @@
     <ClCompile Include="GUILayoutMenu.cpp" />
     <ClCompile Include="GUIButton.cpp" />
     <ClCompile Include="GUIElement.cpp" />
+    <ClCompile Include="GUILevelEditorButton.cpp" />
     <ClCompile Include="GUIManager.cpp" />
     <ClCompile Include="GUIMenu.cpp" />
     <ClCompile Include="GUIText.cpp" />
@@ -212,6 +215,7 @@
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LevelBrick.cpp" />
+    <ClCompile Include="LevelEditorMenu.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="PaddleMovement.cpp" />
     <ClCompile Include="Player.cpp" />

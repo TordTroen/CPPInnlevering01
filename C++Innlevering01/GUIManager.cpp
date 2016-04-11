@@ -12,6 +12,7 @@
 #include "GUIToggleGroup.h"
 #include "GUIToggle.h"
 #include "LevelBrick.h"
+#include "LevelEditorMenu.h"
 
 // TODO: Make these into GUIManager member functions. I don't currently know an easy way to do this...
 void OnExit()
@@ -44,16 +45,20 @@ GUIManager::~GUIManager()
 
 void GUIManager::SetupMenus()
 {
+	// Store the screen dimensions for easy access
+	int sWidth = GameManager::GetInstance().GetWindowWidth();
+	int sHeight= GameManager::GetInstance().GetWindowHeight();
+
 	GameObject* menuObj = GameObjectManager::GetInstance().CreateObject();
 	//GameObject* hudMenuObj = GameObjectManager::GetInstance().CreateObject();
 	//GameObject* endMenuObj = GameObjectManager::GetInstance().CreateObject();
 	// TODO Find a better way to do these ugly lines
-	GUILayoutMenu* mainMenu = dynamic_cast<GUILayoutMenu*>(menuObj->AddComponent(new GUILayoutMenu(Alignment::Bottom, 20, 8)));
-	GUILayoutMenu* levelSelectMenu = dynamic_cast<GUILayoutMenu*>(menuObj->AddComponent(new GUILayoutMenu(Alignment::VerticalCenter, 0, 8, false)));
+	GUILayoutMenu* mainMenu = dynamic_cast<GUILayoutMenu*>(menuObj->AddComponent(new GUILayoutMenu(Alignment::VerticalCenter, 8, 8)));
+	GUILayoutMenu* levelSelectMenu = dynamic_cast<GUILayoutMenu*>(menuObj->AddComponent(new GUILayoutMenu(Alignment::VerticalCenter, 8, 8, false)));
 	GUIMenu* levelEditorMenu = dynamic_cast<GUIMenu*>(menuObj->AddComponent(new GUIMenu(false)));
 	GUIMenu* hudMenu = dynamic_cast<GUIMenu*>(menuObj->AddComponent(new GUIMenu(false)));
-	GUILayoutMenu* endMenu = dynamic_cast<GUILayoutMenu*>(menuObj->AddComponent(new GUILayoutMenu(Alignment::VerticalCenter, 0, 8, false)));
-	GUILayoutMenu* levelIntermissionMenu = dynamic_cast<GUILayoutMenu*>(menuObj->AddComponent(new GUILayoutMenu(Alignment::VerticalCenter, 0, 8, false)));
+	GUILayoutMenu* endMenu = dynamic_cast<GUILayoutMenu*>(menuObj->AddComponent(new GUILayoutMenu(Alignment::VerticalCenter, 8, 8, false)));
+	GUILayoutMenu* levelIntermissionMenu = dynamic_cast<GUILayoutMenu*>(menuObj->AddComponent(new GUILayoutMenu(Alignment::VerticalCenter, 8, 8, false)));
 
 	//mainMenu->SetOverrideSize(Vector2D(100, -1));
 
@@ -79,7 +84,9 @@ void GUIManager::SetupMenus()
 	}
 
 	//////// LEVEL EDITOR ////////
-	for (int i = 0; i < 14; i++)
+	LevelEditorMenu editorMenu(levelEditorMenu, mainMenu, menuObj);
+	editorMenu.Init();
+	/*for (int i = 0; i < 14; i++)
 	{
 		for (int j = 0; j < 10; j++)
 		{
@@ -87,13 +94,13 @@ void GUIManager::SetupMenus()
 		}
 	}
 
-	levelEditorMenu->AddElement(new GUIButton("Back", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(10, 600, 100, 100), 8, levelEditorMenu, mainMenu));
+	levelEditorMenu->AddElement(new GUIButton("Back", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(sWidth - 100, 600, 100, 100), 8, levelEditorMenu, mainMenu));
 	levelEditorToggleGroup = dynamic_cast<GUIToggleGroup*>(menuObj->AddComponent(new GUIToggleGroup()));
 	for (int i = 0; i < 6; i ++)
 	{
-		levelEditorMenu->AddElement(new GUIToggle("tool", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Color(0, 200, 200), Rect(i * (LevelBrick::BrickWidth + 32), 600, LevelBrick::BrickWidth, LevelBrick::BrickHeight), 8, levelEditorToggleGroup));
+		levelEditorMenu->AddElement(new GUIToggle(" ", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Color(0, 200, 200), Rect(16 + i * (LevelBrick::BrickWidth + 32), sHeight - LevelBrick::BrickHeight - 16, LevelBrick::BrickWidth, LevelBrick::BrickHeight), 0, levelEditorToggleGroup, false));
 	}
-
+*/
 	//////// IN-GAME MENU ////////
 	hudMenu->AddElements({
 		new GUIText("Score: 0", Color(255, 255, 255), Rect(10, 10, 0, 0)),

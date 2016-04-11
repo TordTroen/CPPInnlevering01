@@ -8,7 +8,6 @@
 #include "GUIManager.h"
 #include "Player.h"
 
-
 const float LevelBrick::BrickWidth = 50;
 const float LevelBrick::BrickHeight = 30;
 Player player;

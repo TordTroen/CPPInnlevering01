@@ -72,6 +72,8 @@ void GUIButton::Init(std::string text, Color textColor, Color normalColor, Color
 
 	// Make the background and text
 	backgroundItem = SDLWrapper::GetInstance().CreateRect(normalColor, rect);
+
+	// TODO Check if text is empty, because SDL doesn't create text if the given string is empty
 	textItem = SDLWrapper::GetInstance().CreateText(text, textColor, rect, fitRectToText);
 
 	// Make the background fit the text, and apply the padding
