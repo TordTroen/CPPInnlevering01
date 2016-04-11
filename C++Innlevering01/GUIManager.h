@@ -18,6 +18,7 @@ private:
 	GUIText* scoreText;
 	PlayerController* playerController;
 	GUIToggleGroup* levelSelectToggleGroup;
+	GUIToggleGroup* levelEditorToggleGroup;
 
 	// Singleton stuff
 public:

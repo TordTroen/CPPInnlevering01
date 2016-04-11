@@ -21,6 +21,13 @@ void Rect::Grow(float amount)
 	h += amount * 2;
 }
 
+Rect Rect::Expanded(float amount)
+{
+	// TODO This doesn't feel right
+	Grow(amount);
+	return *this;
+}
+
 bool Rect::Contains(Vector2D point)
 {
 	return (x < point.X && point.X < (x + w) && y < point.Y && point.Y < (y + h));

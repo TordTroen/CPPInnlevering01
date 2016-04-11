@@ -222,7 +222,7 @@ void SDLWrapper::RenderDrawable(const Drawable* const drawable) const
 {
 	if (drawable == NULL)
 	{
-		std::cout << "Trying to Render a drwable that is NULL (in SDLWrapper::RenderDrawable())" << std::endl;
+		std::cout << "Trying to Render a drawable that is NULL (in SDLWrapper::RenderDrawable())" << std::endl;
 		return;
 	}
 	SDL_RenderCopy(renderer, drawable->GetTexture(), NULL, &drawable->GetRect().ToSDL_Rect());

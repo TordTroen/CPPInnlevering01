@@ -13,6 +13,7 @@ public:
 	float h;
 	/* Expands the rect by the specified amount in all directions. */
 	void Grow(float amount);
+	Rect Expanded(float amount);
 	bool Contains(Vector2D point);
 	bool Intersects(Rect rect);
 	SDL_Rect ToSDL_Rect() const;

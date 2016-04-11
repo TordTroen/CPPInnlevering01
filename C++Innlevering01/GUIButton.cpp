@@ -32,7 +32,7 @@ void GUIButton::SyncDrawableWithTransform()
 {
 	if (backgroundItem != NULL)
 	{
-		GetTransform()->SetRect(backgroundItem->GetRect());
+		GetTransform()->SetRect(backgroundItem->GetRect().Expanded(textPadding));
 	}
 	else if (textItem != NULL)
 	{
@@ -41,8 +41,7 @@ void GUIButton::SyncDrawableWithTransform()
 
 	// Cant do this before setting transform rect, because if drawable has component, it return the transforms rect
 	textItem->SetComponent(this, -textPadding);
-	backgroundItem->SetComponent(this, textPadding);
-	std::cout << "Sync()" << std::endl;
+	backgroundItem->SetComponent(this, 0);
 }
 
 void GUIButton::SetOverrideColorActive(bool isOverriding)

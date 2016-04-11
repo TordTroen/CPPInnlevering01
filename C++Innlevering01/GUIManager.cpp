@@ -47,7 +47,7 @@ void GUIManager::SetupMenus()
 	//GameObject* hudMenuObj = GameObjectManager::GetInstance().CreateObject();
 	//GameObject* endMenuObj = GameObjectManager::GetInstance().CreateObject();
 	// TODO Find a better way to do these ugly lines
-	GUILayoutMenu* mainMenu = dynamic_cast<GUILayoutMenu*>(menuObj->AddComponent(new GUILayoutMenu(Alignment::VerticalCenter, 0, 0)));
+	GUILayoutMenu* mainMenu = dynamic_cast<GUILayoutMenu*>(menuObj->AddComponent(new GUILayoutMenu(Alignment::VerticalCenter, 0, 8)));
 	GUILayoutMenu* levelSelectMenu = dynamic_cast<GUILayoutMenu*>(menuObj->AddComponent(new GUILayoutMenu(Alignment::VerticalCenter, 0, 8, false)));
 	GUIMenu* levelEditorMenu = dynamic_cast<GUIMenu*>(menuObj->AddComponent(new GUIMenu(false)));
 	GUIMenu* hudMenu = dynamic_cast<GUIMenu*>(menuObj->AddComponent(new GUIMenu(false)));
@@ -83,13 +83,13 @@ void GUIManager::SetupMenus()
 	{
 		for (int j = 0; j < 10; j ++)
 		{
-			levelEditorMenu->AddElement(new GUIButton(" ", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(i * LevelBrick::BrickWidth, j * LevelBrick::BrickHeight, LevelBrick::BrickWidth, LevelBrick::BrickHeight), 0, NULL, false));
+			//levelEditorMenu->AddElement(new GUIButton(" ", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(i * LevelBrick::BrickWidth, j * LevelBrick::BrickHeight, LevelBrick::BrickWidth, LevelBrick::BrickHeight), 0, NULL, false));
 		}
 	}
-	levelEditorMenu->AddElement(new GUIToggleGroup());
+	levelEditorToggleGroup = dynamic_cast<GUIToggleGroup*>(menuObj->AddComponent(new GUIToggleGroup()));
 	for (int i = 1; i < 6; i ++)
 	{
-		levelEditorMenu->AddElement(new GUIToggle("tool", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Color(0, 200, 200), Rect(i * 100, 600, 100, 100), 0, NULL));
+		levelEditorMenu->AddElement(new GUIToggle("tool", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Color(0, 200, 200), Rect(i * 100, 600, 100, 100), 0, levelEditorToggleGroup));
 	}
 
 	hudMenu->AddElements({
