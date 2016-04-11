@@ -87,15 +87,15 @@ int main(int argc, char** argv)
 
 			if (gameState == GameState::InGame)
 			{
-				// DEBUG
-				if (InputManager::GetInstance().GetMouseDown(1))
-				{
-					cout << "-" << endl;
-					//playerController->ChangeScore(1);
-					//GUIManager::GetInstance().UpdateScoreText(playerController->GetScore());
-				}
+				
 			}
-			
+			// DEBUG
+			if (InputManager::GetInstance().GetMouseDown(1))
+			{
+				cout << "-" << endl;
+				//playerController->ChangeScore(1);
+				//GUIManager::GetInstance().UpdateScoreText(playerController->GetScore());
+			}
 			//// Render ////
 			SDLWrapper::GetInstance().RenderImages(true);
 		}

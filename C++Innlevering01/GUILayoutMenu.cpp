@@ -8,7 +8,7 @@ GUILayoutMenu::GUILayoutMenu(Alignment alignment, int startMargin, int spacing, 
 	: GUIMenu(activeState), margin(startMargin), spacing(spacing), alignment(alignment)
 {
 	SetOverrideSize(Vector2D(-1, -1));
-	curPos = Vector2D(0, 0);
+	curPos = Vector2D(margin, margin);
 }
 
 GUILayoutMenu::~GUILayoutMenu()
@@ -24,12 +24,39 @@ void GUILayoutMenu::AddElement(GUIElement * const element)
 		obj->AddComponent(element);
 	}
 
-	// Make sure the transform 
+	// Make sure the transform and the drawable have the same positions/sizes
 	element->SyncDrawableWithTransform();
 
 	// Put this element at the next position
 	Rect oldRect = element->GetTransform()->GetRect();
-	Rect newRect = Rect(curPos.X, curPos.Y, oldRect.w, oldRect.h); // TODO add ability to align left/right/middle/horizontally/vertically
+	Rect newRect = Rect(curPos.X, curPos.Y, oldRect.w, oldRect.h);
+
+	// Figure out where we anchor the element
+	switch (alignment)
+	{
+	case Alignment::VerticalCenter:
+		curPos.X = GameManager::GetInstance().GetCenterXPosition(newRect.w) + margin;
+		break;
+	case Alignment::HorizontalCenter:
+		curPos.Y = GameManager::GetInstance().GetCenterYPosition(newRect.h) + margin;
+		break;
+	case Alignment::Left:
+		curPos.X = margin;
+		break;
+	case Alignment::Right:
+		curPos.X = GameManager::GetInstance().GetWindowWidth() - newRect.w - margin;
+		break;
+	case Alignment::Top:
+		curPos.Y = margin;
+		break;
+	case Alignment::Bottom:
+		curPos.Y = GameManager::GetInstance().GetWindowHeight() - newRect.h - margin;
+		break;
+	default:
+		break;
+	}
+	
+	// If we have set a width/height size to override the elements size, apply it
 	if (overrideSize.X >= 0)
 	{
 		newRect.w = overrideSize.X;
@@ -38,7 +65,13 @@ void GUILayoutMenu::AddElement(GUIElement * const element)
 	{
 		newRect.h = overrideSize.Y;
 	}
+	newRect.x = curPos.X;
+	newRect.y = curPos.Y;
 
+	// Apply the current rect to the element
+	element->GetTransform()->SetRect(newRect);
+
+	// Calculate the next currentPos
 	if (IsVertical())
 	{
 		curPos.Y += oldRect.h + spacing * 2;
@@ -47,36 +80,6 @@ void GUILayoutMenu::AddElement(GUIElement * const element)
 	{
 		curPos.X += oldRect.w + spacing * 2;
 	}
-
-	switch (alignment)
-	{
-	case Alignment::VerticalCenter:
-		curPos.X = GameManager::GetInstance().GetCenterXPosition(newRect.w);
-		break;
-	case Alignment::HorizontalCenter:
-		curPos.Y = GameManager::GetInstance().GetCenterYPosition(newRect.h);
-		break;
-	case Alignment::Left:
-		curPos.X = 0;
-		break;
-	case Alignment::Right:
-		curPos.X = GameManager::GetInstance().GetWindowWidth() - newRect.w;
-		break;
-	case Alignment::Top:
-		curPos.Y = 0;
-		break;
-	case Alignment::Bottom:
-		curPos.Y = GameManager::GetInstance().GetWindowHeight() - newRect.h;
-		break;
-	default:
-		break;
-	}
-	newRect.x = curPos.X;
-	newRect.y = curPos.Y;
-	element->GetTransform()->SetRect(newRect);
-	//curPos.X = newRect.x;
-	//curPos.Y = newRect.y;
-	//curPos += oldRect.h + spacing;
 
 	// Add the element to the list
 	elements.emplace_back(element);

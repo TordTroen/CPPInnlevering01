@@ -14,8 +14,14 @@ GUIMenu::~GUIMenu()
 
 void GUIMenu::AddElement(GUIElement* const element)
 {
-	GameObject* obj = GameObjectManager::GetInstance().CreateObject();
-	obj->AddComponent(element);
+	if (element->GetGameObject() == NULL)
+	{
+		GameObject* obj = GameObjectManager::GetInstance().CreateObject();
+		obj->AddComponent(element);
+	}
+
+	element->SyncDrawableWithTransform();
+
 	elements.emplace_back(element);
 	element->SetActive(IsActive());
 }
