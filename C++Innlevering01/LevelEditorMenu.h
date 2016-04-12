@@ -4,6 +4,7 @@
 #include "GUIMenu.h"
 #include "Component.h"
 #include "GUIToggleGroup.h"
+#include "GUITextField.h"
 class GUILevelEditorButton;
 
 class LevelEditorMenu
