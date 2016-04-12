@@ -21,6 +21,7 @@ public:
 protected:
 	void Update() override;
 	void OnSetActive() override;
+	Drawable* backgroundItem;
 private:
 	bool isOverridingColor;
 	bool hasOverrideColor;
@@ -28,7 +29,6 @@ private:
 	void Init(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, GUIMenu* const deactivateMenu, GUIMenu* const activateMenu, void(*CallbackFunction)(void), bool fitRectToText, bool hasOverrideColor);
 	void SetBackgroundColor();
 	Drawable* textItem;
-	Drawable* backgroundItem;
 	virtual void OnClick();
 	void OnEnter();
 	void OnExit();

@@ -7,9 +7,10 @@
 #include "GUIToggleGroup.h"
 #include "GUIToggle.h"
 #include "GameObject.h"
+#include "GUILevelEditorButton.h"
 
-LevelEditorMenu::LevelEditorMenu(GUIMenu * levelEditorMenu, GUIMenu * previousMenu, GameObject* menuObj)
-	: levelEditorMenu(levelEditorMenu), previousMenu(previousMenu), menuObj(menuObj), levelName("Unnamed")
+LevelEditorMenu::LevelEditorMenu(GUIMenu* levelEditorMenu, GUIMenu* previousMenu)
+	: levelEditorMenu(levelEditorMenu), previousMenu(previousMenu), levelName("Unnamed")
 {
 }
 
@@ -23,7 +24,6 @@ void LevelEditorMenu::Init()
 	{
 		for (int j = 0; j < rows; j++)
 		{
-			//levelEditorMenu->AddElement(new GUIButton(" ", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(i * LevelBrick::BrickWidth, j * LevelBrick::BrickHeight, LevelBrick::BrickWidth, LevelBrick::BrickHeight), 0, NULL, false));
 			GUILevelEditorButton* btn = new GUILevelEditorButton(Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(i * LevelBrick::BrickWidth, j * LevelBrick::BrickHeight, LevelBrick::BrickWidth, LevelBrick::BrickHeight), NULL, i + j);
 			buttons.emplace_back(btn);
 			levelEditorMenu->AddElement(btn);
@@ -31,12 +31,11 @@ void LevelEditorMenu::Init()
 	}
 
 	levelEditorMenu->AddElement(new GUIButton("Back", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(700 - 100, 600, 100, 100), 8, levelEditorMenu, previousMenu));
-	levelEditorToggleGroup = dynamic_cast<GUIToggleGroup*>(menuObj->AddComponent(new GUIToggleGroup()));
+	levelEditorToggleGroup = dynamic_cast<GUIToggleGroup*>(GetGameObject()->AddComponent(new GUIToggleGroup()));
 	for (int i = 0; i < 6; i++)
 	{
 		levelEditorMenu->AddElement(new GUIToggle(" ", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Color(0, 200, 200), Rect(16 + i * (LevelBrick::BrickWidth + 32), 700 - LevelBrick::BrickHeight - 16, LevelBrick::BrickWidth, LevelBrick::BrickHeight), 0, levelEditorToggleGroup, false));
 	}
-	Save();
 }
 
 void LevelEditorMenu::Save()
@@ -67,4 +66,14 @@ void LevelEditorMenu::Save()
 	{
 		std::cout << "Couldn't open file for writing custom level to!" << std::endl;
 	}
+}
+
+int LevelEditorMenu::GetCurrentTool() const
+{
+	return levelEditorToggleGroup->GetCurrentToggleIndex();
+}
+
+void LevelEditorMenu::Awake()
+{
+	Init();
 }

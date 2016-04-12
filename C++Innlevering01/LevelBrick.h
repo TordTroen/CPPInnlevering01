@@ -22,20 +22,21 @@ class LevelBrick
 public:
 	LevelBrick(Vector2D pos, BrickType brickType, int score, int health, bool indestructible);
 	~LevelBrick();
+	static Color GetBrickColor(BrickType brickType, int health);
 	void OnCollisionEnter(const Collider* const other) override;
 	void Awake() override;
 	static const float BrickWidth;
 	static const float BrickHeight;
-	void GiveScore(int amount) { _scoreReward += amount; }
-	int GetScore() const { return _scoreReward; }
+	void GiveScore(int amount) { scoreReward += amount; }
+	int GetScore() const { return scoreReward; }
 private:
 	Color GetColorBasedOnHealth();
-	ImageRenderer* _imageRenderer;
+	ImageRenderer* imageRenderer;
 	void TakeDamage();
-	Vector2D _brickPos;
-	BrickType _brickType;
-	int _scoreReward;
-	int _health;
-	bool _indestructible;
+	Vector2D brickPos;
+	BrickType brickType;
+	int scoreReward;
+	int health;
+	bool indestructible;
 };
 

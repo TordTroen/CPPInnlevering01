@@ -13,7 +13,7 @@ const float LevelBrick::BrickHeight = 30;
 Player player;
 
 LevelBrick::LevelBrick(Vector2D pos, BrickType brickType, int score, int health, bool indestructible)
-	: _brickPos(pos), _brickType(brickType), _scoreReward(score), _health(health), _indestructible(indestructible)
+	: brickPos(pos), brickType(brickType), scoreReward(score), health(health), indestructible(indestructible)
 {
 }
 
@@ -21,39 +21,24 @@ LevelBrick::~LevelBrick()
 {
 }
 
-void LevelBrick::OnCollisionEnter(const Collider* const other)
+Color LevelBrick::GetBrickColor(BrickType brickType, int health)
 {
-	if (!_indestructible && other->GetGameObject()->CompareTag(Tags::Ball))
+	if (brickType == BrickType::BrickIndestructible)
 	{
-		TakeDamage();
+		return Color(10, 10, 10);
 	}
-}
-
-void LevelBrick::Awake()
-{
-	GetTransform()->SetPosition(_brickPos);
-	GetTransform()->SetSize(Vector2D(BrickWidth, BrickHeight));
-	
-	Color color = GetColorBasedOnHealth();
-	
-	_imageRenderer = dynamic_cast<ImageRenderer*>(GetGameObject()->AddComponent(new ImageRenderer("WhiteTexture.png", color)));
-	GetGameObject()->AddComponent(new BoxCollider());
-}
-
-Color LevelBrick::GetColorBasedOnHealth()
-{
-	switch (_health)
+	switch (health)
 	{
 	case 1:
-		if (_brickType == BrickType::BrickNormal)
+		if (brickType == BrickType::BrickNormal)
 		{
 			return Color(255, 255, 40);
 		}
-		else if (_brickType == BrickType::BrickGreen)
+		else if (brickType == BrickType::BrickGreen)
 		{
 			return Color(40, 255, 40);
 		}
-		else if (_brickType == BrickType::BrickBlue)
+		else if (brickType == BrickType::BrickBlue)
 		{
 			return Color(40, 40, 255);
 		}
@@ -66,15 +51,65 @@ Color LevelBrick::GetColorBasedOnHealth()
 	}
 }
 
+void LevelBrick::OnCollisionEnter(const Collider* const other)
+{
+	if (!indestructible && other->GetGameObject()->CompareTag(Tags::Ball))
+	{
+		TakeDamage();
+	}
+}
+
+void LevelBrick::Awake()
+{
+	GetTransform()->SetPosition(brickPos);
+	GetTransform()->SetSize(Vector2D(BrickWidth, BrickHeight));
+	
+	Color color = GetColorBasedOnHealth();
+	
+	imageRenderer = dynamic_cast<ImageRenderer*>(GetGameObject()->AddComponent(new ImageRenderer("WhiteTexture.png", color)));
+	GetGameObject()->AddComponent(new BoxCollider());
+}
+
+Color LevelBrick::GetColorBasedOnHealth()
+{
+	return LevelBrick::GetBrickColor(brickType, health);
+	/*if (indestructible)
+	{
+		return Color(10, 10, 10);
+	}
+	switch (health)
+	{
+	case 1:
+		if (brickType == BrickType::BrickNormal)
+		{
+			return Color(255, 255, 40);
+		}
+		else if (brickType == BrickType::BrickGreen)
+		{
+			return Color(40, 255, 40);
+		}
+		else if (brickType == BrickType::BrickBlue)
+		{
+			return Color(40, 40, 255);
+		}
+	case 2:
+		return Color(255, 150, 150);
+	case 3:
+		return Color(255, 100, 100);
+	default:
+		return Color(255, 255, 255);
+	}*/
+}
+
 void LevelBrick::TakeDamage()
 {
-	_health--;
-	if (_health <= 0)
+	health--;
+	if (health <= 0)
 	{
 		GetGameObject()->SetActive(false);
 		// TODO Award player
 		player.SetHighscore(1);
 		GUIManager::GetInstance().UpdateScoreText(player.GetHighscore());
 	}
-	_imageRenderer->GetImageDrawable()->SetColor(GetColorBasedOnHealth());
+	imageRenderer->GetImageDrawable()->SetColor(GetColorBasedOnHealth());
 }

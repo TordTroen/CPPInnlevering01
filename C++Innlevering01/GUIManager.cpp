@@ -88,8 +88,9 @@ void GUIManager::SetupMenus()
 	}
 
 	//////// LEVEL EDITOR ////////
-	LevelEditorMenu editorMenu(levelEditorMenu, mainMenu, menuObj);
-	editorMenu.Init();
+	//LevelEditorMenu editorMenu(levelEditorMenu, mainMenu, menuObj);
+	LevelEditorMenu* editorMenu = dynamic_cast<LevelEditorMenu*>(menuObj->AddComponent(new LevelEditorMenu(levelEditorMenu, mainMenu)));
+	//editorMenu.Init();
 	/*for (int i = 0; i < 14; i++)
 	{
 		for (int j = 0; j < 10; j++)
