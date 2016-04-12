@@ -12,12 +12,12 @@
 
 void SaveEditor()
 {
-	
+	std::cout << "TODO: Call Save() here" << std::endl;
 }
 
 void ClearEditor()
 {
-	
+	std::cout << "TODO: Call Clear() here" << std::endl;
 }
 
 LevelEditorMenu::LevelEditorMenu(GUIMenu* levelEditorMenu, GUIMenu* previousMenu)
@@ -43,16 +43,17 @@ void LevelEditorMenu::Init()
 		}
 	}
 
-	levelEditorMenu->AddElement(new GUIButton("Save", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(700 - 200, 500, 100, 100), 8, SaveEditor));
-	levelEditorMenu->AddElement(new GUIButton("Clear", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(700 - 200, 570, 100, 100), 8, ClearEditor));
-	levelEditorMenu->AddElement(new GUIButton("Main menu", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(700 - 200, 640, 100, 100), 8, levelEditorMenu, previousMenu));
+	levelEditorMenu->AddElement(new GUIButton("Save", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(700 - 200, 400, 100, 100), 8, SaveEditor));
+	levelEditorMenu->AddElement(new GUIButton("Clear", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(700 - 200, 470, 100, 100), 8, ClearEditor));
+	levelEditorMenu->AddElement(new GUIButton("Main menu", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(700 - 200, 540, 100, 100), 8, levelEditorMenu, previousMenu));
 	levelEditorToggleGroup = dynamic_cast<GUIToggleGroup*>(GetGameObject()->AddComponent(new GUIToggleGroup()));
-	for (int i = 0; i < 6; i++)
+	for (int i = 0; i < 8; i++)
 	{
 		Color toolNormalColor = LevelBrick::GetBrickColor(static_cast<BrickType>(i));
 		Color toolHoverColor = toolNormalColor.Tinted(1.1);
-		Color toolDownColor = toolNormalColor.Shaded(0.9);
-		levelEditorMenu->AddElement(new GUIToggle(" ", Color(200, 255, 255), toolNormalColor, toolDownColor, toolHoverColor, Color(0, 200, 200), Rect(16 + i * (LevelBrick::BrickWidth + 32), 700 - LevelBrick::BrickHeight - 16, LevelBrick::BrickWidth, LevelBrick::BrickHeight), 0, levelEditorToggleGroup, false));
+		Color toolDownColor = toolNormalColor.Shaded(0.1);
+		Color toolSelectedColor = toolNormalColor.Shaded(0.6);
+		levelEditorMenu->AddElement(new GUIToggle(" ", Color(200, 255, 255), toolNormalColor, toolDownColor, toolHoverColor, toolSelectedColor, Rect(16 + i * (LevelBrick::BrickWidth + 32), 700 - LevelBrick::BrickHeight - 16, LevelBrick::BrickWidth, LevelBrick::BrickHeight), 0, levelEditorToggleGroup, false));
 	}
 	Clear();
 }

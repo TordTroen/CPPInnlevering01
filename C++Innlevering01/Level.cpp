@@ -38,11 +38,6 @@ void Level::LoadBricks()
 		int brickHealth = 1;
 		int brickScore = 0;
 		int brickId = c - '0';
-		if (brickId == 2 || brickId == 3)
-		{
-			brickHealth = brickId;
-			brickId = 1;
-		}
 		BrickType brickType = static_cast<BrickType>(brickId);
 
 		// Make the brick
