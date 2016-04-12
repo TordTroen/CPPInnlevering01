@@ -34,6 +34,7 @@ LevelEditorMenu::~LevelEditorMenu()
 
 void LevelEditorMenu::Init()
 {
+	// TODO Clean up in this mess of a menu
 	for (int i = 0; i < columns; i++)
 	{
 		for (int j = 0; j < rows; j++)
@@ -59,8 +60,9 @@ void LevelEditorMenu::Init()
 		levelEditorMenu->AddElement(new GUIToggle(" ", Color(200, 255, 255), toolNormalColor, toolDownColor, toolHoverColor, toolSelectedColor, Rect(16 + i * (LevelBrick::BrickWidth + 32), 700 - LevelBrick::BrickHeight - 16, LevelBrick::BrickWidth, LevelBrick::BrickHeight), 0, levelEditorToggleGroup, false));
 	}
 
+	levelEditorMenu->AddElement(new GUIText("Level name:", Color(255, 255, 255), Rect(10, 340, 10, 10)));
 	GameObject* obj = GameObjectManager::GetInstance().CreateObject();
-	textField = dynamic_cast<GUITextField*>(obj->AddComponent(new GUITextField()));
+	textField = dynamic_cast<GUITextField*>(obj->AddComponent(new GUITextField("Level name here", Rect(10, 400, 10, 10))));
 	levelEditorMenu->AddElement(textField);
 
 	Clear();

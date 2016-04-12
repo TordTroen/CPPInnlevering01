@@ -7,7 +7,7 @@ class GUITextField
 	: public GUIButton
 {
 public:
-	GUITextField();
+	GUITextField(std::string startText, Rect rect);
 	~GUITextField();
 	void Update() override;
 	std::string GetInputText() const { return inputText; }

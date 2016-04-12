@@ -6,8 +6,8 @@
 #include <iostream>
 #include <sstream>
 
-GUITextField::GUITextField()
-	: GUIButton("Text input", Color(255, 255, 255), Color(0, 0, 0), Color(0, 255, 0), Color(255, 0, 0), Rect(10, 400, 100, 100), 8, NULL, true, 117),
+GUITextField::GUITextField(std::string startText, Rect rect)
+	: GUIButton(startText, Color(255, 255, 255), Color(0, 0, 0), Color(0, 255, 0), Color(255, 0, 0), rect, 8, NULL, true, 117),
 	takeInput(false)
 {
 	//GameObject* textObj = GameObjectManager::GetInstance().CreateObject();
