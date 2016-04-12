@@ -25,5 +25,6 @@ private:
 	GUIMenu* levelEditorMenu;
 	GUIMenu* previousMenu;
 	GUIToggleGroup* levelEditorToggleGroup;
+	GUITextField* textField;
 };
 

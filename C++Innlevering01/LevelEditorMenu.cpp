@@ -9,10 +9,13 @@
 #include "GameObject.h"
 #include "GUILevelEditorButton.h"
 #include "GameObjectManager.h"
+#include "GUITextField.h"
 
 void SaveEditor()
 {
 	std::cout << "TODO: Call Save() here" << std::endl;
+	//GUITextField textField;
+	//textField.DoInput();
 }
 
 void ClearEditor()
@@ -55,11 +58,18 @@ void LevelEditorMenu::Init()
 		Color toolSelectedColor = toolNormalColor.Shaded(0.6);
 		levelEditorMenu->AddElement(new GUIToggle(" ", Color(200, 255, 255), toolNormalColor, toolDownColor, toolHoverColor, toolSelectedColor, Rect(16 + i * (LevelBrick::BrickWidth + 32), 700 - LevelBrick::BrickHeight - 16, LevelBrick::BrickWidth, LevelBrick::BrickHeight), 0, levelEditorToggleGroup, false));
 	}
+
+	GameObject* obj = GameObjectManager::GetInstance().CreateObject();
+	textField = dynamic_cast<GUITextField*>(obj->AddComponent(new GUITextField()));
+	levelEditorMenu->AddElement(textField);
+
 	Clear();
 }
 
 void LevelEditorMenu::Save()
 {
+	levelName = textField->GetInputText();
+
 	// Create a string based on the name and what index all the buttons have
 	std::ostringstream levelString;
 	levelString << levelName;

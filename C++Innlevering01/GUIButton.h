@@ -11,7 +11,7 @@ class GUIButton
 	: public GUIElement
 {
 public:
-	GUIButton(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, void(*CallbackFunction)(void), bool fitRectToText = true);
+	GUIButton(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, void(*CallbackFunction)(void), bool fitRectToText = true, int testVar = -1);
 	GUIButton(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, Color overrideColor, bool fitRectToText = true);
 	GUIButton(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, GUIMenu* const deactivateMenu, GUIMenu* const activateMenu, bool fitRectToText = true);
 	GUIButton(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, GUIMenu* const deactivateMenu, GUIMenu* const activateMenu, void(*CallbackFunction)(void), bool fitRectToText = true);
@@ -22,14 +22,17 @@ public:
 protected:
 	void Update() override;
 	void OnSetActive() override;
+
+	// TODO: Use GUIText and GUIRect elements instead of Drawables, let the GUItext&rect handle the drawables!
 	Drawable* backgroundItem;
+	Drawable* textItem;
 private:
+	int test;
 	bool isOverridingColor;
 	bool hasOverrideColor;
 	Color overrideColor;
 	void Init(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, GUIMenu* const deactivateMenu, GUIMenu* const activateMenu, void(*CallbackFunction)(void), bool fitRectToText, bool hasOverrideColor);
 	void SetBackgroundColor();
-	Drawable* textItem;
 	virtual void OnClick();
 	virtual void OnEnter();
 	void OnExit();

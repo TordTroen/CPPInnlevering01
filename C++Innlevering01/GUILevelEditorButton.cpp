@@ -22,7 +22,6 @@ void GUILevelEditorButton::PaintBrick()
 		//editorMenu = GetGameObject()->GetComponent<LevelEditorMenu>();
 		editorMenu = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::MenuObject)->GetComponent<LevelEditorMenu>();
 	}
-	std::cout << "Tool: " << editorMenu->GetCurrentTool() << std::endl;
 
 	// Set brick id based on the tool id
 	brickId = editorMenu->GetCurrentTool();

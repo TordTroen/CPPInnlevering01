@@ -141,6 +141,9 @@
     <ClInclude Include="LevelEditorMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GUITextField.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InputManager.cpp">
@@ -252,6 +255,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LevelEditorMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GUITextField.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

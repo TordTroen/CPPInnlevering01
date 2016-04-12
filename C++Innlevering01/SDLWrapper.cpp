@@ -144,6 +144,13 @@ Drawable* SDLWrapper::CreateRect(Color color, Rect rect, bool renderUnderneath)
 
 Drawable* SDLWrapper::CreateText(std::string text, Color color, Rect rect, bool originalSize, bool renderUnderneath)
 {
+	// If the string is empty, send a warning and set the string to an empty space (because SDL doesn't render empty strings)
+	if (text.empty())
+	{
+		cout << "WARNING: Trying to render empty text (SDL cant do that), rendering a space character instead." << endl;
+		text = " ";
+	}
+
 	SDL_Texture* texture = NULL;
 
 	// Render the text
@@ -170,7 +177,7 @@ Drawable* SDLWrapper::CreateText(std::string text, Color color, Rect rect, bool 
 			SDL_FreeSurface(textSurface);
 
 			// Create a new Drawable with the parameters
-			Drawable* drawable =new Drawable(rect, texture, color);
+			Drawable* drawable = new Drawable(rect, texture, color);
 			//allDrawables.emplace_back(drawable);
 			AddDrawableToCollection(drawable, renderUnderneath);
 			return drawable;

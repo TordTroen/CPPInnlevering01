@@ -19,7 +19,6 @@ private:
 	PlayerController* playerController;
 	GUIToggleGroup* levelSelectToggleGroup;
 	GUIToggleGroup* levelEditorToggleGroup;
-
 	// Singleton stuff
 public:
 	static GUIManager& GetInstance()
