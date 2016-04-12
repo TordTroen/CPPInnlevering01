@@ -13,6 +13,7 @@ public:
 	LevelEditorMenu(GUIMenu* levelEditorMenu, GUIMenu* previousMenu);
 	~LevelEditorMenu();
 	void Save();
+	void Clear();
 	int GetCurrentTool() const;
 private:
 	void Awake() override;

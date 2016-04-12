@@ -18,6 +18,7 @@ public:
 	~GUIButton();
 	void SyncDrawableWithTransform() override;
 	void SetOverrideColorActive(bool isOverriding);
+	void SetColors(Color normal, Color down, Color hover);
 protected:
 	void Update() override;
 	void OnSetActive() override;
@@ -30,7 +31,7 @@ private:
 	void SetBackgroundColor();
 	Drawable* textItem;
 	virtual void OnClick();
-	void OnEnter();
+	virtual void OnEnter();
 	void OnExit();
 	void(*Callback)(void);
 	void ToggleMenus();

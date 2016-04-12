@@ -49,7 +49,7 @@ void GUIManager::SetupMenus()
 	int sWidth = GameManager::GetInstance().GetWindowWidth();
 	int sHeight= GameManager::GetInstance().GetWindowHeight();
 
-	GameObject* menuObj = GameObjectManager::GetInstance().CreateObject();
+	GameObject* menuObj = GameObjectManager::GetInstance().CreateObject(Tags::MenuObject);
 	//GameObject* hudMenuObj = GameObjectManager::GetInstance().CreateObject();
 	//GameObject* endMenuObj = GameObjectManager::GetInstance().CreateObject();
 	// TODO Find a better way to do these ugly lines

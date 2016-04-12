@@ -33,6 +33,8 @@ public:
 		}
 	}
 	SDL_Color ToSDL_Color() const;
+	bool operator==(const Color & c) const;
+	bool operator!=(const Color & c) const;
 private:
 	void Set(int r, int g, int b);
 	void Set(int r, int g, int b, int a);

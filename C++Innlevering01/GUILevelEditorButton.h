@@ -8,12 +8,14 @@ class GUILevelEditorButton :
 	public GUIButton
 {
 public:
-	GUILevelEditorButton(Color normalColor, Color downColor, Color hoverColor, Rect rect, void(*OnClickFunction)(void), int buttonIndex);
+	GUILevelEditorButton(Color normalColor, Color downColor, Color hoverColor, Rect rect, int buttonIndex);
 	~GUILevelEditorButton();
 	int GetBrickId() const { return brickId; }
 private:
+	void PaintBrick();
 	void Awake() override;
 	void OnClick() override;
+	void OnEnter() override;
 	int buttonIndex;
 	int brickId;
 	//BrickType brickType; // TODO Wrap these in a brick struct or something

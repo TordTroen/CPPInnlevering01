@@ -11,4 +11,5 @@ public:
 	static const std::string WallTop;
 	static const std::string WallBottom;
 	static const std::string Brick;
+	static const std::string MenuObject;
 };

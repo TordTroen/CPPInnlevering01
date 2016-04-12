@@ -65,3 +65,13 @@ SDL_Color Color::ToSDL_Color() const
 	c.a = _a;
 	return c;*/
 }
+
+bool Color::operator==(const Color & c) const
+{
+	return (r == c.GetR() && g == c.GetG() && b == c.GetB() && a == c.GetA());
+}
+
+bool Color::operator!=(const Color & c) const
+{
+	return (r != c.GetR() || g != c.GetG() || b != c.GetB() || a != c.GetA());
+}

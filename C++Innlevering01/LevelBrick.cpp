@@ -16,7 +16,7 @@ const float LevelBrick::PowerUpHeight = 20;
 Player player;
 
 LevelBrick::LevelBrick(Vector2D pos, BrickType brickType, int powerup, int health, bool indestructible)
-	: _brickPos(pos), _brickType(brickType), powerUpReward(powerup), _health(health), _indestructible(indestructible)
+	: brickPos(pos), brickType(brickType), powerUpReward(powerup), health(health), indestructible(indestructible)
 {
 }
 
@@ -24,39 +24,45 @@ LevelBrick::~LevelBrick()
 {
 }
 
-void LevelBrick::OnCollisionEnter(const Collider* const other)
+Color LevelBrick::GetBrickColor(BrickType brickType)
 {
-	if (!_indestructible && other->GetGameObject()->CompareTag(Tags::Ball))
+	switch (brickType)
 	{
-		TakeDamage();
+	case BrickType::BrickEmpty:
+		return Color(240, 240, 240);
+	case BrickType::BrickNormal:
+		return Color(255, 255, 40);
+	case BrickType::Brick2Hits:
+		return Color(255, 150, 150);
+	case BrickType::Brick3Hits:
+		return Color(255, 100, 100);
+	case BrickType::BrickGreen:
+		return Color(40, 255, 40);
+	case BrickType::BrickBlue:
+		return Color(40, 40, 255);
+	case BrickType::BrickPowerup:
+		return Color(255, 0, 255);
+	case BrickType::BrickIndestructible:
+		return Color(10, 10, 10);
+	default:
+		return Color(127, 127, 127);
 	}
-}
-
-void LevelBrick::Awake()
-{
-	GetTransform()->SetPosition(_brickPos);
-	GetTransform()->SetSize(Vector2D(BrickWidth, BrickHeight));
-	
-	Color color = GetColorBasedOnHealth();
-	
-	_imageRenderer = dynamic_cast<ImageRenderer*>(GetGameObject()->AddComponent(new ImageRenderer("WhiteTexture.png", color)));
-	GetGameObject()->AddComponent(new BoxCollider());
-}
-
-Color LevelBrick::GetColorBasedOnHealth()
-{
-	switch (_health)
+	/*if (brickType == BrickType::BrickIndestructible)
+	{
+		return Color(10, 10, 10);
+	}
+	switch (health)
 	{
 	case 1:
-		if (_brickType == BrickType::BrickNormal)
+		if (brickType == BrickType::BrickNormal)
 		{
 			return Color(255, 255, 40);
 		}
-		else if (_brickType == BrickType::BrickGreen)
+		else if (brickType == BrickType::BrickGreen)
 		{
 			return Color(40, 255, 40);
 		}
-		else if (_brickType == BrickType::BrickBlue)
+		else if (brickType == BrickType::BrickBlue)
 		{
 			return Color(40, 40, 255);
 		}
@@ -66,8 +72,54 @@ Color LevelBrick::GetColorBasedOnHealth()
 		return Color(255, 100, 100);
 	default:
 		return Color(255, 255, 255);
+	}*/
+}
+
+void LevelBrick::OnCollisionEnter(const Collider* const other)
+{
+	if (!indestructible && other->GetGameObject()->CompareTag(Tags::Ball))
+	{
+		TakeDamage();
 	}
 }
+
+void LevelBrick::Awake()
+{
+	GetTransform()->SetPosition(brickPos);
+	GetTransform()->SetSize(Vector2D(BrickWidth, BrickHeight));
+	
+	Color color = GetBrickColor(brickType);
+	
+	imageRenderer = dynamic_cast<ImageRenderer*>(GetGameObject()->AddComponent(new ImageRenderer("WhiteTexture.png", color)));
+	GetGameObject()->AddComponent(new BoxCollider());
+}
+
+//Color LevelBrick::GetColorBasedOnHealth()
+//{
+//	return GetBrickColor(_brickType);
+//	//switch (_health)
+//	//{
+//	//case 1:
+//	//	if (_brickType == BrickType::BrickNormal)
+//	//	{
+//	//		return Color(255, 255, 40);
+//	//	}
+//	//	else if (_brickType == BrickType::BrickGreen)
+//	//	{
+//	//		return Color(40, 255, 40);
+//	//	}
+//	//	else if (_brickType == BrickType::BrickBlue)
+//	//	{
+//	//		return Color(40, 40, 255);
+//	//	}
+//	//case 2:
+//	//	return Color(255, 150, 150);
+//	//case 3:
+//	//	return Color(255, 100, 100);
+//	//default:
+//	//	return Color(255, 255, 255);
+//	//}
+//}
 
 void LevelBrick::PowerUp() {
 	int chance = (int)(rand() % 4) + 1;
@@ -81,14 +133,16 @@ void LevelBrick::PowerUp() {
 
 void LevelBrick::TakeDamage()
 {
-	_health--;
-	if (_health <= 0)
+	health--;
+	brickType = static_cast<BrickType>(health);
+	if (health <= 0)
 	{
 		GetGameObject()->SetActive(false);
 		// TODO Award player
 		player.SetHighscore(1);
 		GUIManager::GetInstance().UpdateScoreText(player.GetHighscore());
 		PowerUp();
+		return;
 	}
-	_imageRenderer->GetImageDrawable()->SetColor(GetColorBasedOnHealth());
+	imageRenderer->GetImageDrawable()->SetColor(GetBrickColor(brickType));
 }

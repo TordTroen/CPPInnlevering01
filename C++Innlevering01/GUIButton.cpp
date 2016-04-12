@@ -50,6 +50,14 @@ void GUIButton::SetOverrideColorActive(bool isOverriding)
 	SetBackgroundColor();
 }
 
+void GUIButton::SetColors(Color normal, Color down, Color hover)
+{
+	normalColor = normal;
+	downColor = down;
+	hoverColor = hover;
+	SetBackgroundColor();
+}
+
 void GUIButton::OnSetActive()
 {
 	backgroundItem->SetActive(IsActive());

@@ -9,7 +9,9 @@ class Color;
 enum class BrickType
 {
 	BrickEmpty = 0,
-	BrickNormal = 1, // 2, 3
+	BrickNormal = 1,
+	Brick2Hits = 2,
+	Brick3Hits = 3,
 	BrickGreen = 4,
 	BrickBlue = 5,
 	BrickPowerup = 6,
@@ -22,6 +24,7 @@ class LevelBrick
 public:
 	LevelBrick(Vector2D pos, BrickType brickType, int powerup, int health, bool indestructible);
 	~LevelBrick();
+	static Color GetBrickColor(BrickType brickType);
 	void OnCollisionEnter(const Collider* const other) override;
 	void Awake() override;
 	static const float BrickWidth;
@@ -31,15 +34,15 @@ public:
 	void PowerUp(int amount) { powerUpReward += amount; }
 	int GetPowerUp() const { return powerUpReward; }
 private:
-	Color GetColorBasedOnHealth();
-	ImageRenderer* _imageRenderer;
-	ImageRenderer* _imageRenderer2;
+	//Color GetColorBasedOnHealth();
+	ImageRenderer* imageRenderer;
+	ImageRenderer* imageRenderer2;
 	void PowerUp();
 	void TakeDamage();
-	Vector2D _brickPos;
-	BrickType _brickType;
+	Vector2D brickPos;
+	BrickType brickType;
 	int powerUpReward;
-	int _health;
-	bool _indestructible;
+	int health;
+	bool indestructible;
 };
 

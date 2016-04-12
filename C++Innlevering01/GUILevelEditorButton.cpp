@@ -1,8 +1,11 @@
 #include "GUILevelEditorButton.h"
 #include "GameObject.h"
+#include "GameObjectManager.h"
+#include "Tags.h"
+#include "InputManager.h"
 
-GUILevelEditorButton::GUILevelEditorButton(Color normalColor, Color downColor, Color hoverColor, Rect rect, void(*CallbackFunction)(void), int buttonIndex)
-	: GUIButton(" ", Color(), normalColor, downColor, hoverColor, rect, 0, NULL, false), buttonIndex(buttonIndex), brickId(0)
+GUILevelEditorButton::GUILevelEditorButton(Color normalColor, Color downColor, Color hoverColor, Rect rect, int buttonIndex)
+	: GUIButton(" ", Color(), normalColor, downColor, hoverColor, rect, 0, NULL, false), buttonIndex(buttonIndex), brickId(0), editorMenu(NULL)
 {
 	UpdateBrickColor();
 }
@@ -11,21 +14,44 @@ GUILevelEditorButton::~GUILevelEditorButton()
 {
 }
 
-void GUILevelEditorButton::Awake()
+void GUILevelEditorButton::PaintBrick()
 {
-	editorMenu = GetGameObject()->GetComponent<LevelEditorMenu>();
-}
+	// TODO Do in Awake()
+	if (editorMenu == NULL)
+	{
+		//editorMenu = GetGameObject()->GetComponent<LevelEditorMenu>();
+		editorMenu = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::MenuObject)->GetComponent<LevelEditorMenu>();
+	}
+	std::cout << "Tool: " << editorMenu->GetCurrentTool() << std::endl;
 
-void GUILevelEditorButton::OnClick()
-{
-	// set brick id based on the tool id
+	// Set brick id based on the tool id
 	brickId = editorMenu->GetCurrentTool();
 	UpdateBrickColor();
 }
 
+void GUILevelEditorButton::Awake()
+{
+	//std::cout << "Btn" << std::endl;
+	//editorMenu = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::MenuObject)->GetComponent<LevelEditorMenu>();
+	//UpdateBrickColor();
+}
+
+void GUILevelEditorButton::OnClick()
+{
+	PaintBrick();
+}
+
+void GUILevelEditorButton::OnEnter()
+{
+	if (InputManager::GetInstance().GetMouse(1))
+	{
+		PaintBrick();
+	}
+}
+
 void GUILevelEditorButton::UpdateBrickColor()
 {
-	Color color = LevelBrick::GetBrickColor(BrickType::BrickBlue, brickHealth); // TODO Set color based on BrickID
-	//Color color = LevelBrick::GetBrickColor(brickType, brickHealth); // TODO Set color based on BrickID
-	backgroundItem->SetColor(color);
+	BrickType bt = static_cast<BrickType>(brickId);
+	Color color = LevelBrick::GetBrickColor(bt); // TODO Set color based on BrickID
+	SetColors(color, color, color);
 }

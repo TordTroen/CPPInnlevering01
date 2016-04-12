@@ -7,3 +7,4 @@ const std::string Tags::WallRight	= "WallRight";
 const std::string Tags::WallTop		= "WallTop";
 const std::string Tags::WallBottom	= "WallBottom";
 const std::string Tags::Brick		= "Brick";
+const std::string Tags::MenuObject	= "MenuObject";
