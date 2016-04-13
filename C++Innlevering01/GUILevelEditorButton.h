@@ -18,9 +18,6 @@ private:
 	void OnEnter() override;
 	int buttonIndex;
 	int brickId;
-	//BrickType brickType; // TODO Wrap these in a brick struct or something
-	int brickHealth;
 	void UpdateBrickColor();
 	LevelEditorMenu* editorMenu;
 };
-
