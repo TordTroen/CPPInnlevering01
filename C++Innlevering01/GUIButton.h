@@ -6,16 +6,17 @@
 #include "Color.h"
 #include "GUIElement.h"
 #include "GUIMenu.h"
+#include "GUIEventHandler.h"
 
 class GUIButton
 	: public GUIElement
 {
 public:
-	GUIButton(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, void(*CallbackFunction)(void), bool fitRectToText = true, int testVar = -1);
+	GUIButton(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, void(GUIEventHandler::*CallbackFunction)(void), bool fitRectToText = true);
 	GUIButton(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, Color overrideColor, bool fitRectToText = true);
 	GUIButton(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, GUIMenu* const deactivateMenu, GUIMenu* const activateMenu, bool fitRectToText = true);
-	GUIButton(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, GUIMenu* const deactivateMenu, GUIMenu* const activateMenu, void(*CallbackFunction)(void), bool fitRectToText = true);
-	~GUIButton();
+	GUIButton(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, GUIMenu* const deactivateMenu, GUIMenu* const activateMenu, void(GUIEventHandler::*CallbackFunction)(void), bool fitRectToText = true);
+	virtual ~GUIButton();
 	void SyncDrawableWithTransform() override;
 	void SetOverrideColorActive(bool isOverriding);
 	void SetColors(Color normal, Color down, Color hover);
@@ -27,16 +28,17 @@ protected:
 	Drawable* backgroundItem;
 	Drawable* textItem;
 private:
-	int test;
+	void Awake() override;
 	bool isOverridingColor;
 	bool hasOverrideColor;
 	Color overrideColor;
-	void Init(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, GUIMenu* const deactivateMenu, GUIMenu* const activateMenu, void(*CallbackFunction)(void), bool fitRectToText, bool hasOverrideColor);
+	void Init(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, GUIMenu* const deactivateMenu, GUIMenu* const activateMenu, void(GUIEventHandler::*CallbackFunction)(void), bool fitRectToText, bool hasOverrideColor);
 	void SetBackgroundColor();
 	virtual void OnClick();
 	virtual void OnEnter();
 	void OnExit();
-	void(*Callback)(void);
+	void(GUIEventHandler::*Callback)(void);
+	GUIEventHandler* guiEventHandler;
 	void ToggleMenus();
 	GUIMenu* activateMenu;
 	GUIMenu* deactivateMenu;

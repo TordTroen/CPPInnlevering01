@@ -23,6 +23,8 @@ public:
 	void OnGameOver();
 
 	std::vector<std::string> GetLevelNames() const;
+
+	void ImportAllLevels();
 private:
 	/* Loads the level stored in curLevel. */
 	void LoadCurrentLevel();

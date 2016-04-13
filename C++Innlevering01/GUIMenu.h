@@ -29,6 +29,8 @@ public:
 		}
 		return NULL;
 	}
+	int GetElementCount() const { return elements.size(); }
+	virtual void RemoveElements(int startIndex, int count);
 protected:
 	void OnSetActive() override;
 	std::vector<GUIElement*> elements;

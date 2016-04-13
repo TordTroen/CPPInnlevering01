@@ -7,7 +7,7 @@ class GUIElement :
 {
 public:
 	GUIElement();
-	~GUIElement();
+	virtual ~GUIElement();
 	// TODO Find a better way to do this. This is necessary when creating GUIelements without directly adding them to a GameObject (because the Drawables will then have a Rect different from the Transform). 
 	//		This feels like a wrong approach/logic error in the current system
 	/* Used when creating elements directly in GUIMenu's AddElement functions. */

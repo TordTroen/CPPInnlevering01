@@ -113,3 +113,23 @@ bool GUILayoutMenu::IsVertical() const
 {
 	return alignment == Alignment::Left || alignment == Alignment::VerticalCenter || alignment == Alignment::Right;
 }
+
+void GUILayoutMenu::RemoveElements(int startIndex, int count)
+{
+	auto start = elements.begin() + startIndex;
+	auto end = start + count;
+	for (auto it = start; it != end; ++it)
+	{
+		if (IsVertical())
+		{
+			curPos.Y -= (*it)->GetTransform()->GetRect().h + spacing * 2;
+		}
+		else
+		{
+			curPos.X -= (*it)->GetTransform()->GetRect().w + spacing * 2;
+		}
+	}
+	std::cout << "decreasing curpos" << std::endl;
+	GUIMenu::RemoveElements(startIndex, count);
+	// TODO Decrease the curpos
+}

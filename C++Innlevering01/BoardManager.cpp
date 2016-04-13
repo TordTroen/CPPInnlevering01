@@ -16,9 +16,7 @@ BoardManager::~BoardManager()
 
 void BoardManager::InitializeBoard()
 {
-	// Import all the levels
-	ImportLevelData("LevelDataStandard.txt");
-	ImportLevelData("LevelDataCustom.txt");
+	ImportAllLevels();
 
 	// Set current level to the first level
 	SetCurrentLevel(0);
@@ -98,6 +96,15 @@ std::vector<std::string> BoardManager::GetLevelNames() const
 		names.emplace_back(it->GetLevelName());
 	}
 	return names;
+}
+
+void BoardManager::ImportAllLevels()
+{
+	allLevels.erase(allLevels.begin(), allLevels.end());
+
+	// Import all the levels
+	ImportLevelData("LevelDataStandard.txt");
+	ImportLevelData("LevelDataCustom.txt");
 }
 
 void BoardManager::LoadCurrentLevel()

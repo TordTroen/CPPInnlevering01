@@ -13,6 +13,7 @@ public:
 	void Toggle(int toggleIndex);
 	int GetCurrentToggleIndex() const { return curToggled; }
 	void SyncDrawableWithTransform() override { }
+	void Reset();
 private:
 	int curToggled;
 	std::vector<GUIToggle*> toggles;

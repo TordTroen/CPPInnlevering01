@@ -1,3 +1,9 @@
+## Possible leaks?
+- Components 
+	- GUIElements
+		- When removing stuff from vectors (in level select stuff)
+- GameObjects
+
 ### TODO
 - Use smart pointers!
 - Destroying Drawables

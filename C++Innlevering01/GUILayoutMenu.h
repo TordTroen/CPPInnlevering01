@@ -24,6 +24,7 @@ public:
 	float GetSize() const;
 	void SetOverrideSize(Vector2D overrideSize) { this->overrideSize = overrideSize; }
 	bool IsVertical() const;
+	void RemoveElements(int startIndex, int count) override;
 private:
 	Vector2D overrideSize;
 	int margin;

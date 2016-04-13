@@ -2,6 +2,7 @@
 #include "GUIText.h"
 #include "PlayerController.h"
 #include "GUIToggleGroup.h"
+class GUILayoutMenu;
 
 class GUIManager
 	: public Component
@@ -12,14 +13,21 @@ public:
 	void SetupMenus();
 	void UpdateScoreText(int score);
 	GUIToggleGroup* GetLevelSelectToggleGroup() const { return levelSelectToggleGroup; }
+	void LoadLevelList();
 private:
-	void Test();
 	void Awake() override;
 	GUIText* scoreText;
 	PlayerController* playerController;
 	GUIToggleGroup* levelSelectToggleGroup;
 	GUIToggleGroup* levelEditorToggleGroup;
-	// Singleton stuff
+	int customLevelStartElementIndex;
+	int customLevelCount;
+	GUILayoutMenu* levelSelectMenu;
+	Color buttonColorNormal;
+	Color buttonColorHover;
+	Color buttonColorDown;
+
+// Singleton stuff
 public:
 	static GUIManager& GetInstance()
 	{
