@@ -10,16 +10,7 @@
 #include "GUILevelEditorButton.h"
 #include "GameObjectManager.h"
 #include "GUITextField.h"
-
-void SaveEditor()
-{
-	std::cout << "TODO: Call Save() here" << std::endl;
-}
-
-void ClearEditor()
-{
-	std::cout << "TODO: Call Clear() here" << std::endl;
-}
+#include "GUIEventHandler.h"
 
 LevelEditorMenu::LevelEditorMenu(GUIMenu* levelEditorMenu, GUIMenu* previousMenu)
 	: levelName("Unnamed"), levelEditorMenu(levelEditorMenu), previousMenu(previousMenu)
@@ -46,8 +37,8 @@ void LevelEditorMenu::Init()
 	}
 
 	// Editor control buttons
-	levelEditorMenu->AddElement(new GUIButton("Save", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(700 - 200, 400, 100, 100), 8, SaveEditor));
-	levelEditorMenu->AddElement(new GUIButton("Clear", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(700 - 200, 470, 100, 100), 8, ClearEditor));
+	levelEditorMenu->AddElement(new GUIButton("Save", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(700 - 200, 400, 100, 100), 8, &GUIEventHandler::OnEditorSave));
+	levelEditorMenu->AddElement(new GUIButton("Clear", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(700 - 200, 470, 100, 100), 8, &GUIEventHandler::OnEditorClear));
 	levelEditorMenu->AddElement(new GUIButton("Main menu", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(700 - 200, 540, 100, 100), 8, levelEditorMenu, previousMenu));
 	
 	// Brick editor buttons
@@ -100,6 +91,8 @@ void LevelEditorMenu::Save()
 	{
 		std::cout << "Couldn't open file for writing custom level to!" << std::endl;
 	}
+
+	std::cout << "Level saved!" << std::endl;
 }
 
 void LevelEditorMenu::Clear()

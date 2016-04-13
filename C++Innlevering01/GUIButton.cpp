@@ -1,11 +1,12 @@
 #include "GUIButton.h"
 #include "Transform.h"
 #include "InputManager.h"
+#include "GameObjectManager.h"
+#include "Tags.h"
 #include <iostream>
 
-GUIButton::GUIButton(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, void(*CallbackFunction)(void), bool fitRectToText, int testVar)
+GUIButton::GUIButton(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, void(GUIEventHandler::*CallbackFunction)(void), bool fitRectToText)
 {
-	test = testVar;
 	Init(text, textColor, normalColor, downColor, hoverColor, rect, textPadding, NULL, NULL, CallbackFunction, fitRectToText, false);
 }
 
@@ -20,7 +21,7 @@ GUIButton::GUIButton(std::string text, Color textColor, Color normalColor, Color
 	Init(text, textColor, normalColor, downColor, hoverColor, rect, textPadding, deactivateMenu, activateMenu, NULL, fitRectToText, false);
 }
 
-GUIButton::GUIButton(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, GUIMenu* const deactivateMenu, GUIMenu* const activateMenu, void(*CallbackFunction)(void), bool fitRectToText)
+GUIButton::GUIButton(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, GUIMenu* const deactivateMenu, GUIMenu* const activateMenu, void(GUIEventHandler::*CallbackFunction)(void), bool fitRectToText)
 {
 	Init(text, textColor, normalColor, downColor, hoverColor, rect, textPadding, deactivateMenu, activateMenu, CallbackFunction, fitRectToText, false);
 }
@@ -64,8 +65,12 @@ void GUIButton::OnSetActive()
 	backgroundItem->SetActive(IsActive());
 	textItem->SetActive(IsActive());
 }
+void GUIButton::Awake()
+{
+	guiEventHandler = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::MenuObject)->GetComponent<GUIEventHandler>();
+}
 
-void GUIButton::Init(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, GUIMenu* const deactivateMenu, GUIMenu* const activateMenu, void(*CallbackFunction)(void), bool fitRectToText, bool hasOverrideColor)
+void GUIButton::Init(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, GUIMenu* const deactivateMenu, GUIMenu* const activateMenu, void(GUIEventHandler::*CallbackFunction)(void), bool fitRectToText, bool hasOverrideColor)
 {
 	this->activateMenu = activateMenu;
 	this->deactivateMenu = deactivateMenu;
@@ -154,7 +159,7 @@ void GUIButton::OnClick()
 {
 	if (Callback != NULL)
 	{
-		Callback();
+		(guiEventHandler->*Callback)();
 	}
 	ToggleMenus();
 }
