@@ -104,6 +104,7 @@ void GUIManager::LoadLevelList()
 	if (customLevelStartElementIndex > -1)
 	{
 		levelSelectMenu->RemoveElements(customLevelStartElementIndex, customLevelCount);
+		levelSelectToggleGroup->Reset();
 		BoardManager::GetInstance().ImportAllLevels();
 	}
 

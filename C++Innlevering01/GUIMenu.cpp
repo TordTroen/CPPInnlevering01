@@ -37,6 +37,10 @@ void GUIMenu::AddElements(std::vector<GUIElement*> elements)
 void GUIMenu::RemoveElements(int startIndex, int count)
 {
 	auto start = elements.begin() + startIndex;
+	//for (auto it = start; it != start + count; ++it)
+	//{
+	//	delete *it;
+	//}
 	elements.erase(start, start + count);
 	std::cout << "ereasing some elements" << std::endl;
 }

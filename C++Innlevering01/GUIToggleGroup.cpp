@@ -32,3 +32,8 @@ void GUIToggleGroup::Toggle(int toggleIndex)
 
 	curToggled = toggleIndex;
 }
+
+void GUIToggleGroup::Reset()
+{
+	toggles.clear();
+}
