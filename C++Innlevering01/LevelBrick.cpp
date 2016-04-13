@@ -8,12 +8,14 @@
 #include "GUIManager.h"
 #include "Player.h"
 #include "GameObjectManager.h"
+#include "GameManager.h"
 
 const float LevelBrick::BrickWidth = 50;
 const float LevelBrick::BrickHeight = 30;
 const float LevelBrick::PowerUpWidth = 20;
 const float LevelBrick::PowerUpHeight = 20;
 Player player;
+int Points = 1;
 
 LevelBrick::LevelBrick(Vector2D pos, BrickType brickType, int powerup, int health, bool indestructible)
 	: brickPos(pos), brickType(brickType), powerUpReward(powerup), health(health), indestructible(indestructible)
@@ -121,12 +123,31 @@ void LevelBrick::Awake()
 //	//}
 //}
 
+void LevelBrick::LongPaddle() {
+	//Change the size of the paddle
+	GameObject* paddle = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle);
+	paddle->GetTransform()->SetSize(Vector2D(300, 15));
+}
+
+void LevelBrick::ExtraLife() {
+	//Gives the player extra life
+	player.SetLifeLeft(1);
+}
+
 void LevelBrick::PowerUp() {
 	int chance = (int)(rand() % 4) + 1;
 	std::cout << chance << std::endl;
 
 	if (chance == 1) {
+		int chance2 = (int)(rand() % 2) + 1;
 		std::cout << "You got a powerup!" << std::endl;
+		if (chance2 == 1) {
+			LongPaddle();
+			//PaddlePower
+		}
+		else if (chance2 == 2){
+			ExtraLife();
+		}
 		//Spawne en powerup blokk
 	}
 }
@@ -139,7 +160,7 @@ void LevelBrick::TakeDamage()
 	{
 		GetGameObject()->SetActive(false);
 		// TODO Award player
-		player.SetHighscore(1);
+		player.SetHighscore(Points);
 		GUIManager::GetInstance().UpdateScoreText(player.GetHighscore());
 		PowerUp();
 		return;

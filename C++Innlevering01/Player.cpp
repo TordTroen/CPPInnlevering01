@@ -24,7 +24,7 @@ void Player::SetLevel(int level)
 
 void Player::SetLifeLeft(int lifeLeft)
 {
-	m_lifeLeft = lifeLeft;
+	m_lifeLeft += lifeLeft;
 }
 
 void Player::SetBricksHit(int bricksHit)

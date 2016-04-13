@@ -5,6 +5,7 @@ class Tags
 {
 public:
 	static const std::string Ball;
+	static const std::string ExtraBall;
 	static const std::string Paddle;
 	static const std::string WallLeft;
 	static const std::string WallRight;

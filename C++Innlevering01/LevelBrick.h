@@ -37,6 +37,8 @@ private:
 	//Color GetColorBasedOnHealth();
 	ImageRenderer* imageRenderer;
 	ImageRenderer* imageRenderer2;
+	void LongPaddle();
+	void ExtraLife();
 	void PowerUp();
 	void TakeDamage();
 	Vector2D brickPos;

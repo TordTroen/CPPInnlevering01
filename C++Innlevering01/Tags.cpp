@@ -1,6 +1,7 @@
 #include "Tags.h"
 
 const std::string Tags::Ball		= "Ball";
+const std::string Tags::ExtraBall   = "ExtraBall";
 const std::string Tags::Paddle		= "Paddle";
 const std::string Tags::WallLeft	= "WallLeft";
 const std::string Tags::WallRight	= "WallRight";
