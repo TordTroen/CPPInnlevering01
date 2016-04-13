@@ -104,12 +104,14 @@ void GUIManager::LoadLevelList()
 	if (customLevelStartElementIndex > -1)
 	{
 		levelSelectMenu->RemoveElements(customLevelStartElementIndex, customLevelCount);
+		BoardManager::GetInstance().ImportAllLevels();
 	}
 
 	customLevelStartElementIndex = levelSelectMenu->GetElementCount();
 	customLevelCount = BoardManager::GetInstance().GetLevelNames().size();
 	for (auto it : BoardManager::GetInstance().GetLevelNames())
 	{
+		std::cout << "Rendering level: " << it << std::endl;
 		levelSelectMenu->AddElement(new GUIToggle(it, Color(100, 255, 255), buttonColorNormal, buttonColorDown, buttonColorHover, Color(10, 200, 10), Rect(10, 100, 0, 0), 8, levelSelectToggleGroup));
 	}
 }

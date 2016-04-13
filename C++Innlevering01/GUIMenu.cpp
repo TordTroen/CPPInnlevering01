@@ -38,6 +38,7 @@ void GUIMenu::RemoveElements(int startIndex, int count)
 {
 	auto start = elements.begin() + startIndex;
 	elements.erase(start, start + count);
+	std::cout << "ereasing some elements" << std::endl;
 }
 
 void GUIMenu::OnSetActive()
