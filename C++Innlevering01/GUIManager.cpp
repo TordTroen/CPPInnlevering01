@@ -18,6 +18,12 @@ GUIManager::~GUIManager()
 {
 }
 
+void GUIManager::Init()
+{
+	menuObj = GameObjectManager::GetInstance().CreateObject(Tags::MenuObject);
+	eventHandler = dynamic_cast<GUIEventHandler*>(menuObj->AddComponent(new GUIEventHandler()));
+}
+
 void GUIManager::SetupMenus()
 {
 	customLevelCount = -1;
@@ -26,13 +32,6 @@ void GUIManager::SetupMenus()
 	buttonColorNormal = Color(25, 25, 25);
 	buttonColorHover = buttonColorNormal.Tinted(1.2);
 	buttonColorDown = buttonColorNormal.Shaded(0.8);
-
-	// Store the screen dimensions for easy access
-	int sWidth = GameManager::GetInstance().GetWindowWidth();
-	int sHeight= GameManager::GetInstance().GetWindowHeight();
-
-	GameObject* menuObj = GameObjectManager::GetInstance().CreateObject(Tags::MenuObject);
-	GUIEventHandler* eventHandler = dynamic_cast<GUIEventHandler*>(menuObj->AddComponent(new GUIEventHandler()));
 
 	// TODO Find a better way to do these ugly lines
 	// Create the menus

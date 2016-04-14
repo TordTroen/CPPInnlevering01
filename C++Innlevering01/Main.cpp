@@ -44,7 +44,7 @@ int main(int argc, char** argv)
 
 		Rect paddleStartRect = Rect(GameManager::GetInstance().GetCenterXPosition(200), GameManager::GetInstance().GetWindowHeight() - 100, 150, 15);
 		Rect ballStartRect = Rect(GameManager::GetInstance().GetCenterXPosition(18), paddleStartRect.y - 50, 18, 18);
-
+		GUIManager::GetInstance().Init();
 		// Make the ball object. Both the visual ball and the positioning of the ball. 
 		GameObject* ballObj = GameObjectManager::GetInstance().CreateObject(Tags::Ball);
 		ballObj->AddComponent(new ImageRenderer("WhiteTexture.png", Color(100, 150, 200)));

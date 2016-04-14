@@ -11,6 +11,7 @@ public:
 	GUILevelEditorButton(Color normalColor, Color downColor, Color hoverColor, Rect rect, int buttonIndex);
 	~GUILevelEditorButton();
 	int GetBrickId() const { return brickId; }
+	int GetButtonIndex() const { return buttonIndex; }
 private:
 	void PaintBrick();
 	void Awake() override;

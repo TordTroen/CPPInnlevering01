@@ -2,6 +2,7 @@
 #include "GUIText.h"
 #include "PlayerController.h"
 #include "GUIToggleGroup.h"
+#include "GUIEventHandler.h"
 class GUILayoutMenu;
 
 class GUIManager
@@ -10,6 +11,7 @@ class GUIManager
 public:
 	//GUIManager();
 	~GUIManager();
+	void Init();
 	void SetupMenus();
 	void UpdateScoreText(int score);
 	GUIToggleGroup* GetLevelSelectToggleGroup() const { return levelSelectToggleGroup; }
@@ -20,6 +22,8 @@ private:
 	PlayerController* playerController;
 	GUIToggleGroup* levelSelectToggleGroup;
 	GUIToggleGroup* levelEditorToggleGroup;
+	GameObject* menuObj;
+	GUIEventHandler* eventHandler;
 	int customLevelStartElementIndex;
 	int customLevelCount;
 	GUILayoutMenu* levelSelectMenu;
