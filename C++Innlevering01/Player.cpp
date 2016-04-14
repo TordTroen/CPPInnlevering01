@@ -1,11 +1,21 @@
 #include "Player.h"
+#include "BoardManager.h"
 #include "Time.h"
 #include "PError.h"
 using namespace std;
 
-
 //	Constructs a custom player
 Player::Player(int highscore, int level, int lifeLeft, int bricksHit, int bricksMissed, std::string name)
+{
+	SetHighscore(highscore);
+	SetLevel(level);
+	SetLifeLeft(lifeLeft);
+	SetBricksHit(bricksHit);
+	SetBricksMissed(bricksMissed);
+	SetName(name);
+}
+
+void Player::Reset(int highscore, int level, int lifeLeft, int bricksHit, int bricksMissed, std::string name)
 {
 	SetHighscore(highscore);
 	SetLevel(level);
@@ -28,14 +38,13 @@ void Player::SetLevel(int level)
 void Player::SetLifeLeft(int lifeLeft)
 {
 	m_lifeLeft = lifeLeft;
-	
+
 	if (m_guiEventHandler == NULL) {
 		m_guiEventHandler = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::MenuObject)->GetComponent<GUIEventHandler>();
 	}
 
 	if (m_lifeLeft <= 0)
 	{
-		PError("m_lifeLeft <= 0");
 		m_guiEventHandler->OnEndLevel();
 	}
 }
@@ -43,6 +52,13 @@ void Player::SetLifeLeft(int lifeLeft)
 void Player::SetBricksHit(int bricksHit)
 {
 	m_bricksHit = bricksHit;
+
+	if (m_guiEventHandler != NULL) {
+		if (BoardManager::GetInstance().GetCurrentLevel()->GetBrickCount() == 0) {
+			//std::cout << "bricks hit: ";
+			//std::cout << BoardManager::GetInstance().GetCurrentLevel()->GetBrickCount() << std::endl;
+		}
+	}
 }
 
 void Player::SetBricksMissed(int bricksMissed)
@@ -80,6 +96,7 @@ int Player::GetBricksMissed() const
 	return m_bricksMissed;
 }
 
+
 std::string Player::GetName() const
 {
 	return m_name;
@@ -110,10 +127,11 @@ void Player::LongPaddle(bool lPaddle) {
 void Player::Awake() {
 	m_guiEventHandler = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::MenuObject)->GetComponent<GUIEventHandler>();
 	paddle = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle);
+	
 }
 
 void Player::Update() {
-	//Delay for small-big paddle
+		//Delay for small-big paddle
 	if (pad) {
 		delay += Time::DeltaTime();
 		if (delay > 500) {

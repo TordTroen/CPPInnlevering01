@@ -58,6 +58,11 @@ void BoardManager::ClearBoard()
 	paddleMovement->GetGameObject()->SetActive(false);
 }
 
+Level* BoardManager::GetCurrentLevel() const
+{
+	return curLevel;
+}
+
 void BoardManager::SetCurrentLevel(int levelId)
 {
 	// Destroy old level

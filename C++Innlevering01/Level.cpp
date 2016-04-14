@@ -2,6 +2,7 @@
 #include "Vector2D.h"
 #include "LevelBrick.h"
 #include "GameObjectManager.h"
+#include "Tags.h"
 #include "GameManager.h"
 #include "Theme.h"
 
@@ -53,7 +54,7 @@ void Level::LoadBricks()
 			// Spawn a brick if the bricktype isn't empty
 			if (brickType != BrickType::BrickEmpty)
 			{
-				GameObject* brick = GameObjectManager::GetInstance().CreateObject();
+				GameObject* brick = GameObjectManager::GetInstance().CreateObject(Tags::Brick);
 				brickObjects.emplace_back(brick);
 				brick->AddComponent(new LevelBrick(curPos, brickType, brickScore, brickHealth, (brickType == BrickType::BrickIndestructible)));
 			}
@@ -71,4 +72,17 @@ void Level::DeleteBricks()
 		it->Destroy();
 	}
 	brickObjects.clear();
+}
+
+int Level::GetBrickCount() const {
+	std::vector<GameObject*> brickObjects;
+
+	int numberOfActiveBricks = 0;
+	for (auto i : brickObjects) {
+		if (i->IsActive()) {
+			numberOfActiveBricks++;
+		}
+	}
+
+	return numberOfActiveBricks;
 }
