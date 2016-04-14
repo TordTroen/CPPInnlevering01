@@ -13,6 +13,7 @@ Player::Player(int highscore, int level, int lifeLeft, int bricksHit, int bricks
 	SetBricksHit(bricksHit);
 	SetBricksMissed(bricksMissed);
 	SetName(name);
+	pad = false;
 }
 
 //	Set a player's individual values
@@ -102,8 +103,12 @@ void Player::PrintPlayer() const
 }
 
 void Player::LongPaddle(bool lPaddle) {
+	if (pad) {
+		return;
+	}
 	//Change the size of the paddle
 	paddle->GetTransform()->SetSize(Vector2D(300, 15));
+	paddle->GetTransform()->Translate(Vector2D(paddle->GetTransform()->GetSize().X / 2, 0));
 	pad = lPaddle;
 }
 
@@ -120,6 +125,7 @@ void Player::Update() {
 			delay = 0;
 			pad = false;
 			paddle->GetTransform()->SetSize(Vector2D(150, 15));
+			paddle->GetTransform()->Translate(Vector2D(paddle->GetTransform()->GetSize().X / 2, 0));
 		}
 	}
 }
