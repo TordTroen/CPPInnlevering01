@@ -25,6 +25,8 @@ public:
 	//	Constructs a custom player
 	Player(int highscore, int level, int lifeLeft, int bricksHit, int bricksMissed, std::string name);
 
+	void Reset(int highscore, int level, int lifeLeft, int bricksHit, int bricksMissed, std::string name);
+
 	//	Set a player's individual values
 	void SetHighscore(int highscore);
 	void SetLevel(int level);

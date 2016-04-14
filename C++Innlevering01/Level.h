@@ -14,6 +14,7 @@ public:
 	std::string GetLevelText() const { return levelText; }
 	std::vector<int> GetLevelVectices() const { return levelVertices; }
 	std::string GetLevelName() const { return levelName; }
+	int GetBrickCount() const;
 private:
 	std::string levelName;
 	int levelId;

@@ -1,8 +1,18 @@
 #include "Player.h"
-#include "PError.h"
+#include "BoardManager.h"
 
 //	Constructs a custom player
 Player::Player(int highscore, int level, int lifeLeft, int bricksHit, int bricksMissed, std::string name)
+{
+	SetHighscore(highscore);
+	SetLevel(level);
+	SetLifeLeft(lifeLeft);
+	SetBricksHit(bricksHit);
+	SetBricksMissed(bricksMissed);
+	SetName(name);
+}
+
+void Player::Reset(int highscore, int level, int lifeLeft, int bricksHit, int bricksMissed, std::string name)
 {
 	SetHighscore(highscore);
 	SetLevel(level);
@@ -32,7 +42,6 @@ void Player::SetLifeLeft(int lifeLeft)
 
 	if (m_lifeLeft <= 0)
 	{
-		PError("m_lifeLeft <= 0");
 		m_guiEventHandler->OnEndLevel();
 	}
 }
@@ -40,6 +49,13 @@ void Player::SetLifeLeft(int lifeLeft)
 void Player::SetBricksHit(int bricksHit)
 {
 	m_bricksHit = bricksHit;
+
+	if (m_guiEventHandler != NULL) {
+		if (BoardManager::GetInstance().GetCurrentLevel()->GetBrickCount() == 0) {
+			//std::cout << "bricks hit: ";
+			//std::cout << BoardManager::GetInstance().GetCurrentLevel()->GetBrickCount() << std::endl;
+		}
+	}
 }
 
 void Player::SetBricksMissed(int bricksMissed)
@@ -76,6 +92,7 @@ int Player::GetBricksMissed() const
 {
 	return m_bricksMissed;
 }
+
 
 std::string Player::GetName() const
 {
