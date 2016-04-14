@@ -1,4 +1,13 @@
 #pragma once
+
+#include "GUIButton.h"
+#include "Transform.h"
+#include "InputManager.h"
+#include "GameObjectManager.h"
+#include "Tags.h"
+#include <iostream>
+#include "Player.h"
+#include <iostream>
 #include "Component.h"
 #include <string>
 
@@ -34,6 +43,8 @@ public:
 
 	void PrintPlayer()  const;
 
+	void Awake() override;
+
 private:
 
 	//	The player's values
@@ -43,4 +54,6 @@ private:
 	int m_bricksHit;
 	int m_bricksMissed;
 	std::string m_name;
+
+	GUIEventHandler* m_guiEventHandler;
 };

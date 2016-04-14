@@ -1,5 +1,4 @@
 #include "Player.h"
-#include <iostream>
 
 //	Constructs a custom player
 Player::Player(int highscore, int level, int lifeLeft, int bricksHit, int bricksMissed, std::string name)
@@ -25,6 +24,16 @@ void Player::SetLevel(int level)
 void Player::SetLifeLeft(int lifeLeft)
 {
 	m_lifeLeft += lifeLeft;
+	
+	if (m_guiEventHandler == NULL) {
+		m_guiEventHandler = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::MenuObject)->GetComponent<GUIEventHandler>();
+	}
+	else {
+		if (m_lifeLeft <= 0)
+		{
+			m_guiEventHandler->OnEndLevel();
+		}
+	}
 }
 
 void Player::SetBricksHit(int bricksHit)
@@ -86,4 +95,8 @@ void Player::PrintPlayer() const
 	std::cout << "Bricks hit: " << m_bricksHit << std::endl;
 	std::cout << "Bricks missed: " << m_bricksMissed << std::endl;
 	std::cout << "Highscore: " << m_highscore << std::endl;
+}
+
+void Player::Awake() {
+	m_guiEventHandler = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::MenuObject)->GetComponent<GUIEventHandler>();
 }
