@@ -13,6 +13,7 @@ Player::Player(int highscore, int level, int lifeLeft, int bricksHit, int bricks
 	SetBricksHit(bricksHit);
 	SetBricksMissed(bricksMissed);
 	SetName(name);
+	pad = false;
 }
 
 void Player::Reset(int highscore, int level, int lifeLeft, int bricksHit, int bricksMissed, std::string name)
@@ -119,25 +120,29 @@ void Player::PrintPlayer() const
 }
 
 void Player::LongPaddle(bool lPaddle) {
+	if (pad) {
+		return;
+	}
 	//Change the size of the paddle
 	paddle->GetTransform()->SetSize(Vector2D(300, 15));
+	paddle->GetTransform()->Translate(Vector2D(paddle->GetTransform()->GetSize().X / 2, 0));
 	pad = lPaddle;
 }
 
 void Player::Awake() {
 	m_guiEventHandler = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::MenuObject)->GetComponent<GUIEventHandler>();
 	paddle = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle);
-	
 }
 
 void Player::Update() {
-		//Delay for small-big paddle
+	//Delay for small-big paddle
 	if (pad) {
 		delay += Time::DeltaTime();
 		if (delay > 500) {
 			delay = 0;
 			pad = false;
 			paddle->GetTransform()->SetSize(Vector2D(150, 15));
+			paddle->GetTransform()->Translate(Vector2D(paddle->GetTransform()->GetSize().X / 2, 0));
 		}
 	}
 }
