@@ -131,7 +131,7 @@ void LevelBrick::Awake()
 
 void LevelBrick::ExtraLife() {
 	//Gives the player extra life
-	player->SetLifeLeft(1);
+	player->SetLifeLeft(player->GetLifeLeft()+1);
 }
 
 void LevelBrick::PowerUp() {
