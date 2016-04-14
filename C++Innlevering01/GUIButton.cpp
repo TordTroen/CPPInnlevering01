@@ -65,6 +65,7 @@ void GUIButton::OnSetActive()
 	backgroundItem->SetActive(IsActive());
 	textItem->SetActive(IsActive());
 }
+
 void GUIButton::Awake()
 {
 	guiEventHandler = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::MenuObject)->GetComponent<GUIEventHandler>();

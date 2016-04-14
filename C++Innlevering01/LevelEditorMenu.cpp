@@ -25,14 +25,17 @@ void LevelEditorMenu::Init()
 {
 	// TODO Clean up in this mess of a menu
 	// The brick buttons position like they are in an actual level
+	int index = 0;
 	for (int i = 0; i < columns; i++)
 	{
 		for (int j = 0; j < rows; j++)
 		{
 			GameObject* btnObj = GameObjectManager::GetInstance().CreateObject();
-			GUILevelEditorButton* btn = dynamic_cast<GUILevelEditorButton*>(btnObj->AddComponent(new GUILevelEditorButton(Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(i * LevelBrick::BrickWidth, j * LevelBrick::BrickHeight, LevelBrick::BrickWidth, LevelBrick::BrickHeight), i + j)));
+			GUILevelEditorButton* btn = dynamic_cast<GUILevelEditorButton*>(btnObj->AddComponent(new GUILevelEditorButton(Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(i * LevelBrick::BrickWidth, j * LevelBrick::BrickHeight, LevelBrick::BrickWidth, LevelBrick::BrickHeight), index)));
 			buttons.emplace_back(btn);
 			levelEditorMenu->AddElement(btn);
+			std::cout << "Creating button: " << (index) << std::endl;
+			index++;
 		}
 	}
 
@@ -69,16 +72,19 @@ void LevelEditorMenu::Save()
 	std::ostringstream levelString;
 	levelString << levelName;
 	levelString << "|";
-	for (int i = 0; i < rows; i++)
+	int index = 0;
+	for (int i = 0; i < columns; i++)
 	{
-		for (int j = 0; j < columns; j++)
+		for (int j = 0; j < rows; j++)
 		{
-			levelString << buttons[i+j]->GetBrickId();
+			std::cout << "Saving button: " << buttons[index]->GetButtonIndex() << " - " << (index)<< std::endl;
+			levelString << buttons[index]->GetBrickId();
+			index++;
 		}
 		if (i < rows - 1) levelString << "|";
 	}
 	levelString << "\n";
-
+	std::cout << "Level saved: " << levelString.str() << std::endl;
 	// Write that string to the custom leves data file
 	std::ofstream fileOut;
 	fileOut.open("LevelDataCustom.txt", std::ios_base::app);
