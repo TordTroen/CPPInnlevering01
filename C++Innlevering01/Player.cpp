@@ -2,6 +2,7 @@
 #include "BoardManager.h"
 #include "Time.h"
 #include "PError.h"
+#include "GUIManager.h"
 using namespace std;
 
 //	Constructs a custom player

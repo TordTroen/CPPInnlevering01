@@ -3,6 +3,7 @@
 #include "Component.h"
 #include "Vector2D.h"
 #include "Rect.h"
+#include "PaddleMovement.h"
 class Collider;
 
 class BallMovement :
@@ -18,6 +19,7 @@ public:
 private:
 	Vector2D m_movement;
 	Vector2D startMovement;
+	GameObject* paddleObject;
 	Rect startRect;
 	float m_speed;
 	bool m_levelStart = true;

@@ -39,6 +39,7 @@ void GUIManager::SetupMenus()
 	levelSelectMenu = dynamic_cast<GUILayoutMenu*>(menuObj->AddComponent(new GUILayoutMenu(Alignment::VerticalCenter, 8, 8, false)));
 	GUIMenu* levelEditorMenu = dynamic_cast<GUIMenu*>(menuObj->AddComponent(new GUIMenu(false)));
 	GUIMenu* hudMenu = dynamic_cast<GUIMenu*>(menuObj->AddComponent(new GUIMenu(false)));
+	instructionsMenu = dynamic_cast<GUIMenu*>(menuObj->AddComponent(new GUIMenu(false)));
 	GUILayoutMenu* endMenu = dynamic_cast<GUILayoutMenu*>(menuObj->AddComponent(new GUILayoutMenu(Alignment::VerticalCenter, 8, 8, false)));
 	GUILayoutMenu* levelIntermissionMenu = dynamic_cast<GUILayoutMenu*>(menuObj->AddComponent(new GUILayoutMenu(Alignment::VerticalCenter, 8, 8, false)));
 
@@ -54,6 +55,7 @@ void GUIManager::SetupMenus()
 
 	//////// LEVEL SELECT ////////
 	levelSelectMenu->AddElements({
+		new GUIText("Breakout", Color(200, 255, 255), Rect(10, 10, 0, 0)),
 		new GUIButton("Play", Color(200, 255, 255), buttonColorNormal, buttonColorDown, buttonColorHover, Rect(10, 100, 0, 0), 8, levelSelectMenu, hudMenu, &GUIEventHandler::OnMainMenuPlay),
 		new GUIButton("Back", Color(200, 255, 255), buttonColorNormal, buttonColorDown, buttonColorHover, Rect(10, 150, 0, 0), 8, levelSelectMenu, mainMenu),
 		new GUIText("Pick a level:", Color(200, 255, 255), Rect(10, 10, 0, 0))
@@ -66,13 +68,13 @@ void GUIManager::SetupMenus()
 	LevelEditorMenu* editorMenu = dynamic_cast<LevelEditorMenu*>(menuObj->AddComponent(new LevelEditorMenu(levelEditorMenu, mainMenu)));
 
 	//////// IN-GAME MENU ////////
+	scoreText = new GUIText("Score: 0", Color(255, 255, 255), Rect(10, 10, 0, 0));
+	healthText = new GUIText("Lives: 0", Color(255, 255, 255), Rect(10, 40, 0, 0));
 	hudMenu->AddElements({
-		new GUIText("Score: 0", Color(255, 255, 255), Rect(10, 10, 0, 0)),
-		//new GUIText("Lives: 0", Color(255, 255, 255), Rect(10, 40, 0, 0)),
+		scoreText,
+		healthText,
 		new GUIButton("End game", Color(200, 255, 255), buttonColorNormal, buttonColorDown, buttonColorHover, Rect(10, 100, 0, 0), 8, hudMenu, levelIntermissionMenu, &GUIEventHandler::OnEndLevel)
 	});
-	scoreText = hudMenu->GetElement<GUIText>();
-	healthText = hudMenu->GetElement<GUIText>();
 
 	//////// GAME OVER MENU ////////
 	endMenu->AddElements({
@@ -88,6 +90,9 @@ void GUIManager::SetupMenus()
 		new GUIButton("Restart", Color(200, 255, 255), buttonColorNormal, buttonColorDown, buttonColorHover, Rect(10, 150, 0, 0), 8, levelIntermissionMenu, hudMenu, &GUIEventHandler::OnRestartLevel),
 		new GUIButton("Main menu", Color(200, 255, 255), buttonColorNormal, buttonColorDown, buttonColorHover, Rect(10, 150, 0, 0), 8, levelIntermissionMenu, mainMenu)
 	});
+
+	//////// INSTRUCTIONS MENU ////////
+	instructionsMenu->AddElement(new GUIText("Press space to start", Color(255, 255, 255), Rect(220, 500, 0, 0)));
 
 	eventHandler->SetLevelEditorMenuReference(editorMenu);
 }
@@ -108,7 +113,7 @@ void GUIManager::UpdateHealthText(int health)
 
 void GUIManager::LoadLevelList()
 {
-	// TODO Remove previous elements
+	// Remove the old toggles for the level selction
 	if (customLevelStartElementIndex > -1)
 	{
 		levelSelectMenu->RemoveElements(customLevelStartElementIndex, customLevelCount);
@@ -116,8 +121,11 @@ void GUIManager::LoadLevelList()
 		BoardManager::GetInstance().ImportAllLevels();
 	}
 
+	// Get the range of the levelselect toggles in the menu element list
 	customLevelStartElementIndex = levelSelectMenu->GetElementCount();
 	customLevelCount = BoardManager::GetInstance().GetLevelNames().size();
+
+	// Add a new GUIToggle for each level
 	for (auto it : BoardManager::GetInstance().GetLevelNames())
 	{
 		std::cout << "Rendering level: " << it << std::endl;
@@ -125,8 +133,7 @@ void GUIManager::LoadLevelList()
 	}
 }
 
-void GUIManager::Awake()
+void GUIManager::SetInstructionsActive(bool active)
 {
-	GameObject* playerObj = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle);
-	playerController = playerObj->GetComponent<PlayerController>();
+	instructionsMenu->SetActive(active);
 }

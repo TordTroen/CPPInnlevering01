@@ -6,8 +6,8 @@
 #include "GameManager.h"
 #include "Theme.h"
 
-Level::Level(std::string levelText, float startYPosition)
-	: startYPosition(startYPosition), levelText(levelText)
+Level::Level(std::string levelText)
+	: levelId(0), levelText(levelText)
 {
 	Theme::Theme(GameManager::GetInstance().GetWindowWidth(), GameManager::GetInstance().GetWindowHeight(), 0);
 
@@ -25,7 +25,7 @@ Level::~Level()
 void Level::LoadBricks()
 {
 	// Figure out the startposition for the first brick
-	Vector2D startPos = Vector2D(0, startYPosition);
+	Vector2D startPos = Vector2D(0, 0);
 	// Calculate the width of the whole level to be able to place it in the center
 	int brickWidthCount = 0;
 	brickWidthCount = levelText.find('|');
