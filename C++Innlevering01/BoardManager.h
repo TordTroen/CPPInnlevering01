@@ -14,6 +14,8 @@ public:
 	void ResetBoard();
 	void ClearBoard();
 
+	Level * GetCurrentLevel() const;
+
 	/* Sets the curLevel based on the index given. */
 	void SetCurrentLevel(int levelId);
 

@@ -14,11 +14,13 @@ public:
 	void Init();
 	void SetupMenus();
 	void UpdateScoreText(int score);
+	void UpdateHealthText(int health);
 	GUIToggleGroup* GetLevelSelectToggleGroup() const { return levelSelectToggleGroup; }
 	void LoadLevelList();
 private:
 	void Awake() override;
 	GUIText* scoreText;
+	GUIText* healthText;
 	PlayerController* playerController;
 	GUIToggleGroup* levelSelectToggleGroup;
 	GUIToggleGroup* levelEditorToggleGroup;

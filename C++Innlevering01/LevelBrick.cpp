@@ -23,6 +23,10 @@ int Points = 1;
 LevelBrick::LevelBrick(Vector2D pos, BrickType brickType, int powerup, int health, bool indestructible)
 	: brickPos(pos), brickType(brickType), powerUpReward(powerup), health(health), indestructible(indestructible)
 {
+	if (brickType == BrickType::Brick2Hits || brickType == BrickType::Brick3Hits)
+	{
+		this->health = static_cast<int>(this->brickType);
+	}
 }
 
 LevelBrick::~LevelBrick()
@@ -157,8 +161,10 @@ void LevelBrick::PowerUp() {
 void LevelBrick::TakeDamage()
 {
 	health--;
-	brickType = static_cast<BrickType>(health);
-	if (health <= 0)
+	if (brickType == BrickType::Brick2Hits || brickType == BrickType::Brick3Hits)
+	{
+		brickType = static_cast<BrickType>(health);
+	}	if (health <= 0)
 	{
 		GetGameObject()->SetActive(false);
 		// TODO Award player
