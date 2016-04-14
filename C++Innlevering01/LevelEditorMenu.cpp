@@ -34,7 +34,6 @@ void LevelEditorMenu::Init()
 			GUILevelEditorButton* btn = dynamic_cast<GUILevelEditorButton*>(btnObj->AddComponent(new GUILevelEditorButton(Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(j * LevelBrick::BrickWidth, i * LevelBrick::BrickHeight, LevelBrick::BrickWidth, LevelBrick::BrickHeight), index)));
 			buttons.emplace_back(btn);
 			levelEditorMenu->AddElement(btn);
-			std::cout << "Creating button: " << (index) << std::endl;
 			index++;
 		}
 	}
