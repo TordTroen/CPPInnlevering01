@@ -1,4 +1,8 @@
 #include "Player.h"
+#include "Time.h"
+#include "PError.h"
+using namespace std;
+
 
 //	Constructs a custom player
 Player::Player(int highscore, int level, int lifeLeft, int bricksHit, int bricksMissed, std::string name)
