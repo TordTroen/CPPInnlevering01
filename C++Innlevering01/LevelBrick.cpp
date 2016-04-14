@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "ImageRenderer.h"
 #include "Tags.h"
+#include "Time.h"
 #include "Transform.h"
 #include "BoxCollider.h"
 #include "ImageRenderer.h"
@@ -9,13 +10,16 @@
 #include "Player.h"
 #include "GameObjectManager.h"
 #include "GameManager.h"
+#include <chrono>
+#include <thread>
 
 const float LevelBrick::BrickWidth = 50;
 const float LevelBrick::BrickHeight = 30;
 const float LevelBrick::PowerUpWidth = 20;
 const float LevelBrick::PowerUpHeight = 20;
-Player player;
+Player* player;
 int Points = 1;
+float delay = 0;
 
 LevelBrick::LevelBrick(Vector2D pos, BrickType brickType, int powerup, int health, bool indestructible)
 	: brickPos(pos), brickType(brickType), powerUpReward(powerup), health(health), indestructible(indestructible)
@@ -87,6 +91,7 @@ void LevelBrick::OnCollisionEnter(const Collider* const other)
 
 void LevelBrick::Awake()
 {
+	player = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle)->GetComponent<Player>();
 	GetTransform()->SetPosition(brickPos);
 	GetTransform()->SetSize(Vector2D(BrickWidth, BrickHeight));
 	
@@ -94,6 +99,13 @@ void LevelBrick::Awake()
 	
 	imageRenderer = dynamic_cast<ImageRenderer*>(GetGameObject()->AddComponent(new ImageRenderer("WhiteTexture.png", color)));
 	GetGameObject()->AddComponent(new BoxCollider());
+}
+
+void LevelBrick::Update()
+{
+	delay += Time::DeltaTime();
+	//std::cout << delay << std::endl;
+
 }
 
 //Color LevelBrick::GetColorBasedOnHealth()
@@ -127,11 +139,12 @@ void LevelBrick::LongPaddle() {
 	//Change the size of the paddle
 	GameObject* paddle = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle);
 	paddle->GetTransform()->SetSize(Vector2D(300, 15));
+	
 }
 
 void LevelBrick::ExtraLife() {
 	//Gives the player extra life
-	player.SetLifeLeft(1);
+	player->SetLifeLeft(1);
 }
 
 void LevelBrick::PowerUp() {
@@ -143,10 +156,12 @@ void LevelBrick::PowerUp() {
 		std::cout << "You got a powerup!" << std::endl;
 		if (chance2 == 1) {
 			LongPaddle();
+			std::cout << "PaddlePower!" << std::endl;
 			//PaddlePower
 		}
 		else if (chance2 == 2){
 			ExtraLife();
+			std::cout << "ExtraLife!" << std::endl;
 		}
 		//Spawne en powerup blokk
 	}
@@ -160,8 +175,8 @@ void LevelBrick::TakeDamage()
 	{
 		GetGameObject()->SetActive(false);
 		// TODO Award player
-		player.SetHighscore(Points);
-		GUIManager::GetInstance().UpdateScoreText(player.GetHighscore());
+		player->SetHighscore(Points);
+		GUIManager::GetInstance().UpdateScoreText(player->GetHighscore());
 		PowerUp();
 		return;
 	}
