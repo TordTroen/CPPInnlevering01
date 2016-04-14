@@ -64,7 +64,6 @@ void BallMovement::OnCollisionEnter(const Collider* const other)
 
 	else if (tag == Tags::Brick) {
 		m_paddleHit = false;
-		std::cout << "player->GetBricksHit() " << player->GetBricksHit() << std::endl;
 		player->SetBricksHit(player->GetBricksHit() + 1);
 		m_levelStart = false;
 	}
