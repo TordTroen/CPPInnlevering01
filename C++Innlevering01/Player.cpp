@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "PError.h"
 
 //	Constructs a custom player
 Player::Player(int highscore, int level, int lifeLeft, int bricksHit, int bricksMissed, std::string name)
@@ -23,16 +24,16 @@ void Player::SetLevel(int level)
 
 void Player::SetLifeLeft(int lifeLeft)
 {
-	m_lifeLeft += lifeLeft;
+	m_lifeLeft = lifeLeft;
 	
 	if (m_guiEventHandler == NULL) {
 		m_guiEventHandler = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::MenuObject)->GetComponent<GUIEventHandler>();
 	}
-	else {
-		if (m_lifeLeft <= 0)
-		{
-			m_guiEventHandler->OnEndLevel();
-		}
+
+	if (m_lifeLeft <= 0)
+	{
+		PError("m_lifeLeft <= 0");
+		m_guiEventHandler->OnEndLevel();
 	}
 }
 

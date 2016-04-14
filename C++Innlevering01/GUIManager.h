@@ -43,4 +43,3 @@ private:
 	GUIManager(GUIManager const&);
 	void operator=(GUIManager const&);
 };
-
