@@ -27,7 +27,6 @@ public:
 	static Color GetBrickColor(BrickType brickType);
 	void OnCollisionEnter(const Collider* const other) override;
 	void Awake() override;
-	void Update() override;
 	static const float BrickWidth;
 	static const float BrickHeight;
 	static const float PowerUpWidth;
@@ -38,7 +37,6 @@ private:
 	//Color GetColorBasedOnHealth();
 	ImageRenderer* imageRenderer;
 	ImageRenderer* imageRenderer2;
-	void LongPaddle();
 	void ExtraLife();
 	void PowerUp();
 	void TakeDamage();

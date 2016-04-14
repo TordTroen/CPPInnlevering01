@@ -19,7 +19,6 @@ const float LevelBrick::PowerUpWidth = 20;
 const float LevelBrick::PowerUpHeight = 20;
 Player* player;
 int Points = 1;
-float delay = 0;
 
 LevelBrick::LevelBrick(Vector2D pos, BrickType brickType, int powerup, int health, bool indestructible)
 	: brickPos(pos), brickType(brickType), powerUpReward(powerup), health(health), indestructible(indestructible)
@@ -101,12 +100,6 @@ void LevelBrick::Awake()
 	GetGameObject()->AddComponent(new BoxCollider());
 }
 
-void LevelBrick::Update()
-{
-	delay += Time::DeltaTime();
-	//std::cout << delay << std::endl;
-
-}
 
 //Color LevelBrick::GetColorBasedOnHealth()
 //{
@@ -135,12 +128,6 @@ void LevelBrick::Update()
 //	//}
 //}
 
-void LevelBrick::LongPaddle() {
-	//Change the size of the paddle
-	GameObject* paddle = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle);
-	paddle->GetTransform()->SetSize(Vector2D(300, 15));
-	
-}
 
 void LevelBrick::ExtraLife() {
 	//Gives the player extra life
@@ -155,7 +142,7 @@ void LevelBrick::PowerUp() {
 		int chance2 = (int)(rand() % 2) + 1;
 		std::cout << "You got a powerup!" << std::endl;
 		if (chance2 == 1) {
-			LongPaddle();
+			player->LongPaddle(true);
 			std::cout << "PaddlePower!" << std::endl;
 			//PaddlePower
 		}
