@@ -22,6 +22,7 @@ private:
 	float m_speed;
 	bool m_levelStart = true;
 	bool m_paddleHit = true;
+	bool m_canMove = true;
 	int  m_stuffHit = 0;
 };
 

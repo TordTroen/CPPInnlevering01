@@ -18,6 +18,7 @@ Level::Level(std::string levelText, float startYPosition)
 
 Level::~Level()
 {
+	
 }
 
 void Level::LoadBricks()

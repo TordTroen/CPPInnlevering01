@@ -33,7 +33,12 @@ void BallMovement::Update()
 	
 	if (GameManager::GetInstance().GetGameState() == GameState::InGame)
 	{
-		GetTransform()->Translate(m_movement * m_speed * Time::DeltaTime());
+		if (InputManager::GetInstance().GetKeyDown(SDL_SCANCODE_SPACE)){
+			m_canMove = true;
+		}
+		if (m_canMove) {
+			GetTransform()->Translate(m_movement * m_speed * Time::DeltaTime());
+		}
 	}
 }
 
@@ -48,6 +53,7 @@ void BallMovement::OnCollisionEnter(const Collider* const other)
 		player->SetLifeLeft(player->GetLifeLeft() - 1);
 		m_levelStart = true;
 		m_stuffHit = 0;
+		Reset();
 	}
 
 	else if (tag == Tags::WallLeft  ||
@@ -123,6 +129,7 @@ void BallMovement::OnCollisionEnter(const Collider* const other)
 
 void BallMovement::Reset()
 {
+	m_canMove = false;
 	GetTransform()->SetRect(startRect);
 	m_movement = startMovement;
 	GetGameObject()->SetActive(true);
