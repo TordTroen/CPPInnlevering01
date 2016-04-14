@@ -46,6 +46,8 @@ public:
 	void PrintPlayer()  const;
 
 	void Awake() override;
+	void Update() override;
+	void LongPaddle(bool lPaddle);
 
 private:
 
@@ -57,5 +59,9 @@ private:
 	int m_bricksMissed;
 	std::string m_name;
 
+	float delay;
+	bool pad;
+
+	GameObject* paddle;
 	GUIEventHandler* m_guiEventHandler;
 };

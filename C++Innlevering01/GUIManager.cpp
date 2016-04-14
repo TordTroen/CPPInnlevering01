@@ -68,6 +68,7 @@ void GUIManager::SetupMenus()
 	//////// IN-GAME MENU ////////
 	hudMenu->AddElements({
 		new GUIText("Score: 0", Color(255, 255, 255), Rect(10, 10, 0, 0)),
+		new GUIText("Lives: 0", Color(255, 255, 255), Rect(10, 40, 0, 0)),
 		new GUIButton("End game", Color(200, 255, 255), buttonColorNormal, buttonColorDown, buttonColorHover, Rect(10, 100, 0, 0), 8, hudMenu, levelIntermissionMenu, &GUIEventHandler::OnEndLevel)
 	});
 	scoreText = hudMenu->GetElement<GUIText>();
@@ -95,6 +96,13 @@ void GUIManager::UpdateScoreText(int score)
 	std::ostringstream oss;
 	oss << "Score: " << score;
 	scoreText->SetText(oss.str());
+}
+
+void GUIManager::UpdateHealthText(int health)
+{
+	std::ostringstream oss;
+	oss << "Lives: " << health;
+	healthText->SetText(oss.str());
 }
 
 void GUIManager::LoadLevelList()

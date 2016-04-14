@@ -169,7 +169,6 @@ void GUIButton::OnEnter()
 {
 	isOver = true;
 	SetBackgroundColor();
-	//std::cout << "OnEnter" << std::endl;
 }
 
 void GUIButton::OnExit()
