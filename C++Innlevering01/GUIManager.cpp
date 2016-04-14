@@ -98,6 +98,13 @@ void GUIManager::UpdateScoreText(int score)
 	scoreText->SetText(oss.str());
 }
 
+void GUIManager::UpdateHealthText(int health)
+{
+	std::ostringstream oss;
+	oss << "Lives: " << health;
+	healthText->SetText(oss.str());
+}
+
 void GUIManager::LoadLevelList()
 {
 	// TODO Remove previous elements
