@@ -7,10 +7,6 @@ GameObjectManager::~GameObjectManager()
 
 void GameObjectManager::Update()
 {
-	//for (auto const& it : _allGameObjects)
-	//{
-	//	it->Update();
-	//}
 	for (int i = 0; i < allGameObjects.size(); i++)
 	{
 		if (allGameObjects[i] != NULL)
@@ -69,6 +65,7 @@ GameObject* GameObjectManager::FindGameObjectByTag(std::string tag)
 			return it.get();
 		}
 	}
-	std::cout << "WARNING: Couldn't find a GameObject with the tag '" << tag.c_str() << "'" << std::endl;
+	std::cout << "WARNING: Couldn't find a GameObject with the tag '" <<
+		tag.c_str() << "'" << std::endl;
 	return nullptr;
 }

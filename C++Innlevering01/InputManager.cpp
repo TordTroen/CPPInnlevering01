@@ -6,10 +6,10 @@ using namespace std;
 
 void InputManager::Init()
 {
-	keyCount = 0;
-	keys = SDL_GetKeyboardState(&keyCount);
-	oldKeys = unique_ptr<Uint8>(new Uint8[keyCount]);
-	mouseButtons = SDL_GetRelativeMouseState(&mouseX, &mouseY);
+	keyCount		= 0;
+	keys			= SDL_GetKeyboardState(&keyCount);
+	oldKeys			= unique_ptr<Uint8>(new Uint8[keyCount]);
+	mouseButtons	= SDL_GetRelativeMouseState(&mouseX, &mouseY);
 	oldMouseButtons = mouseButtons;
 }
 
@@ -20,7 +20,7 @@ void InputManager::Update()
 	memcpy(oldKeys.get(), keys, keyCount * sizeof(Uint8));
 
 	oldMouseButtons = mouseButtons;
-	mouseButtons = SDL_GetRelativeMouseState(NULL, NULL);
+	mouseButtons	= SDL_GetRelativeMouseState(NULL, NULL);
 	SDL_GetMouseState(&mouseX, &mouseY);
 
 	SDL_PumpEvents();
@@ -29,27 +29,15 @@ void InputManager::Update()
 int InputManager::GetAxis(int positiveKey, int negativeKey) const
 {
 	int ret = 0;
-	if (GetKey(positiveKey) && !GetKey(negativeKey))
-	{
-		ret = 1;
-	}
-	if (GetKey(negativeKey) && !GetKey(positiveKey))
-	{
-		ret = -1;
-	}
+	if (GetKey(positiveKey) && !GetKey(negativeKey)) { ret =  1; }
+	if (GetKey(negativeKey) && !GetKey(positiveKey)) { ret = -1; }
 	return ret;
 }
 
 int InputManager::GetAxisDown(int positiveKey, int negativeKey) const
 {
 	int ret = 0;
-	if (GetKeyDown(positiveKey) && !GetKeyDown(negativeKey))
-	{
-		ret = 1;
-	}
-	if (GetKeyDown(negativeKey) && !GetKeyDown(positiveKey))
-	{
-		ret = -1;
-	}
+	if (GetKeyDown(positiveKey) && !GetKeyDown(negativeKey)) { ret = 1; }
+	if (GetKeyDown(negativeKey) && !GetKeyDown(positiveKey)) { ret = -1; }
 	return ret;
 }

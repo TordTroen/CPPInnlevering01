@@ -14,7 +14,6 @@ public:
 	int GetButtonIndex() const { return buttonIndex; }
 private:
 	void PaintBrick();
-	void Awake() override;
 	void OnClick() override;
 	void OnEnter() override;
 	int buttonIndex;

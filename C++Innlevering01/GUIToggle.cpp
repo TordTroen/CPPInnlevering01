@@ -10,7 +10,6 @@ GUIToggle::GUIToggle(std::string text, Color textColor, Color normalColor, Color
 
 GUIToggle::~GUIToggle()
 {
-	std::cout << "Guiotoggle dest" << std::endl;
 }
 
 void GUIToggle::SetToggleActive(bool toggeled)

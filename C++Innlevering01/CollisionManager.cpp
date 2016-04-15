@@ -41,8 +41,8 @@ void CollisionManager::AddCollider(Collider* const collider, bool isStaticCollid
 	{
 		staticColliders.emplace_back(collider);
 	}
-	else
-	{
+
+	else {
 		dynamicColliders.emplace_back(collider);
 	}
 }

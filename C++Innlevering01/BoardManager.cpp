@@ -22,12 +22,12 @@ void BoardManager::InitializeBoard()
 	SetCurrentLevel(0);
 
 	// Setup the walls at the screenedges
-	GameObject* leftWall = GameObjectManager::GetInstance().CreateObject({ new ImageRenderer("WhiteTexture.png"), new BoxCollider() }, Tags::WallLeft);
-	GameObject* rightWall = GameObjectManager::GetInstance().CreateObject({ new ImageRenderer("WhiteTexture.png"), new BoxCollider() }, Tags::WallRight);
-	GameObject* topWall = GameObjectManager::GetInstance().CreateObject({ new ImageRenderer("WhiteTexture.png"), new BoxCollider() }, Tags::WallTop);
+	GameObject* leftWall   = GameObjectManager::GetInstance().CreateObject({ new ImageRenderer("WhiteTexture.png"), new BoxCollider() }, Tags::WallLeft);
+	GameObject* rightWall  = GameObjectManager::GetInstance().CreateObject({ new ImageRenderer("WhiteTexture.png"), new BoxCollider() }, Tags::WallRight);
+	GameObject* topWall    = GameObjectManager::GetInstance().CreateObject({ new ImageRenderer("WhiteTexture.png"), new BoxCollider() }, Tags::WallTop);
 	GameObject* bottomWall = GameObjectManager::GetInstance().CreateObject({ new ImageRenderer("WhiteTexture.png"), new BoxCollider() }, Tags::WallBottom);
 
-	float inset = 0;	// Holds the padding between size window and game walls, 0 is no padding - 100 is some padding, etc..			
+	float inset		= 0;	// Holds the padding between size window and game walls, 0 is no padding - 100 is some padding, etc..			
 	float wallDepth = 50;	// Holds the thickness of the walls
 	float scw = GameManager::GetInstance().GetWindowWidth();
 	float sch = GameManager::GetInstance().GetWindowHeight();
@@ -37,9 +37,9 @@ void BoardManager::InitializeBoard()
 	bottomWall->GetTransform()->SetRect(Rect(0, sch - inset, scw, wallDepth));
 
 	// Get the references to the ball and paddle
-	ballMovement = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Ball)->GetComponent<BallMovement>();
+	ballMovement   = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Ball)->GetComponent<BallMovement>();
 	paddleMovement = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle)->GetComponent<PaddleMovement>();
-	player = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle)->GetComponent<Player>();
+	player		   = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle)->GetComponent<Player>();
 
 	ClearBoard();
 }

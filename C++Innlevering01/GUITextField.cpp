@@ -10,8 +10,6 @@ GUITextField::GUITextField(std::string startText, Rect rect)
 	: GUIButton(startText, Color(255, 255, 255), Color(0, 0, 0), Color(0, 255, 0), Color(255, 0, 0), rect, 8, NULL, true),
 	takeInput(false)
 {
-	//GameObject* textObj = GameObjectManager::GetInstance().CreateObject();
-	//textItem = dynamic_cast<GUIText*>(textObj->AddComponent(new GUIText("Text", Color(250, 250, 250), Rect(10, 400, 100, 100))));
 }
 
 

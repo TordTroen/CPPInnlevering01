@@ -26,22 +26,3 @@ void GameManager::Init(GameState startState)
 		playerController = paddleObj->GetComponent<PlayerController>();
 	}
 }
-
-void GameManager::OnGameStateChanged()
-{
-	switch (gameState)
-	{
-	case GameState::MainMenu:
-		break;
-	case GameState::Paused:
-		break;
-	case GameState::InGame:
-		// TODO move this to the function that is called when pressing playbutton
-		//playerController->Start();
-		break;
-	case GameState::Exit:
-		break;
-	default:
-		break;
-	}
-}

@@ -13,16 +13,16 @@ class GameManager
 {
 public:
 	void Init(GameState startState);
-	int GetWindowWidth() const { return windowWidth; }
-	int GetWindowHeight() const { return windowHeight; }
-	float GetCenterXPosition(float width) const;
+	int GetWindowWidth()                   const { return windowWidth; }
+	int GetWindowHeight()				   const { return windowHeight; }
+	float GetCenterXPosition(float width)  const;
 	float GetCenterYPosition(float height) const;
-	void SetGameState(GameState newState) { gameState = newState; OnGameStateChanged(); }
-	GameState GetGameState() const { return gameState; }
+	void SetGameState(GameState newState) { gameState = newState; }
+	GameState GetGameState()			   const { return gameState; }
+
 private:
 	PlayerController* playerController;
-	void OnGameStateChanged();
-	int windowWidth = 700;
+	int windowWidth  = 700;
 	int windowHeight = 700;
 	GameState gameState;
 

@@ -58,7 +58,7 @@ void BallMovement::OnCollisionEnter(const Collider* const other)
 	if (tag == Tags::WallBottom) {
 		player->SetLifeLeft(player->GetLifeLeft() - 1);
 		m_levelStart = true;
-		m_stuffHit = 0;
+		m_stuffHit   = 0;
 		Reset();
 	}
 
@@ -78,8 +78,8 @@ void BallMovement::OnCollisionEnter(const Collider* const other)
 		if (m_stuffHit == 0) {
 			player->SetBricksMissed(player->GetBricksMissed() - 1);
 		}
-		m_stuffHit = 0;
-		m_paddleHit = false;
+		m_stuffHit   = 0;
+		m_paddleHit  = false;
 		m_levelStart = false;
 	}
 	

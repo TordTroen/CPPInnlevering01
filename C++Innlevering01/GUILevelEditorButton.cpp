@@ -28,13 +28,6 @@ void GUILevelEditorButton::PaintBrick()
 	UpdateBrickColor();
 }
 
-void GUILevelEditorButton::Awake()
-{
-	//std::cout << "Btn" << std::endl;
-	//editorMenu = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::MenuObject)->GetComponent<LevelEditorMenu>();
-	//UpdateBrickColor();
-}
-
 void GUILevelEditorButton::OnClick()
 {
 	PaintBrick();

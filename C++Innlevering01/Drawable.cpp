@@ -26,12 +26,6 @@ Rect Drawable::GetRect() const
 	else
 	{
 		return _component->GetTransform()->GetRect().Expanded(_padding * 2);
-		/*Rect r = _component->GetTransform()->GetRect();
-		if (_padding != 0)
-		{
-			r.Grow(_padding);
-		}
-		return r;*/
 	}
 }
 

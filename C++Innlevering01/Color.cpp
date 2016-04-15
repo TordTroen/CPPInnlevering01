@@ -57,13 +57,7 @@ Color Color::Shaded(float factor)
 
 SDL_Color Color::ToSDL_Color() const
 {
-	return{ (Uint8)r, (Uint8)g, (Uint8)b, (Uint8)a }; // TODO Use C++ casting
-	/*SDL_Color c;
-	c.r = _r;
-	c.g = _g;
-	c.b = _b;
-	c.a = _a;
-	return c;*/
+	return { static_cast<Uint8>(r), static_cast<Uint8>(g), static_cast<Uint8>(b), static_cast<Uint8>(a) };
 }
 
 bool Color::operator==(const Color & c) const
