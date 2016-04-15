@@ -5,6 +5,12 @@
 #include "GUIManager.h"
 using namespace std;
 
+
+/*  Class: Player.cpp
+	- Holds data about every result the user can control by playing, e.g. the number
+	of bricks hit, missed, name, it's highscore etc.. */
+
+
 //	Constructs a custom player
 Player::Player(int highscore, int level, int lifeLeft, int bricksHit, int bricksMissed, std::string name)
 {
@@ -94,10 +100,8 @@ int Player::GetLifeLeft() const
 
 int Player::GetBricksHit() const
 {
-	std::cout << "bricks hit: " << m_bricksHit << std::endl;
 
 	if (m_bricksHit == m_bricks) {
-		std::cout << "YOU WON !! " << std::endl;
 		m_guiEventHandler->OnWinLevel();
 	}
 	return m_bricksHit;

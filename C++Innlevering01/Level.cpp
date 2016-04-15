@@ -66,7 +66,6 @@ void Level::LoadBricks()
 				if (brickType != BrickType::BrickIndestructible) {
 
 					numberOfBricks += levelBrick->GetHealth();
-					cout << "n bricks: " << numberOfBricks << endl;
 				}
 			}
 			
