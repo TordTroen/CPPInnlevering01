@@ -11,6 +11,8 @@ Collider::Collider(bool isStaticCollider)
 
 Collider::~Collider()
 {
+	CollisionManager::DeleteCollider(this);
+	std::cout << "Deleting component " << typeid(this).name() << std::endl;
 }
 
 void Collider::OnCollisionEnterEvent(const Collider* const other)

@@ -19,6 +19,12 @@ enum class BrickType
 	BrickIndestructible = 7
 };
 
+enum class PowerType
+{
+	PowerPaddle,
+	PowerLife
+};
+
 class LevelBrick
 	: public Component
 {
@@ -30,8 +36,6 @@ public:
 	void Awake() override;
 	static const float BrickWidth;
 	static const float BrickHeight;
-	static const float PowerUpWidth;
-	static const float PowerUpHeight;
 	int GetHealth() const;
 	void PowerUp(int amount) { powerUpReward += amount; }
 	int GetPowerUp() const { return powerUpReward; }
@@ -39,12 +43,15 @@ private:
 	//Color GetColorBasedOnHealth();
 	ImageRenderer* imageRenderer;
 	Player* player;
-	GameObject* PowerObj;
+	GameObject* PowerPaddleObj;
+	GameObject* PowerLifeObj;
 	int Points = 1;
-	void ExtraLife();
+	const float PowerUpWidth = 40;
+	const float PowerUpHeight = 40;
 	void PowerUp();
 	void TakeDamage();
-	void PowerBlock();
+	void PowerPaddleBlock();
+	void PowerLifeBlock();
 	Vector2D brickPos;
 	BrickType brickType;
 	float powerUpSpeed = 2;

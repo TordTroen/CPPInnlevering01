@@ -38,9 +38,8 @@ private:
 	void AddLevel(Level* level);
 
 	std::vector<Level*> allLevels;
-
-	Level* curLevel;
 	Player* player;
+	Level* curLevel;
 	PaddleMovement* paddleMovement;
 	BallMovement* ballMovement;
 
