@@ -53,13 +53,6 @@ void Player::SetLifeLeft(int lifeLeft)
 void Player::SetBricksHit(int bricksHit)
 {
 	m_bricksHit = bricksHit;
-
-	if (m_guiEventHandler != NULL) {
-		if (BoardManager::GetInstance().GetCurrentLevel()->GetBrickCount() == 0) {
-			//std::cout << "bricks hit: ";
-			//std::cout << BoardManager::GetInstance().GetCurrentLevel()->GetBrickCount() << std::endl;
-		}
-	}
 }
 
 void Player::SetBricksMissed(int bricksMissed)
@@ -70,6 +63,16 @@ void Player::SetBricksMissed(int bricksMissed)
 void Player::SetName(std::string name)
 {
 	m_name = name;
+}
+
+void Player::ReduceBrickCount() {
+
+	if (m_guiEventHandler != NULL) {
+		if (BoardManager::GetInstance().GetCurrentLevel()->GetBrickCount() == 0) {
+			//std::cout << "bricks hit: ";
+			std::cout << "brick count " << BoardManager::GetInstance().GetCurrentLevel()->GetBrickCount() << std::endl;
+		}
+	}
 }
 
 int Player::GetHighscore() const
@@ -120,12 +123,14 @@ void Player::PrintPlayer() const
 }
 
 void Player::LongPaddle(bool lPaddle) {
+
 	if (pad) {
 		return;
 	}
 	//Change the size of the paddle
 	paddle->GetTransform()->SetSize(Vector2D(300, 15));
 	paddle->GetTransform()->Translate(Vector2D(paddle->GetTransform()->GetSize().X / 2, 0));
+
 	pad = lPaddle;
 }
 
