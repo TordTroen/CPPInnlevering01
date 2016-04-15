@@ -36,9 +36,8 @@ void PowerUpBlock::OnCollisionEnter(const Collider* const other)
 {
 	if (other->GetGameObject()->CompareTag(Tags::Paddle))
 	{
-		if (powerType == PowerType::PowerPaddle) 
+		if (powerType == PowerType::PowerPaddle)
 		{
-			GetGameObject()->SetActive(false);
 			player->LongPaddle(true);
 			std::cout << "Long paddle fungerer!!" << std::endl;
 		}
@@ -47,6 +46,7 @@ void PowerUpBlock::OnCollisionEnter(const Collider* const other)
 			player->SetLifeLeft(player->GetLifeLeft() + 1);
 			std::cout << "Ekstra liv fungerer!!" << std::endl;
 		}
+		GetGameObject()->SetActive(false);
 	}
 	else if (other->GetGameObject()->CompareTag(Tags::WallBottom))
 	{

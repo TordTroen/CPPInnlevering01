@@ -7,13 +7,11 @@ using namespace std;
 Component::Component()
 	: isActive(true), transform(NULL), gameObject(NULL)
 {
-	//cout << "Component " /*<< _id*/ << "  constructor" << endl;
 }
 
 
 Component::~Component()
 {
-	std::cout << "Deleting component " << typeid(this).name() << std::endl;
 }
 
 void Component::Init(GameObject* const gameObject)
