@@ -69,8 +69,10 @@ void Player::ReduceBrickCount() {
 
 	if (m_guiEventHandler != NULL) {
 		if (BoardManager::GetInstance().GetCurrentLevel()->GetBrickCount() == 0) {
-			//std::cout << "bricks hit: ";
 			std::cout << "brick count " << BoardManager::GetInstance().GetCurrentLevel()->GetBrickCount() << std::endl;
+		}
+		else {
+
 		}
 	}
 }
