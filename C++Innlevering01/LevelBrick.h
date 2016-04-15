@@ -3,6 +3,7 @@
 #include "Component.h"
 #include "Collider.h"
 #include "Vector2D.h"
+#include "Player.h"
 class ImageRenderer;
 class Color;
 
@@ -36,12 +37,16 @@ public:
 private:
 	//Color GetColorBasedOnHealth();
 	ImageRenderer* imageRenderer;
-	ImageRenderer* imageRenderer2;
+	Player* player;
+	GameObject* PowerObj;
+	int Points = 1;
 	void ExtraLife();
 	void PowerUp();
 	void TakeDamage();
+	void PowerBlock();
 	Vector2D brickPos;
 	BrickType brickType;
+	float powerUpSpeed = 2;
 	int powerUpReward;
 	int health;
 	bool indestructible;

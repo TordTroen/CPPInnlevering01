@@ -11,10 +11,11 @@ public:
 	GameObject* CreateObject();
 	GameObject* CreateObject(std::string tag);
 	GameObject* CreateObject(std::vector<Component*> components, std::string tag = NULL);
+	void DeleteGameObject(GameObject* go);
 	/* Returns a reference to the first GameObject found with the specified tag. */
 	GameObject* FindGameObjectByTag(std::string tag);
 private:
-	std::vector<std::unique_ptr<GameObject>> _allGameObjects;
+	std::vector<std::unique_ptr<GameObject>> allGameObjects;
 
 // Singleton stuff
 public:

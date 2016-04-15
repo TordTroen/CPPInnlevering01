@@ -10,6 +10,7 @@
 #include "Player.h"
 #include "GameObjectManager.h"
 #include "GameManager.h"
+#include "PowerUpBlock.h"
 #include <chrono>
 #include <thread>
 
@@ -17,8 +18,6 @@ const float LevelBrick::BrickWidth = 50;
 const float LevelBrick::BrickHeight = 30;
 const float LevelBrick::PowerUpWidth = 20;
 const float LevelBrick::PowerUpHeight = 20;
-Player* player;
-int Points = 1;
 
 LevelBrick::LevelBrick(Vector2D pos, BrickType brickType, int powerup, int health, bool indestructible)
 	: brickPos(pos), brickType(brickType), powerUpReward(powerup), health(health), indestructible(indestructible)
@@ -95,6 +94,8 @@ void LevelBrick::OnCollisionEnter(const Collider* const other)
 
 void LevelBrick::Awake()
 {
+	PowerObj = GameObjectManager::GetInstance().CreateObject(Tags::PowerUp);
+	PowerBlock();
 	player = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle)->GetComponent<Player>();
 	GetTransform()->SetPosition(brickPos);
 	GetTransform()->SetSize(Vector2D(BrickWidth, BrickHeight));
@@ -140,6 +141,13 @@ void LevelBrick::ExtraLife() {
 	GUIManager::GetInstance().UpdateHealthText(player->GetLifeLeft());
 }
 
+void LevelBrick::PowerBlock()
+{
+	PowerObj->AddComponent(new ImageRenderer("PowerUpLongPaddle.png"));
+	PowerObj->AddComponent(new BoxCollider(false));
+	PowerObj->GetTransform()->SetRect(Rect(200, 200, 40, 40));
+}
+
 void LevelBrick::PowerUp() {
 	int chance = (int)(rand() % 4) + 1;
 	std::cout << chance << std::endl;
@@ -149,6 +157,8 @@ void LevelBrick::PowerUp() {
 		std::cout << "You got a powerup!" << std::endl;
 		if (chance2 == 1) {
 			player->LongPaddle(true);
+			PowerObj->AddComponent(new PowerUpBlock(Vector2D(0, 1), powerUpSpeed));
+			//PowerBlock(); 
 			std::cout << "PaddlePower!" << std::endl;
 			//PaddlePower
 		}

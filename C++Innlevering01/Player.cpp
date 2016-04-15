@@ -2,6 +2,7 @@
 #include "BoardManager.h"
 #include "Time.h"
 #include "PError.h"
+#include "GUIManager.h"
 using namespace std;
 
 //	Constructs a custom player
@@ -9,7 +10,8 @@ Player::Player(int highscore, int level, int lifeLeft, int bricksHit, int bricks
 {
 	SetHighscore(highscore);
 	SetLevel(level);
-	SetLifeLeft(lifeLeft);
+	//SetLifeLeft(lifeLeft);
+	m_lifeLeft = lifeLeft;
 	SetBricksHit(bricksHit);
 	SetBricksMissed(bricksMissed);
 	SetName(name);
@@ -43,10 +45,15 @@ void Player::SetLifeLeft(int lifeLeft)
 	if (m_guiEventHandler == NULL) {
 		m_guiEventHandler = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::MenuObject)->GetComponent<GUIEventHandler>();
 	}
+	GUIManager::GetInstance().UpdateHealthText(GetLifeLeft());
 
 	if (m_lifeLeft <= 0)
 	{
 		m_guiEventHandler->OnEndLevel();
+	}
+	else
+	{
+		GUIManager::GetInstance().SetInstructionsActive(true);
 	}
 }
 

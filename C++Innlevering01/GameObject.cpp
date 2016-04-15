@@ -13,6 +13,7 @@ GameObject::GameObject()
 
 GameObject::~GameObject()
 {
+	std::cout << "Deleting GameObject: " << _tag.c_str() << std::endl;
 	//for (auto i : _components)
 	//{
 	//	delete i;
