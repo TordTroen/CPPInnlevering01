@@ -210,10 +210,10 @@ void SDLWrapper::RenderImages(bool clearPrevious) const
 
 void SDLWrapper::Init()
 {
-	font = NULL;
-	window = NULL;
+	font          = NULL;
+	window        = NULL;
 	screenSurface = NULL;
-	renderer = NULL;
+	renderer	  = NULL;
 }
 
 void SDLWrapper::DestroyImages()

@@ -52,5 +52,5 @@ void PlayerController::Awake()
 {
 	GameObject* ball = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Ball);
 	BallMovement* bm = ball->GetComponent<BallMovement>();
-	_ballMovement = bm;
+	_ballMovement    = bm;
 }

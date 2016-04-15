@@ -39,8 +39,8 @@ void LevelEditorMenu::Init()
 	}
 
 	// Editor control buttons
-	levelEditorMenu->AddElement(new GUIButton("Save", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(700 - 200, 400, 100, 100), 8, &GUIEventHandler::OnEditorSave));
-	levelEditorMenu->AddElement(new GUIButton("Clear", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(700 - 200, 470, 100, 100), 8, &GUIEventHandler::OnEditorClear));
+	levelEditorMenu->AddElement(new GUIButton("Save",      Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(700 - 200, 400, 100, 100), 8, &GUIEventHandler::OnEditorSave));
+	levelEditorMenu->AddElement(new GUIButton("Clear",     Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(700 - 200, 470, 100, 100), 8, &GUIEventHandler::OnEditorClear));
 	levelEditorMenu->AddElement(new GUIButton("Main menu", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(700 - 200, 540, 100, 100), 8, levelEditorMenu, previousMenu));
 	
 	// Brick editor buttons
@@ -71,22 +71,26 @@ void LevelEditorMenu::Save()
 	std::ostringstream levelString;
 	levelString << levelName;
 	levelString << "|";
-	int index = 0;
+	int index   = 0;
+
 	for (int i = 0; i < rows; i++)
 	{
 		for (int j = 0; j < columns; j++)
 		{
-			std::cout << "Saving button: " << buttons[index]->GetButtonIndex() << " - " << (index)<< std::endl;
+			std::cout   << "Saving button: " << buttons[index]->GetButtonIndex() << " - " << (index)<< std::endl;
 			levelString << buttons[index]->GetBrickId();
 			index++;
 		}
 		if (i < rows - 1) levelString << "|";
 	}
+
 	levelString << "\n";
-	std::cout << "Level saved: " << levelString.str() << std::endl;
+	std::cout   << "Level saved: " << levelString.str() << std::endl;
+
 	// Write that string to the custom leves data file
 	std::ofstream fileOut;
 	fileOut.open("LevelDataCustom.txt", std::ios_base::app);
+
 	if (fileOut.is_open())
 	{
 		fileOut << levelString.str();

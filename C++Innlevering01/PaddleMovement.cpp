@@ -22,7 +22,7 @@ void PaddleMovement::Awake()
 
 void PaddleMovement::Update()
 {
-	float x = InputManager::GetInstance().GetAxis(SDL_SCANCODE_RIGHT, SDL_SCANCODE_LEFT);
+	float x			  = InputManager::GetInstance().GetAxis(SDL_SCANCODE_RIGHT, SDL_SCANCODE_LEFT);
 	Vector2D velocity = Vector2D(x, 0);
 	GetTransform()->Translate(velocity * paddleSpeed * Time::DeltaTime(), true);
 }
