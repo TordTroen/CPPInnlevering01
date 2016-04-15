@@ -72,16 +72,9 @@ void Player::SetName(std::string name)
 	m_name = name;
 }
 
-void Player::ReduceBrickCount() {
-
-	if (m_guiEventHandler != NULL) {
-		if (BoardManager::GetInstance().GetCurrentLevel()->GetBrickCount() == 0) {
-			std::cout << "brick count " << BoardManager::GetInstance().GetCurrentLevel()->GetBrickCount() << std::endl;
-		}
-		else {
-
-		}
-	}
+void Player::SetBricksForCurrentLevel(int bricks)
+{
+	m_bricks = bricks;
 }
 
 int Player::GetHighscore() const
@@ -101,12 +94,22 @@ int Player::GetLifeLeft() const
 
 int Player::GetBricksHit() const
 {
+	std::cout << "bricks hit: " << m_bricksHit << std::endl;
+
+	if (m_bricksHit == m_bricks) {
+		// USER HAS WON !!!!
+	}
 	return m_bricksHit;
 }
 
 int Player::GetBricksMissed() const
 {
 	return m_bricksMissed;
+}
+
+int Player::GetBricksForCurrentLevel() const
+{
+	return m_bricks;
 }
 
 
@@ -126,7 +129,7 @@ void Player::PrintPlayer() const
 	}
 	std::cout << "Level: " << m_level << std::endl;
 	std::cout << "Life left: " << m_lifeLeft << std::endl;
-	std::cout << "Bricks hit: " << m_bricksHit << std::endl;
+	std::cout << ": " << m_bricksHit << std::endl;
 	std::cout << "Bricks missed: " << m_bricksMissed << std::endl;
 	std::cout << "Highscore: " << m_highscore << std::endl;
 }

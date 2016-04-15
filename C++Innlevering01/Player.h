@@ -35,7 +35,7 @@ public:
 	void SetBricksMissed(int bricksMissed);
 	void SetName(std::string name);
 
-	void ReduceBrickCount();
+	void SetBricksForCurrentLevel(int bricks);
 
 	//	Get a player's individual values
 	int GetHighscore() const;
@@ -43,6 +43,7 @@ public:
 	int GetLifeLeft() const;
 	int GetBricksHit() const;
 	int GetBricksMissed() const;
+	int GetBricksForCurrentLevel() const;
 	std::string GetName() const;
 
 	void PrintPlayer()  const;
@@ -54,6 +55,7 @@ public:
 private:
 
 	//	The player's values
+	int m_bricks;
 	int m_highscore;
 	int m_level;
 	int m_lifeLeft;

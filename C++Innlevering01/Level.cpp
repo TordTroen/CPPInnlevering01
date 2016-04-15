@@ -33,11 +33,10 @@ void Level::LoadBricks()
 	startPos.X = GameManager::GetInstance().GetWindowWidth() / 2 - levelWidth / 2;
 
 	Vector2D curPos = startPos;
-	int counter1 = 0, counter2 = 0, counter3 = 0;
+	int numberOfBricks = 0;
 
 	for (char& c : levelText)
 	{
-		counter1++;
 		// Figure out the brick parameters
 		int brickHealth = 1;
 		int brickScore = 0;
@@ -47,17 +46,18 @@ void Level::LoadBricks()
 		// Make the brick
 		if (c == '|') // If end of line
 		{
-			counter2++;
+			
 			// Increase y pos, and reset x pos to starting pos
 			curPos.Y += LevelBrick::BrickHeight;
 			curPos.X = startPos.X;
 		}
 		else
 		{
+			numberOfBricks++;
 			// Spawn a brick if the bricktype isn't empty
 			if (brickType != BrickType::BrickEmpty)
 			{
-				counter3++;
+				numberOfBricks--;
 				GameObject* brick = GameObjectManager::GetInstance().CreateObject(Tags::Brick);
 				brickObjects.emplace_back(brick);
 				brick->AddComponent(new LevelBrick(curPos, brickType, brickScore, brickHealth, (brickType == BrickType::BrickIndestructible)));
@@ -65,12 +65,13 @@ void Level::LoadBricks()
 			
 			// Increase the x pos by the brickwidth
 			curPos.X += LevelBrick::BrickWidth;
+			
 		}
 	}
 
-	std::cout << "for (char& c : levelText) " << counter1 << std::endl;
-	std::cout << "if (c == '|') "			  << counter2 << std::endl;
-	std::cout << "else "					  << counter3 << std::endl;
+	// Updates the number of bricks at current level.
+	player = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle)->GetComponent<Player>();
+	player->SetBricksForCurrentLevel(numberOfBricks - 1);
 }
 
 void Level::DeleteBricks()
@@ -80,16 +81,4 @@ void Level::DeleteBricks()
 		it->Destroy();
 	}
 	brickObjects.clear();
-}
-
-int Level::GetBrickCount() const {
-
-	int numberOfActiveBricks = 0;
-	for (auto i : brickObjects) {
-		if (i->IsActive()) {
-			numberOfActiveBricks++;
-		}
-	}
-
-	return numberOfActiveBricks;
 }
