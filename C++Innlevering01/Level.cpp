@@ -15,24 +15,24 @@ Level::Level(std::string levelText)
 
 	// Remove name from levelText
 	int nameEndPos = levelText.find('|');
-	levelName = levelText.substr(0, nameEndPos);
+	levelName	   = levelText.substr(0, nameEndPos);
 	this->levelText.erase(0, nameEndPos + 1);
 }
 
 Level::~Level()
 {
-	
 }
 
 void Level::LoadBricks()
 {
 	// Figure out the startposition for the first brick
-	Vector2D startPos = Vector2D(0, 0);
+	Vector2D startPos	= Vector2D(0, 0);
+
 	// Calculate the width of the whole level to be able to place it in the center
 	int brickWidthCount = 0;
-	brickWidthCount = levelText.find('|');
-	float levelWidth = (brickWidthCount * LevelBrick::BrickWidth);
-	startPos.X = GameManager::GetInstance().GetWindowWidth() / 2 - levelWidth / 2;
+	brickWidthCount		= levelText.find('|');
+	float levelWidth	= (brickWidthCount * LevelBrick::BrickWidth);
+	startPos.X			= GameManager::GetInstance().GetWindowWidth() / 2 - levelWidth / 2;
 
 	Vector2D curPos = startPos;
 	int numberOfBricks = 0;
@@ -41,21 +41,19 @@ void Level::LoadBricks()
 	{
 		// Figure out the brick parameters
 		int brickHealth = 1;
-		int brickScore = 0;
-		int brickId = c - '0';
+		int brickScore  = 0;
+		int brickId		= c - '0';
 		BrickType brickType = static_cast<BrickType>(brickId);
 
 		// Make the brick
 		if (c == '|') // If end of line
 		{
-			
 			// Increase y pos, and reset x pos to starting pos
 			curPos.Y += LevelBrick::BrickHeight;
 			curPos.X = startPos.X;
 		}
 		else
 		{
-
 			// Spawn a brick if the bricktype isn't empty
 			if (brickType != BrickType::BrickEmpty)
 			{
@@ -68,12 +66,10 @@ void Level::LoadBricks()
 					numberOfBricks += levelBrick->GetHealth();
 				}
 			}
-			
 			// Increase the x pos by the brickwidth
 			curPos.X += LevelBrick::BrickWidth;
 		}
 	}
-
 	// Updates the number of bricks at current level.
 	player = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle)->GetComponent<Player>();
 	player->SetBricksForCurrentLevel(numberOfBricks - 1);
@@ -87,3 +83,4 @@ void Level::DeleteBricks()
 	}
 	brickObjects.clear();
 }
+
