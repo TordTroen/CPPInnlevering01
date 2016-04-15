@@ -183,6 +183,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerController.h" />
     <ClInclude Include="PError.h" />
+    <ClInclude Include="PowerUpBlock.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SDLWrapper.h" />
@@ -225,6 +226,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="PError.cpp" />
+    <ClCompile Include="PowerUpBlock.cpp" />
     <ClCompile Include="Rect.cpp" />
     <ClCompile Include="SDLWrapper.cpp" />
     <ClCompile Include="Tags.cpp" />

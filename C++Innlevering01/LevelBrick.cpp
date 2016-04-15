@@ -136,6 +136,7 @@ void LevelBrick::Awake()
 void LevelBrick::ExtraLife() {
 	//Gives the player extra life
 	player->SetLifeLeft(player->GetLifeLeft()+1);
+	GUIManager::GetInstance().UpdateHealthText(player->GetLifeLeft());
 }
 
 void LevelBrick::PowerUp() {

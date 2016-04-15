@@ -13,6 +13,7 @@ Player::Player(int highscore, int level, int lifeLeft, int bricksHit, int bricks
 	SetBricksHit(bricksHit);
 	SetBricksMissed(bricksMissed);
 	SetName(name);
+	pad = false;
 }
 
 void Player::Reset(int highscore, int level, int lifeLeft, int bricksHit, int bricksMissed, std::string name)
@@ -52,6 +53,13 @@ void Player::SetLifeLeft(int lifeLeft)
 void Player::SetBricksHit(int bricksHit)
 {
 	m_bricksHit = bricksHit;
+
+	if (m_guiEventHandler != NULL) {
+		if (BoardManager::GetInstance().GetCurrentLevel()->GetBrickCount() == 0) {
+			//std::cout << "bricks hit: ";
+			//std::cout << BoardManager::GetInstance().GetCurrentLevel()->GetBrickCount() << std::endl;
+		}
+	}
 }
 
 void Player::SetBricksMissed(int bricksMissed)
@@ -62,16 +70,6 @@ void Player::SetBricksMissed(int bricksMissed)
 void Player::SetName(std::string name)
 {
 	m_name = name;
-}
-
-void Player::ReduceBrickCount() {
-	
-	if (m_guiEventHandler != NULL) {
-		if (BoardManager::GetInstance().GetCurrentLevel()->GetBrickCount() == 0) {
-			//std::cout << "bricks hit: ";
-			std::cout << "brick count " << BoardManager::GetInstance().GetCurrentLevel()->GetBrickCount() << std::endl;
-		}
-	}
 }
 
 int Player::GetHighscore() const
@@ -122,14 +120,18 @@ void Player::PrintPlayer() const
 }
 
 void Player::LongPaddle(bool lPaddle) {
+	if (pad) {
+		return;
+	}
 	//Change the size of the paddle
 	paddle->GetTransform()->SetSize(Vector2D(300, 15));
+	paddle->GetTransform()->Translate(Vector2D(paddle->GetTransform()->GetSize().X / 2, 0));
 	pad = lPaddle;
 }
 
 void Player::Awake() {
 	m_guiEventHandler = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::MenuObject)->GetComponent<GUIEventHandler>();
-	paddle			  = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle);
+	paddle = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle);
 }
 
 void Player::Update() {
@@ -140,6 +142,7 @@ void Player::Update() {
 			delay = 0;
 			pad = false;
 			paddle->GetTransform()->SetSize(Vector2D(150, 15));
+			paddle->GetTransform()->Translate(Vector2D(paddle->GetTransform()->GetSize().X / 2, 0));
 		}
 	}
 }
