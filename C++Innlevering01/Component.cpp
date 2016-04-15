@@ -13,6 +13,7 @@ Component::Component()
 
 Component::~Component()
 {
+	std::cout << "Deleting component " << typeid(this).name() << std::endl;
 }
 
 void Component::Init(GameObject* const gameObject)

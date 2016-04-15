@@ -11,6 +11,7 @@
 #include "GameObjectManager.h"
 #include "Time.h"
 #include "Player.h"
+#include "GUIManager.h"
 
 
 BallMovement::BallMovement(Vector2D startVector, Rect startRect, float speed)
@@ -25,19 +26,24 @@ BallMovement::~BallMovement()
 
 void BallMovement::Awake()
 {
+	paddleObject = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle);
 	Reset();
 }
 
 void BallMovement::Update()
 {
-	
 	if (GameManager::GetInstance().GetGameState() == GameState::InGame)
 	{
 		if (InputManager::GetInstance().GetKeyDown(SDL_SCANCODE_SPACE)){
+			Reset();
 			m_canMove = true;
 		}
 		if (m_canMove) {
 			GetTransform()->Translate(m_movement * m_speed * Time::DeltaTime());
+		}
+		else
+		{
+			GetTransform()->SetPosition(paddleObject->GetTransform()->GetCenter() - Vector2D(0, 50));
 		}
 	}
 }
@@ -130,7 +136,7 @@ void BallMovement::OnCollisionEnter(const Collider* const other)
 void BallMovement::Reset()
 {
 	m_canMove = false;
-	GetTransform()->SetRect(startRect);
+	//GetTransform()->SetRect(startRect);
 	m_movement = startMovement;
 	GetGameObject()->SetActive(true);
 }

@@ -1,4 +1,5 @@
 #include "GameObjectManager.h"
+#include <algorithm>
 
 GameObjectManager::~GameObjectManager()
 {
@@ -10,16 +11,19 @@ void GameObjectManager::Update()
 	//{
 	//	it->Update();
 	//}
-	for (int i = 0; i < _allGameObjects.size(); i++)
+	for (int i = 0; i < allGameObjects.size(); i++)
 	{
-		_allGameObjects[i]->Update();
+		if (allGameObjects[i] != NULL)
+		{
+			allGameObjects[i]->Update();
+		}
 	}
 }
 
 GameObject* GameObjectManager::CreateObject()
 {
 	GameObject* obj = new GameObject();
-	_allGameObjects.emplace_back(obj);
+	allGameObjects.emplace_back(obj);
 	return obj;
 }
 
@@ -40,9 +44,22 @@ GameObject* GameObjectManager::CreateObject(std::vector<Component*> components, 
 	return obj;
 }
 
+void GameObjectManager::DeleteGameObject(GameObject * go)
+{
+	allGameObjects.erase(
+		std::remove_if( // Selectively remove elements in the second vector...
+			allGameObjects.begin(),
+			allGameObjects.end(),
+			[&](std::unique_ptr<GameObject> const& p)
+			{   // This predicate checks whether the element is contained
+				// in the second vector of pointers to be removed...
+				return go == p.get();
+			}), allGameObjects.end());
+}
+
 GameObject* GameObjectManager::FindGameObjectByTag(std::string tag)
 {
-	for (auto const& it : _allGameObjects)
+	for (auto const& it : allGameObjects)
 	{
 		if (it->CompareTag(tag))
 		{

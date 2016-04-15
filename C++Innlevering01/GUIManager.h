@@ -3,13 +3,12 @@
 #include "PlayerController.h"
 #include "GUIToggleGroup.h"
 #include "GUIEventHandler.h"
+#include "GUIMenu.h"
 class GUILayoutMenu;
 
 class GUIManager
-	: public Component
 {
 public:
-	//GUIManager();
 	~GUIManager();
 	void Init();
 	void SetupMenus();
@@ -17,17 +16,17 @@ public:
 	void UpdateHealthText(int health);
 	GUIToggleGroup* GetLevelSelectToggleGroup() const { return levelSelectToggleGroup; }
 	void LoadLevelList();
+	void SetInstructionsActive(bool active);
 private:
-	void Awake() override;
 	GUIText* scoreText;
 	GUIText* healthText;
-	PlayerController* playerController;
 	GUIToggleGroup* levelSelectToggleGroup;
 	GUIToggleGroup* levelEditorToggleGroup;
 	GameObject* menuObj;
 	GUIEventHandler* eventHandler;
 	int customLevelStartElementIndex;
 	int customLevelCount;
+	GUIMenu* instructionsMenu;
 	GUILayoutMenu* levelSelectMenu;
 	Color buttonColorNormal;
 	Color buttonColorHover;

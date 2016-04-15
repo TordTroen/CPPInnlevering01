@@ -6,7 +6,7 @@
 class Level
 {
 public:
-	Level(std::string levelText, float startYPosition = 100);
+	Level(std::string levelText);
 	~Level();
 	void LoadBricks();
 	void DeleteBricks();
@@ -18,7 +18,6 @@ public:
 private:
 	std::string levelName;
 	int levelId;
-	float startYPosition;
 	std::string levelText;
 	std::vector<int> levelVertices;
 	std::vector<GameObject*> brickObjects;

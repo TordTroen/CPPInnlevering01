@@ -2,6 +2,7 @@
 #include "BoardManager.h"
 #include "Time.h"
 #include "PError.h"
+#include "GUIManager.h"
 using namespace std;
 
 //	Constructs a custom player
@@ -9,7 +10,8 @@ Player::Player(int highscore, int level, int lifeLeft, int bricksHit, int bricks
 {
 	SetHighscore(highscore);
 	SetLevel(level);
-	SetLifeLeft(lifeLeft);
+	//SetLifeLeft(lifeLeft);
+	m_lifeLeft = lifeLeft;
 	SetBricksHit(bricksHit);
 	SetBricksMissed(bricksMissed);
 	SetName(name);
@@ -43,23 +45,21 @@ void Player::SetLifeLeft(int lifeLeft)
 	if (m_guiEventHandler == NULL) {
 		m_guiEventHandler = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::MenuObject)->GetComponent<GUIEventHandler>();
 	}
+	GUIManager::GetInstance().UpdateHealthText(GetLifeLeft());
 
 	if (m_lifeLeft <= 0)
 	{
 		m_guiEventHandler->OnEndLevel();
+	}
+	else
+	{
+		GUIManager::GetInstance().SetInstructionsActive(true);
 	}
 }
 
 void Player::SetBricksHit(int bricksHit)
 {
 	m_bricksHit = bricksHit;
-
-	if (m_guiEventHandler != NULL) {
-		if (BoardManager::GetInstance().GetCurrentLevel()->GetBrickCount() == 0) {
-			//std::cout << "bricks hit: ";
-			//std::cout << BoardManager::GetInstance().GetCurrentLevel()->GetBrickCount() << std::endl;
-		}
-	}
 }
 
 void Player::SetBricksMissed(int bricksMissed)
@@ -70,6 +70,18 @@ void Player::SetBricksMissed(int bricksMissed)
 void Player::SetName(std::string name)
 {
 	m_name = name;
+}
+
+void Player::ReduceBrickCount() {
+
+	if (m_guiEventHandler != NULL) {
+		if (BoardManager::GetInstance().GetCurrentLevel()->GetBrickCount() == 0) {
+			std::cout << "brick count " << BoardManager::GetInstance().GetCurrentLevel()->GetBrickCount() << std::endl;
+		}
+		else {
+
+		}
+	}
 }
 
 int Player::GetHighscore() const
@@ -120,12 +132,14 @@ void Player::PrintPlayer() const
 }
 
 void Player::LongPaddle(bool lPaddle) {
+
 	if (pad) {
 		return;
 	}
 	//Change the size of the paddle
 	paddle->GetTransform()->SetSize(Vector2D(300, 15));
 	paddle->GetTransform()->Translate(Vector2D(paddle->GetTransform()->GetSize().X / 2, 0));
+
 	pad = lPaddle;
 }
 

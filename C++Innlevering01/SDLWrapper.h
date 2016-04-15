@@ -31,10 +31,9 @@ public:
 	/* Renders all the images created with the CreateXXX functions. clearPrevious decides if the screen will be cleared before rendering. */
 	void RenderImages(bool clearPrevious) const;
 
-	//SDL_Window* GetSDL_Window() const { return window; }
-	//SDL_Surface* GetSDL_Surface() const { return screenSurface; }
-	//SDL_Renderer* GetSDL_Renderer() const { return renderer; }
 	void SetTextureColor(SDL_Texture* texture, Color color);
+
+	void DeleteDrawable(Drawable* drawable);
 private:
 	void Init();
 	void DestroyImages();

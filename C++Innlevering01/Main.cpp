@@ -45,12 +45,6 @@ int main(int argc, char** argv)
 		Rect paddleStartRect = Rect(GameManager::GetInstance().GetCenterXPosition(200), GameManager::GetInstance().GetWindowHeight() - 100, 150, 15);
 		Rect ballStartRect = Rect(GameManager::GetInstance().GetCenterXPosition(18), paddleStartRect.y - 50, 18, 18);
 		GUIManager::GetInstance().Init();
-		// Make the ball object. Both the visual ball and the positioning of the ball. 
-		GameObject* ballObj = GameObjectManager::GetInstance().CreateObject(Tags::Ball);
-		ballObj->AddComponent(new ImageRenderer("WhiteTexture.png", Color(100, 150, 200)));
-		ballObj->AddComponent(new BoxCollider(false));
-		ballObj->AddComponent(new BallMovement(Vector2D(0.5, -1), ballStartRect, ballSpeed));
-		ballObj->GetTransform()->SetRect(Rect(200, 200, 20, 20));
 
 		// Make the paddle object. Both the visual paddle and the positioning of the paddle. 
 		GameObject* paddleObj = GameObjectManager::GetInstance().CreateObject(Tags::Paddle);
@@ -59,12 +53,19 @@ int main(int argc, char** argv)
 		paddleObj->AddComponent(new PaddleMovement(paddleStartRect, paddleSpeed));
 		paddleObj->AddComponent(new Player());
 
-		// Initialize stuff that depends uses the paddle and ball
+		// Make the ball object. Both the visual ball and the positioning of the ball. 
+		GameObject* ballObj = GameObjectManager::GetInstance().CreateObject(Tags::Ball);
+		ballObj->AddComponent(new ImageRenderer("WhiteTexture.png", Color(100, 150, 200)));
+		ballObj->AddComponent(new BoxCollider(false));
+		ballObj->AddComponent(new BallMovement(Vector2D(0.5, -1), ballStartRect, ballSpeed));
+		ballObj->GetTransform()->SetRect(Rect(200, 200, 20, 20));
+
+		// Initialize stuff that uses the paddle and ball d
 		GameManager::GetInstance().Init(GameState::MainMenu);
 		BoardManager::GetInstance().InitializeBoard();
 		GUIManager::GetInstance().SetupMenus();
 
-		GameState gameState = GameState::MainMenu; // Sets the positioning data. Has x,y,w,h, position and gravity
+		GameState gameState = GameState::MainMenu;
 
 		//	The game loop
 		while (gameState != GameState::Exit)

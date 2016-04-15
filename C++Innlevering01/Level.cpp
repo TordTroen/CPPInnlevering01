@@ -6,8 +6,8 @@
 #include "GameManager.h"
 #include "Theme.h"
 
-Level::Level(std::string levelText, float startYPosition)
-	: startYPosition(startYPosition), levelText(levelText)
+Level::Level(std::string levelText)
+	: levelId(0), levelText(levelText)
 {
 	Theme::Theme(GameManager::GetInstance().GetWindowWidth(), GameManager::GetInstance().GetWindowHeight(), 0);
 
@@ -25,7 +25,7 @@ Level::~Level()
 void Level::LoadBricks()
 {
 	// Figure out the startposition for the first brick
-	Vector2D startPos = Vector2D(0, startYPosition);
+	Vector2D startPos = Vector2D(0, 0);
 	// Calculate the width of the whole level to be able to place it in the center
 	int brickWidthCount = 0;
 	brickWidthCount = levelText.find('|');
@@ -33,9 +33,11 @@ void Level::LoadBricks()
 	startPos.X = GameManager::GetInstance().GetWindowWidth() / 2 - levelWidth / 2;
 
 	Vector2D curPos = startPos;
+	int counter1 = 0, counter2 = 0, counter3 = 0;
 
 	for (char& c : levelText)
 	{
+		counter1++;
 		// Figure out the brick parameters
 		int brickHealth = 1;
 		int brickScore = 0;
@@ -45,6 +47,7 @@ void Level::LoadBricks()
 		// Make the brick
 		if (c == '|') // If end of line
 		{
+			counter2++;
 			// Increase y pos, and reset x pos to starting pos
 			curPos.Y += LevelBrick::BrickHeight;
 			curPos.X = startPos.X;
@@ -54,6 +57,7 @@ void Level::LoadBricks()
 			// Spawn a brick if the bricktype isn't empty
 			if (brickType != BrickType::BrickEmpty)
 			{
+				counter3++;
 				GameObject* brick = GameObjectManager::GetInstance().CreateObject(Tags::Brick);
 				brickObjects.emplace_back(brick);
 				brick->AddComponent(new LevelBrick(curPos, brickType, brickScore, brickHealth, (brickType == BrickType::BrickIndestructible)));
@@ -63,6 +67,10 @@ void Level::LoadBricks()
 			curPos.X += LevelBrick::BrickWidth;
 		}
 	}
+
+	std::cout << "for (char& c : levelText) " << counter1 << std::endl;
+	std::cout << "if (c == '|') "			  << counter2 << std::endl;
+	std::cout << "else "					  << counter3 << std::endl;
 }
 
 void Level::DeleteBricks()
@@ -75,7 +83,6 @@ void Level::DeleteBricks()
 }
 
 int Level::GetBrickCount() const {
-	std::vector<GameObject*> brickObjects;
 
 	int numberOfActiveBricks = 0;
 	for (auto i : brickObjects) {
