@@ -42,6 +42,35 @@ int main(int argc, char** argv)
 		GameManager::GetInstance().GetWindowHeight(), Color(0, 200, 200)) == 0)
 	{
 
+		// Gameobject deletion test
+		//GameObject* obj = GameObjectManager::GetInstance().CreateObject("Test");
+		//obj->AddComponent(new ImageRenderer("WhiteTexture.png", Color(200, 200, 100)));
+		//obj->AddComponent(new BoxCollider());
+		//obj->GetTransform()->SetRect(Rect(10, 10, 100, 100));
+
+		//GameObject* obj2 = GameObjectManager::GetInstance().CreateObject("Test2");
+		//obj2->AddComponent(new ImageRenderer("WhiteTexture.png", Color(200, 100, 100)));
+		//obj2->AddComponent(new BoxCollider(false));
+		//obj2->GetTransform()->SetRect(Rect(10, 120, 100, 100));
+
+		//while (true)
+		//{
+		//	GameObjectManager::GetInstance().Update();
+		//	SDLWrapper::GetInstance().RenderImages(true);
+		//	InputManager::GetInstance().Update();
+		//	CollisionManager::Update();
+
+		//	if (InputManager::GetInstance().GetKeyDown(SDL_SCANCODE_SPACE))
+		//	{
+		//		GameObjectManager::GetInstance().DeleteGameObject(&obj);
+		//	}
+
+		//	if (InputManager::GetInstance().GetKeyDown(SDL_SCANCODE_RETURN))
+		//	{
+		//		GameObjectManager::GetInstance().DeleteGameObject(&obj2);
+		//	}
+		//}
+
 		Rect paddleStartRect = Rect(GameManager::GetInstance().GetCenterXPosition(200), GameManager::GetInstance().GetWindowHeight() - 100, 150, 15);
 		Rect ballStartRect = Rect(GameManager::GetInstance().GetCenterXPosition(18), paddleStartRect.y - 50, 18, 18);
 		GUIManager::GetInstance().Init();
@@ -55,7 +84,7 @@ int main(int argc, char** argv)
 
 		// Make the ball object. Both the visual ball and the positioning of the ball. 
 		GameObject* ballObj = GameObjectManager::GetInstance().CreateObject(Tags::Ball);
-		ballObj->AddComponent(new ImageRenderer("WhiteTexture.png", Color(100, 150, 200)));
+		ballObj->AddComponent(new ImageRenderer("Ball.png", Color(100, 150, 200)));
 		ballObj->AddComponent(new BoxCollider(false));
 		ballObj->AddComponent(new BallMovement(Vector2D(0.5, -1), ballStartRect, ballSpeed));
 		ballObj->GetTransform()->SetRect(Rect(200, 200, 20, 20));
@@ -83,7 +112,6 @@ int main(int argc, char** argv)
 				break;
 			}
 
-			// DEBUG To slow down the framerate
 			//SDLWrapper::GetInstance().CreateRect(Color(0, 0, 0), Rect(0, 0, 100, 100));
 
 			if (gameState == GameState::InGame)
