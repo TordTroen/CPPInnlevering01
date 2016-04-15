@@ -89,6 +89,7 @@ void LevelBrick::OnCollisionEnter(const Collider* const other)
 	if (!indestructible && other->GetGameObject()->CompareTag(Tags::Ball))
 	{
 		TakeDamage();
+		player->ReduceBrickCount();
 	}
 }
 
@@ -164,11 +165,15 @@ void LevelBrick::TakeDamage()
 	health--;
 	if (brickType == BrickType::Brick2Hits || brickType == BrickType::Brick3Hits)
 	{
+		player->ReduceBrickCount();
 		brickType = static_cast<BrickType>(health);
-	}	if (health <= 0)
+	}
+	
+	if (health <= 0)
 	{
 		GetGameObject()->SetActive(false);
 		// TODO Award player
+
 		player->SetHighscore(Points);
 		GUIManager::GetInstance().UpdateScoreText(player->GetHighscore());
 		PowerUp();

@@ -60,7 +60,7 @@ int main(int argc, char** argv)
 		ballObj->AddComponent(new BallMovement(Vector2D(0.5, -1), ballStartRect, ballSpeed));
 		ballObj->GetTransform()->SetRect(Rect(200, 200, 20, 20));
 
-		// Initialize stuff that depends uses the paddle and ball
+		// Initialize stuff that uses the paddle and ball d
 		GameManager::GetInstance().Init(GameState::MainMenu);
 		BoardManager::GetInstance().InitializeBoard();
 		GUIManager::GetInstance().SetupMenus();

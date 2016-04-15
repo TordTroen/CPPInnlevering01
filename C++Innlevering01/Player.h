@@ -35,6 +35,8 @@ public:
 	void SetBricksMissed(int bricksMissed);
 	void SetName(std::string name);
 
+	void ReduceBrickCount();
+
 	//	Get a player's individual values
 	int GetHighscore() const;
 	int GetLevel() const;
