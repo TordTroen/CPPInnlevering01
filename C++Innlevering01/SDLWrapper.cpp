@@ -2,6 +2,7 @@
 #include <iostream>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
+#include <algorithm>
 using namespace std;
 
 SDLWrapper::~SDLWrapper()
@@ -253,4 +254,17 @@ void SDLWrapper::SetTextureColor(SDL_Texture * texture, Color color)
 	{
 		cout << "Failed to apply color to texture" << endl;
 	}
+}
+
+void SDLWrapper::DeleteDrawable(Drawable * drawable)
+{
+	allDrawables.erase(
+		std::remove_if( // Selectively remove elements in the second vector...
+			allDrawables.begin(),
+			allDrawables.end(),
+			[&](std::unique_ptr<Drawable> const& p)
+			{   // This predicate checks whether the element is contained
+				// in the second vector of pointers to be removed...
+				return drawable == p.get();
+			}), allDrawables.end());
 }

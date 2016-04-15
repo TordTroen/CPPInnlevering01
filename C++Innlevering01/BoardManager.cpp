@@ -39,6 +39,7 @@ void BoardManager::InitializeBoard()
 	// Get the references to the ball and paddle
 	ballMovement = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Ball)->GetComponent<BallMovement>();
 	paddleMovement = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle)->GetComponent<PaddleMovement>();
+	player = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle)->GetComponent<Player>();
 
 	ClearBoard();
 }
@@ -49,6 +50,7 @@ void BoardManager::ResetBoard()
 	curLevel->DeleteBricks();
 	ballMovement->Reset();
 	paddleMovement->Reset();
+	player->Reset(0, 0, 3, 0, 0, "Player");
 }
 
 void BoardManager::ClearBoard()

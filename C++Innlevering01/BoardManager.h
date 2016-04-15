@@ -3,6 +3,7 @@
 #include <memory>
 #include "PaddleMovement.h"
 #include "BallMovement.h"
+#include "Player.h"
 
 class BoardManager
 {
@@ -42,6 +43,7 @@ private:
 	Level* curLevel;
 	PaddleMovement* paddleMovement;
 	BallMovement* ballMovement;
+	Player* player;
 
 // Singleton stuff
 public:

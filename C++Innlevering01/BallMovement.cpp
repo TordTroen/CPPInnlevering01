@@ -37,7 +37,6 @@ void BallMovement::Update()
 		if (InputManager::GetInstance().GetKeyDown(SDL_SCANCODE_SPACE)){
 			Reset();
 			m_canMove = true;
-			GUIManager::GetInstance().SetInstructionsActive(false);
 		}
 		if (m_canMove) {
 			GetTransform()->Translate(m_movement * m_speed * Time::DeltaTime());
@@ -58,8 +57,6 @@ void BallMovement::OnCollisionEnter(const Collider* const other)
 
 	if (tag == Tags::WallBottom) {
 		player->SetLifeLeft(player->GetLifeLeft() - 1);
-		GUIManager::GetInstance().UpdateHealthText(player->GetLifeLeft());
-		GUIManager::GetInstance().SetInstructionsActive(true);
 		m_levelStart = true;
 		m_stuffHit = 0;
 		Reset();
