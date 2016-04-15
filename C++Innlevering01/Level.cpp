@@ -6,6 +6,8 @@
 #include "GameManager.h"
 #include "Theme.h"
 
+using namespace std;
+
 Level::Level(std::string levelText)
 	: levelId(0), levelText(levelText)
 {
@@ -53,19 +55,23 @@ void Level::LoadBricks()
 		}
 		else
 		{
-			numberOfBricks++;
+
 			// Spawn a brick if the bricktype isn't empty
 			if (brickType != BrickType::BrickEmpty)
 			{
-				numberOfBricks--;
 				GameObject* brick = GameObjectManager::GetInstance().CreateObject(Tags::Brick);
 				brickObjects.emplace_back(brick);
-				brick->AddComponent(new LevelBrick(curPos, brickType, brickScore, brickHealth, (brickType == BrickType::BrickIndestructible)));
+				LevelBrick* levelBrick = dynamic_cast<LevelBrick*>(brick->AddComponent(new LevelBrick(curPos, brickType, brickScore, brickHealth, (brickType == BrickType::BrickIndestructible))));
+				
+				if (brickType != BrickType::BrickIndestructible) {
+
+					numberOfBricks += levelBrick->GetHealth();
+					cout << "n bricks: " << numberOfBricks << endl;
+				}
 			}
 			
 			// Increase the x pos by the brickwidth
 			curPos.X += LevelBrick::BrickWidth;
-			
 		}
 	}
 

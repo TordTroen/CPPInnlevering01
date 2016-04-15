@@ -40,6 +40,7 @@ private:
 	std::vector<Level*> allLevels;
 
 	Level* curLevel;
+	Player* player;
 	PaddleMovement* paddleMovement;
 	BallMovement* ballMovement;
 

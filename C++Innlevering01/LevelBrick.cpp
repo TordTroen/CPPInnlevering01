@@ -88,7 +88,6 @@ void LevelBrick::OnCollisionEnter(const Collider* const other)
 	if (!indestructible && other->GetGameObject()->CompareTag(Tags::Ball))
 	{
 		TakeDamage();
-		player->SetBricksHit(player->GetBricksHit() + 1);
 	}
 }
 
@@ -189,4 +188,8 @@ void LevelBrick::TakeDamage()
 		return;
 	}
 	imageRenderer->GetImageDrawable()->SetColor(GetBrickColor(brickType));
+}
+
+int LevelBrick::GetHealth() const {
+	return health;
 }

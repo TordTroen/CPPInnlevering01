@@ -32,6 +32,7 @@ public:
 	static const float BrickHeight;
 	static const float PowerUpWidth;
 	static const float PowerUpHeight;
+	int GetHealth() const;
 	void PowerUp(int amount) { powerUpReward += amount; }
 	int GetPowerUp() const { return powerUpReward; }
 private:

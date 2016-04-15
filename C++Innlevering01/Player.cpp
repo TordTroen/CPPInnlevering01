@@ -97,7 +97,8 @@ int Player::GetBricksHit() const
 	std::cout << "bricks hit: " << m_bricksHit << std::endl;
 
 	if (m_bricksHit == m_bricks) {
-		// USER HAS WON !!!!
+		std::cout << "YOU WON !! " << std::endl;
+		m_guiEventHandler->OnWinLevel();
 	}
 	return m_bricksHit;
 }
@@ -124,6 +125,7 @@ void Player::PrintPlayer() const
 	if (m_name == "") {
 		std::cout << "Player without a name " << std::endl;
 	}
+
 	else {
 		std::cout << "Player:  " << m_name << std::endl;
 	}
