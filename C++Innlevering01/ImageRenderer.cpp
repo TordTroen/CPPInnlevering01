@@ -16,7 +16,7 @@ ImageRenderer::ImageRenderer(std::string imageFilename, Color color)
 
 ImageRenderer::~ImageRenderer()
 {
-	SDLWrapper::GetInstance().DeleteDrawable(image);
+	SDLWrapper::GetInstance().DeleteDrawable(&image);
 }
 
 void ImageRenderer::OnSetActive()

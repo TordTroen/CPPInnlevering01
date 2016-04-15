@@ -221,7 +221,7 @@ void SDLWrapper::DestroyImages()
 	// TODO Make this actually work
 	for (auto& it : allDrawables)
 	{
-		SDL_DestroyTexture(it->GetTexture());
+		//SDL_DestroyTexture(it->GetTexture());
 		//delete i;
 	}
 }
@@ -256,7 +256,7 @@ void SDLWrapper::SetTextureColor(SDL_Texture * texture, Color color)
 	}
 }
 
-void SDLWrapper::DeleteDrawable(Drawable * drawable)
+void SDLWrapper::DeleteDrawable(Drawable** drawable)
 {
 	allDrawables.erase(
 		std::remove_if( // Selectively remove elements in the second vector...
@@ -265,6 +265,7 @@ void SDLWrapper::DeleteDrawable(Drawable * drawable)
 			[&](std::unique_ptr<Drawable> const& p)
 			{   // This predicate checks whether the element is contained
 				// in the second vector of pointers to be removed...
-				return drawable == p.get();
+				return *drawable == p.get();
 			}), allDrawables.end());
+	*drawable = NULL;
 }

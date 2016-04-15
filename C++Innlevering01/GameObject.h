@@ -23,6 +23,7 @@ public:
 				return dynamic_cast<T*>(it.get());
 			}
 		}
+		std::cout << "WARNING: Couldn't find the component " << typeid(T).name() << " on this GameObject" << std::endl;
 		return NULL;
 	}
 	void SetTag(std::string tag);

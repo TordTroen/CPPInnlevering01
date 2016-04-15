@@ -60,7 +60,6 @@ void LevelBrick::OnCollisionEnter(const Collider* const other)
 	if (!indestructible && other->GetGameObject()->CompareTag(Tags::Ball))
 	{
 		TakeDamage();
-		player->ReduceBrickCount();
 	}
 }
 
@@ -119,7 +118,6 @@ void LevelBrick::TakeDamage()
 	health--;
 	if (brickType == BrickType::Brick2Hits || brickType == BrickType::Brick3Hits)
 	{
-		player->ReduceBrickCount();
 		brickType = static_cast<BrickType>(health);
 	}
 	
@@ -132,4 +130,8 @@ void LevelBrick::TakeDamage()
 		return;
 	}
 	imageRenderer->GetImageDrawable()->SetColor(GetBrickColor(brickType));
+}
+
+int LevelBrick::GetHealth() const {
+	return health;
 }

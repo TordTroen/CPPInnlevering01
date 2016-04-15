@@ -3,7 +3,6 @@
 #include <memory>
 #include "PaddleMovement.h"
 #include "BallMovement.h"
-#include "Player.h"
 
 class BoardManager
 {
@@ -39,11 +38,11 @@ private:
 	void AddLevel(Level* level);
 
 	std::vector<Level*> allLevels;
-
+	Player* player;
 	Level* curLevel;
+	Player* player;
 	PaddleMovement* paddleMovement;
 	BallMovement* ballMovement;
-	Player* player;
 
 // Singleton stuff
 public:

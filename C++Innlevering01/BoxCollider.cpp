@@ -1,5 +1,6 @@
 #include "BoxCollider.h"
 #include "Transform.h"
+#include "CollisionManager.h"
 
 BoxCollider::BoxCollider(bool isStatic)
 	: Collider(isStatic)
