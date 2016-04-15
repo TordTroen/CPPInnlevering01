@@ -16,8 +16,6 @@
 
 const float LevelBrick::BrickWidth = 50;
 const float LevelBrick::BrickHeight = 30;
-const float LevelBrick::PowerUpWidth = 20;
-const float LevelBrick::PowerUpHeight = 20;
 
 LevelBrick::LevelBrick(Vector2D pos, BrickType brickType, int powerup, int health, bool indestructible)
 	: brickPos(pos), brickType(brickType), powerUpReward(powerup), health(health), indestructible(indestructible)
@@ -55,32 +53,6 @@ Color LevelBrick::GetBrickColor(BrickType brickType)
 	default:
 		return Color(127, 127, 127);
 	}
-	/*if (brickType == BrickType::BrickIndestructible)
-	{
-		return Color(10, 10, 10);
-	}
-	switch (health)
-	{
-	case 1:
-		if (brickType == BrickType::BrickNormal)
-		{
-			return Color(255, 255, 40);
-		}
-		else if (brickType == BrickType::BrickGreen)
-		{
-			return Color(40, 255, 40);
-		}
-		else if (brickType == BrickType::BrickBlue)
-		{
-			return Color(40, 40, 255);
-		}
-	case 2:
-		return Color(255, 150, 150);
-	case 3:
-		return Color(255, 100, 100);
-	default:
-		return Color(255, 255, 255);
-	}*/
 }
 
 void LevelBrick::OnCollisionEnter(const Collider* const other)
@@ -93,79 +65,51 @@ void LevelBrick::OnCollisionEnter(const Collider* const other)
 
 void LevelBrick::Awake()
 {
-	PowerObj = GameObjectManager::GetInstance().CreateObject(Tags::PowerUp);
-	PowerBlock();
+	PowerLifeObj = GameObjectManager::GetInstance().CreateObject(Tags::PowerUp);
+	PowerPaddleObj = GameObjectManager::GetInstance().CreateObject(Tags::PowerUp);
 	player = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle)->GetComponent<Player>();
 	GetTransform()->SetPosition(brickPos);
 	GetTransform()->SetSize(Vector2D(BrickWidth, BrickHeight));
-	
+	PowerPaddleBlock();
+	PowerPaddleObj->SetActive(false);
+	PowerLifeBlock();
+	PowerLifeObj->SetActive(false);
 	Color color = GetBrickColor(brickType);
 	
 	imageRenderer = dynamic_cast<ImageRenderer*>(GetGameObject()->AddComponent(new ImageRenderer("WhiteTexture.png", color)));
 	GetGameObject()->AddComponent(new BoxCollider());
 }
 
-
-//Color LevelBrick::GetColorBasedOnHealth()
-//{
-//	return GetBrickColor(_brickType);
-//	//switch (_health)
-//	//{
-//	//case 1:
-//	//	if (_brickType == BrickType::BrickNormal)
-//	//	{
-//	//		return Color(255, 255, 40);
-//	//	}
-//	//	else if (_brickType == BrickType::BrickGreen)
-//	//	{
-//	//		return Color(40, 255, 40);
-//	//	}
-//	//	else if (_brickType == BrickType::BrickBlue)
-//	//	{
-//	//		return Color(40, 40, 255);
-//	//	}
-//	//case 2:
-//	//	return Color(255, 150, 150);
-//	//case 3:
-//	//	return Color(255, 100, 100);
-//	//default:
-//	//	return Color(255, 255, 255);
-//	//}
-//}
-
-
-void LevelBrick::ExtraLife() {
-	//Gives the player extra life
-	player->SetLifeLeft(player->GetLifeLeft()+1);
-	GUIManager::GetInstance().UpdateHealthText(player->GetLifeLeft());
+void LevelBrick::PowerPaddleBlock()
+{
+	PowerPaddleObj->AddComponent(new ImageRenderer("PowerUpLongPaddle.png"));
+	PowerPaddleObj->AddComponent(new BoxCollider(false));
+	PowerPaddleObj->GetTransform()->SetPosition(GetTransform()->GetPosition());
+	PowerPaddleObj->GetTransform()->SetSize(Vector2D(PowerUpWidth, PowerUpHeight));
 }
 
-void LevelBrick::PowerBlock()
+void LevelBrick::PowerLifeBlock()
 {
-	PowerObj->AddComponent(new ImageRenderer("PowerUpLongPaddle.png"));
-	PowerObj->AddComponent(new BoxCollider(false));
-	PowerObj->GetTransform()->SetRect(Rect(200, 200, 40, 40));
+	PowerLifeObj->AddComponent(new ImageRenderer("PowerUpExtraLife.png"));
+	PowerLifeObj->AddComponent(new BoxCollider(false));
+	PowerLifeObj->GetTransform()->SetPosition(GetTransform()->GetPosition());
+	PowerLifeObj->GetTransform()->SetSize(Vector2D(PowerUpWidth, PowerUpHeight));
 }
 
 void LevelBrick::PowerUp() {
-	int chance = (int)(rand() % 4) + 1;
+	int chance = (int)(rand() % 10) + 1;
 	std::cout << chance << std::endl;
 
 	if (chance == 1) {
 		int chance2 = (int)(rand() % 2) + 1;
-		std::cout << "You got a powerup!" << std::endl;
 		if (chance2 == 1) {
-			player->LongPaddle(true);
-			PowerObj->AddComponent(new PowerUpBlock(Vector2D(0, 1), powerUpSpeed));
-			//PowerBlock(); 
-			std::cout << "PaddlePower!" << std::endl;
-			//PaddlePower
+			PowerPaddleObj->AddComponent(new PowerUpBlock(Vector2D(0, 1), powerUpSpeed, PowerType::PowerPaddle));
+			PowerPaddleObj->SetActive(true);
 		}
 		else if (chance2 == 2){
-			ExtraLife();
-			std::cout << "ExtraLife!" << std::endl;
+			PowerLifeObj->AddComponent(new PowerUpBlock(Vector2D(0, 1), powerUpSpeed, PowerType::PowerLife));
+			PowerLifeObj->SetActive(true);
 		}
-		//Spawne en powerup blokk
 	}
 }
 
@@ -180,8 +124,6 @@ void LevelBrick::TakeDamage()
 	if (health <= 0)
 	{
 		GetGameObject()->SetActive(false);
-		// TODO Award player
-
 		player->SetHighscore(Points);
 		GUIManager::GetInstance().UpdateScoreText(player->GetHighscore());
 		PowerUp();
