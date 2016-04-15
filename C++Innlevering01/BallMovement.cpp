@@ -34,16 +34,17 @@ void BallMovement::Update()
 {
 	if (GameManager::GetInstance().GetGameState() == GameState::InGame)
 	{
-		if (InputManager::GetInstance().GetKeyDown(SDL_SCANCODE_SPACE)){
+		if (InputManager::GetInstance().GetKeyDown(SDL_SCANCODE_SPACE) && !m_canMove){
 			Reset();
 			m_canMove = true;
+			GUIManager::GetInstance().SetInstructionsActive(false);
 		}
 		if (m_canMove) {
 			GetTransform()->Translate(m_movement * m_speed * Time::DeltaTime());
 		}
 		else
 		{
-			GetTransform()->SetPosition(paddleObject->GetTransform()->GetCenter() - Vector2D(0, 50));
+			PositionAbovePaddle();
 		}
 	}
 }
@@ -59,7 +60,12 @@ void BallMovement::OnCollisionEnter(const Collider* const other)
 		player->SetLifeLeft(player->GetLifeLeft() - 1);
 		m_levelStart = true;
 		m_stuffHit   = 0;
-		Reset();
+
+		// Only reset the ball if we have lives left
+		if (player->GetLifeLeft() > 0)
+		{
+			Reset();
+		}
 	}
 
 	else if (tag == Tags::WallLeft  ||
@@ -137,6 +143,12 @@ void BallMovement::Reset()
 {
 	m_canMove = false;
 	//GetTransform()->SetRect(startRect);
+	PositionAbovePaddle();
 	m_movement = startMovement;
 	GetGameObject()->SetActive(true);
+}
+
+void BallMovement::PositionAbovePaddle()
+{
+	GetTransform()->SetPosition(paddleObject->GetTransform()->GetCenter() - Vector2D(0, 50));
 }

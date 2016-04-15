@@ -86,11 +86,10 @@ int main(int argc, char** argv)
 		GameObject* ballObj = GameObjectManager::GetInstance().CreateObject(Tags::Ball);
 		ballObj->AddComponent(new ImageRenderer("Ball.png", Color(100, 150, 200)));
 		ballObj->AddComponent(new BoxCollider(false));
-		ballObj->AddComponent(new BallMovement(Vector2D(0.5, -1), ballStartRect, ballSpeed));
+		BallMovement* ballMove = dynamic_cast<BallMovement*>(ballObj->AddComponent(new BallMovement(Vector2D(0.5, -1), ballStartRect, ballSpeed)));
 		ballObj->GetTransform()->SetRect(Rect(200, 200, 20, 20));
 
-		// Initialize stuff that uses the paddle and ball d
-		GameManager::GetInstance().Init(GameState::MainMenu);
+		// Initialize stuff that uses the paddle and ball
 		BoardManager::GetInstance().InitializeBoard();
 		GUIManager::GetInstance().SetupMenus();
 
@@ -100,9 +99,10 @@ int main(int argc, char** argv)
 		while (gameState != GameState::Exit)
 		{
 			gameState = GameManager::GetInstance().GetGameState(); // Holds which state the game is in: MainMenu, Paused, InGame, Exit
-			// Update everything that needs to be updated every frame
-			GameObjectManager::GetInstance().Update();
+
+			//// Update everything that needs to be updated every frame ////
 			InputManager::GetInstance().Update();
+			GameObjectManager::GetInstance().Update();
 			Time::Update();
 			CollisionManager::Update();
 
@@ -112,20 +112,16 @@ int main(int argc, char** argv)
 				break;
 			}
 
-			//SDLWrapper::GetInstance().CreateRect(Color(0, 0, 0), Rect(0, 0, 100, 100));
-
-			if (gameState == GameState::InGame)
-			{
-				
-			}
-			// DEBUG
+			//// DEBUG ////
 			if (InputManager::GetInstance().GetMouseDown(1))
 			{
 				cout << "-" << endl;
+				//ballMove->GetGameObject()->SetActive(false);
 				//playerController->ChangeScore(1);
 				//GUIManager::GetInstance().UpdateScoreText(playerController->GetScore());
 			}
-			//// Render ////
+
+			//// Rendering ////
 			SDLWrapper::GetInstance().RenderImages(true);
 		}
 	}

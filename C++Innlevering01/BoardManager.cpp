@@ -8,6 +8,7 @@
 #include "BoxCollider.h"
 #include "Tags.h"
 #include "GameManager.h"
+#include "GUIManager.h"
 #include "Transform.h"
 
 BoardManager::~BoardManager()
@@ -16,6 +17,8 @@ BoardManager::~BoardManager()
 
 void BoardManager::InitializeBoard()
 {
+	standardLevelCount = 0;
+
 	ImportAllLevels();
 
 	// Set current level to the first level
@@ -50,7 +53,7 @@ void BoardManager::ResetBoard()
 	curLevel->DeleteBricks();
 	ballMovement->Reset();
 	paddleMovement->Reset();
-	player->Reset(0, 0, 3, 0, 0, "Player");
+	player->Reset();
 }
 
 void BoardManager::ClearBoard()
@@ -58,6 +61,7 @@ void BoardManager::ClearBoard()
 	curLevel->DeleteBricks();
 	ballMovement->GetGameObject()->SetActive(false);
 	paddleMovement->GetGameObject()->SetActive(false);
+	std::cout << "Deactivated hopefully" << std::endl;
 }
 
 Level* BoardManager::GetCurrentLevel() const
@@ -67,6 +71,8 @@ Level* BoardManager::GetCurrentLevel() const
 
 void BoardManager::SetCurrentLevel(int levelId)
 {
+	curLevelId= levelId;
+
 	// Destroy old level
 	if (curLevel != NULL)
 	{
@@ -78,20 +84,34 @@ void BoardManager::SetCurrentLevel(int levelId)
 	//LoadCurrentLevel();
 }
 
+void BoardManager::SetCurrentLevelToNextLevel()
+{
+	int nextLevelId = curLevelId + 1;
+	if (nextLevelId > standardLevelCount)
+	{
+		nextLevelId = 0;
+		std::cout << "All levels completed, starting the first level again." << std::endl;
+	}
+	SetCurrentLevel(nextLevelId);
+}
+
 void BoardManager::AddLevel(Level * level)
 {
 	allLevels.emplace_back(level);
 	//std::cout << level->GetLevelText() << std::endl;
 }
 
-void BoardManager::OnStartLevel()
+void BoardManager::StartLevel()
 {
+	GameManager::GetInstance().SetGameState(GameState::InGame);
 	ResetBoard();
 	LoadCurrentLevel(); // TODO load next level OR selected level from level select
 }
 
-void BoardManager::OnGameOver()
+void BoardManager::EndGame()
 {
+	GUIManager::GetInstance().UpdateEndScoreText(player->GetHighscore());
+	GameManager::GetInstance().SetGameState(GameState::MainMenu);
 	ClearBoard();
 }
 
@@ -107,10 +127,12 @@ std::vector<std::string> BoardManager::GetLevelNames() const
 
 void BoardManager::ImportAllLevels()
 {
-	allLevels.erase(allLevels.begin(), allLevels.end());
+	allLevels.erase(allLevels.begin() + standardLevelCount, allLevels.end());
 
 	// Import all the levels
 	ImportLevelData("LevelDataStandard.txt");
+	standardLevelCount = allLevels.size();
+
 	ImportLevelData("LevelDataCustom.txt");
 }
 

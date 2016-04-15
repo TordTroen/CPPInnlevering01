@@ -13,16 +13,3 @@ float GameManager::GetCenterYPosition(float height) const
 {
 	return windowHeight / 2 - height / 2;
 }
-
-void GameManager::Init(GameState startState)
-{
-	GameObject* paddleObj = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle);
-	if (paddleObj == NULL)
-	{
-		std::cout << "Couldn't find the paddle GameObject!" << std::endl;
-	}
-	else
-	{
-		playerController = paddleObj->GetComponent<PlayerController>();
-	}
-}

@@ -14,29 +14,30 @@ using namespace std;
 //	Constructs a custom player
 Player::Player(int highscore, int level, int lifeLeft, int bricksHit, int bricksMissed, std::string name)
 {
-	SetHighscore(highscore);
 	SetLevel(level);
-	//SetLifeLeft(lifeLeft);
+	m_highscore = highscore;
 	m_lifeLeft = lifeLeft;
 	SetBricksHit(bricksHit);
 	SetBricksMissed(bricksMissed);
 	SetName(name);
 	pad = false;
+	m_isAlive = true;
 }
 
-void Player::Reset(int highscore, int level, int lifeLeft, int bricksHit, int bricksMissed, std::string name)
+void Player::Reset()
 {
-	SetHighscore(highscore);
-	SetLevel(level);
-	SetLifeLeft(lifeLeft);
-	SetBricksHit(bricksHit);
-	SetBricksMissed(bricksMissed);
-	SetName(name);
+	SetHighscore(0);
+	SetLifeLeft(3);
+	SetBricksHit(0);
+	SetBricksMissed(0);
+	SetName("Player");
+	m_isAlive = true;
 }
 
 //	Set a player's individual values
 void Player::SetHighscore(int highscore) {
-	m_highscore += highscore;
+	m_highscore = highscore;
+	GUIManager::GetInstance().UpdateScoreText(m_highscore);
 }
 
 void Player::SetLevel(int level)
@@ -55,7 +56,11 @@ void Player::SetLifeLeft(int lifeLeft)
 
 	if (m_lifeLeft <= 0)
 	{
-		m_guiEventHandler->OnEndLevel();
+		if (m_isAlive)
+		{
+			m_guiEventHandler->OnGameOver();
+			m_isAlive = false;
+		}
 	}
 	else
 	{
@@ -100,7 +105,6 @@ int Player::GetLifeLeft() const
 
 int Player::GetBricksHit() const
 {
-
 	if (m_bricksHit == m_bricks) {
 		m_guiEventHandler->OnWinLevel();
 	}

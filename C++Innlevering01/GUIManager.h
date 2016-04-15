@@ -13,12 +13,16 @@ public:
 	void Init();
 	void SetupMenus();
 	void UpdateScoreText(int score);
+	void UpdateEndScoreText(int score);
 	void UpdateHealthText(int health);
 	GUIToggleGroup* GetLevelSelectToggleGroup() const { return levelSelectToggleGroup; }
 	void LoadLevelList();
 	void SetInstructionsActive(bool active);
+	void SetGameOverMenuActive(bool active);
+	void SetWinMenuActive(bool active);
 private:
 	GUIText* scoreText;
+	GUIText* endScoreText;
 	GUIText* healthText;
 	GUIToggleGroup* levelSelectToggleGroup;
 	GUIToggleGroup* levelEditorToggleGroup;
@@ -27,7 +31,10 @@ private:
 	int customLevelStartElementIndex;
 	int customLevelCount;
 	GUIMenu* instructionsMenu;
+	GUIMenu* hudMenu;
 	GUILayoutMenu* levelSelectMenu;
+	GUILayoutMenu* endMenu;
+	GUILayoutMenu* levelIntermissionMenu;
 	Color buttonColorNormal;
 	Color buttonColorHover;
 	Color buttonColorDown;

@@ -19,10 +19,12 @@ public:
 	/* Sets the curLevel based on the index given. */
 	void SetCurrentLevel(int levelId);
 
-	// Called when pressing start after selectin level, when restarting, when pressing nextlevel
-	void OnStartLevel();
+	void SetCurrentLevelToNextLevel();
 
-	void OnGameOver();
+	// Called when pressing start after selectin level, when restarting, when pressing nextlevel
+	void StartLevel();
+
+	void EndGame();
 
 	std::vector<std::string> GetLevelNames() const;
 
@@ -38,8 +40,10 @@ private:
 	void AddLevel(Level* level);
 
 	std::vector<Level*> allLevels;
+	int standardLevelCount;
 	Player* player;
 	Level* curLevel;
+	int curLevelId;
 	PaddleMovement* paddleMovement;
 	BallMovement* ballMovement;
 

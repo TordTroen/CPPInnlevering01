@@ -11,8 +11,10 @@ public:
 	void OnMainMenuPlay();
 	void OnMainMenuExit();
 	void OnEndLevel();
+	void OnGameOver();
 	void OnWinLevel();
 	void OnRestartLevel();
+	void OnNextLevel();
 	void OnEditorSave();
 	void OnEditorClear();
 	void SetLevelEditorMenuReference(LevelEditorMenu* levelEditorMenu) { this->levelEditorMenu = levelEditorMenu; }

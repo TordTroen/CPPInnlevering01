@@ -116,6 +116,7 @@ bool GUILayoutMenu::IsVertical() const
 
 void GUILayoutMenu::RemoveElements(int startIndex, int count)
 {
+	// Go through the elements and decrease the curPos value so the next element is placed correcly
 	auto start = elements.begin() + startIndex;
 	auto end = start + count;
 	for (auto it = start; it != end; ++it)
@@ -129,7 +130,7 @@ void GUILayoutMenu::RemoveElements(int startIndex, int count)
 			curPos.X -= (*it)->GetTransform()->GetRect().w + spacing * 2;
 		}
 	}
-	std::cout << "decreasing curpos" << std::endl;
+
+	// Remove the elements
 	GUIMenu::RemoveElements(startIndex, count);
-	// TODO Decrease the curpos
 }

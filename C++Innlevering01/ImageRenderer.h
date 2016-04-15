@@ -14,9 +14,7 @@ public:
 	void OnSetActive() override;
 	Drawable* GetImageDrawable() const { return image; }
 private:
-	GameObject* gameObject;
 	Drawable* image;
 	void Update() override;
-	void UpdateRect() const;
 };
 

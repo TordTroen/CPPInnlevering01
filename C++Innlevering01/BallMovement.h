@@ -17,6 +17,7 @@ public:
 	void OnCollisionEnter(const Collider* const other) override;
 	void Reset();
 private:
+	void PositionAbovePaddle();
 	Vector2D m_movement;
 	Vector2D startMovement;
 	GameObject* paddleObject;

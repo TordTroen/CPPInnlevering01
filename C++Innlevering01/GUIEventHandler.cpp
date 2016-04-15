@@ -14,10 +14,9 @@ GUIEventHandler::~GUIEventHandler()
 
 void GUIEventHandler::OnMainMenuPlay()
 {
-	GameManager::GetInstance().SetGameState(GameState::InGame);
 	int levelIndex = GUIManager::GetInstance().GetLevelSelectToggleGroup()->GetCurrentToggleIndex();
-	BoardManager::GetInstance().SetCurrentLevel(levelIndex); // TODO Increment level index if we 
-	BoardManager::GetInstance().OnStartLevel();
+	BoardManager::GetInstance().SetCurrentLevel(levelIndex);
+	BoardManager::GetInstance().StartLevel();
 }
 
 void GUIEventHandler::OnMainMenuExit()
@@ -27,19 +26,33 @@ void GUIEventHandler::OnMainMenuExit()
 
 void GUIEventHandler::OnEndLevel()
 {
-	std::cout << "TODO: show end screen" << std::endl;
-	GameManager::GetInstance().SetGameState(GameState::MainMenu);
-	BoardManager::GetInstance().OnGameOver();
+	BoardManager::GetInstance().EndGame();
+	GUIManager::GetInstance().SetInstructionsActive(false);
 }
+
+void GUIEventHandler::OnGameOver()
+{
+	OnEndLevel();
+	GUIManager::GetInstance().SetGameOverMenuActive(true);
+}
+
 
 void GUIEventHandler::OnWinLevel()
 {
-	std::cout << "TODO: show win screen" << std::endl;
+	OnEndLevel();
+	GUIManager::GetInstance().SetWinMenuActive(true);
 }
 
 void GUIEventHandler::OnRestartLevel()
 {
+	OnEndLevel();
 	OnMainMenuPlay();
+}
+
+void GUIEventHandler::OnNextLevel()
+{
+	BoardManager::GetInstance().SetCurrentLevelToNextLevel();
+	BoardManager::GetInstance().StartLevel();
 }
 
 void GUIEventHandler::OnEditorSave()

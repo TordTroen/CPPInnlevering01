@@ -23,7 +23,7 @@ LevelEditorMenu::~LevelEditorMenu()
 
 void LevelEditorMenu::Init()
 {
-	// TODO Clean up in this mess of a menu
+	// TODO Do the layout of this menu so it looks better
 	// The brick buttons position like they are in an actual level
 	int index = 0;
 	for (int i = 0; i < rows; i++)
@@ -77,7 +77,6 @@ void LevelEditorMenu::Save()
 	{
 		for (int j = 0; j < columns; j++)
 		{
-			std::cout   << "Saving button: " << buttons[index]->GetButtonIndex() << " - " << (index)<< std::endl;
 			levelString << buttons[index]->GetBrickId();
 			index++;
 		}

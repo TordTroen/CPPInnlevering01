@@ -25,7 +25,7 @@ public:
 	//	Constructs a custom player
 	Player(int highscore, int level, int lifeLeft, int bricksHit, int bricksMissed, std::string name);
 
-	void Reset(int highscore, int level, int lifeLeft, int bricksHit, int bricksMissed, std::string name);
+	void Reset();
 
 	//	Set a player's individual values
 	void SetHighscore(int highscore);
@@ -61,6 +61,7 @@ private:
 	int m_lifeLeft;
 	int m_bricksHit;
 	int m_bricksMissed;
+	bool m_isAlive;
 	std::string m_name;
 
 	float delay;

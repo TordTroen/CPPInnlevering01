@@ -12,7 +12,6 @@ enum class GameState
 class GameManager
 {
 public:
-	void Init(GameState startState);
 	int GetWindowWidth()                   const { return windowWidth; }
 	int GetWindowHeight()				   const { return windowHeight; }
 	float GetCenterXPosition(float width)  const;
@@ -21,7 +20,6 @@ public:
 	GameState GetGameState()			   const { return gameState; }
 
 private:
-	PlayerController* playerController;
 	int windowWidth  = 700;
 	int windowHeight = 700;
 	GameState gameState;

@@ -185,7 +185,6 @@
     <ClInclude Include="PError.h" />
     <ClInclude Include="PowerUpBlock.h" />
     <ClInclude Include="Rect.h" />
-    <ClInclude Include="resource.h" />
     <ClInclude Include="SDLWrapper.h" />
     <ClInclude Include="Tags.h" />
     <ClInclude Include="Theme.h" />
@@ -263,9 +262,6 @@
     <Media Include="..\..\..\..\Downloads\lesson11\lesson11\low.wav" />
     <Media Include="..\..\..\..\Downloads\lesson11\lesson11\medium.wav" />
     <Media Include="..\..\..\..\Downloads\lesson11\lesson11\scratch.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="C++Innlevering01.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
