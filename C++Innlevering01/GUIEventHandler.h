@@ -11,6 +11,7 @@ public:
 	void OnMainMenuPlay();
 	void OnMainMenuExit();
 	void OnEndLevel();
+	void OnWinLevel();
 	void OnRestartLevel();
 	void OnEditorSave();
 	void OnEditorClear();

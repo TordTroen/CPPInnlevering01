@@ -33,7 +33,7 @@ public:
 
 	void SetTextureColor(SDL_Texture* texture, Color color);
 
-	void DeleteDrawable(Drawable* drawable);
+	void DeleteDrawable(Drawable** drawable);
 private:
 	void Init();
 	void DestroyImages();

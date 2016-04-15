@@ -44,8 +44,10 @@ GameObject* GameObjectManager::CreateObject(std::vector<Component*> components, 
 	return obj;
 }
 
-void GameObjectManager::DeleteGameObject(GameObject * go)
+void GameObjectManager::DeleteGameObject(GameObject** go)
 {
+	if (*go == NULL) return;
+
 	allGameObjects.erase(
 		std::remove_if( // Selectively remove elements in the second vector...
 			allGameObjects.begin(),
@@ -53,8 +55,9 @@ void GameObjectManager::DeleteGameObject(GameObject * go)
 			[&](std::unique_ptr<GameObject> const& p)
 			{   // This predicate checks whether the element is contained
 				// in the second vector of pointers to be removed...
-				return go == p.get();
+				return *go == p.get();
 			}), allGameObjects.end());
+	*go = NULL;
 }
 
 GameObject* GameObjectManager::FindGameObjectByTag(std::string tag)
@@ -66,5 +69,6 @@ GameObject* GameObjectManager::FindGameObjectByTag(std::string tag)
 			return it.get();
 		}
 	}
+	std::cout << "WARNING: Couldn't find a GameObject with the tag '" << tag.c_str() << "'" << std::endl;
 	return nullptr;
 }

@@ -1,7 +1,7 @@
 #include "CollisionManager.h"
 #include "Collider.h"
 #include "Rect.h"
-#include <iostream>
+#include <algorithm>
 using namespace std;
 
 // Holds the static position of the walls that can be collided with
@@ -13,13 +13,13 @@ vector<Collider*> CollisionManager::dynamicColliders;
 // Is updated every frame to see if there is a new collision.
 void CollisionManager::Update()
 {
-	for (auto ita : staticColliders)	// For every static wall
+	for (auto ita : staticColliders) // For every static wall
 	{
-		if (!ita->IsActive()) continue; // Only collide if the collider is active!
+		if (!ita->IsActive() || ita == NULL) continue; // Only collide if the collider is active and not null!
 
 		for (auto itb : dynamicColliders) // For every moving ball and brick..
 		{
-			if (!itb->IsActive()) continue; // Only collide if the collider is active!
+			if (!itb->IsActive() || itb == NULL) continue; // Only collide if the collider is active and not null!
 
 			if (ita->Intersects(itb) && !itb->IsColliding())
 			{
@@ -45,4 +45,29 @@ void CollisionManager::AddCollider(Collider* const collider, bool isStaticCollid
 	{
 		dynamicColliders.emplace_back(collider);
 	}
+}
+
+void CollisionManager::DeleteCollider(Collider * collider)
+{
+	if (collider == NULL) return;
+
+	std::vector<Collider*> colliders;
+	if (collider->IsStaticCollider())
+	{
+		colliders = staticColliders;
+	}
+	else
+	{
+		colliders = dynamicColliders;
+	}
+
+	colliders.erase(
+		std::remove_if( // Selectively remove elements in the second vector...
+			colliders.begin(),
+			colliders.end(),
+			[&](Collider* const& p)
+	{   // This predicate checks whether the element is contained
+		// in the second vector of pointers to be removed...
+		return collider == p;
+	}), colliders.end());
 }

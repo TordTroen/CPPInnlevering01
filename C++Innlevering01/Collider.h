@@ -12,6 +12,7 @@ public:
 	virtual bool Intersects(const Collider* const other) = 0;
 	void SetIsColliding(bool isColliding) { this->isColliding = isColliding; }
 	bool IsColliding() const { return isColliding; }
+	bool IsStaticCollider() const { return isStaticCollider; }
 protected:
 	void Awake() override;
 private:

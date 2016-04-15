@@ -27,8 +27,14 @@ void GUIEventHandler::OnMainMenuExit()
 
 void GUIEventHandler::OnEndLevel()
 {
+	std::cout << "TODO: show end screen" << std::endl;
 	GameManager::GetInstance().SetGameState(GameState::MainMenu);
 	BoardManager::GetInstance().OnGameOver();
+}
+
+void GUIEventHandler::OnWinLevel()
+{
+	std::cout << "TODO: show win screen" << std::endl;
 }
 
 void GUIEventHandler::OnRestartLevel()
