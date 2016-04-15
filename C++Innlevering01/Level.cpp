@@ -75,7 +75,6 @@ void Level::DeleteBricks()
 }
 
 int Level::GetBrickCount() const {
-	std::vector<GameObject*> brickObjects;
 
 	int numberOfActiveBricks = 0;
 	for (auto i : brickObjects) {

@@ -52,13 +52,6 @@ void Player::SetLifeLeft(int lifeLeft)
 void Player::SetBricksHit(int bricksHit)
 {
 	m_bricksHit = bricksHit;
-
-	if (m_guiEventHandler != NULL) {
-		if (BoardManager::GetInstance().GetCurrentLevel()->GetBrickCount() == 0) {
-			//std::cout << "bricks hit: ";
-			//std::cout << BoardManager::GetInstance().GetCurrentLevel()->GetBrickCount() << std::endl;
-		}
-	}
 }
 
 void Player::SetBricksMissed(int bricksMissed)
@@ -69,6 +62,16 @@ void Player::SetBricksMissed(int bricksMissed)
 void Player::SetName(std::string name)
 {
 	m_name = name;
+}
+
+void Player::ReduceBrickCount() {
+	
+	if (m_guiEventHandler != NULL) {
+		if (BoardManager::GetInstance().GetCurrentLevel()->GetBrickCount() == 0) {
+			//std::cout << "bricks hit: ";
+			std::cout << "brick count " << BoardManager::GetInstance().GetCurrentLevel()->GetBrickCount() << std::endl;
+		}
+	}
 }
 
 int Player::GetHighscore() const
@@ -126,12 +129,11 @@ void Player::LongPaddle(bool lPaddle) {
 
 void Player::Awake() {
 	m_guiEventHandler = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::MenuObject)->GetComponent<GUIEventHandler>();
-	paddle = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle);
-	
+	paddle			  = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle);
 }
 
 void Player::Update() {
-		//Delay for small-big paddle
+	//Delay for small-big paddle
 	if (pad) {
 		delay += Time::DeltaTime();
 		if (delay > 500) {

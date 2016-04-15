@@ -164,10 +164,13 @@ void LevelBrick::TakeDamage()
 	if (brickType == BrickType::Brick2Hits || brickType == BrickType::Brick3Hits)
 	{
 		brickType = static_cast<BrickType>(health);
-	}	if (health <= 0)
+	}	
+	
+	if (health <= 0)
 	{
 		GetGameObject()->SetActive(false);
 		// TODO Award player
+		
 		player->SetHighscore(Points);
 		GUIManager::GetInstance().UpdateScoreText(player->GetHighscore());
 		PowerUp();
