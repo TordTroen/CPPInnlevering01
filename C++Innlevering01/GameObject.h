@@ -33,7 +33,6 @@ public:
 	void SendCollisionExit(const Collider* const other);
 	void SetActive(bool active);
 	bool IsActive() const { return _isActive; }
-	void Destroy();
 private:
 	std::string _tag;
 	std::vector<std::unique_ptr<Component>> _components;

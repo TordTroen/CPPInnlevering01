@@ -9,7 +9,7 @@ class GUIText :
 {
 public:
 	GUIText(std::string text, Color color, Rect rect);
-	~GUIText();
+	virtual ~GUIText();
 	void SetText(std::string text);
 	void SyncDrawableWithTransform() override;
 protected:

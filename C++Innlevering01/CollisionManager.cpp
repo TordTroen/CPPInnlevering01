@@ -21,27 +21,25 @@ void CollisionManager::Update()
 		{
 			if (toRemove[i]->IsStaticCollider())
 			{
+				// Snippet from: http://stackoverflow.com/a/15125722/5853590
+				// This erases the given collider pointer from the staticColliders vector
 				staticColliders.erase(
-					std::remove_if( // Selectively remove elements in the second vector...
+					std::remove_if(
 						staticColliders.begin(),
 						staticColliders.end(),
-						[&](Collider* const& p)
-				{   // This predicate checks whether the element is contained
-					// in the second vector of pointers to be removed...
-					return toRemove[i] == p;
-				}), staticColliders.end());
+						[&](Collider* const& p) { return toRemove[i] == p; }), // The predicate that checks if the given pointer is in the vector
+					staticColliders.end());
 			}
 			else
 			{
+				// Snippet from: http://stackoverflow.com/a/15125722/5853590
+				// This erases the given collider pointer from the dynamicColliders vector
 				dynamicColliders.erase(
-					std::remove_if( // Selectively remove elements in the second vector...
+					std::remove_if(
 						dynamicColliders.begin(),
 						dynamicColliders.end(),
-						[&](Collider* const& p)
-				{   // This predicate checks whether the element is contained
-					// in the second vector of pointers to be removed...
-					return toRemove[i] == p;
-				}), dynamicColliders.end());
+						[&](Collider* const& p) { return toRemove[i] == p; }), // The predicate that checks if the given pointer is in the vector
+					dynamicColliders.end());
 			}
 		}
 		toRemove.clear();

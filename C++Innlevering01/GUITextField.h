@@ -8,7 +8,7 @@ class GUITextField
 {
 public:
 	GUITextField(std::string startText, Rect rect);
-	~GUITextField();
+	virtual ~GUITextField();
 	void Update() override;
 	std::string GetInputText() const { return inputText; }
 private:

@@ -8,7 +8,7 @@ class GUIToggle :
 {
 public:
 	GUIToggle(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Color toggeledColor, Rect rect, int textPadding, GUIToggleGroup* toggleGroup, bool fitRectToText = true);
-	~GUIToggle();
+	virtual ~GUIToggle();
 	void SetToggleGroupIndex(int index) { this->index = index; }
 	void SetToggleActive(bool toggeled);
 	bool IsToggeled() const { return isToggeled; }

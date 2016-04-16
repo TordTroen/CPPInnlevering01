@@ -45,7 +45,7 @@ private:
 	Player* player;
 	GameObject* PowerPaddleObj;
 	GameObject* PowerLifeObj;
-	int Points = 1;
+	int scoreReward;
 	const float PowerUpWidth = 40;
 	const float PowerUpHeight = 40;
 	void PowerUp();

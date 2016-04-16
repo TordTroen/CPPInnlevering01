@@ -47,6 +47,8 @@ void Player::SetLevel(int level)
 
 void Player::SetLifeLeft(int lifeLeft)
 {
+	bool loosingLife = (lifeLeft < m_lifeLeft);
+
 	m_lifeLeft = lifeLeft;
 
 	if (m_guiEventHandler == NULL) {
@@ -62,7 +64,7 @@ void Player::SetLifeLeft(int lifeLeft)
 			m_isAlive = false;
 		}
 	}
-	else
+	else if (loosingLife)
 	{
 		GUIManager::GetInstance().SetInstructionsActive(true);
 	}

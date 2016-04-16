@@ -81,7 +81,8 @@ void Level::DeleteBricks()
 	{
 		for (auto it : brickObjects)
 		{
-			it->Destroy();
+			//it->Destroy();
+			GameObjectManager::GetInstance().DeleteGameObject(&it);
 		}
 		brickObjects.clear();
 	}

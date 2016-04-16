@@ -16,10 +16,12 @@ public:
 	void UpdateEndScoreText(int score);
 	void UpdateHealthText(int health);
 	GUIToggleGroup* GetLevelSelectToggleGroup() const { return levelSelectToggleGroup; }
+	GUIEventHandler* GetGUIEventHandler() const { return eventHandler; }
 	void LoadLevelList();
 	void SetInstructionsActive(bool active);
 	void SetGameOverMenuActive(bool active);
 	void SetWinMenuActive(bool active);
+	void SetHUDMenuActive(bool active);
 private:
 	GUIText* scoreText;
 	GUIText* endScoreText;

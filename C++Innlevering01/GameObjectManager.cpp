@@ -44,15 +44,16 @@ void GameObjectManager::DeleteGameObject(GameObject** go)
 {
 	if (*go == NULL) return;
 
+	// Snippet from: http://stackoverflow.com/a/15125722/5853590
+	// This erases the given gameobject pointer from the allGameObjects vector
 	allGameObjects.erase(
-		std::remove_if( // Selectively remove elements in the second vector...
+		std::remove_if(
 			allGameObjects.begin(),
 			allGameObjects.end(),
-			[&](std::unique_ptr<GameObject> const& p)
-			{   // This predicate checks whether the element is contained
-				// in the second vector of pointers to be removed...
-				return *go == p.get();
-			}), allGameObjects.end());
+			[&](std::unique_ptr<GameObject> const& p) { return *go == p.get(); }), // The predicate that checks if the given pointer is in the vector
+		allGameObjects.end());
+
+	// Null out the reference
 	*go = NULL;
 }
 

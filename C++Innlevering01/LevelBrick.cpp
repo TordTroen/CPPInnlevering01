@@ -24,6 +24,7 @@ LevelBrick::LevelBrick(Vector2D pos, BrickType brickType, int powerup, int healt
 	{
 		this->health = static_cast<int>(this->brickType);
 	}
+	scoreReward = this->health;
 }
 
 LevelBrick::~LevelBrick()
@@ -124,7 +125,7 @@ void LevelBrick::TakeDamage()
 	if (health <= 0)
 	{
 		GetGameObject()->SetActive(false);
-		player->SetHighscore(Points);
+		player->SetHighscore(player->GetHighscore() + scoreReward);
 		GUIManager::GetInstance().UpdateScoreText(player->GetHighscore());
 		PowerUp();
 		return;

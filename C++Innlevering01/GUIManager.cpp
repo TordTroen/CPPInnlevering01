@@ -171,3 +171,8 @@ void GUIManager::SetWinMenuActive(bool active)
 	levelIntermissionMenu->SetActive(active);
 	hudMenu->SetActive(false);
 }
+
+void GUIManager::SetHUDMenuActive(bool active)
+{
+	hudMenu->SetActive(active);
+}

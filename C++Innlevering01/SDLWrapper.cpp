@@ -258,14 +258,15 @@ void SDLWrapper::SetTextureColor(SDL_Texture * texture, Color color)
 
 void SDLWrapper::DeleteDrawable(Drawable** drawable)
 {
+	// Snippet from: http://stackoverflow.com/a/15125722/5853590
+	// This erases the given drawable pointer from the allDrawables vector
 	allDrawables.erase(
-		std::remove_if( // Selectively remove elements in the second vector...
+		std::remove_if(
 			allDrawables.begin(),
 			allDrawables.end(),
-			[&](std::unique_ptr<Drawable> const& p)
-			{   // This predicate checks whether the element is contained
-				// in the second vector of pointers to be removed...
-				return *drawable == p.get();
-			}), allDrawables.end());
+			[&](std::unique_ptr<Drawable> const& p) { return *drawable == p.get(); }), // The predicate that checks if the given pointer is in the vector
+		allDrawables.end());
+
+	// Null out the reference
 	*drawable = NULL;
 }

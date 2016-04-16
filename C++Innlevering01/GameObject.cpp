@@ -86,9 +86,3 @@ void GameObject::SetActive(bool active)
 		it->SetActive(active);
 	}
 }
-
-void GameObject::Destroy()
-{
-	// TODO Implement
-	SetActive(false);
-}
