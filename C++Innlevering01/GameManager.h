@@ -21,7 +21,7 @@ public:
 
 private:
 	int windowWidth  = 700;
-	int windowHeight = 900;
+	int windowHeight = 700;
 	GameState gameState;
 
 // Singleton stuff

@@ -118,7 +118,6 @@ void LevelEditorMenu::Save()
 	}
 
 	levelString << "\n";
-	std::cout   << "Level saved: " << levelString.str() << std::endl;
 
 	BoardManager::GetInstance().SaveLevel(levelSaveToggleGroup->GetCurrentToggleIndex(), levelString.str());
 }

@@ -75,8 +75,12 @@ void GUIManager::SetupMenus()
 	hudMenu->AddElements({
 		scoreText,
 		healthText,
-		new GUIButton("End game", textColor, buttonColorNormal, buttonColorDown, buttonColorHover, Rect(10, 100, 0, 0), 8, hudMenu, levelIntermissionMenu, &GUIEventHandler::OnEndLevel)
+		//new GUIButton("End game", textColor, buttonColorNormal, buttonColorDown, buttonColorHover, Rect(10, 100, 0, 0), 8, hudMenu, levelIntermissionMenu, &GUIEventHandler::OnEndLevel)
 	});
+	// Set the score/health text positions to the bottom of the screen
+	int yPos = GameManager::GetInstance().GetWindowHeight() - scoreText->GetTransform()->GetSize().Y;
+	scoreText->GetTransform()->SetPosition(Vector2D(10, yPos));
+	healthText->GetTransform()->SetPosition(Vector2D(200, yPos));
 
 	//////// GAME OVER MENU ////////
 	endMenu->AddElements({
@@ -137,8 +141,6 @@ void GUIManager::LoadLevelList()
 	// Get the range of the levelselect toggles in the menu element list
 	customLevelStartElementIndex = levelSelectMenu->GetElementCount();
 	customLevelCount = BoardManager::GetInstance().GetLevelNames().size();
-
-	std::cout << "Index: " << customLevelStartElementIndex << ", count: " << customLevelCount << std::endl;
 
 	// Add a new GUIToggle for each level
 	int i = 0;
