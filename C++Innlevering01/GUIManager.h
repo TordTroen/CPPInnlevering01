@@ -38,6 +38,7 @@ private:
 	Color buttonColorNormal;
 	Color buttonColorHover;
 	Color buttonColorDown;
+	Color textColor;
 
 // Singleton stuff
 public:

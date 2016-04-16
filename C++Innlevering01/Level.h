@@ -11,17 +11,14 @@ public:
 	~Level();
 	void LoadBricks();
 	void DeleteBricks();
-	void SetBackground();
 	std::string GetLevelText() const { return levelText; }
-	std::vector<int> GetLevelVectices() const { return levelVertices; }
 	std::string GetLevelName() const { return levelName; }
 
 private:
 	Player* player;
-	std::string levelName;
 	int levelId;
+	std::string levelName;
 	std::string levelText;
-	std::vector<int> levelVertices;
 	std::vector<GameObject*> brickObjects;
 };
 

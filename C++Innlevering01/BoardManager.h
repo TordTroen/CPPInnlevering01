@@ -29,6 +29,10 @@ public:
 	std::vector<std::string> GetLevelNames() const;
 
 	void ImportAllLevels();
+
+	int GetStandardLevelCount() const { return standardLevelCount; }
+
+	void SaveLevel(int index, std::string levelText);
 private:
 	/* Loads the level stored in curLevel. */
 	void LoadCurrentLevel();

@@ -4,6 +4,7 @@
 #include "GUIButton.h"
 #include "LevelBrick.h"
 #include "GUIButton.h"
+#include "BoardManager.h"
 #include "GUIToggleGroup.h"
 #include "GUIToggle.h"
 #include "GameObject.h"
@@ -12,8 +13,8 @@
 #include "GUITextField.h"
 #include "GUIEventHandler.h"
 
-LevelEditorMenu::LevelEditorMenu(GUIMenu* levelEditorMenu, GUIMenu* previousMenu)
-	: levelName("Unnamed"), levelEditorMenu(levelEditorMenu), previousMenu(previousMenu)
+LevelEditorMenu::LevelEditorMenu(GUIMenu* levelEditorMenu, GUIMenu* previousMenu, GUILayoutMenu* levelSaveMenu)
+	: levelName("Unnamed"), levelEditorMenu(levelEditorMenu), previousMenu(previousMenu), levelSaveMenu(levelSaveMenu)
 {
 }
 
@@ -39,12 +40,15 @@ void LevelEditorMenu::Init()
 	}
 
 	// Editor control buttons
-	levelEditorMenu->AddElement(new GUIButton("Save",      Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(700 - 200, 400, 100, 100), 8, &GUIEventHandler::OnEditorSave));
+	//levelEditorMenu->AddElement(new GUIButton("Save", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(700 - 200, 400, 100, 100), 8, &GUIEventHandler::OnEditorSave));
+	levelEditorMenu->AddElement(new GUIButton("Save",      Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(700 - 200, 400, 100, 100), 8, levelEditorMenu, levelSaveMenu));
 	levelEditorMenu->AddElement(new GUIButton("Clear",     Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(700 - 200, 470, 100, 100), 8, &GUIEventHandler::OnEditorClear));
 	levelEditorMenu->AddElement(new GUIButton("Main menu", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(700 - 200, 540, 100, 100), 8, levelEditorMenu, previousMenu));
 	
 	// Brick editor buttons
-	levelEditorToggleGroup = dynamic_cast<GUIToggleGroup*>(GetGameObject()->AddComponent(new GUIToggleGroup()));
+	//levelEditorToggleGroup = dynamic_cast<GUIToggleGroup*>(GetGameObject()->AddComponent(new GUIToggleGroup()));
+	levelEditorToggleGroup = new GUIToggleGroup();
+	GetGameObject()->AddComponent(levelEditorToggleGroup);
 	for (int i = 0; i < 8; i++)
 	{
 		Color toolNormalColor = LevelBrick::GetBrickColor(static_cast<BrickType>(i));
@@ -54,11 +58,39 @@ void LevelEditorMenu::Init()
 		levelEditorMenu->AddElement(new GUIToggle(" ", Color(200, 255, 255), toolNormalColor, toolDownColor, toolHoverColor, toolSelectedColor, Rect(16 + i * (LevelBrick::BrickWidth + 32), 700 - LevelBrick::BrickHeight - 16, LevelBrick::BrickWidth, LevelBrick::BrickHeight), 0, levelEditorToggleGroup, false));
 	}
 
+	// Saving menu
+	levelSaveMenu->AddElement(new GUIText("Saving", Color(255, 255, 255), Rect(0, 0, 0, 0)));
+	levelSaveMenu->AddElement(new GUIText(" ", Color(255, 255, 255), Rect(0, 0, 0, 0)));
+
 	// Level name input
-	levelEditorMenu->AddElement(new GUIText("Level name:", Color(255, 255, 255), Rect(10, 340, 10, 10)));
+	levelSaveMenu->AddElement(new GUIText("Level name:", Color(255, 255, 255), Rect(10, 340, 10, 10)));
 	GameObject* obj = GameObjectManager::GetInstance().CreateObject();
 	textField = dynamic_cast<GUITextField*>(obj->AddComponent(new GUITextField("Level name here", Rect(10, 400, 10, 10))));
-	levelEditorMenu->AddElement(textField);
+	levelSaveMenu->AddElement(textField);
+
+	levelSaveMenu->AddElement(new GUIText("Pick a save slot:", Color(255, 255, 255), Rect(0, 0, 0, 0)));
+	levelSaveToggleGroup = new GUIToggleGroup();
+	GetGameObject()->AddComponent(levelSaveToggleGroup);
+	Color slotToggleColor = Color(50, 50, 50);
+	int standardLevelCount = BoardManager::GetInstance().GetStandardLevelCount();
+	for (int i = 0; i < 3; i++)
+	{
+		std::ostringstream toggleText;
+		if (i + standardLevelCount < BoardManager::GetInstance().GetLevelNames().size())
+		{
+			toggleText << BoardManager::GetInstance().GetLevelNames()[i + standardLevelCount];
+		}
+		else
+		{
+			toggleText << "Slot " << i+1;
+		}
+		levelSaveMenu->AddElement(new GUIToggle(toggleText.str(), Color(255, 255, 255), slotToggleColor, slotToggleColor.Tinted(1.1), slotToggleColor.Tinted(1.2), slotToggleColor.Shaded(0.9), Rect(0, 0, 0, 0), 8, levelSaveToggleGroup));
+	}
+
+	levelSaveMenu->AddElement(new GUIText(" ", Color(255, 255, 255), Rect(0, 0, 0, 0)));
+	levelSaveMenu->AddElement(new GUIButton("Save", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(700 - 200, 400, 100, 100), 8, levelSaveMenu, levelEditorMenu, &GUIEventHandler::OnEditorSave));
+
+	
 
 	Clear();
 }
@@ -86,21 +118,7 @@ void LevelEditorMenu::Save()
 	levelString << "\n";
 	std::cout   << "Level saved: " << levelString.str() << std::endl;
 
-	// Write that string to the custom leves data file
-	std::ofstream fileOut;
-	fileOut.open("LevelDataCustom.txt", std::ios_base::app);
-
-	if (fileOut.is_open())
-	{
-		fileOut << levelString.str();
-		fileOut.close();
-	}
-	else
-	{
-		std::cout << "Couldn't open file for writing custom level to!" << std::endl;
-	}
-
-	std::cout << "Level saved!" << std::endl;
+	BoardManager::GetInstance().SaveLevel(levelSaveToggleGroup->GetCurrentToggleIndex(), levelString.str());
 }
 
 void LevelEditorMenu::Clear()

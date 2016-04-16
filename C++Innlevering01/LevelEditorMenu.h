@@ -4,6 +4,7 @@
 #include "GUIMenu.h"
 #include "Component.h"
 #include "GUIToggleGroup.h"
+#include "GUILayoutMenu.h"
 #include "GUITextField.h"
 class GUILevelEditorButton;
 
@@ -11,7 +12,7 @@ class LevelEditorMenu
 	: public Component
 {
 public:
-	LevelEditorMenu(GUIMenu* levelEditorMenu, GUIMenu* previousMenu);
+	LevelEditorMenu(GUIMenu* levelEditorMenu, GUIMenu* previousMenu, GUILayoutMenu* levelSaveMenu);
 	~LevelEditorMenu();
 	void Save();
 	void Clear();
@@ -25,7 +26,9 @@ private:
 	std::vector<GUILevelEditorButton*> buttons;
 	GUIMenu* levelEditorMenu;
 	GUIMenu* previousMenu;
+	GUILayoutMenu* levelSaveMenu;
 	GUIToggleGroup* levelEditorToggleGroup;
+	GUIToggleGroup* levelSaveToggleGroup;
 	GUITextField* textField;
 };
 

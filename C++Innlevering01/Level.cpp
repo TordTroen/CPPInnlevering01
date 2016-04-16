@@ -71,7 +71,10 @@ void Level::LoadBricks()
 		}
 	}
 	// Updates the number of bricks at current level.
-	player = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle)->GetComponent<Player>();
+	if (player == NULL)
+	{
+		player = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle)->GetComponent<Player>();
+	}
 	player->SetBricksForCurrentLevel(numberOfBricks - 1);
 }
 

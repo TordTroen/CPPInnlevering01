@@ -61,7 +61,6 @@ void BoardManager::ClearBoard()
 	curLevel->DeleteBricks();
 	ballMovement->GetGameObject()->SetActive(false);
 	paddleMovement->GetGameObject()->SetActive(false);
-	std::cout << "Deactivated hopefully" << std::endl;
 }
 
 Level* BoardManager::GetCurrentLevel() const
@@ -71,7 +70,14 @@ Level* BoardManager::GetCurrentLevel() const
 
 void BoardManager::SetCurrentLevel(int levelId)
 {
-	curLevelId= levelId;
+	curLevelId = levelId;
+
+	// Make sure the index is valid
+	if (curLevelId > allLevels.size() - 1)
+	{
+		curLevelId = 0;
+		std::cout << "Can't load the current level, loading level 1 instead." << std::endl;
+	}
 
 	// Destroy old level
 	if (curLevel != NULL)
@@ -80,25 +86,18 @@ void BoardManager::SetCurrentLevel(int levelId)
 	}
 
 	// Set new level
-	curLevel = allLevels[levelId];
+	curLevel = allLevels[curLevelId];
 	//LoadCurrentLevel();
 }
 
 void BoardManager::SetCurrentLevelToNextLevel()
 {
-	int nextLevelId = curLevelId + 1;
-	if (nextLevelId > standardLevelCount)
-	{
-		nextLevelId = 0;
-		std::cout << "All levels completed, starting the first level again." << std::endl;
-	}
-	SetCurrentLevel(nextLevelId);
+	SetCurrentLevel(curLevelId + 1);
 }
 
 void BoardManager::AddLevel(Level * level)
 {
 	allLevels.emplace_back(level);
-	//std::cout << level->GetLevelText() << std::endl;
 }
 
 void BoardManager::StartLevel()
@@ -134,6 +133,25 @@ void BoardManager::ImportAllLevels()
 	standardLevelCount = allLevels.size();
 
 	ImportLevelData("LevelDataCustom.txt");
+}
+
+void BoardManager::SaveLevel(int index, std::string levelText)
+{
+	// Write that string to the custom leves data file
+	std::ofstream fileOut;
+	fileOut.open("LevelDataCustom.txt", std::ios_base::app);
+
+	if (fileOut.is_open())
+	{
+		fileOut << levelText;
+		fileOut.close();
+	}
+	else
+	{
+		std::cout << "Couldn't open file for writing custom level to!" << std::endl;
+	}
+
+	std::cout << "Level saved!" << std::endl;
 }
 
 void BoardManager::LoadCurrentLevel()

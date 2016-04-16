@@ -7,7 +7,7 @@
 #include <sstream>
 
 GUITextField::GUITextField(std::string startText, Rect rect)
-	: GUIButton(startText, Color(255, 255, 255), Color(0, 0, 0), Color(0, 255, 0), Color(255, 0, 0), rect, 8, NULL, true),
+	: GUIButton(startText, Color(255, 255, 255), Color(0, 0, 0), Color(60, 60, 60), Color(30, 30, 30), rect, 8, Color(100, 200, 100), true),
 	takeInput(false)
 {
 }
@@ -22,7 +22,7 @@ void GUITextField::Update()
 	GUIButton::Update();
 	if (takeInput)
 	{
-		// TODO Put this in the SDLWrapper and InputManager, so we can just call a function here
+		// TODO Put this in the SDLWrapper and use InputManager's functions, so we can just call a function here
 		// TODO Implement a cursor for the input (either SDL has something or we have to calculate the position, that can be very hard...)
 		// Made with help from Lazyfoo's tutorial (http://lazyfoo.net/tutorials/SDL/32_text_input_and_clipboard_handling/index.php)
 		bool renderText = false;
@@ -95,13 +95,12 @@ void GUITextField::StartInput()
 	//Enable text input 
 	SDL_StartTextInput();
 	takeInput = true;
-	
-	// TODO Highlight the field when inputting
+	SetOverrideColorActive(true);
 }
 
 void GUITextField::StopInput()
 {
 	takeInput = false;
 	SDL_StopTextInput();
-	std::cout << "Input: " << inputText << std::endl;
+	SetOverrideColorActive(false);
 }

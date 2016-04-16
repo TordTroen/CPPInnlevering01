@@ -32,13 +32,14 @@ void GUIManager::SetupMenus()
 	buttonColorNormal = Color(25, 25, 25);
 	buttonColorHover  = buttonColorNormal.Tinted(1.2);
 	buttonColorDown   = buttonColorNormal.Shaded(0.8);
-	Color textColor = Color(200, 255, 255);
+	textColor = Color(200, 255, 255);
 
 	// TODO Find a better way to do these ugly lines
 	// Create the menus
 	GUILayoutMenu* mainMenu  = dynamic_cast<GUILayoutMenu*>(menuObj->AddComponent(new GUILayoutMenu(Alignment::VerticalCenter, 8, 8)));
 	levelSelectMenu			 = dynamic_cast<GUILayoutMenu*>(menuObj->AddComponent(new GUILayoutMenu(Alignment::VerticalCenter, 8, 8, false)));
 	GUIMenu* levelEditorMenu = dynamic_cast<GUIMenu*>(menuObj->AddComponent(new GUIMenu(false)));
+	GUILayoutMenu* levelSaveMenu = dynamic_cast<GUILayoutMenu*>(menuObj->AddComponent(new GUILayoutMenu(Alignment::VerticalCenter, 8, 8, false)));
 	hudMenu		 = dynamic_cast<GUIMenu*>(menuObj->AddComponent(new GUIMenu(false)));
 	instructionsMenu		 = dynamic_cast<GUIMenu*>(menuObj->AddComponent(new GUIMenu(false)));
 	endMenu	 = dynamic_cast<GUILayoutMenu*>(menuObj->AddComponent(new GUILayoutMenu(Alignment::VerticalCenter, 8, 8, false)));
@@ -66,7 +67,7 @@ void GUIManager::SetupMenus()
 	LoadLevelList();
 
 	//////// LEVEL EDITOR ////////
-	LevelEditorMenu* editorMenu = dynamic_cast<LevelEditorMenu*>(menuObj->AddComponent(new LevelEditorMenu(levelEditorMenu, mainMenu)));
+	LevelEditorMenu* editorMenu = dynamic_cast<LevelEditorMenu*>(menuObj->AddComponent(new LevelEditorMenu(levelEditorMenu, mainMenu, levelSaveMenu)));
 
 	//////// IN-GAME MENU ////////
 	scoreText = new GUIText("Score: 0", textColor, Rect(10, 10, 0, 0));
@@ -136,9 +137,15 @@ void GUIManager::LoadLevelList()
 	customLevelCount = BoardManager::GetInstance().GetLevelNames().size();
 
 	// Add a new GUIToggle for each level
+	int i = 0;
 	for (auto it : BoardManager::GetInstance().GetLevelNames())
 	{
+		if (i == BoardManager::GetInstance().GetStandardLevelCount())
+		{
+			levelSelectMenu->AddElement(new GUIText("Custom levels:", textColor, Rect(0, 0, 0, 0)));
+		}
 		levelSelectMenu->AddElement(new GUIToggle(it, Color(100, 255, 255), buttonColorNormal, buttonColorDown, buttonColorHover, Color(10, 200, 10), Rect(10, 100, 0, 0), 8, levelSelectToggleGroup));
+		i++;
 	}
 }
 
