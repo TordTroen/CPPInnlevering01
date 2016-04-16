@@ -1,8 +1,12 @@
 #include "GameManager.h"
-#include "PlayerController.h"
 #include "Tags.h"
 #include "GameObjectManager.h"
 #include <iostream>
+
+//GameManager::GameManager()
+//{
+//	SetGameState(GameState::MainMenu);
+//}
 
 float GameManager::GetCenterXPosition(float width) const
 {

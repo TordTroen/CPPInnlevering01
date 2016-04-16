@@ -20,13 +20,14 @@
 #include "BoardManager.h"
 #include "Level.h"
 #include "PaddleMovement.h"
-#include "PlayerController.h"
 #include "Player.h"
 
 using namespace std;
 
 int main(int argc, char** argv)
 {
+	//GameManager gameManager;
+	
 	InputManager::GetInstance().Init();			// Keeps track of keyboard and mouse input
 	Time::Init();								// Keeps track of ellapsed time between frames
 	//GUIManager	  gui;							// Keeps track of activating visual elements like menu, ball, paddle and boxes

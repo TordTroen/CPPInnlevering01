@@ -1,6 +1,5 @@
 #pragma once
 #include "GUIText.h"
-#include "PlayerController.h"
 #include "GUIToggleGroup.h"
 #include "GUIEventHandler.h"
 #include "GUIMenu.h"

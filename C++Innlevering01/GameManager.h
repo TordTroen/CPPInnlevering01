@@ -1,6 +1,5 @@
 #pragma once
-#include "PlayerController.h"
-#include <memory>
+
 enum class GameState
 {
 	MainMenu,
@@ -12,6 +11,7 @@ enum class GameState
 class GameManager
 {
 public:
+	//GameManager();
 	int GetWindowWidth()                   const { return windowWidth; }
 	int GetWindowHeight()				   const { return windowHeight; }
 	float GetCenterXPosition(float width)  const;

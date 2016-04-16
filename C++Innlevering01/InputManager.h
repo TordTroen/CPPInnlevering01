@@ -36,7 +36,7 @@ private:
 	bool CurMouseDown(const int& buttonId) const { return mouseButtons == SDL_BUTTON(buttonId); }
 	bool OldMouseDown(const int& buttonId) const { return oldMouseButtons == SDL_BUTTON(buttonId); }
 
-	// Singleton stuff
+// Singleton stuff
 public:
 	static InputManager& GetInstance()
 	{
