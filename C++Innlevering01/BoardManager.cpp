@@ -11,6 +11,8 @@
 #include "GUIManager.h"
 #include "Transform.h"
 
+const int BoardManager::CustomLevelCount = 3;
+
 BoardManager::~BoardManager()
 {
 }
@@ -87,7 +89,6 @@ void BoardManager::SetCurrentLevel(int levelId)
 
 	// Set new level
 	curLevel = allLevels[curLevelId];
-	//LoadCurrentLevel();
 }
 
 void BoardManager::SetCurrentLevelToNextLevel()
@@ -126,7 +127,7 @@ std::vector<std::string> BoardManager::GetLevelNames() const
 
 void BoardManager::ImportAllLevels()
 {
-	allLevels.erase(allLevels.begin() + standardLevelCount, allLevels.end());
+	allLevels.erase(allLevels.begin(), allLevels.end());
 
 	// Import all the levels
 	ImportLevelData("LevelDataStandard.txt");
@@ -137,13 +138,27 @@ void BoardManager::ImportAllLevels()
 
 void BoardManager::SaveLevel(int index, std::string levelText)
 {
+	index += standardLevelCount;
+	if (index < allLevels.size())
+	{
+		allLevels[index]->SetLevelText(levelText);
+	}
+
 	// Write that string to the custom leves data file
 	std::ofstream fileOut;
-	fileOut.open("LevelDataCustom.txt", std::ios_base::app);
+	fileOut.open("LevelDataCustom.txt", std::ios_base::trunc);
 
 	if (fileOut.is_open())
 	{
-		fileOut << levelText;
+		for (int i = 0; i < CustomLevelCount; i++)
+		{
+			// TODO Properly handle error here, and make sure the LevelDataCustom.txt always has three levels
+			if (i + standardLevelCount > allLevels.size() - 1)
+			{
+				std::cout << "ERROR: Can't save level. Please make sure the LevelDataCustom.txt has three levels." << std::endl;
+			}
+			fileOut << allLevels[i+standardLevelCount]->GetLevelString() << "\n";
+		}
 		fileOut.close();
 	}
 	else

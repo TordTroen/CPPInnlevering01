@@ -33,6 +33,8 @@ public:
 	int GetStandardLevelCount() const { return standardLevelCount; }
 
 	void SaveLevel(int index, std::string levelText);
+
+	static const int CustomLevelCount;
 private:
 	/* Loads the level stored in curLevel. */
 	void LoadCurrentLevel();

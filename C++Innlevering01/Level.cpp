@@ -9,14 +9,11 @@
 using namespace std;
 
 Level::Level(std::string levelText)
-	: levelId(0), levelText(levelText)
+	: levelId(0)
 {
 	Theme::Theme(GameManager::GetInstance().GetWindowWidth(), GameManager::GetInstance().GetWindowHeight(), 0);
 
-	// Remove name from levelText
-	int nameEndPos = levelText.find('|');
-	levelName	   = levelText.substr(0, nameEndPos);
-	this->levelText.erase(0, nameEndPos + 1);
+	SetLevelText(levelText);
 }
 
 Level::~Level()
@@ -80,10 +77,25 @@ void Level::LoadBricks()
 
 void Level::DeleteBricks()
 {
-	for (auto it : brickObjects)
+	if (brickObjects.size() > 0)
 	{
-		it->Destroy();
+		for (auto it : brickObjects)
+		{
+			it->Destroy();
+		}
+		brickObjects.clear();
 	}
-	brickObjects.clear();
+}
+
+void Level::SetLevelText(std::string levelText)
+{
+	this->levelText = levelText;
+
+	// Remove name from levelText
+	int nameEndPos = levelText.find('|');
+	levelName = levelText.substr(0, nameEndPos);
+	this->levelText.erase(0, nameEndPos + 1);
+
+	DeleteBricks();
 }
 

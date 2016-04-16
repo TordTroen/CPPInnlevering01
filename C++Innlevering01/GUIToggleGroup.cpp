@@ -10,7 +10,7 @@ GUIToggleGroup::~GUIToggleGroup()
 {
 }
 
-void GUIToggleGroup::AddToggle(GUIToggle * toggle)
+void GUIToggleGroup::AddToggle(GUIToggle* toggle)
 {
 	toggle->SetToggleGroupIndex(toggles.size());
 	toggles.emplace_back(toggle);

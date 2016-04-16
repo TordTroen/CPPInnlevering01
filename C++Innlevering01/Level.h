@@ -13,7 +13,8 @@ public:
 	void DeleteBricks();
 	std::string GetLevelText() const { return levelText; }
 	std::string GetLevelName() const { return levelName; }
-
+	std::string GetLevelString() const { return levelName + "|" + levelText; }
+	void SetLevelText(std::string levelText);
 private:
 	Player* player;
 	int levelId;

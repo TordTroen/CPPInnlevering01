@@ -10,6 +10,7 @@ GUITextField::GUITextField(std::string startText, Rect rect)
 	: GUIButton(startText, Color(255, 255, 255), Color(0, 0, 0), Color(60, 60, 60), Color(30, 30, 30), rect, 8, Color(100, 200, 100), true),
 	takeInput(false)
 {
+	inputText = startText;
 }
 
 

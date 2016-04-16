@@ -48,6 +48,7 @@ void GUIButton::SyncDrawableWithTransform()
 
 void GUIButton::SetOverrideColorActive(bool isOverriding)
 {
+	std::cout << "overriding: " << isOverriding << std::endl;
 	isOverridingColor = isOverriding;
 	SetBackgroundColor();
 }

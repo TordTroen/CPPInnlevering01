@@ -124,23 +124,27 @@ void GUIManager::UpdateHealthText(int health)
 
 void GUIManager::LoadLevelList()
 {
+	int standardCount = BoardManager::GetInstance().GetStandardLevelCount();
+
 	// Remove the old toggles for the level selction
 	if (customLevelStartElementIndex > -1)
 	{
-		levelSelectMenu->RemoveElements(customLevelStartElementIndex, customLevelCount);
-		levelSelectToggleGroup->Reset();
+		levelSelectMenu->RemoveElements(customLevelStartElementIndex, customLevelCount+1);
 		BoardManager::GetInstance().ImportAllLevels();
+		levelSelectToggleGroup->Reset();
 	}
 
 	// Get the range of the levelselect toggles in the menu element list
 	customLevelStartElementIndex = levelSelectMenu->GetElementCount();
 	customLevelCount = BoardManager::GetInstance().GetLevelNames().size();
 
+	std::cout << "Index: " << customLevelStartElementIndex << ", count: " << customLevelCount << std::endl;
+
 	// Add a new GUIToggle for each level
 	int i = 0;
 	for (auto it : BoardManager::GetInstance().GetLevelNames())
 	{
-		if (i == BoardManager::GetInstance().GetStandardLevelCount())
+		if (i == standardCount)
 		{
 			levelSelectMenu->AddElement(new GUIText("Custom levels:", textColor, Rect(0, 0, 0, 0)));
 		}

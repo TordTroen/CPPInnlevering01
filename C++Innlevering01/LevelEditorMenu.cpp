@@ -65,16 +65,19 @@ void LevelEditorMenu::Init()
 	// Level name input
 	levelSaveMenu->AddElement(new GUIText("Level name:", Color(255, 255, 255), Rect(10, 340, 10, 10)));
 	GameObject* obj = GameObjectManager::GetInstance().CreateObject();
-	textField = dynamic_cast<GUITextField*>(obj->AddComponent(new GUITextField("Level name here", Rect(10, 400, 10, 10))));
+	textField = dynamic_cast<GUITextField*>(obj->AddComponent(new GUITextField("Unnamed", Rect(10, 400, 10, 10))));
 	levelSaveMenu->AddElement(textField);
 
+	// Save slots
 	levelSaveMenu->AddElement(new GUIText("Pick a save slot:", Color(255, 255, 255), Rect(0, 0, 0, 0)));
 	levelSaveToggleGroup = new GUIToggleGroup();
 	GetGameObject()->AddComponent(levelSaveToggleGroup);
+
 	Color slotToggleColor = Color(50, 50, 50);
 	int standardLevelCount = BoardManager::GetInstance().GetStandardLevelCount();
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < BoardManager::CustomLevelCount; i++)
 	{
+		// If there is a level in that slot, use the levels name as the text
 		std::ostringstream toggleText;
 		if (i + standardLevelCount < BoardManager::GetInstance().GetLevelNames().size())
 		{
@@ -87,10 +90,9 @@ void LevelEditorMenu::Init()
 		levelSaveMenu->AddElement(new GUIToggle(toggleText.str(), Color(255, 255, 255), slotToggleColor, slotToggleColor.Tinted(1.1), slotToggleColor.Tinted(1.2), slotToggleColor.Shaded(0.9), Rect(0, 0, 0, 0), 8, levelSaveToggleGroup));
 	}
 
+	// Save button
 	levelSaveMenu->AddElement(new GUIText(" ", Color(255, 255, 255), Rect(0, 0, 0, 0)));
 	levelSaveMenu->AddElement(new GUIButton("Save", Color(200, 255, 255), Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(700 - 200, 400, 100, 100), 8, levelSaveMenu, levelEditorMenu, &GUIEventHandler::OnEditorSave));
-
-	
 
 	Clear();
 }
