@@ -14,7 +14,7 @@ GameObject::GameObject()
 
 GameObject::~GameObject()
 {
-	std::cout << "Deleting GameObject: " << _tag.c_str() << std::endl;
+	std::cout << "Deleting gameobject " << typeid(this).name() << ", " << GetTag().c_str() << std::endl;
 }
 
 void GameObject::Update()

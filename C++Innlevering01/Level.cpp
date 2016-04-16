@@ -18,6 +18,7 @@ Level::Level(std::string levelText)
 
 Level::~Level()
 {
+	std::cout << "Deleting component " << typeid(this).name() << std::endl;
 }
 
 void Level::LoadBricks()

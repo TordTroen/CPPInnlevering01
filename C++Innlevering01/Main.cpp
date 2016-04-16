@@ -121,16 +121,6 @@ int main(int argc, char** argv)
 				}
 			}
 
-
-			//// DEBUG ////
-			if (InputManager::GetInstance().GetMouseDown(1))
-			{
-				cout << "-" << endl;
-				//ballMove->GetGameObject()->SetActive(false);
-				//playerController->ChangeScore(1);
-				//GUIManager::GetInstance().UpdateScoreText(playerController->GetScore());
-			}
-
 			//// Rendering ////
 			SDLWrapper::GetInstance().RenderImages(true);
 		}

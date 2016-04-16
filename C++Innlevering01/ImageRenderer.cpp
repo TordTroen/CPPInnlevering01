@@ -15,6 +15,7 @@ ImageRenderer::ImageRenderer(std::string imageFilename, Color color)
 
 ImageRenderer::~ImageRenderer()
 {
+	std::cout << "Deleting component " << typeid(this).name() << std::endl;
 	SDLWrapper::GetInstance().DeleteDrawable(&image);
 }
 

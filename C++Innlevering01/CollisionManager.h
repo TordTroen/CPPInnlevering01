@@ -13,6 +13,4 @@ private:
 	static std::vector<Collider*> toRemove;
 	static std::vector<Collider*> staticColliders;
 	static std::vector<Collider*> dynamicColliders;
-
 };
-
