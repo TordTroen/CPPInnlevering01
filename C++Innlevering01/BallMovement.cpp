@@ -15,7 +15,7 @@
 
 
 BallMovement::BallMovement(Vector2D startVector, Rect startRect, float speed)
-	: startMovement(startVector.Normalized()), startRect(startRect), m_speed(speed)
+	: startMovement(startVector.Normalized()), startRect(startRect), speed(speed)
 {
 }
 
@@ -34,13 +34,13 @@ void BallMovement::Update()
 {
 	if (GameManager::GetInstance().GetGameState() == GameState::InGame)
 	{
-		if (InputManager::GetInstance().GetKeyDown(SDL_SCANCODE_SPACE) && !m_canMove){
+		if (InputManager::GetInstance().GetKeyDown(SDL_SCANCODE_SPACE) && !canMove){
 			Reset();
-			m_canMove = true;
+			canMove = true;
 			GUIManager::GetInstance().SetInstructionsActive(false);
 		}
-		if (m_canMove) {
-			GetTransform()->Translate(m_movement * m_speed * Time::DeltaTime());
+		if (canMove) {
+			GetTransform()->Translate(movement * speed * Time::DeltaTime());
 		}
 		else
 		{
@@ -58,8 +58,8 @@ void BallMovement::OnCollisionEnter(const Collider* const other)
 
 	if (tag == Tags::WallBottom) {
 		player->SetLifeLeft(player->GetLifeLeft() - 1);
-		m_levelStart = true;
-		m_stuffHit   = 0;
+		levelStart = true;
+		stuffHit   = 0;
 
 		// Only reset the ball if we have lives left
 		if (player->GetLifeLeft() > 0)
@@ -71,25 +71,25 @@ void BallMovement::OnCollisionEnter(const Collider* const other)
 	else if (tag == Tags::WallLeft  ||
 			 tag == Tags::WallRight ||
 			 tag == Tags::WallTop   ){
-			 m_stuffHit++;
+			 stuffHit++;
 	}
 
 	else if (tag == Tags::Brick) {
-		m_paddleHit = false;
+		paddleHit = false;
 		player->SetBricksHit(player->GetBricksHit() + 1);
-		m_levelStart = false;
+		levelStart = false;
 	}
 
 	else if (tag == Tags::Paddle) {
-		if (m_stuffHit == 0) {
+		if (stuffHit == 0) {
 			player->SetBricksMissed(player->GetBricksMissed() - 1);
 		}
-		m_stuffHit   = 0;
-		m_paddleHit  = false;
-		m_levelStart = false;
+		stuffHit   = 0;
+		paddleHit  = false;
+		levelStart = false;
 	}
 	
-	if (tag == Tags::Paddle && m_movement.Y > 0)
+	if (tag == Tags::Paddle && movement.Y > 0)
 	{
 		Vector2D paddle = other->GetTransform()->GetCenter();
 		Vector2D ball = GetTransform()->GetCenter();
@@ -103,13 +103,13 @@ void BallMovement::OnCollisionEnter(const Collider* const other)
 		{
 			dist *= -1;
 		}
-		m_movement.X = dist;
-		if (m_movement.Y > 0)
+		movement.X = dist;
+		if (movement.Y > 0)
 		{
-			m_movement.Y *= -1;
+			movement.Y *= -1;
 		}
 		// TODO Make sure movement always has the same length
-		m_movement = m_movement.Normalized();
+		movement = movement.Normalized();
 	}
 	else
 	{
@@ -130,21 +130,21 @@ void BallMovement::OnCollisionEnter(const Collider* const other)
 		// TODO Can add some extra to _movement if one of the components are 0 to prevent sticking to wall??
 		if (dx > dy) // Hit something on the left/right
 		{
-			m_movement.X *= -1;
+			movement.X *= -1;
 		}
 		else // Hit something on the top/bottom
 		{
-			m_movement.Y *= -1;
+			movement.Y *= -1;
 		}
 	} 
 }
 
 void BallMovement::Reset()
 {
-	m_canMove = false;
+	canMove = false;
 	//GetTransform()->SetRect(startRect);
 	PositionAbovePaddle();
-	m_movement = startMovement;
+	movement = startMovement;
 	GetGameObject()->SetActive(true);
 }
 

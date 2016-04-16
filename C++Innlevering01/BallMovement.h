@@ -18,14 +18,14 @@ public:
 	void Reset();
 private:
 	void PositionAbovePaddle();
-	Vector2D m_movement;
+	Vector2D movement;
 	Vector2D startMovement;
 	GameObject* paddleObject;
 	Rect startRect;
-	float m_speed;
-	bool m_levelStart = true;
-	bool m_paddleHit = true;
-	bool m_canMove = true;
-	int  m_stuffHit = 0;
+	float speed;
+	bool levelStart = true;
+	bool paddleHit = true;
+	bool canMove = true;
+	int  stuffHit = 0;
 };
 

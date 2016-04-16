@@ -55,18 +55,18 @@ public:
 private:
 
 	//	The player's values
-	int m_bricks;
-	int m_highscore;
-	int m_level;
-	int m_lifeLeft;
-	int m_bricksHit;
-	int m_bricksMissed;
-	bool m_isAlive;
-	std::string m_name;
+	int bricks;
+	int highscore;
+	int level;
+	int lifeLeft;
+	int bricksHit;
+	int bricksMissed;
+	bool isAlive;
+	std::string name;
 
 	float delay;
 	bool pad;
 
 	GameObject* paddle;
-	GUIEventHandler* m_guiEventHandler;
+	GUIEventHandler* guiEventHandler;
 };

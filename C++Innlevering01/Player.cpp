@@ -15,13 +15,13 @@ using namespace std;
 Player::Player(int highscore, int level, int lifeLeft, int bricksHit, int bricksMissed, std::string name)
 {
 	SetLevel(level);
-	m_highscore = highscore;
-	m_lifeLeft = lifeLeft;
+	this->highscore = highscore;
+	this->lifeLeft = lifeLeft;
 	SetBricksHit(bricksHit);
 	SetBricksMissed(bricksMissed);
 	SetName(name);
 	pad = false;
-	m_isAlive = true;
+	isAlive = true;
 }
 
 void Player::Reset()
@@ -31,37 +31,37 @@ void Player::Reset()
 	SetBricksHit(0);
 	SetBricksMissed(0);
 	SetName("Player");
-	m_isAlive = true;
+	isAlive = true;
 }
 
 //	Set a player's individual values
 void Player::SetHighscore(int highscore) {
-	m_highscore = highscore;
-	GUIManager::GetInstance().UpdateScoreText(m_highscore);
+	this->highscore = highscore;
+	GUIManager::GetInstance().UpdateScoreText(this->highscore);
 }
 
 void Player::SetLevel(int level)
 {
-	m_level = level;
+	this->level = level;
 }
 
 void Player::SetLifeLeft(int lifeLeft)
 {
-	bool loosingLife = (lifeLeft < m_lifeLeft);
+	bool loosingLife = (lifeLeft < this->lifeLeft);
 
-	m_lifeLeft = lifeLeft;
+	this->lifeLeft = lifeLeft;
 
-	if (m_guiEventHandler == NULL) {
-		m_guiEventHandler = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::MenuObject)->GetComponent<GUIEventHandler>();
+	if (this->guiEventHandler == NULL) {
+		this->guiEventHandler = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::MenuObject)->GetComponent<GUIEventHandler>();
 	}
 	GUIManager::GetInstance().UpdateHealthText(GetLifeLeft());
 
-	if (m_lifeLeft <= 0)
+	if (this->lifeLeft <= 0)
 	{
-		if (m_isAlive)
+		if (this->isAlive)
 		{
-			m_guiEventHandler->OnGameOver();
-			m_isAlive = false;
+			this->guiEventHandler->OnGameOver();
+			this->isAlive = false;
 		}
 	}
 	else if (loosingLife)
@@ -72,78 +72,78 @@ void Player::SetLifeLeft(int lifeLeft)
 
 void Player::SetBricksHit(int bricksHit)
 {
-	m_bricksHit = bricksHit;
+	this->bricksHit = bricksHit;
 }
 
 void Player::SetBricksMissed(int bricksMissed)
 {
-	m_bricksMissed = bricksMissed;
+	this->bricksMissed = bricksMissed;
 }
 
 void Player::SetName(std::string name)
 {
-	m_name = name;
+	this->name = name;
 }
 
 void Player::SetBricksForCurrentLevel(int bricks)
 {
-	m_bricks = bricks;
+	this->bricks = bricks;
 }
 
 int Player::GetHighscore() const
 {
-	return m_highscore;
+	return highscore;
 }
 
 int Player::GetLevel() const
 {
-	return m_level;
+	return level;
 }
 
 int Player::GetLifeLeft() const
 {
-	return m_lifeLeft;
+	return lifeLeft;
 }
 
 int Player::GetBricksHit() const
 {
-	if (m_bricksHit == m_bricks) {
-		m_guiEventHandler->OnWinLevel();
+	if (bricksHit == bricks) {
+		guiEventHandler->OnWinLevel();
 	}
-	return m_bricksHit;
+	return bricksHit;
 }
 
 int Player::GetBricksMissed() const
 {
-	return m_bricksMissed;
+	return bricksMissed;
 }
 
 int Player::GetBricksForCurrentLevel() const
 {
-	return m_bricks;
+	return bricks;
 }
 
 
 std::string Player::GetName() const
 {
-	return m_name;
+	return name;
 }
 
 //	Print a player's current score
 void Player::PrintPlayer() const
 {
-	if (m_name == "") {
+	if (name == "") {
 		std::cout << "Player without a name " << std::endl;
 	}
 
 	else {
-		std::cout << "Player:  " << m_name << std::endl;
+		std::cout << "Player:  " << name << std::endl;
 	}
-	std::cout << "Level: " << m_level << std::endl;
-	std::cout << "Life left: " << m_lifeLeft << std::endl;
-	std::cout << ": " << m_bricksHit << std::endl;
-	std::cout << "Bricks missed: " << m_bricksMissed << std::endl;
-	std::cout << "Highscore: " << m_highscore << std::endl;
+	std::cout << "Level: " << level << std::endl;
+	std::cout << "Life left: " << lifeLeft << std::endl;
+	std::cout << ": " << bricksHit << std::endl;
+	std::cout << "Bricks missed: " << bricksMissed << std::endl;
+	std::cout << "Highscore: " << highscore << std::endl;
 }
 
 void Player::LongPaddle(bool lPaddle) {
@@ -159,7 +159,7 @@ void Player::LongPaddle(bool lPaddle) {
 }
 
 void Player::Awake() {
-	m_guiEventHandler = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::MenuObject)->GetComponent<GUIEventHandler>();
+	guiEventHandler = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::MenuObject)->GetComponent<GUIEventHandler>();
 	paddle = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle);
 }
 
