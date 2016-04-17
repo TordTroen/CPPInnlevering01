@@ -27,6 +27,7 @@ BallMovement::~BallMovement()
 void BallMovement::Awake()
 {
 	paddleObject = gameManager->FindGameObjectByTag(Tags::Paddle);
+	player = paddleObject->GetComponent<Player>();
 	Reset();
 }
 
@@ -51,43 +52,7 @@ void BallMovement::Update()
 
 void BallMovement::OnCollisionEnter(const Collider* const other)
 {
-
-	std::string tag			= other->GetGameObject()->GetTag();
-	GameObject* paddleObj	= gameManager->FindGameObjectByTag(Tags::Paddle);
-	Player * player			= paddleObj->GetComponent<Player>();
-
-	if (tag == Tags::WallBottom) {
-		player->SetLifeLeft(player->GetLifeLeft() - 1);
-		levelStart = true;
-		stuffHit   = 0;
-
-		// Only reset the ball if we have lives left
-		if (player->GetLifeLeft() > 0)
-		{
-			Reset();
-		}
-	}
-
-	else if (tag == Tags::WallLeft  ||
-			 tag == Tags::WallRight ||
-			 tag == Tags::WallTop   ){
-			 stuffHit++;
-	}
-
-	else if (tag == Tags::Brick) {
-		paddleHit = false;
-		player->SetBricksHit(player->GetBricksHit() + 1);
-		levelStart = false;
-	}
-
-	else if (tag == Tags::Paddle) {
-		if (stuffHit == 0) {
-			player->SetBricksMissed(player->GetBricksMissed() - 1);
-		}
-		stuffHit   = 0;
-		paddleHit  = false;
-		levelStart = false;
-	}
+	std::string tag = other->GetGameObject()->GetTag();
 	
 	if (tag == Tags::Paddle && movement.Y > 0)
 	{
@@ -137,12 +102,41 @@ void BallMovement::OnCollisionEnter(const Collider* const other)
 			movement.Y *= -1;
 		}
 	} 
+
+	if (tag == Tags::WallBottom) {
+		player->SetLifeLeft(player->GetLifeLeft() - 1);
+		levelStart = true;
+		stuffHit = 0;
+
+		// Only reset the ball if we have lives left
+		if (player->GetLifeLeft() > 0)
+		{
+			Reset();
+		}
+	}
+	else if (tag == Tags::WallLeft ||
+		tag == Tags::WallRight ||
+		tag == Tags::WallTop) {
+		stuffHit++;
+	}
+	else if (tag == Tags::Brick) {
+		paddleHit = false;
+		player->SetBricksHit(player->GetBricksHit() + 1);
+		levelStart = false;
+	}
+	else if (tag == Tags::Paddle) {
+		if (stuffHit == 0) {
+			player->SetBricksMissed(player->GetBricksMissed() - 1);
+		}
+		stuffHit = 0;
+		paddleHit = false;
+		levelStart = false;
+	}
 }
 
 void BallMovement::Reset()
 {
 	canMove = false;
-	//GetTransform()->SetRect(startRect);
 	PositionAbovePaddle();
 	movement = startMovement;
 	GetGameObject()->SetActive(true);

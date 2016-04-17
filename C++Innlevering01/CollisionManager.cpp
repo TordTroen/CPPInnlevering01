@@ -15,6 +15,7 @@ vector<Collider*> CollisionManager::toRemove;
 // Is updated every frame to see if there is a new collision.
 void CollisionManager::Update()
 {
+	// TODO Refactor this into a function
 	if (toRemove.size() > 0)
 	{
 		for (int i = 0; i < toRemove.size(); i++)
