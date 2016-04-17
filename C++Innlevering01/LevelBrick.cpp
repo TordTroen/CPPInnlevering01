@@ -66,35 +66,36 @@ void LevelBrick::OnCollisionEnter(const Collider* const other)
 
 void LevelBrick::Awake()
 {
-	PowerLifeObj = GameObjectManager::GetInstance().CreateObject(Tags::PowerUp);
-	PowerPaddleObj = GameObjectManager::GetInstance().CreateObject(Tags::PowerUp);
-	player = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle)->GetComponent<Player>();
+	powerLifeObj = gameManager->CreateObject(Tags::PowerUp);
+	powerPaddleObj = gameManager->CreateObject(Tags::PowerUp);
+	player = gameManager->FindGameObjectByTag(Tags::Paddle)->GetComponent<Player>();
 	GetTransform()->SetPosition(brickPos);
 	GetTransform()->SetSize(Vector2D(BrickWidth, BrickHeight));
 	PowerPaddleBlock();
-	PowerPaddleObj->SetActive(false);
+	powerPaddleObj->SetActive(false);
 	PowerLifeBlock();
-	PowerLifeObj->SetActive(false);
+	powerLifeObj->SetActive(false);
 	Color color = GetBrickColor(brickType);
 	
-	imageRenderer = dynamic_cast<ImageRenderer*>(GetGameObject()->AddComponent(new ImageRenderer("WhiteTexture.png", color)));
+	imageRenderer = new ImageRenderer("WhiteTexture.png", color);
+	GetGameObject()->AddComponent(imageRenderer);
 	GetGameObject()->AddComponent(new BoxCollider());
 }
 
 void LevelBrick::PowerPaddleBlock()
 {
-	PowerPaddleObj->AddComponent(new ImageRenderer("PowerUpLongPaddle.png"));
-	PowerPaddleObj->AddComponent(new BoxCollider(false));
-	PowerPaddleObj->GetTransform()->SetPosition(GetTransform()->GetPosition());
-	PowerPaddleObj->GetTransform()->SetSize(Vector2D(PowerUpWidth, PowerUpHeight));
+	powerPaddleObj->AddComponent(new ImageRenderer("PowerUpLongPaddle.png"));
+	powerPaddleObj->AddComponent(new BoxCollider(false));
+	powerPaddleObj->GetTransform()->SetPosition(GetTransform()->GetPosition());
+	powerPaddleObj->GetTransform()->SetSize(Vector2D(PowerUpWidth, PowerUpHeight));
 }
 
 void LevelBrick::PowerLifeBlock()
 {
-	PowerLifeObj->AddComponent(new ImageRenderer("PowerUpExtraLife.png"));
-	PowerLifeObj->AddComponent(new BoxCollider(false));
-	PowerLifeObj->GetTransform()->SetPosition(GetTransform()->GetPosition());
-	PowerLifeObj->GetTransform()->SetSize(Vector2D(PowerUpWidth, PowerUpHeight));
+	powerLifeObj->AddComponent(new ImageRenderer("PowerUpExtraLife.png"));
+	powerLifeObj->AddComponent(new BoxCollider(false));
+	powerLifeObj->GetTransform()->SetPosition(GetTransform()->GetPosition());
+	powerLifeObj->GetTransform()->SetSize(Vector2D(PowerUpWidth, PowerUpHeight));
 }
 
 void LevelBrick::PowerUp() {
@@ -104,12 +105,12 @@ void LevelBrick::PowerUp() {
 	if (chance == 1) {
 		int chance2 = (int)(rand() % 2) + 1;
 		if (chance2 == 1) {
-			PowerPaddleObj->AddComponent(new PowerUpBlock(Vector2D(0, 1), powerUpSpeed, PowerType::PowerPaddle));
-			PowerPaddleObj->SetActive(true);
+			powerPaddleObj->AddComponent(new PowerUpBlock(Vector2D(0, 1), powerUpSpeed, PowerType::PowerPaddle));
+			powerPaddleObj->SetActive(true);
 		}
 		else if (chance2 == 2){
-			PowerLifeObj->AddComponent(new PowerUpBlock(Vector2D(0, 1), powerUpSpeed, PowerType::PowerLife));
-			PowerLifeObj->SetActive(true);
+			powerLifeObj->AddComponent(new PowerUpBlock(Vector2D(0, 1), powerUpSpeed, PowerType::PowerLife));
+			powerLifeObj->SetActive(true);
 		}
 	}
 }

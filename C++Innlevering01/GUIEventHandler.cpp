@@ -21,7 +21,7 @@ void GUIEventHandler::OnMainMenuPlay()
 
 void GUIEventHandler::OnMainMenuExit()
 {
-	GameManager::GetInstance().SetGameState(GameState::Exit);
+	gameManager->SetGameState(GameState::Exit);
 }
 
 void GUIEventHandler::OnEndLevel()
@@ -64,4 +64,10 @@ void GUIEventHandler::OnEditorSave()
 void GUIEventHandler::OnEditorClear()
 {
 	levelEditorMenu->Clear();
+}
+
+void GUIEventHandler::Init(LevelEditorMenu * levelEditorMenu, GameManager * gameManager)
+{
+	this->levelEditorMenu = levelEditorMenu;
+	this->gameManager = gameManager;
 }

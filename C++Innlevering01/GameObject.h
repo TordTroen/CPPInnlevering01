@@ -7,7 +7,7 @@ class Transform;
 class GameObject
 {
 public:
-	GameObject();
+	GameObject(GameManager* gameManager);
 	~GameObject();
 	void Update();
 	Component* AddComponent(Component* const comp);
@@ -38,4 +38,5 @@ private:
 	std::vector<std::unique_ptr<Component>> _components;
 	Transform* _transform;
 	bool _isActive;
+	GameManager* gameManager;
 };

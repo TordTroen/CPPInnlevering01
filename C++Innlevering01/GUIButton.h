@@ -29,17 +29,18 @@ protected:
 	Drawable* textItem;
 private:
 	void Awake() override;
+	void Init(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, GUIMenu* const deactivateMenu, GUIMenu* const activateMenu, void(GUIEventHandler::*CallbackFunction)(void), bool fitRectToText, bool hasOverrideColor);
+	virtual void OnClick();
+	virtual void OnEnter();
+	void SetBackgroundColor();
+	void OnExit();
+	void(GUIEventHandler::*Callback)(void);
+	void ToggleMenus();
+
 	bool isOverridingColor;
 	bool hasOverrideColor;
 	Color overrideColor;
-	void Init(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, GUIMenu* const deactivateMenu, GUIMenu* const activateMenu, void(GUIEventHandler::*CallbackFunction)(void), bool fitRectToText, bool hasOverrideColor);
-	void SetBackgroundColor();
-	virtual void OnClick();
-	virtual void OnEnter();
-	void OnExit();
-	void(GUIEventHandler::*Callback)(void);
 	GUIEventHandler* guiEventHandler;
-	void ToggleMenus();
 	GUIMenu* activateMenu;
 	GUIMenu* deactivateMenu;
 	Color normalColor;

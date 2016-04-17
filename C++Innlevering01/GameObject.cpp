@@ -4,17 +4,19 @@
 #include <iostream>
 using namespace std;
 
-GameObject::GameObject()
+GameObject::GameObject(GameManager* gameManager)
+	: gameManager(gameManager)
 {
 	// All Gameobjects must have a transform
 	_transform = new Transform();
 	AddComponent(_transform);
+
 	SetTag("Untagged");
 }
 
 GameObject::~GameObject()
 {
-	std::cout << "Deleting gameobject " << typeid(this).name() << ", " << GetTag().c_str() << std::endl;
+	//std::cout << "Deleting gameobject " << typeid(this).name() << ", " << GetTag().c_str() << std::endl;
 }
 
 void GameObject::Update()
@@ -30,7 +32,7 @@ void GameObject::Update()
 
 Component* GameObject::AddComponent(Component* const comp)
 {
-	comp->Init(this);
+	comp->Init(this, gameManager);
 	_components.emplace_back(comp);
 	return comp;
 }

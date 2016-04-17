@@ -8,9 +8,10 @@ class BoardManager
 {
 public:
 	~BoardManager();
+	static const int CustomLevelCount;
 
 	/* Initializes the board. Import the leveldata and sets up the walls surrounding the screen. */
-	void InitializeBoard();
+	void InitializeBoard(GameManager* gameManager);
 	void ResetBoard();
 	void ClearBoard();
 
@@ -33,8 +34,6 @@ public:
 	int GetStandardLevelCount() const { return standardLevelCount; }
 
 	void SaveLevel(int index, std::string levelText);
-
-	static const int CustomLevelCount;
 private:
 	/* Loads the level stored in curLevel. */
 	void LoadCurrentLevel();
@@ -52,6 +51,7 @@ private:
 	int curLevelId;
 	PaddleMovement* paddleMovement;
 	BallMovement* ballMovement;
+	GameManager* gameManager;
 
 // Singleton stuff
 public:

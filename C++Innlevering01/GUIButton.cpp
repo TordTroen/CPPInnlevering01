@@ -1,9 +1,11 @@
 #include "GUIButton.h"
+#include <iostream>
 #include "Transform.h"
 #include "InputManager.h"
-#include "GameObjectManager.h"
+#include "GameManager.h"
+#include "GameObject.h"
+#include "GUIEventHandler.h"
 #include "Tags.h"
-#include <iostream>
 
 GUIButton::GUIButton(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, void(GUIEventHandler::*CallbackFunction)(void), bool fitRectToText)
 {
@@ -68,13 +70,15 @@ void GUIButton::OnSetActive()
 
 void GUIButton::Awake()
 {
-	guiEventHandler = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::MenuObject)->GetComponent<GUIEventHandler>();
+	GameObject* temp = gameManager->FindGameObjectByTag(Tags::MenuObject);
+	guiEventHandler = temp->GetComponent<GUIEventHandler>();
 }
 
 void GUIButton::Init(std::string text, Color textColor, Color normalColor, Color downColor, Color hoverColor, Rect rect, int textPadding, GUIMenu* const deactivateMenu, GUIMenu* const activateMenu, void(GUIEventHandler::*CallbackFunction)(void), bool fitRectToText, bool hasOverrideColor)
 {
 	this->activateMenu = activateMenu;
 	this->deactivateMenu = deactivateMenu;
+	guiEventHandler = NULL;
 	Callback = CallbackFunction;
 	isOver = false;
 	this->hasOverrideColor = hasOverrideColor;

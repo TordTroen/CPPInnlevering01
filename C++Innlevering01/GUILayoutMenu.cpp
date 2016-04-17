@@ -28,7 +28,7 @@ void GUILayoutMenu::AddElement(GUIElement * const element)
 	// Create a gameobject and add the element to it if it ins't already attached to a gameobject
 	if (element->GetGameObject() == NULL)
 	{
-		GameObject* obj = GameObjectManager::GetInstance().CreateObject();
+		GameObject* obj = gameManager->CreateObject();
 		obj->AddComponent(element);
 	}
 
@@ -43,22 +43,22 @@ void GUILayoutMenu::AddElement(GUIElement * const element)
 	switch (alignment)
 	{
 	case Alignment::VerticalCenter:
-		curPos.X = GameManager::GetInstance().GetCenterXPosition(newRect.w);
+		curPos.X = gameManager->GetCenterXPosition(newRect.w);
 		break;
 	case Alignment::HorizontalCenter:
-		curPos.Y = GameManager::GetInstance().GetCenterYPosition(newRect.h);
+		curPos.Y = gameManager->GetCenterYPosition(newRect.h);
 		break;
 	case Alignment::Left:
 		curPos.X = margin;
 		break;
 	case Alignment::Right:
-		curPos.X = GameManager::GetInstance().GetWindowWidth() - newRect.w - margin;
+		curPos.X = gameManager->GetWindowWidth() - newRect.w - margin;
 		break;
 	case Alignment::Top:
 		curPos.Y = margin;
 		break;
 	case Alignment::Bottom:
-		curPos.Y = GameManager::GetInstance().GetWindowHeight() - newRect.h - margin;
+		curPos.Y = gameManager->GetWindowHeight() - newRect.h - margin;
 		break;
 	default:
 		break;

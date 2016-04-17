@@ -12,6 +12,7 @@
 #include "GameObjectManager.h"
 #include "GUITextField.h"
 #include "GUIEventHandler.h"
+#include "GameManager.h"
 
 LevelEditorMenu::LevelEditorMenu(GUIMenu* levelEditorMenu, GUIMenu* previousMenu, GUILayoutMenu* levelSaveMenu)
 	: levelName("Unnamed"), levelEditorMenu(levelEditorMenu), previousMenu(previousMenu), levelSaveMenu(levelSaveMenu)
@@ -31,8 +32,9 @@ void LevelEditorMenu::Init()
 	{
 		for (int j = 0; j < columns; j++)
 		{
-			GameObject* btnObj = GameObjectManager::GetInstance().CreateObject();
-			GUILevelEditorButton* btn = dynamic_cast<GUILevelEditorButton*>(btnObj->AddComponent(new GUILevelEditorButton(Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(j * LevelBrick::BrickWidth, i * LevelBrick::BrickHeight, LevelBrick::BrickWidth, LevelBrick::BrickHeight), index)));
+			GameObject* btnObj = gameManager->CreateObject();
+			GUILevelEditorButton* btn = new GUILevelEditorButton(Color(0, 0, 0), Color(25, 25, 25), Color(50, 50, 50), Rect(j * LevelBrick::BrickWidth, i * LevelBrick::BrickHeight, LevelBrick::BrickWidth, LevelBrick::BrickHeight), index);
+			btnObj->AddComponent(btn);
 			buttons.emplace_back(btn);
 			levelEditorMenu->AddElement(btn);
 			index++;
@@ -64,8 +66,9 @@ void LevelEditorMenu::Init()
 
 	// Level name input
 	levelSaveMenu->AddElement(new GUIText("Level name:", Color(255, 255, 255), Rect(10, 340, 10, 10)));
-	GameObject* obj = GameObjectManager::GetInstance().CreateObject();
-	textField = dynamic_cast<GUITextField*>(obj->AddComponent(new GUITextField("Unnamed", Rect(10, 400, 10, 10))));
+	GameObject* obj = gameManager->CreateObject();
+	textField = new GUITextField("Unnamed", Rect(10, 400, 10, 10));
+	obj->AddComponent(textField);
 	levelSaveMenu->AddElement(textField);
 
 	// Save slots

@@ -17,8 +17,9 @@ BoardManager::~BoardManager()
 {
 }
 
-void BoardManager::InitializeBoard()
+void BoardManager::InitializeBoard(GameManager* gameManager)
 {
+	this->gameManager = gameManager;
 	standardLevelCount = 0;
 
 	ImportAllLevels();
@@ -27,24 +28,24 @@ void BoardManager::InitializeBoard()
 	SetCurrentLevel(0);
 
 	// Setup the walls at the screenedges
-	GameObject* leftWall   = GameObjectManager::GetInstance().CreateObject({ new ImageRenderer("WhiteTexture.png"), new BoxCollider() }, Tags::WallLeft);
-	GameObject* rightWall  = GameObjectManager::GetInstance().CreateObject({ new ImageRenderer("WhiteTexture.png"), new BoxCollider() }, Tags::WallRight);
-	GameObject* topWall    = GameObjectManager::GetInstance().CreateObject({ new ImageRenderer("WhiteTexture.png"), new BoxCollider() }, Tags::WallTop);
-	GameObject* bottomWall = GameObjectManager::GetInstance().CreateObject({ new ImageRenderer("WhiteTexture.png"), new BoxCollider() }, Tags::WallBottom);
+	GameObject* leftWall   = gameManager->CreateObject({ new ImageRenderer("WhiteTexture.png"), new BoxCollider() }, Tags::WallLeft);
+	GameObject* rightWall  = gameManager->CreateObject({ new ImageRenderer("WhiteTexture.png"), new BoxCollider() }, Tags::WallRight);
+	GameObject* topWall    = gameManager->CreateObject({ new ImageRenderer("WhiteTexture.png"), new BoxCollider() }, Tags::WallTop);
+	GameObject* bottomWall = gameManager->CreateObject({ new ImageRenderer("WhiteTexture.png"), new BoxCollider() }, Tags::WallBottom);
 
 	float inset		= 0;	// Holds the padding between size window and game walls, 0 is no padding - 100 is some padding, etc..			
 	float wallDepth = 50;	// Holds the thickness of the walls
-	float scw = GameManager::GetInstance().GetWindowWidth();
-	float sch = GameManager::GetInstance().GetWindowHeight();
+	float scw = gameManager->GetWindowWidth();
+	float sch = gameManager->GetWindowHeight();
 	leftWall->GetTransform()->SetRect(Rect(inset - wallDepth, 0, wallDepth, sch));
 	rightWall->GetTransform()->SetRect(Rect(scw - inset, 0, wallDepth, sch));
 	topWall->GetTransform()->SetRect(Rect(0, inset - wallDepth, scw, wallDepth));
 	bottomWall->GetTransform()->SetRect(Rect(0, sch - inset, scw, wallDepth));
 
 	// Get the references to the ball and paddle
-	ballMovement   = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Ball)->GetComponent<BallMovement>();
-	paddleMovement = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle)->GetComponent<PaddleMovement>();
-	player		   = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle)->GetComponent<Player>();
+	ballMovement   = gameManager->FindGameObjectByTag(Tags::Ball)->GetComponent<BallMovement>();
+	paddleMovement = gameManager->FindGameObjectByTag(Tags::Paddle)->GetComponent<PaddleMovement>();
+	player		   = gameManager->FindGameObjectByTag(Tags::Paddle)->GetComponent<Player>();
 
 	ClearBoard();
 }
@@ -103,7 +104,7 @@ void BoardManager::AddLevel(Level * level)
 
 void BoardManager::StartLevel()
 {
-	GameManager::GetInstance().SetGameState(GameState::InGame);
+	gameManager->SetGameState(GameState::InGame);
 	ResetBoard();
 	LoadCurrentLevel(); // TODO load next level OR selected level from level select
 }
@@ -111,7 +112,7 @@ void BoardManager::StartLevel()
 void BoardManager::EndGame()
 {
 	GUIManager::GetInstance().UpdateEndScoreText(player->GetHighscore());
-	GameManager::GetInstance().SetGameState(GameState::MainMenu);
+	gameManager->SetGameState(GameState::MainMenu);
 	ClearBoard();
 }
 
@@ -198,7 +199,7 @@ void BoardManager::ImportLevelData(std::string filename)
 			if (line.empty()) continue; // Skip this line if it is empty
 			// TODO Somehow validate to make sure the leveltext string is a valid level??
 
-			Level* level = new Level(line); 
+			Level* level = new Level(line, gameManager); 
 			AddLevel(level);
 		}
 	}

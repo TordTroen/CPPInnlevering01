@@ -26,8 +26,8 @@ void Transform::Translate(Vector2D const trans, bool clampToScreen)
 	Vector2D v = trans;
 	if (clampToScreen)
 	{
-		int w = GameManager::GetInstance().GetWindowWidth();
-		int h = GameManager::GetInstance().GetWindowHeight();
+		int w = gameManager->GetWindowWidth();
+		int h = gameManager->GetWindowHeight();
 
 		// Define the corners of the translation 
 		int lx = position.X + v.X;

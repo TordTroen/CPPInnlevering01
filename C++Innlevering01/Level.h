@@ -3,11 +3,12 @@
 #include <vector>
 #include "Player.h"
 #include "GameObject.h"
+class GameManager;
 
 class Level
 {
 public:
-	Level(std::string levelText);
+	Level(std::string levelText, GameManager* gameManager);
 	~Level();
 	void LoadBricks();
 	void DeleteBricks();
@@ -21,5 +22,6 @@ private:
 	std::string levelName;
 	std::string levelText;
 	std::vector<GameObject*> brickObjects;
+	GameManager* gameManager;
 };
 

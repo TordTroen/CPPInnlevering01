@@ -17,8 +17,9 @@ public:
 	void OnNextLevel();
 	void OnEditorSave();
 	void OnEditorClear();
-	void SetLevelEditorMenuReference(LevelEditorMenu* levelEditorMenu) { this->levelEditorMenu = levelEditorMenu; }
+	void Init(LevelEditorMenu* levelEditorMenu, GameManager* gameManager);
 private:
 	LevelEditorMenu* levelEditorMenu;
+	GameManager* gameManager;
 };
 

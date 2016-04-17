@@ -43,8 +43,8 @@ private:
 	//Color GetColorBasedOnHealth();
 	ImageRenderer* imageRenderer;
 	Player* player;
-	GameObject* PowerPaddleObj;
-	GameObject* PowerLifeObj;
+	GameObject* powerPaddleObj;
+	GameObject* powerLifeObj;
 	int scoreReward;
 	const float PowerUpWidth = 40;
 	const float PowerUpHeight = 40;

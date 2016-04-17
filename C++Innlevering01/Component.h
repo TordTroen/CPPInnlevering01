@@ -4,6 +4,7 @@
 class Collider;
 class Transform;
 class GameObject;
+class GameManager;
 
 class Component
 {
@@ -11,7 +12,7 @@ public:
 	Component();
 	virtual ~Component();
 	/* Initializes this component. */
-	void Init(GameObject* const gameObject);
+	void Init(GameObject* const gameObject, GameManager* gameManager);
 	/* Called once per frame. Override to do stuff over time.*/
 	virtual void Update();
 	/* Called when this objects hits another (when both objects have colliders). */
@@ -31,6 +32,8 @@ protected:
 	virtual void Awake();
 	/* Called when the objects IsActive() state changes. */
 	virtual void OnSetActive(); // TODO Make abstract??
+
+	GameManager* gameManager;
 private:
 	bool isActive;
 	Transform* transform;

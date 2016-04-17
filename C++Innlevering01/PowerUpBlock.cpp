@@ -23,7 +23,7 @@ PowerUpBlock::~PowerUpBlock()
 
 void PowerUpBlock::Awake()
 {
-	player = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle)->GetComponent<Player>();
+	player = gameManager->FindGameObjectByTag(Tags::Paddle)->GetComponent<Player>();
 }
 
 void PowerUpBlock::Update()

@@ -4,12 +4,13 @@
 #include "GUIEventHandler.h"
 #include "GUIMenu.h"
 class GUILayoutMenu;
+class GameManager;
 
 class GUIManager
 {
 public:
 	~GUIManager();
-	void Init();
+	void Init(GameManager* gameManager);
 	void SetupMenus();
 	void UpdateScoreText(int score);
 	void UpdateEndScoreText(int score);
@@ -40,6 +41,7 @@ private:
 	Color buttonColorHover;
 	Color buttonColorDown;
 	Color textColor;
+	GameManager* gameManager;
 
 // Singleton stuff
 public:

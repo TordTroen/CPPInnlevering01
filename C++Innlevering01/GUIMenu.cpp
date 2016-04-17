@@ -16,7 +16,7 @@ void GUIMenu::AddElement(GUIElement* const element)
 {
 	if (element->GetGameObject() == NULL)
 	{
-		GameObject* obj = GameObjectManager::GetInstance().CreateObject();
+		GameObject* obj = gameManager->CreateObject();
 		obj->AddComponent(element);
 	}
 

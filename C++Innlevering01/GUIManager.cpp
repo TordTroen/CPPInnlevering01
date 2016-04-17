@@ -18,10 +18,13 @@ GUIManager::~GUIManager()
 {
 }
 
-void GUIManager::Init()
+void GUIManager::Init(GameManager* gameManager)
 {
-	menuObj = GameObjectManager::GetInstance().CreateObject(Tags::MenuObject);
-	eventHandler = dynamic_cast<GUIEventHandler*>(menuObj->AddComponent(new GUIEventHandler()));
+	this->gameManager = gameManager;
+	menuObj = gameManager->CreateObject(Tags::MenuObject);
+
+	eventHandler = new GUIEventHandler();
+	menuObj->AddComponent(eventHandler);
 }
 
 void GUIManager::SetupMenus()
@@ -78,7 +81,7 @@ void GUIManager::SetupMenus()
 		//new GUIButton("End game", textColor, buttonColorNormal, buttonColorDown, buttonColorHover, Rect(10, 100, 0, 0), 8, hudMenu, levelIntermissionMenu, &GUIEventHandler::OnEndLevel)
 	});
 	// Set the score/health text positions to the bottom of the screen
-	int yPos = GameManager::GetInstance().GetWindowHeight() - scoreText->GetTransform()->GetSize().Y;
+	int yPos = gameManager->GetWindowHeight() - scoreText->GetTransform()->GetSize().Y;
 	scoreText->GetTransform()->SetPosition(Vector2D(10, yPos));
 	healthText->GetTransform()->SetPosition(Vector2D(200, yPos));
 
@@ -102,7 +105,7 @@ void GUIManager::SetupMenus()
 	//////// INSTRUCTIONS MENU ////////
 	instructionsMenu->AddElement(new GUIText("Press space to start", textColor, Rect(220, 500, 0, 0)));
 
-	eventHandler->SetLevelEditorMenuReference(editorMenu);
+	eventHandler->Init(editorMenu, gameManager);
 }
 
 void GUIManager::UpdateScoreText(int score)

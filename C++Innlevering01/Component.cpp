@@ -1,6 +1,7 @@
 #include "Component.h"
-#include "GameObject.h"
 #include <iostream>
+#include "GameObject.h"
+#include "GameManager.h"
 #include "Collider.h"
 using namespace std;
 
@@ -14,7 +15,7 @@ Component::~Component()
 {
 }
 
-void Component::Init(GameObject* const gameObject)
+void Component::Init(GameObject* const gameObject, GameManager* gameManager)
 {
 	if (gameObject == NULL)
 	{
@@ -22,8 +23,8 @@ void Component::Init(GameObject* const gameObject)
 	}
 	this->gameObject = gameObject;
 	this->transform = gameObject->GetTransform();
+	this->gameManager = gameManager;
 	Awake();
-//	Start();
 }
 
 bool Component::IsActive() const

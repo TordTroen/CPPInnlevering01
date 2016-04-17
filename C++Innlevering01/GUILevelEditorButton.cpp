@@ -1,6 +1,6 @@
 #include "GUILevelEditorButton.h"
 #include "GameObject.h"
-#include "GameObjectManager.h"
+#include "GameManager.h"
 #include "Tags.h"
 #include "InputManager.h"
 
@@ -20,7 +20,7 @@ void GUILevelEditorButton::PaintBrick()
 	if (editorMenu == NULL)
 	{
 		//editorMenu = GetGameObject()->GetComponent<LevelEditorMenu>();
-		editorMenu = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::MenuObject)->GetComponent<LevelEditorMenu>();
+		editorMenu = gameManager->FindGameObjectByTag(Tags::MenuObject)->GetComponent<LevelEditorMenu>();
 	}
 
 	// Set brick id based on the tool id

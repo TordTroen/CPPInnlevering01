@@ -26,13 +26,13 @@ BallMovement::~BallMovement()
 
 void BallMovement::Awake()
 {
-	paddleObject = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle);
+	paddleObject = gameManager->FindGameObjectByTag(Tags::Paddle);
 	Reset();
 }
 
 void BallMovement::Update()
 {
-	if (GameManager::GetInstance().GetGameState() == GameState::InGame)
+	if (gameManager->GetGameState() == GameState::InGame)
 	{
 		if (InputManager::GetInstance().GetKeyDown(SDL_SCANCODE_SPACE) && !canMove){
 			Reset();
@@ -53,7 +53,7 @@ void BallMovement::OnCollisionEnter(const Collider* const other)
 {
 
 	std::string tag			= other->GetGameObject()->GetTag();
-	GameObject* paddleObj	= GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle);
+	GameObject* paddleObj	= gameManager->FindGameObjectByTag(Tags::Paddle);
 	Player * player			= paddleObj->GetComponent<Player>();
 
 	if (tag == Tags::WallBottom) {

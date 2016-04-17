@@ -3,6 +3,7 @@
 #include "Time.h"
 #include "PError.h"
 #include "GUIManager.h"
+#include "GameManager.h"
 using namespace std;
 
 
@@ -52,7 +53,7 @@ void Player::SetLifeLeft(int lifeLeft)
 	this->lifeLeft = lifeLeft;
 
 	if (this->guiEventHandler == NULL) {
-		this->guiEventHandler = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::MenuObject)->GetComponent<GUIEventHandler>();
+		this->guiEventHandler = gameManager->FindGameObjectByTag(Tags::MenuObject)->GetComponent<GUIEventHandler>();
 	}
 	GUIManager::GetInstance().UpdateHealthText(GetLifeLeft());
 
@@ -159,8 +160,8 @@ void Player::LongPaddle(bool lPaddle) {
 }
 
 void Player::Awake() {
-	guiEventHandler = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::MenuObject)->GetComponent<GUIEventHandler>();
-	paddle = GameObjectManager::GetInstance().FindGameObjectByTag(Tags::Paddle);
+	guiEventHandler = gameManager->FindGameObjectByTag(Tags::MenuObject)->GetComponent<GUIEventHandler>();
+	paddle = gameManager->FindGameObjectByTag(Tags::Paddle);
 }
 
 void Player::Update() {
