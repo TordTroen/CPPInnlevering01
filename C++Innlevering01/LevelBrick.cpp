@@ -100,8 +100,6 @@ void LevelBrick::PowerLifeBlock()
 
 void LevelBrick::PowerUp() {
 	int chance = (int)(rand() % 10) + 1;
-	std::cout << chance << std::endl;
-
 	if (chance == 1) {
 		int chance2 = (int)(rand() % 2) + 1;
 		if (chance2 == 1) {
