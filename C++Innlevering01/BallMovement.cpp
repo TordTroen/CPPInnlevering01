@@ -8,7 +8,6 @@
 #include "SDLWrapper.h"
 #include "GameManager.h"
 #include "InputManager.h"
-#include "GameObjectManager.h"
 #include "Time.h"
 #include "Player.h"
 #include "GUIManager.h"

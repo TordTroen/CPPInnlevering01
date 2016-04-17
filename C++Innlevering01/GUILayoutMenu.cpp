@@ -1,6 +1,6 @@
 #include "GUILayoutMenu.h"
-#include "GameObjectManager.h"
 #include "GameManager.h"
+#include "GameObject.h"
 #include "Transform.h"
 #include "Rect.h"
 

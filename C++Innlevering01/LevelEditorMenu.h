@@ -12,7 +12,7 @@ class LevelEditorMenu
 	: public Component
 {
 public:
-	LevelEditorMenu(GUIMenu* levelEditorMenu, GUIMenu* previousMenu, GUILayoutMenu* levelSaveMenu);
+	LevelEditorMenu(GUIMenu* levelEditorMenu, GUIMenu* previousMenu, GUILayoutMenu* levelSaveMenu, BoardManager* boardManager);
 	~LevelEditorMenu();
 	void Save();
 	void Clear();
@@ -30,5 +30,6 @@ private:
 	GUIToggleGroup* levelEditorToggleGroup;
 	GUIToggleGroup* levelSaveToggleGroup;
 	GUITextField* textField;
+	BoardManager* boardManager;
 };
 

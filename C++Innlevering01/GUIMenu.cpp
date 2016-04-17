@@ -1,6 +1,6 @@
 #include "GUIMenu.h"
-#include "GameObjectManager.h"
 #include "GameManager.h"
+#include "GameObject.h"
 #include "Transform.h"
 
 GUIMenu::GUIMenu(bool activeState)

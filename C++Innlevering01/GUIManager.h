@@ -5,12 +5,13 @@
 #include "GUIMenu.h"
 class GUILayoutMenu;
 class GameManager;
+class BoardManager;
 
 class GUIManager
 {
 public:
 	~GUIManager();
-	void Init(GameManager* gameManager);
+	void Init(GameManager* gameManager, BoardManager* boardManager);
 	void SetupMenus();
 	void UpdateScoreText(int score);
 	void UpdateEndScoreText(int score);
@@ -42,6 +43,7 @@ private:
 	Color buttonColorDown;
 	Color textColor;
 	GameManager* gameManager;
+	BoardManager* boardManager;
 
 // Singleton stuff
 public:

@@ -162,7 +162,6 @@
     <ClInclude Include="Drawable.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="GUIEventHandler.h" />
     <ClInclude Include="GUILayoutMenu.h" />
     <ClInclude Include="GUIButton.h" />
@@ -202,7 +201,6 @@
     <ClCompile Include="Drawable.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="GUIEventHandler.cpp" />
     <ClCompile Include="GUILayoutMenu.cpp" />
     <ClCompile Include="GUIButton.cpp" />

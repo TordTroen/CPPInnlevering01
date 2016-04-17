@@ -8,7 +8,6 @@
 #include "InputManager.h"
 #include "GameObject.h"
 #include "Transform.h"
-#include "GameObjectManager.h"
 #include "ImageRenderer.h"
 #include "GameManager.h"
 #include "Time.h"
@@ -27,7 +26,8 @@ using namespace std;
 int main(int argc, char** argv)
 {
 	GameManager gameManager;
-	
+	BoardManager boardManager(&gameManager);
+
 	InputManager::GetInstance().Init();			// Keeps track of keyboard and mouse input
 	Time::Init();								// Keeps track of ellapsed time between frames
 	//GUIManager	  gui;							// Keeps track of activating visual elements like menu, ball, paddle and boxes
@@ -41,40 +41,9 @@ int main(int argc, char** argv)
 	if (SDLWrapper::GetInstance().InitializeWindow("Breakout", gameManager.GetWindowWidth(),
 		gameManager.GetWindowHeight(), Color(0, 200, 200)) == 0)
 	{
-
-		//Gameobject deletion test
-		//GameObject* obj = gameManager->CreateObject("Test");
-		//obj->AddComponent(new ImageRenderer("WhiteTexture.png", Color(200, 200, 100)));
-		//obj->AddComponent(new BoxCollider());
-		//obj->AddComponent(new GUIText("HEY", Color(), Rect()));
-		//obj->GetTransform()->SetRect(Rect(10, 10, 100, 100));
-
-		//GameObject* obj2 = gameManager->CreateObject("Test2");
-		//obj2->AddComponent(new ImageRenderer("WhiteTexture.png", Color(200, 100, 100)));
-		//obj2->AddComponent(new BoxCollider(false));
-		//obj2->GetTransform()->SetRect(Rect(10, 120, 100, 100));
-
-		//while (true)
-		//{
-		//	gameManager->Update();
-		//	SDLWrapper::GetInstance().RenderImages(true);
-		//	InputManager::GetInstance().Update();
-		//	CollisionManager::Update();
-
-		//	if (InputManager::GetInstance().GetKeyDown(SDL_SCANCODE_SPACE))
-		//	{
-		//		gameManager->DeleteGameObject(&obj);
-		//	}
-
-		//	if (InputManager::GetInstance().GetKeyDown(SDL_SCANCODE_RETURN))
-		//	{
-		//		gameManager->DeleteGameObject(&obj2);
-		//	}
-		//}
-
 		Rect paddleStartRect = Rect(gameManager.GetCenterXPosition(200), gameManager.GetWindowHeight() - 100, 150, 15);
 		Rect ballStartRect = Rect(gameManager.GetCenterXPosition(18), paddleStartRect.y - 50, 18, 18);
-		GUIManager::GetInstance().Init(&gameManager);
+		GUIManager::GetInstance().Init(&gameManager, &boardManager);
 
 		// Make the paddle object. Both the visual paddle and the positioning of the paddle. 
 		GameObject* paddleObj = gameManager.CreateObject(Tags::Paddle);
@@ -91,7 +60,7 @@ int main(int argc, char** argv)
 		ballObj->GetTransform()->SetRect(Rect(200, 200, 20, 20));
 
 		// Initialize stuff that uses the paddle and ball
-		BoardManager::GetInstance().InitializeBoard(&gameManager);
+		boardManager.InitializeBoard();
 		GUIManager::GetInstance().SetupMenus();
 
 		GameState gameState = GameState::MainMenu;

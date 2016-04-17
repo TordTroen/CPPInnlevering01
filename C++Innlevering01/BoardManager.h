@@ -7,11 +7,12 @@
 class BoardManager
 {
 public:
+	BoardManager(GameManager* gameManager);
 	~BoardManager();
 	static const int CustomLevelCount;
 
 	/* Initializes the board. Import the leveldata and sets up the walls surrounding the screen. */
-	void InitializeBoard(GameManager* gameManager);
+	void InitializeBoard();
 	void ResetBoard();
 	void ClearBoard();
 
@@ -52,16 +53,4 @@ private:
 	PaddleMovement* paddleMovement;
 	BallMovement* ballMovement;
 	GameManager* gameManager;
-
-// Singleton stuff
-public:
-static BoardManager& GetInstance()
-{
-	static BoardManager instance;
-	return instance;
-}
-private:
-	BoardManager() {};
-	BoardManager(BoardManager const&);
-void operator=(BoardManager const&);
 };

@@ -3,7 +3,6 @@
 #include <memory>
 #include "GUIMenu.h"
 #include "GUILayoutMenu.h"
-#include "GameObjectManager.h"
 #include "GUIText.h"
 #include "GUIButton.h"
 #include "GameManager.h"
@@ -18,9 +17,10 @@ GUIManager::~GUIManager()
 {
 }
 
-void GUIManager::Init(GameManager* gameManager)
+void GUIManager::Init(GameManager* gameManager, BoardManager* boardManager)
 {
 	this->gameManager = gameManager;
+	this->boardManager = boardManager;
 	menuObj = gameManager->CreateObject(Tags::MenuObject);
 
 	eventHandler = new GUIEventHandler();
@@ -70,7 +70,7 @@ void GUIManager::SetupMenus()
 	LoadLevelList();
 
 	//////// LEVEL EDITOR ////////
-	LevelEditorMenu* editorMenu = dynamic_cast<LevelEditorMenu*>(menuObj->AddComponent(new LevelEditorMenu(levelEditorMenu, mainMenu, levelSaveMenu)));
+	LevelEditorMenu* editorMenu = dynamic_cast<LevelEditorMenu*>(menuObj->AddComponent(new LevelEditorMenu(levelEditorMenu, mainMenu, levelSaveMenu, boardManager)));
 
 	//////// IN-GAME MENU ////////
 	scoreText = new GUIText("Score: 0", textColor, Rect(10, 10, 0, 0));
@@ -105,7 +105,7 @@ void GUIManager::SetupMenus()
 	//////// INSTRUCTIONS MENU ////////
 	instructionsMenu->AddElement(new GUIText("Press space to start", textColor, Rect(220, 500, 0, 0)));
 
-	eventHandler->Init(editorMenu, gameManager);
+	eventHandler->Init(editorMenu, gameManager, boardManager);
 }
 
 void GUIManager::UpdateScoreText(int score)
@@ -131,23 +131,23 @@ void GUIManager::UpdateHealthText(int health)
 
 void GUIManager::LoadLevelList()
 {
-	int standardCount = BoardManager::GetInstance().GetStandardLevelCount();
+	int standardCount = boardManager->GetStandardLevelCount();
 
 	// Remove the old toggles for the level selction
 	if (customLevelStartElementIndex > -1)
 	{
 		levelSelectMenu->RemoveElements(customLevelStartElementIndex, customLevelCount+1);
-		BoardManager::GetInstance().ImportAllLevels();
+		boardManager->ImportAllLevels();
 		levelSelectToggleGroup->Reset();
 	}
 
 	// Get the range of the levelselect toggles in the menu element list
 	customLevelStartElementIndex = levelSelectMenu->GetElementCount();
-	customLevelCount = BoardManager::GetInstance().GetLevelNames().size();
+	customLevelCount = boardManager->GetLevelNames().size();
 
 	// Add a new GUIToggle for each level
 	int i = 0;
-	for (auto it : BoardManager::GetInstance().GetLevelNames())
+	for (auto it : boardManager->GetLevelNames())
 	{
 		if (i == standardCount)
 		{

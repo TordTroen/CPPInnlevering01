@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
 class LevelEditorMenu;
+class BoardManager;
 
 class GUIEventHandler :
 	public Component
@@ -17,9 +18,10 @@ public:
 	void OnNextLevel();
 	void OnEditorSave();
 	void OnEditorClear();
-	void Init(LevelEditorMenu* levelEditorMenu, GameManager* gameManager);
+	void Init(LevelEditorMenu* levelEditorMenu, GameManager* gameManager, BoardManager* boardManager);
 private:
 	LevelEditorMenu* levelEditorMenu;
 	GameManager* gameManager;
+	BoardManager* boardManager;
 };
 

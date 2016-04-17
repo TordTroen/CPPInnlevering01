@@ -1,7 +1,6 @@
 #include "GUITextField.h"
 #include "SDL.h"
 #include "GameObject.h"
-#include "GameObjectManager.h"
 #include <string>
 #include <iostream>
 #include <sstream>

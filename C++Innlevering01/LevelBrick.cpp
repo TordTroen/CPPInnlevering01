@@ -8,7 +8,6 @@
 #include "ImageRenderer.h"
 #include "GUIManager.h"
 #include "Player.h"
-#include "GameObjectManager.h"
 #include "GameManager.h"
 #include "PowerUpBlock.h"
 #include <chrono>

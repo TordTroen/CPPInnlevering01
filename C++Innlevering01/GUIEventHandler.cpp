@@ -15,8 +15,8 @@ GUIEventHandler::~GUIEventHandler()
 void GUIEventHandler::OnMainMenuPlay()
 {
 	int levelIndex = GUIManager::GetInstance().GetLevelSelectToggleGroup()->GetCurrentToggleIndex();
-	BoardManager::GetInstance().SetCurrentLevel(levelIndex);
-	BoardManager::GetInstance().StartLevel();
+	boardManager->SetCurrentLevel(levelIndex);
+	boardManager->StartLevel();
 }
 
 void GUIEventHandler::OnMainMenuExit()
@@ -26,7 +26,7 @@ void GUIEventHandler::OnMainMenuExit()
 
 void GUIEventHandler::OnEndLevel()
 {
-	BoardManager::GetInstance().EndGame();
+	boardManager->EndGame();
 	GUIManager::GetInstance().SetInstructionsActive(false);
 }
 
@@ -51,8 +51,8 @@ void GUIEventHandler::OnRestartLevel()
 
 void GUIEventHandler::OnNextLevel()
 {
-	BoardManager::GetInstance().SetCurrentLevelToNextLevel();
-	BoardManager::GetInstance().StartLevel();
+	boardManager->SetCurrentLevelToNextLevel();
+	boardManager->StartLevel();
 }
 
 void GUIEventHandler::OnEditorSave()
@@ -66,8 +66,9 @@ void GUIEventHandler::OnEditorClear()
 	levelEditorMenu->Clear();
 }
 
-void GUIEventHandler::Init(LevelEditorMenu * levelEditorMenu, GameManager * gameManager)
+void GUIEventHandler::Init(LevelEditorMenu * levelEditorMenu, GameManager * gameManager, BoardManager* boardManager)
 {
 	this->levelEditorMenu = levelEditorMenu;
 	this->gameManager = gameManager;
+	this->boardManager = boardManager;
 }

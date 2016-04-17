@@ -9,13 +9,12 @@
 #include "GUIToggle.h"
 #include "GameObject.h"
 #include "GUILevelEditorButton.h"
-#include "GameObjectManager.h"
 #include "GUITextField.h"
 #include "GUIEventHandler.h"
 #include "GameManager.h"
 
-LevelEditorMenu::LevelEditorMenu(GUIMenu* levelEditorMenu, GUIMenu* previousMenu, GUILayoutMenu* levelSaveMenu)
-	: levelName("Unnamed"), levelEditorMenu(levelEditorMenu), previousMenu(previousMenu), levelSaveMenu(levelSaveMenu)
+LevelEditorMenu::LevelEditorMenu(GUIMenu* levelEditorMenu, GUIMenu* previousMenu, GUILayoutMenu* levelSaveMenu, BoardManager* boardManager)
+	: levelName("Unnamed"), levelEditorMenu(levelEditorMenu), previousMenu(previousMenu), levelSaveMenu(levelSaveMenu), boardManager(boardManager)
 {
 }
 
@@ -77,14 +76,14 @@ void LevelEditorMenu::Init()
 	GetGameObject()->AddComponent(levelSaveToggleGroup);
 
 	Color slotToggleColor = Color(50, 50, 50);
-	int standardLevelCount = BoardManager::GetInstance().GetStandardLevelCount();
+	int standardLevelCount = boardManager->GetStandardLevelCount();
 	for (int i = 0; i < BoardManager::CustomLevelCount; i++)
 	{
 		// If there is a level in that slot, use the levels name as the text
 		std::ostringstream toggleText;
-		if (i + standardLevelCount < BoardManager::GetInstance().GetLevelNames().size())
+		if (i + standardLevelCount < boardManager->GetLevelNames().size())
 		{
-			toggleText << BoardManager::GetInstance().GetLevelNames()[i + standardLevelCount];
+			toggleText << boardManager->GetLevelNames()[i + standardLevelCount];
 		}
 		else
 		{
@@ -122,7 +121,7 @@ void LevelEditorMenu::Save()
 
 	levelString << "\n";
 
-	BoardManager::GetInstance().SaveLevel(levelSaveToggleGroup->GetCurrentToggleIndex(), levelString.str());
+	boardManager->SaveLevel(levelSaveToggleGroup->GetCurrentToggleIndex(), levelString.str());
 }
 
 void LevelEditorMenu::Clear()

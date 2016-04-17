@@ -4,7 +4,6 @@
 #include "PError.h"
 #include "GameObject.h"
 #include "ImageRenderer.h"
-#include "GameObjectManager.h"
 #include "BoxCollider.h"
 #include "Tags.h"
 #include "GameManager.h"
@@ -13,13 +12,17 @@
 
 const int BoardManager::CustomLevelCount = 3;
 
+BoardManager::BoardManager(GameManager * gameManager)
+	: gameManager(gameManager)
+{
+}
+
 BoardManager::~BoardManager()
 {
 }
 
-void BoardManager::InitializeBoard(GameManager* gameManager)
+void BoardManager::InitializeBoard()
 {
-	this->gameManager = gameManager;
 	standardLevelCount = 0;
 
 	ImportAllLevels();
