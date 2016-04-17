@@ -4,6 +4,13 @@
 #include "Collider.h"
 #include "LevelBrick.h"
 #include "Player.h"
+
+enum class PowerType
+{
+	PowerPaddle,
+	PowerLife
+};
+
 class PowerUpBlock :
 	public Component
 {

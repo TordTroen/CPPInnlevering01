@@ -19,12 +19,6 @@ enum class BrickType
 	BrickIndestructible = 7
 };
 
-enum class PowerType
-{
-	PowerPaddle,
-	PowerLife
-};
-
 class LevelBrick
 	: public Component
 {
@@ -40,7 +34,10 @@ public:
 	void PowerUp(int amount) { powerUpReward += amount; }
 	int GetPowerUp() const { return powerUpReward; }
 private:
-	//Color GetColorBasedOnHealth();
+	void PowerUp();
+	void TakeDamage();
+	void PowerPaddleBlock();
+	void PowerLifeBlock();
 	ImageRenderer* imageRenderer;
 	Player* player;
 	GameObject* powerPaddleObj;
@@ -48,10 +45,6 @@ private:
 	int scoreReward;
 	const float PowerUpWidth = 40;
 	const float PowerUpHeight = 40;
-	void PowerUp();
-	void TakeDamage();
-	void PowerPaddleBlock();
-	void PowerLifeBlock();
 	Vector2D brickPos;
 	BrickType brickType;
 	float powerUpSpeed = 2;

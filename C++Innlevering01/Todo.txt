@@ -18,7 +18,6 @@
 ### SDLWrapper
 - Implement proper Z-ordering of rendered elements
 	- Can just reorder the elements in the allDrawables list?
-- Color ting/shade http://stackoverflow.com/questions/6615002/given-an-rgb-value-how-do-i-create-a-tint-or-shade
 
 ### Ideas
 - PoolManager

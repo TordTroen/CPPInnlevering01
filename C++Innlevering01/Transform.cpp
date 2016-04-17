@@ -6,8 +6,6 @@ using namespace std;
 Transform::Transform()
 	: Transform(Vector2D(0, 0), Vector2D(100, 100))
 {
-	//position = Vector2D(0, 0);
-	//size = Vector2D(100, 100);
 }
 
 Transform::Transform(Vector2D pos, Vector2D size)

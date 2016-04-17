@@ -12,7 +12,7 @@ Collider::Collider(bool isStaticCollider)
 Collider::~Collider()
 {
 	CollisionManager::DeleteCollider(this);
-	std::cout << "Deleting component " << typeid(this).name() << std::endl;
+	//std::cout << "Deleting component " << typeid(this).name() << std::endl;
 }
 
 void Collider::OnCollisionEnterEvent(const Collider* const other)
@@ -25,11 +25,6 @@ void Collider::OnCollisionExitEvent(const Collider* const other)
 {
 	SetIsColliding(false);
 }
-
-//bool Collider::Intersects(Collider * other)
-//{
-//	return false;
-//}
 
 void Collider::Awake()
 {

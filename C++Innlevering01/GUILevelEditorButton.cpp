@@ -19,7 +19,6 @@ void GUILevelEditorButton::PaintBrick()
 	// TODO Do in Awake()
 	if (editorMenu == NULL)
 	{
-		//editorMenu = GetGameObject()->GetComponent<LevelEditorMenu>();
 		editorMenu = gameManager->FindGameObjectByTag(Tags::MenuObject)->GetComponent<LevelEditorMenu>();
 	}
 

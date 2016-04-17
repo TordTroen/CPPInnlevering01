@@ -13,6 +13,7 @@ public:
 	bool GetKey(int keyId) const { return CurKeyDown(keyId) && OldKeyDown(keyId); }
 	int GetAxis(int positiveKey, int negativeKey) const;
 	int GetAxisDown(int positiveKey, int negativeKey) const;
+
 	/** 1 - Left mouse button
 	 * 2 - Right mouse button
 	 * 3 - Middle mouse button*/

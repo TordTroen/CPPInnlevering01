@@ -28,21 +28,30 @@
     <Filter Include="Resource Files\Sound">
       <UniqueIdentifier>{4a70dc7a-1fdc-4394-856c-b70ef4f4de72}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GUI">
+      <UniqueIdentifier>{4f773678-02e2-43e9-ada4-0c5629791fcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GUI">
+      <UniqueIdentifier>{e5143de7-0a34-430f-bafc-c43a5931e782}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Helpers">
+      <UniqueIdentifier>{90a70df6-4fc0-4f78-ac4d-09017ee35290}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Helpers">
+      <UniqueIdentifier>{c09b4682-2fe3-4478-9c56-67d4c2a4ca18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SDL">
+      <UniqueIdentifier>{9287091a-b08d-42b0-a6a9-62dd77a0bced}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\SDL">
+      <UniqueIdentifier>{d521ebbd-ce6a-47b2-be40-05afac7cab29}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="InputManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SDLWrapper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Color.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameManager.h">
@@ -60,24 +69,6 @@
     <ClInclude Include="Transform.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Rect.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Drawable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GUIButton.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="GUIText.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="GUIElement.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="GUIMenu.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CollisionManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -87,22 +78,10 @@
     <ClInclude Include="BoxCollider.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Tags.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GUIManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="BoardManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Level.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LevelBrick.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PaddleMovement.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Theme.h">
@@ -111,54 +90,84 @@
     <ClInclude Include="PError.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="BallMovement.h">
       <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="GUILayoutMenu.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GUIToggleGroup.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GUIToggle.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GUILevelEditorButton.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="LevelEditorMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GUITextField.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GUIEventHandler.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUILayoutMenu.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUILevelEditorButton.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIManager.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIMenu.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUITextField.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIToggle.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIToggleGroup.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIText.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIButton.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIElement.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="PowerUpBlock.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelBrick.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PaddleMovement.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Rect.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Tags.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2D.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawable.h">
+      <Filter>Header Files\SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="SDLWrapper.h">
+      <Filter>Header Files\SDL</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InputManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SDLWrapper.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Color.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameManager.cpp">
@@ -176,24 +185,6 @@
     <ClCompile Include="Transform.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Rect.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Drawable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GUIButton.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="GUIText.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="GUIElement.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="GUIMenu.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CollisionManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -206,22 +197,10 @@
     <ClCompile Include="BoxCollider.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Tags.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GUIManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="BoardManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Level.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="LevelBrick.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PaddleMovement.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Theme.cpp">
@@ -230,32 +209,71 @@
     <ClCompile Include="PError.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GUILayoutMenu.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GUIToggleGroup.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GUIToggle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GUILevelEditorButton.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="LevelEditorMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GUITextField.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GUIEventHandler.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUILayoutMenu.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUILevelEditorButton.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIManager.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIMenu.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUITextField.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIToggle.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIToggleGroup.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIButton.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIElement.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIText.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelBrick.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="PaddleMovement.cpp">
+      <Filter>Source Files\GUI</Filter>
     </ClCompile>
     <ClCompile Include="PowerUpBlock.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2D.cpp">
+      <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Rect.cpp">
+      <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Color.cpp">
+      <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Tags.cpp">
+      <Filter>Source Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="SDLWrapper.cpp">
+      <Filter>Source Files\SDL</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawable.cpp">
+      <Filter>Source Files\SDL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

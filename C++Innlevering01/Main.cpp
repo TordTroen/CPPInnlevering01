@@ -27,14 +27,11 @@ int main(int argc, char** argv)
 {
 	GameManager gameManager;
 	BoardManager boardManager(&gameManager);
-
 	InputManager::GetInstance().Init();			// Keeps track of keyboard and mouse input
 	Time::Init();								// Keeps track of ellapsed time between frames
-	//GUIManager	  gui;							// Keeps track of activating visual elements like menu, ball, paddle and boxes
-	//BoardManager  board;						// Keeps track of the board and it's level.
 	float		  paddleSpeed = 10;				// The speed of the paddle
 	float		  ballSpeed = 5;				// The speed of the ball
-	int			  score = 0;				// The number of boxes that is shot down
+	int			  score = 0;					// The number of boxes that is shot down
 
 
 	// Initialize SDL components for background, window, sizes, etc. that gameobject, gameloop, etc are dependant on
